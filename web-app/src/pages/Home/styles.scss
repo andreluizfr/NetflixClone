@@ -1,0 +1,153 @@
+@import '../../assets/sass/variables';
+@import '../../assets/sass/mixins';
+
+
+.HomePage{
+    @include flex-column-start-center;
+    min-height: 100vh; 
+    width: 100%;
+
+    background-image: url('../../assets/img/home_background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .Background-gradient{
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(0,0,0,1), rgba(0,0,0,0.3), rgba(0,0,0,1));
+
+        .Header{
+            @include flex-row-space-between-center;
+            height: 76px;
+            width: 100%;
+    
+            .Logo-container{
+                margin-left: 16px;
+    
+                .Logo{
+                    height: 20px;
+                    width: auto;
+                }
+            }
+    
+            .Language-container{
+                @include flex-row-center-center;
+                gap: 8px;
+                margin-right: 16px;
+    
+                .Select-language{
+                    height: 30px;
+                    padding-left: 8px;
+                    padding-right: 8px;
+                    border: 1px solid rgba(255,255,255,0.24);
+                    border-radius: 4px;
+                    background-color: transparent;
+
+                    color: $font-primary-color;
+                    font-size: $font-size-normal;
+    
+                    option{
+                        background-color: $background-secondary-color;
+    
+                        font-size: $font-size-small;
+                        color: $font-secondary-color;
+                    }
+
+                    &:focus{
+                        outline-offset: 1px;
+                        outline: 2px solid $button-secondary-color;
+                    }
+
+                    &::-ms-expand {
+                        display: none;
+                    }
+                }
+    
+                .Login-button{
+                    height: 30px;
+                    padding-left: 12px;
+                    padding-right: 12px;
+                    border-radius: 4px;
+    
+                    background-color: $button-primary-color;
+                    color: $font-primary-color;
+                    font-size: $font-size-small;
+
+                    cursor: pointer;
+                    transition: all 0.2s;
+
+                    &:hover{
+                        filter: grayscale(10%);
+                    }
+                }
+    
+            }
+    
+        }
+    
+        .HomePage-content{
+            @include flex-column-center-center;
+            width: 100%;
+            min-height: 500px;
+            
+            .Content{
+                @include flex-column-center-center;
+                gap: 24px;
+                
+                .Row-1{
+                    font-size: $font-size-xl;
+                    color: $font-primary-color;
+                    font-weight: 700;
+                    stroke: $font-secondary-color;
+                    stroke-width: 1px;
+                }
+                .Row-2{
+                    font-size: $font-size-medium;
+                    color: $font-primary-color;
+                    font-weight: 400;
+                    stroke: $font-secondary-color;
+                    stroke-width: 1px;
+                }
+                .Row-3{ 
+                    font-size: $font-size-medium;
+                    color: $font-primary-color;
+                    font-weight: 400;
+                    stroke: $font-secondary-color;
+                    stroke-width: 1px;
+                }
+                .Row-4{
+                    @include flex-row-center-center;
+                    gap: 8px;
+    
+                    .Email-input{
+                        height: 50px;
+                        border: 1px solid rgba(255,255,255,0.5);
+                        border-radius: 4px;
+                        background-color: rgba(0,0,0,0.75);
+                        padding-left: 16px;
+                        padding-right: 16px;
+    
+                        font-size: $font-size-normal;
+
+                        &:focus{
+                            outline-offset: 1px;
+                            outline: 2px solid $button-secondary-color;
+                        }
+                    }
+    
+                    .Subscribe-button{
+                        height: 50px;
+                        border-radius: 2px;
+                        padding-left: 16px;
+                        padding-right: 16px;
+                        background-color: $button-primary-color;
+    
+                        color: $font-primary-color;
+                        font-size: $font-size-medium;
+                    }
+                }
+            }
+        }
+    }
+}

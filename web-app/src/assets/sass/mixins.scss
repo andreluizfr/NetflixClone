@@ -1,0 +1,197 @@
+@mixin flex-row-center-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-row-center-start{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+@mixin flex-row-start-center{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@mixin flex-row-start-start{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+@mixin flex-row-end-center{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+@mixin flex-row-end-start{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+@mixin flex-row-space-around-center{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@mixin flex-row-space-around-start{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+@mixin flex-row-space-between-center{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin flex-row-space-between-start{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+@mixin flex-column-center-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-column-center-start{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+@mixin flex-column-start-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@mixin flex-column-start-start{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+@mixin flex-column-end-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+@mixin flex-column-end-start{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+@mixin flex-column-start-end{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+@mixin flex-column-space-around-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@mixin flex-column-space-around-start{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+@mixin flex-column-space-between-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin flex-column-space-between-start{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+
+
+
+
+@mixin mq-small{
+    @media only screen and (max-width: 576px) {
+        @content;
+    }
+}
+
+@mixin mq-medium{
+    @media only screen and (max-width: 720px) {
+        @content;
+    }
+}
+
+@mixin mq-large{
+    @media only screen and (max-width: 956px) {
+        @content;
+    }
+}
+
+
+
+
+
+@mixin no-motion{
+    @media (prefers-reduced-motion: reduce) {
+        @content;
+    }
+}
+
+
+
+
+
+@mixin recolor($color: #000, $opacity: 1) {
+    $r: calc(red($color) / 255);
+    $g: calc(green($color) / 255);
+    $b: calc(blue($color) / 255);
+    $a: $opacity;
+  
+    $lightness: lightness($color);
+    filter: saturate(0%) brightness(0%) invert($lightness) opacity($opacity);
+  
+    // color filter
+    $svg-filter-id: "recolor";
+    filter: url('data:image/svg+xml;utf8,\
+      <svg xmlns="http://www.w3.org/2000/svg">\
+        <filter id="#{$svg-filter-id}" color-interpolation-filters="sRGB">\
+          <feColorMatrix type="matrix" values="\
+            0 0 0 0 #{$r}\
+            0 0 0 0 #{$g}\
+            0 0 0 0 #{$b}\
+            0 0 0 #{$a} 0\
+          "/>\
+        </filter>\
+      </svg>\
+      ##{$svg-filter-id}');
+}
