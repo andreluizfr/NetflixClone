@@ -26,7 +26,7 @@
   margin-left: 16px;
 }
 .HomePage .Background-gradient .Header .Logo-container .Logo {
-  height: 20px;
+  height: 24px;
   width: auto;
 }
 .HomePage .Background-gradient .Header .Language-container {
@@ -37,12 +37,15 @@
   margin-right: 16px;
 }
 .HomePage .Background-gradient .Header .Language-container .Select-language {
-  height: 30px;
-  padding-left: 8px;
-  padding-right: 8px;
+  height: 36px;
+  padding: 8px 8px 8px 24px;
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 4px;
   background-color: transparent;
+  background-image: url("../../assets/svg/globe.svg");
+  background-position: 5% 50%;
+  background-repeat: no-repeat;
+  background-size: 12%;
   color: rgb(255, 255, 255);
   font-size: 1rem;
 }
@@ -59,13 +62,14 @@
   display: none;
 }
 .HomePage .Background-gradient .Header .Language-container .Login-button {
-  height: 30px;
+  height: 32px;
   padding-left: 12px;
   padding-right: 12px;
   border-radius: 4px;
   background-color: rgb(229, 9, 20);
   color: rgb(255, 255, 255);
   font-size: 0.8rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -93,20 +97,15 @@
   font-weight: 700;
   stroke: rgb(0, 0, 0);
   stroke-width: 1px;
+  text-align: center;
 }
-.HomePage .Background-gradient .HomePage-content .Content .Row-2 {
+.HomePage .Background-gradient .HomePage-content .Content .Row-2, .HomePage .Background-gradient .HomePage-content .Content .Row-3 {
   font-size: 1.2rem;
   color: rgb(255, 255, 255);
-  font-weight: 400;
+  font-weight: 600;
   stroke: rgb(0, 0, 0);
   stroke-width: 1px;
-}
-.HomePage .Background-gradient .HomePage-content .Content .Row-3 {
-  font-size: 1.2rem;
-  color: rgb(255, 255, 255);
-  font-weight: 400;
-  stroke: rgb(0, 0, 0);
-  stroke-width: 1px;
+  text-align: center;
 }
 .HomePage .Background-gradient .HomePage-content .Content .Row-4 {
   display: flex;
@@ -135,4 +134,83 @@
   background-color: rgb(229, 9, 20);
   color: rgb(255, 255, 255);
   font-size: 1.2rem;
+}
+.HomePage .Background-gradient footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px 32px;
+  margin-top: 76px;
+  background-color: rgb(0, 0, 0);
+}
+@media only screen and (max-width: 720px) {
+  .HomePage .Background-gradient footer {
+    border-top: 1px solid #8c8c8c;
+  }
+}
+.HomePage .Background-gradient footer .Row-1 {
+  margin-bottom: 12px;
+  font-size: 1rem;
+  color: #b3b3b3;
+}
+.HomePage .Background-gradient footer .Row-1 a {
+  color: #b3b3b3;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.HomePage .Background-gradient footer .Row-1 a:visited {
+  color: #b3b3b3;
+}
+.HomePage .Background-gradient footer .Row-2 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  -moz-column-gap: 36px;
+       column-gap: 36px;
+  row-gap: 14px;
+}
+.HomePage .Background-gradient footer .Row-2 > a {
+  color: #b3b3b3;
+  font-size: 0.8rem;
+  text-decoration: underline;
+}
+.HomePage .Background-gradient footer .Row-2 > a:visited {
+  text-decoration: none;
+  color: #b3b3b3;
+}
+.HomePage .Background-gradient footer .Row-3 {
+  margin-bottom: 4px;
+}
+.HomePage .Background-gradient footer .Row-3 .Select-language {
+  height: 36px;
+  padding: 8px 8px 8px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 4px;
+  background-color: #333;
+  background-image: url("../../assets/svg/globe.svg");
+  background-position: 5% 50%;
+  background-repeat: no-repeat;
+  background-size: 12%;
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+}
+.HomePage .Background-gradient footer .Row-3 .Select-language option {
+  background-color: rgb(255, 255, 255);
+  font-size: 0.8rem;
+  color: rgb(0, 0, 0);
+}
+.HomePage .Background-gradient footer .Row-3 .Select-language:focus {
+  outline-offset: 1px;
+  outline: 2px solid rgb(255, 255, 255);
+}
+.HomePage .Background-gradient footer .Row-3 .Select-language::-ms-expand {
+  display: none;
+}
+.HomePage .Background-gradient footer .Row-4 {
+  margin-bottom: 12px;
+  color: #b3b3b3;
+  font-size: 1rem;
 }/*# sourceMappingURL=styles.css.map */
