@@ -2,7 +2,7 @@ import './styles.css';
 import logo from '../../assets/svg/logo.svg';
 
 export default function Home(): JSX.Element{
-    
+
     return(
         <div className='HomePage'>
             <div className='Background-gradient'>

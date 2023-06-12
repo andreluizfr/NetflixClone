@@ -8,6 +8,8 @@ import {
 import LoadingPage from "./pages/Loading";
 const HomePage = lazy(() => import('./pages/Home'));
 const LoginPage = lazy(() => import('./pages/Login'));
+const SignupPage = lazy(() => import('./pages/Signup'));
+const ContentsPage = lazy(() => import('./pages/Contents'));
 
 function App() {
 
@@ -22,6 +24,14 @@ function App() {
           {
             path: "/login",
             element: <LoginPage/>,
+          },
+          {
+            path: "/signup",
+            element: <SignupPage/>,
+          },
+          {
+            path: "/contents",
+            element: <ContentsPage/>,
           },
         ])
       }/> 
