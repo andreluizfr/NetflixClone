@@ -4,7 +4,7 @@
 .Animated-input{
     @include flex-column-center-start;
     position: relative;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
     width: 100%;
 
     .Input{
@@ -91,6 +91,58 @@
 
     .Input:invalid[wasBlured="true"] ~ .Warning{
         display: block;
+    }
+
+    .Input[theme="light"]{
+        background-color: $background-secondary-color;
+        border: 1px solid rgba(0,0,0,0.6);
+
+        color: $font-secondary-color;
+
+        & ~ .Title{
+            color: $font-quinary-color;
+            font-weight: 300;
+        }
+
+        & ~ .Warning{
+            color: rgb(193, 17, 25);
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        & ~ .Show{
+            color: $font-quinary-color;
+        }
+
+
+        &:focus {
+            outline: 2px solid rgb(0,0,0);
+            outline-offset: 2px;
+        }
+        &:focus + .Title{
+            font-size: $font-size-smaller;
+            top: 6px;
+        }
+
+
+
+        &:valid + .Title{
+            font-size: $font-size-smaller;
+            font-weight: 300;
+            top: 6px;
+        }
+
+
+
+        &:invalid[wasBlured="true"] + .Title{
+            font-size: $font-size-smaller;
+            font-weight: 300;
+            top: 6px;
+        }
+
+        &:invalid[wasBlured="true"]{
+            border: 1px solid rgb(193, 17, 25);
+        }
     }
 
 }

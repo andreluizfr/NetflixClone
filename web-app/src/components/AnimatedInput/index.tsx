@@ -5,19 +5,23 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
     title?: string;
     warning?: string | undefined;
     hasShow?: boolean | undefined;
+    theme?: "light" | "dark";
 }
 
 export default function AnimatedInput(props:Props): JSX.Element {
 
     //desestruturação para pegar as props passadas para o component e o resto das props são repassadas para tag input
-    const {title, warning, hasShow, ...rest} = props;
+    const {title, warning, hasShow, theme, ...rest} = props;
 
     const ref = useRef <HTMLInputElement | null>(null);
 
-    //inicia a tag input com atributo wasBlured como falso
+    //inicia a tag input com atributo wasBlured como falso, e o tema vindo dos parametros
     useEffect(()=>{
-        if(ref.current)
+        if(ref.current){
             ref.current.setAttribute("wasBlured", "false");
+            if(theme)
+                ref.current.setAttribute("theme", theme);
+        }
     }, []);
 
     //ao perder o foco do input muda o atributo wasBlured para true

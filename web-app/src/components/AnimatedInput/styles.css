@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: flex-start;
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
   width: 100%;
 }
 .Animated-input .Input {
@@ -70,4 +70,42 @@
 }
 .Animated-input .Input:invalid[wasBlured=true] ~ .Warning {
   display: block;
+}
+.Animated-input .Input[theme=light] {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  color: rgb(0, 0, 0);
+}
+.Animated-input .Input[theme=light] ~ .Title {
+  color: #333;
+  font-weight: 300;
+}
+.Animated-input .Input[theme=light] ~ .Warning {
+  color: rgb(193, 17, 25);
+  margin-bottom: 0;
+  font-weight: 300;
+}
+.Animated-input .Input[theme=light] ~ .Show {
+  color: #333;
+}
+.Animated-input .Input[theme=light]:focus {
+  outline: 2px solid rgb(0, 0, 0);
+  outline-offset: 2px;
+}
+.Animated-input .Input[theme=light]:focus + .Title {
+  font-size: 0.7rem;
+  top: 6px;
+}
+.Animated-input .Input[theme=light]:valid + .Title {
+  font-size: 0.7rem;
+  font-weight: 300;
+  top: 6px;
+}
+.Animated-input .Input[theme=light]:invalid[wasBlured=true] + .Title {
+  font-size: 0.7rem;
+  font-weight: 300;
+  top: 6px;
+}
+.Animated-input .Input[theme=light]:invalid[wasBlured=true] {
+  border: 1px solid rgb(193, 17, 25);
 }/*# sourceMappingURL=styles.css.map */
