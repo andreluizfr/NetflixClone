@@ -1,11 +1,13 @@
 import './styles.css';
 import logo from '../../assets/svg/logo.svg';
-import devices from '../../assets/img/devices.png';
 import checkmarkGroup from '../../assets/svg/checkmark-group.svg';
 import planGridBoolean from '../../assets/svg/planGrid-boolean.svg';
 
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
+import { setPlan } from '../../store/features/signupSlice';
 
 enum Plan{
     DefaultWithAds,
@@ -15,10 +17,33 @@ enum Plan{
 
 export default function SignupPlanPage(): JSX.Element{
 
-    const [plan, setPlan] = useState<Plan>(Plan.DefaultWithAds);
+    const dispatch = useDispatch();
 
-    function changePlan(plan: Plan){
-        setPlan(plan);
+    //setting active attributes for plan spans
+    useEffect(()=>{
+
+        const plans = document.getElementsByClassName("Plan");
+        Array.from(plans).forEach(plan=>{
+            plan.setAttribute("active", "false");
+        });
+
+        (plans[0] as HTMLElement).setAttribute("active", "true");
+        dispatch(setPlan(Plan.DefaultWithAds));
+
+    }, []);
+
+    function changePlan(e: React.MouseEvent<HTMLSpanElement>, plan: Plan){
+
+        const plans = document.getElementsByClassName("Plan");
+        Array.from(plans).forEach(plan=>{
+            plan.setAttribute("active", "false");
+        });
+
+        const currentPlan = e.target as HTMLSpanElement;
+        currentPlan.setAttribute("active", "true");
+
+        dispatch(setPlan(plan));
+
     }
 
     return (
@@ -63,6 +88,31 @@ export default function SignupPlanPage(): JSX.Element{
                         alt='checkmark icon'
                     />
                     <p className='Text'>Altere ou cancele seu plano quando quiser.</p>
+                </div>
+
+                <div className="Plans">
+
+                    <span className='Stretch'/>
+
+                    <div className='Plans-container'>
+                        <span>
+                            <span className='Plan' onClick={(e)=>changePlan(e, Plan.DefaultWithAds)}>
+                                Padrão com anúncios
+                            </span>
+                        </span>
+
+                        <span>
+                            <span className='Plan' onClick={(e)=>changePlan(e, Plan.Default)}>
+                                Padrão
+                            </span>
+                        </span>
+
+                        <span>
+                            <span className='Plan' onClick={(e)=>changePlan(e, Plan.Premium)}>
+                                Premium
+                            </span>
+                        </span>
+                    </div>
                 </div>
             
                 <table className='Plans-table'>

@@ -2,6 +2,7 @@
 @import '../../assets/sass/mixins';
 
 .SignupPlanPage{
+    @include flex-column-start-center;
     min-height: 100vh; 
     width: 100%;
     background-color: $background-secondary-color;
@@ -38,7 +39,7 @@
     .BestPlan-container{
         @include flex-column-start-start;
         width: 100%;
-        max-width: 720px;
+        max-width: 812px;
         gap: 8px;
         padding: 24px;
 
@@ -86,13 +87,100 @@
             }
         }
 
+        .Plans{
+            @include flex-row-center-center;
+            width: 100%;
+
+            .Stretch{
+                flex-grow: 1;
+                min-width: 378px;
+                width: 45%;
+                height: 100px;
+
+                @include mq-large{
+                    min-width: 0;
+                }
+
+                @include mq-small{
+                    display: none;
+                }
+            }
+            
+            .Plans-container{
+                @include flex-row-space-between-center;
+                gap: 12px;
+                flex-grow: 1;
+
+                @include mq-large{
+                    flex-grow: 0;
+                    justify-content: flex-end;
+                }
+
+                @include mq-small{
+                    flex-grow: 1;
+                    justify-content: space-around;
+                }
+
+                span{
+                    margin: 16px;
+                
+                    .Plan{
+                        display: table-cell; //needed for vertical align
+                        position: relative;
+                        min-width: 92px;
+                        max-width: 92px;
+                        height: 90px;
+                        padding: 0 8px;
+                        background-color:$button-primary-color;
+                        
+                        text-align: center;
+                        vertical-align: middle;
+                        color: $font-primary-color;
+                        font-weight: 500;
+                        
+                        &[active="true"]::after{
+                            content: "";
+                            position: absolute;
+                            bottom: -8px;
+                            left: 42%;
+                            display: block;
+                            width: 16px;
+                            height: 16px;
+                            background-color:$button-primary-color;
+                            transform: rotateZ(45deg); 
+                            z-index: 99;
+                        }
+
+                        &[active="false"]::after{
+                            content: "";
+                            position: absolute;
+                            top: 0;
+                            left: -10px;
+                            display: block;
+                            width: 120%;
+                            height: 470%;
+                            background-color: rgba(255,255,255,0.5);
+                            z-index: 99;
+                        }
+                    }
+
+                    &:last-child{
+                        margin-right: 4px;
+                    }
+                }
+            }            
+        }
+
         .Plans-table{  
             border-collapse: collapse;
-            margin-top: 144px;
+            width: 100%;
 
             tbody{
+                border-spacing: 50px 0;
+                width: 100%;
 
                 tr{
+                    width: 100%;
                     border-bottom: 1px solid rgba(0,0,0,0.24);
 
                     &:last-child{
@@ -100,10 +188,27 @@
                     }
 
                     td{
-                        padding: 16px;
+                        padding: 16px 32px;
+                        text-align: center;
                         color: $font-quinary-color;
                         font-weight: 300;
+                        
+                        &:first-child{
+                            padding-left: 16px;
+                            text-align: left;
+
+                            @include mq-small{
+                                display: none;
+                            }
+                        }
+                        &:last-child{
+                            padding-right: 8px;
+                        }
+                        &:nth-child(n+2){
+                            font-weight: 500;
+                        }
                     }
+
                 }
 
             }
