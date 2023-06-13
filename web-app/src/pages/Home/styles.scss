@@ -73,18 +73,26 @@
                     padding-left: 12px;
                     padding-right: 12px;
                     border-radius: 4px;
-    
                     background-color: $button-primary-color;
-                    color: $font-primary-color;
-                    font-size: $font-size-small;
-                    font-weight: 600;
 
-                    cursor: pointer;
-                    transition: all 0.2s;
+                    a{
+                        background-color: $button-primary-color;
+                        color: $font-primary-color;
+                        font-size: $font-size-small;
+                        font-weight: 500;
+                        text-decoration: none;
+                        cursor: pointer;
+                        transition: all 0.2s;
+
+                        &:visited{
+                            color: $font-primary-color;
+                        }
+                    }
 
                     &:hover{
                         filter: grayscale(10%);
                     }
+
                 }
     
             }
@@ -103,7 +111,7 @@
                 .Row-1{
                     font-size: $font-size-xl;
                     color: $font-primary-color;
-                    font-weight: 700;
+                    font-weight: 500;
                     stroke: $font-secondary-color;
                     stroke-width: 1px;
                     text-align: center;
@@ -111,7 +119,7 @@
                 .Row-2, .Row-3{
                     font-size: $font-size-medium;
                     color: $font-primary-color;
-                    font-weight: 600;
+                    font-weight: 300;
                     stroke: $font-secondary-color;
                     stroke-width: 1px;
                     text-align: center;
@@ -121,14 +129,15 @@
                     gap: 8px;
     
                     .Email-input{
-                        height: 50px;
+                        width: 320px;
                         border: 1px solid rgba(255,255,255,0.5);
                         border-radius: 4px;
                         background-color: rgba(0,0,0,0.75);
-                        padding-left: 16px;
-                        padding-right: 16px;
-    
+                        padding: 18px 16px;
+                        
+                        color: $font-quaternary-color;
                         font-size: $font-size-normal;
+                        font-weight: 500;
 
                         &:focus{
                             outline-offset: 1px;
@@ -137,14 +146,21 @@
                     }
     
                     .Subscribe-button{
-                        height: 50px;
                         border-radius: 2px;
-                        padding-left: 16px;
-                        padding-right: 16px;
+                        padding: 14px 24px;
+                        border-radius: 4px;
                         background-color: $button-primary-color;
-    
-                        color: $font-primary-color;
-                        font-size: $font-size-medium;
+                        
+                        a{
+                            color: $font-primary-color;
+                            font-size: $font-size-large;
+                            font-weight: 600;
+                            text-decoration: none;
+
+                            &:visited{
+                                color: $font-primary-color;
+                            }
+                        }
                     }
                 }
             }

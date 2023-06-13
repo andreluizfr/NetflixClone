@@ -67,11 +67,18 @@
   padding-right: 12px;
   border-radius: 4px;
   background-color: rgb(229, 9, 20);
+}
+.HomePage .Background-gradient .Header .Language-container .Login-button a {
+  background-color: rgb(229, 9, 20);
   color: rgb(255, 255, 255);
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 500;
+  text-decoration: none;
   cursor: pointer;
   transition: all 0.2s;
+}
+.HomePage .Background-gradient .Header .Language-container .Login-button a:visited {
+  color: rgb(255, 255, 255);
 }
 .HomePage .Background-gradient .Header .Language-container .Login-button:hover {
   filter: grayscale(10%);
@@ -94,7 +101,7 @@
 .HomePage .Background-gradient .HomePage-content .Content .Row-1 {
   font-size: 2rem;
   color: rgb(255, 255, 255);
-  font-weight: 700;
+  font-weight: 500;
   stroke: rgb(0, 0, 0);
   stroke-width: 1px;
   text-align: center;
@@ -102,7 +109,7 @@
 .HomePage .Background-gradient .HomePage-content .Content .Row-2, .HomePage .Background-gradient .HomePage-content .Content .Row-3 {
   font-size: 1.2rem;
   color: rgb(255, 255, 255);
-  font-weight: 600;
+  font-weight: 300;
   stroke: rgb(0, 0, 0);
   stroke-width: 1px;
   text-align: center;
@@ -114,26 +121,33 @@
   gap: 8px;
 }
 .HomePage .Background-gradient .HomePage-content .Content .Row-4 .Email-input {
-  height: 50px;
+  width: 320px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.75);
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 18px 16px;
+  color: #b3b3b3;
   font-size: 1rem;
+  font-weight: 500;
 }
 .HomePage .Background-gradient .HomePage-content .Content .Row-4 .Email-input:focus {
   outline-offset: 1px;
   outline: 2px solid rgb(255, 255, 255);
 }
 .HomePage .Background-gradient .HomePage-content .Content .Row-4 .Subscribe-button {
-  height: 50px;
   border-radius: 2px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 14px 24px;
+  border-radius: 4px;
   background-color: rgb(229, 9, 20);
+}
+.HomePage .Background-gradient .HomePage-content .Content .Row-4 .Subscribe-button a {
   color: rgb(255, 255, 255);
-  font-size: 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.HomePage .Background-gradient .HomePage-content .Content .Row-4 .Subscribe-button a:visited {
+  color: rgb(255, 255, 255);
 }
 .HomePage .Background-gradient footer {
   width: 100%;

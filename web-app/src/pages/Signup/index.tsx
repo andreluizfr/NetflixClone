@@ -4,20 +4,27 @@ import devices from '../../assets/img/devices.png';
 import checkmark from '../../assets/img/checkmark.png';
 import checkmarkGroup from '../../assets/svg/checkmark-group.svg';
 
+import { Link } from "react-router-dom";
 import { useState } from 'react';
 
 export default function SignupPage(): JSX.Element {
 
     const [step, setStep] = useState(1);
 
+    function goToNextStep(){
+        setStep(current=>current+1);
+    }
+
     return (
         <div className='SignupPage'>
             <header className='Header'>
-                <a href="/">
+                <Link to="/">
                     <img className='Logo' src={logo} alt="Netflix Logo"/>
-                </a>
+                </Link>
 
-                <a className='Login-link' href="/login">Entrar</a>
+                <Link to="/login" className='Login-link'>
+                    Entrar
+                </Link>
             </header>
 
             <main className='Steps-container'>
@@ -38,7 +45,7 @@ export default function SignupPage(): JSX.Element {
                             A Netflix é personalizada para você. Crie uma senha para começar a assistir à Netflix.
                         </p>
 
-                        <button className='NextStep-button'>
+                        <button className='NextStep-button' onClick={goToNextStep}>
                             Próximo
                         </button>
 
@@ -84,17 +91,14 @@ export default function SignupPage(): JSX.Element {
                         </div>
 
                         <button className='NextStep-button'>
-                            Próximo
+                            <Link to="/signup/planform">
+                                Próximo
+                            </Link>
                         </button>
 
                     </form>
                 }
-
-                {step===2 &&
-                    <form className='Signup-form'>
-
-                    </form>
-                }   
+                
             </main>
 
             <footer>
@@ -121,5 +125,5 @@ export default function SignupPage(): JSX.Element {
             </footer>
 
         </div>
-    )
+    );
 }

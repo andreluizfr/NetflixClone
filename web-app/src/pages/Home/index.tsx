@@ -1,7 +1,25 @@
 import './styles.css';
 import logo from '../../assets/svg/logo.svg';
+import { Link } from "react-router-dom";
+
+import { useDispatch } from 'react-redux';
+import { saveEmail } from '../../store/features/signupSlice';
 
 export default function Home(): JSX.Element{
+
+    const dispatch = useDispatch();
+
+    function saveEmailToSignup(e: React.MouseEvent<HTMLAnchorElement>){
+
+        const input = document.getElementsByClassName("Input-email")[0] as HTMLInputElement;
+        const email = input?.value;
+
+        if(email === null) 
+            e.preventDefault();
+        else 
+            dispatch(saveEmail(email));
+            
+    }
 
     return(
         <div className='HomePage'>
@@ -18,8 +36,8 @@ export default function Home(): JSX.Element{
                             <option value="en">English</option>
                         </select>
 
-                        <button className="Login-button" onClick={()=>window.location.href="http://localhost:5173/login"}>
-                            Entrar
+                        <button className="Login-button">
+                            <Link to="/login">Entrar</Link>
                         </button>
                     </div>
                 </header>
@@ -37,7 +55,11 @@ export default function Home(): JSX.Element{
                         </div>
                         <div className='Row-4'>
                             <input className='Email-input' placeholder='Email'/>
-                            <button className='Subscribe-button'>{"Vamos lá >"}</button>
+                            <button className='Subscribe-button'>
+                                <Link to='/signup' onClick={saveEmailToSignup}>
+                                    {"Vamos lá >"}
+                                </Link>
+                            </button>
                         </div>
                     </div>
                 </main>

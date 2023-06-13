@@ -101,11 +101,102 @@
                 color: $font-primary-color;
                 font-size: $font-size-large;
                 font-weight: 400;
+
+                cursor: pointer;
+
+                &:hover{
+                    opacity: 0.95;
+                }
             }
         }       
 
         .Signup-container-2{
-            
+            min-width: 320px;
+            max-width: 480px;
+            @include flex-column-start-center;
+            gap: 8px;
+            padding: 60px 68px;
+            margin-top: 64px;
+
+            @include mq-small{
+                align-items: flex-start;
+            }
+
+            .Icon{
+                width: 48px;
+                height: auto;
+                margin-bottom: 16px;
+            }
+
+            .Step-info{
+                color: $font-quinary-color;
+                font-size: $font-size-small;
+                font-weight: 400;
+                text-align: center;
+
+                @include mq-small{
+                    text-align: left;
+                }
+            }
+
+            .Title{
+                margin: 0 0 16px 0;
+                color: $font-quinary-color;
+                font-size: $font-size-xl;
+                font-weight: 500;
+                text-align: center;
+
+                @include mq-small{
+                    text-align: left;
+                }
+            }
+
+            .Advantages{
+                @include flex-row-start-start;
+                gap: 8px;
+                margin: 8px 0;
+
+                .Icon{
+                    margin: 0;
+                    width: 24px;
+                    height: auto;
+                }
+
+                .Text{
+                    margin: 0;
+                    color: $font-quinary-color;
+                    font-size: $font-size-medium;
+                    font-weight: 300;
+                    text-align: left;
+                    letter-spacing: -0.1px;
+                }
+            }
+
+            .NextStep-button{
+                margin: 24px 0 0 0;
+                width: 100%;
+                padding-top: 18px;
+                padding-bottom: 18px;
+                border-radius: 4px;
+                background-color: $button-primary-color;
+                
+                cursor: pointer;
+
+                &:hover{
+                    opacity: 0.95;
+                }
+
+                a{
+                    color: $font-primary-color;
+                    font-size: $font-size-large;
+                    font-weight: 400;
+                    text-decoration: none;
+                    
+                    &:visited{
+                        color: $font-primary-color;
+                    }
+                }
+            }
         }
 
     }
