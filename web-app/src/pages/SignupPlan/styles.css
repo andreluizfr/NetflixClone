@@ -4,6 +4,7 @@
   justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
+  min-width: 460px;
   width: 100%;
   background-color: rgb(255, 255, 255);
 }
@@ -89,6 +90,9 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: white;
 }
 .SignupPlanPage .BestPlan-container .Plans .Stretch {
   flex-grow: 1;
@@ -136,33 +140,14 @@
   height: 90px;
   padding: 0 8px;
   background-color: rgb(229, 9, 20);
+  z-index: 999;
   text-align: center;
   vertical-align: middle;
   color: rgb(255, 255, 255);
   font-weight: 500;
 }
-.SignupPlanPage .BestPlan-container .Plans .Plans-container span .Plan[active=true]::after {
-  content: "";
-  position: absolute;
-  bottom: -8px;
-  left: 42%;
-  display: block;
-  width: 16px;
-  height: 16px;
-  background-color: rgb(229, 9, 20);
-  transform: rotateZ(45deg);
-  z-index: 99;
-}
-.SignupPlanPage .BestPlan-container .Plans .Plans-container span .Plan[active=false]::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -10px;
-  display: block;
-  width: 120%;
-  height: 470%;
-  background-color: rgba(255, 255, 255, 0.5);
-  z-index: 99;
+.SignupPlanPage .BestPlan-container .Plans .Plans-container span .Plan[active=false] {
+  opacity: 0.6;
 }
 .SignupPlanPage .BestPlan-container .Plans .Plans-container span:last-child {
   margin-right: 4px;
@@ -187,6 +172,10 @@
   text-align: center;
   color: #333;
   font-weight: 300;
+}
+.SignupPlanPage .BestPlan-container .Plans-table tbody tr td[active=false] {
+  opacity: 0.8;
+  filter: grayscale(1);
 }
 .SignupPlanPage .BestPlan-container .Plans-table tbody tr td:first-child {
   padding-left: 16px;

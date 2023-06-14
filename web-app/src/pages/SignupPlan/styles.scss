@@ -4,6 +4,7 @@
 .SignupPlanPage{
     @include flex-column-start-center;
     min-height: 100vh; 
+    min-width: 460px;
     width: 100%;
     background-color: $background-secondary-color;
 
@@ -90,6 +91,10 @@
         .Plans{
             @include flex-row-center-center;
             width: 100%;
+            position: sticky;
+            top: 0;
+            background-color: white;
+            
 
             .Stretch{
                 flex-grow: 1;
@@ -132,35 +137,15 @@
                         height: 90px;
                         padding: 0 8px;
                         background-color:$button-primary-color;
+                        z-index: 999;
                         
                         text-align: center;
                         vertical-align: middle;
                         color: $font-primary-color;
                         font-weight: 500;
-                        
-                        &[active="true"]::after{
-                            content: "";
-                            position: absolute;
-                            bottom: -8px;
-                            left: 42%;
-                            display: block;
-                            width: 16px;
-                            height: 16px;
-                            background-color:$button-primary-color;
-                            transform: rotateZ(45deg); 
-                            z-index: 99;
-                        }
 
-                        &[active="false"]::after{
-                            content: "";
-                            position: absolute;
-                            top: 0;
-                            left: -10px;
-                            display: block;
-                            width: 120%;
-                            height: 470%;
-                            background-color: rgba(255,255,255,0.5);
-                            z-index: 99;
+                        &[active="false"]{
+                            opacity: 0.6;
                         }
                     }
 
@@ -193,6 +178,10 @@
                         color: $font-quinary-color;
                         font-weight: 300;
                         
+                        &[active="false"]{
+                            opacity: 0.8;
+                            filter: grayscale(1);
+                        }
                         &:first-child{
                             padding-left: 16px;
                             text-align: left;

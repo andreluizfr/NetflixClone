@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { setPlan } from '../../store/features/signupSlice';
+import { setPlan, setStep} from '../../store/features/signupSlice';
 
 enum Plan{
     DefaultWithAds,
@@ -21,29 +21,43 @@ export default function SignupPlanPage(): JSX.Element{
 
     //setting active attributes for plan spans
     useEffect(()=>{
-
-        const plans = document.getElementsByClassName("Plan");
-        Array.from(plans).forEach(plan=>{
-            plan.setAttribute("active", "false");
-        });
-
-        (plans[0] as HTMLElement).setAttribute("active", "true");
-        dispatch(setPlan(Plan.DefaultWithAds));
-
+        changePlan(Plan.DefaultWithAds);
     }, []);
 
-    function changePlan(e: React.MouseEvent<HTMLSpanElement>, plan: Plan){
+    function setPlanElementToActive(plan: Plan) {
 
         const plans = document.getElementsByClassName("Plan");
         Array.from(plans).forEach(plan=>{
             plan.setAttribute("active", "false");
         });
 
-        const currentPlan = e.target as HTMLSpanElement;
-        currentPlan.setAttribute("active", "true");
-
+        plans[plan].setAttribute("active", "true");
         dispatch(setPlan(plan));
 
+    }
+
+    function setDataElementFromTableToActive(plan: Plan) {
+
+        const tableEl = document.getElementsByClassName("Plans-table")[0];
+        const trEls = tableEl.getElementsByTagName("tr");
+        
+        Array.from(trEls).forEach(trEl=>{
+            const tdEls = trEl.getElementsByTagName("td");
+
+            Array.from(tdEls).forEach((tdEl, index)=>{
+                if(index > 0)
+                    tdEl.setAttribute("active", "false");
+            });
+            // +1 porque a primeira coluna é a descrição
+            tdEls[plan + 1].setAttribute("active", "true");
+            
+        });
+
+    }
+
+    function changePlan(plan: Plan){
+        setPlanElementToActive(plan);
+        setDataElementFromTableToActive(plan);
     }
 
     return (
@@ -96,19 +110,19 @@ export default function SignupPlanPage(): JSX.Element{
 
                     <div className='Plans-container'>
                         <span>
-                            <span className='Plan' onClick={(e)=>changePlan(e, Plan.DefaultWithAds)}>
+                            <span className='Plan' onClick={()=>changePlan(Plan.DefaultWithAds)}>
                                 Padrão com anúncios
                             </span>
                         </span>
 
                         <span>
-                            <span className='Plan' onClick={(e)=>changePlan(e, Plan.Default)}>
+                            <span className='Plan' onClick={()=>changePlan(Plan.Default)}>
                                 Padrão
                             </span>
                         </span>
 
                         <span>
-                            <span className='Plan' onClick={(e)=>changePlan(e, Plan.Premium)}>
+                            <span className='Plan' onClick={()=>changePlan(Plan.Premium)}>
                                 Premium
                             </span>
                         </span>
@@ -174,7 +188,7 @@ export default function SignupPlanPage(): JSX.Element{
 
                 <div className='Center'>
                     <button className='NextStep-button'>
-                        <Link to="/signup/registration">
+                        <Link to="/signup/registration" onClick={()=>dispatch(setStep(2))}>
                             Próximo
                         </Link>
                     </button>

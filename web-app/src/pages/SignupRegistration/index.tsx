@@ -6,7 +6,12 @@ import AnimatedInput from '../../components/AnimatedInput';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 
+//import { useSelector } from 'react-redux';
+//import { StoreState } from '../../store';
+
 export default function SignupRegistrationPage(): JSX.Element {
+
+    //const signup = useSelector((state: StoreState) => state.signup);
 
     const [step, setStep] = useState(1);
 
