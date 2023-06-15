@@ -6,12 +6,16 @@ import AnimatedInput from '../../components/AnimatedInput';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 
-//import { useSelector } from 'react-redux';
-//import { StoreState } from '../../store';
+import { useDispatch } from 'react-redux';
+import { saveEmail, savePassword} from '../../store/features/signupSlice';
+
+import { motion } from 'framer-motion';
 
 export default function SignupRegistrationPage(): JSX.Element {
 
-    //const signup = useSelector((state: StoreState) => state.signup);
+	const width = window.innerWidth;
+
+    const dispatch = useDispatch();
 
     const [step, setStep] = useState(1);
 
@@ -19,8 +23,18 @@ export default function SignupRegistrationPage(): JSX.Element {
         setStep(current=>current+1);
     }
 
+    function saveData(){
+        const inputs = document.getElementsByClassName("Input") as HTMLCollectionOf<HTMLInputElement>;
+        dispatch(saveEmail(inputs[0].value));
+        dispatch(savePassword(inputs[1].value));
+    }
+
     return (
-        <div className='SignupRegistrationPage'>
+        <motion.div 
+            className='SignupRegistrationPage'
+            initial={{ x: -(width/2), opacity: 0}}
+			animate={{x: 0, opacity: 1, transition:{type: "easeIn", duration: 0.6}}}
+        >
             <header className='Header'>
                 <Link to="/">
                     <img className='Logo' src={logo} alt="Netflix Logo"/>
@@ -33,7 +47,7 @@ export default function SignupRegistrationPage(): JSX.Element {
 
             <main className='Steps-container'>
                 {step===1 &&
-                    <form className='Signup-container-1'>
+                    <div className='Signup-container-1'>
 
                         <img 
                             className='Icon' 
@@ -53,11 +67,11 @@ export default function SignupRegistrationPage(): JSX.Element {
                             Próximo
                         </button>
 
-                    </form>
+                    </div>
                 }
 
                 {step===2 &&
-                    <form className='Signup-container-2'>
+                    <div className='Signup-container-2'>
 
                         <span className='Step-info'>PASSO 2 DE 3</span>
 
@@ -75,6 +89,8 @@ export default function SignupRegistrationPage(): JSX.Element {
                             warning="O email é obrigatório."
                             theme="light"
                             type="email"
+                            minLength={3}
+                            maxLength={128}
                             required
                         />
 
@@ -83,16 +99,18 @@ export default function SignupRegistrationPage(): JSX.Element {
                             warning="A senha é obrigatória."
                             theme="light"
                             type="password"
+                            minLength={8}
+                            maxLength={32}
                             required
                         />
 
-                        <button className='NextStep-button'>
-                            <Link to="/signup/planform">
+                        <button className='NextStep-button' onClick={saveData}>
+                            <Link to="/signup/paymentPicker">
                                 Próximo
                             </Link>
                         </button>
 
-                    </form>
+                    </div>
                 }
                 
             </main>
@@ -120,6 +138,6 @@ export default function SignupRegistrationPage(): JSX.Element {
                 </div>
             </footer>
 
-        </div>
+        </motion.div>
     );
 }

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .SignupPlanPage {
   display: flex;
   flex-direction: column;
@@ -126,11 +127,25 @@
 @media only screen and (max-width: 576px) {
   .SignupPlanPage .BestPlan-container .Plans .Plans-container {
     flex-grow: 1;
-    justify-content: space-around;
+    justify-content: stretch;
+    gap: 8px;
   }
 }
 .SignupPlanPage .BestPlan-container .Plans .Plans-container span {
   margin: 16px;
+  background-color: white;
+}
+@media only screen and (max-width: 576px) {
+  .SignupPlanPage .BestPlan-container .Plans .Plans-container span {
+    margin: 4px 0;
+    flex: 1;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .SignupPlanPage .BestPlan-container .Plans .Plans-container span:first-child .Plan {
+    padding-top: 16px;
+  }
 }
 .SignupPlanPage .BestPlan-container .Plans .Plans-container span .Plan {
   display: table-cell;
@@ -139,6 +154,7 @@
   max-width: 92px;
   height: 90px;
   padding: 0 8px;
+  border-radius: 2px;
   background-color: rgb(229, 9, 20);
   z-index: 999;
   text-align: center;
@@ -146,8 +162,29 @@
   color: rgb(255, 255, 255);
   font-weight: 500;
 }
+@media only screen and (max-width: 576px) {
+  .SignupPlanPage .BestPlan-container .Plans .Plans-container span .Plan {
+    height: 76px;
+    min-width: none;
+    max-width: none;
+    width: 100%;
+    display: inline-block;
+    padding-top: 28px;
+  }
+}
 .SignupPlanPage .BestPlan-container .Plans .Plans-container span .Plan[active=false] {
-  opacity: 0.6;
+  background-color: rgb(235, 109, 115);
+}
+.SignupPlanPage .BestPlan-container .Plans .Plans-container span .Plan[active=true]::after {
+  position: absolute;
+  bottom: -6px;
+  left: 42%;
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  background-color: rgb(229, 9, 20);
+  transform: rotateZ(45deg);
 }
 .SignupPlanPage .BestPlan-container .Plans .Plans-container span:last-child {
   margin-right: 4px;
@@ -161,11 +198,38 @@
   width: 100%;
 }
 .SignupPlanPage .BestPlan-container .Plans-table tbody tr {
+  position: relative;
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.24);
 }
 .SignupPlanPage .BestPlan-container .Plans-table tbody tr:last-child {
   border-bottom: none;
+}
+@media only screen and (max-width: 576px) {
+  .SignupPlanPage .BestPlan-container .Plans-table tbody tr::after {
+    position: absolute;
+    width: 95%;
+    top: 12px;
+    left: 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #333;
+  }
+  .SignupPlanPage .BestPlan-container .Plans-table tbody tr:nth-child(1)::after {
+    content: "Preço por mês";
+  }
+  .SignupPlanPage .BestPlan-container .Plans-table tbody tr:nth-child(2)::after {
+    content: "Qualidade do vídeo";
+  }
+  .SignupPlanPage .BestPlan-container .Plans-table tbody tr:nth-child(3)::after {
+    content: "Resolução";
+  }
+  .SignupPlanPage .BestPlan-container .Plans-table tbody tr:nth-child(4)::after {
+    content: "Assista na TV, computador, celular ou tablet";
+  }
+  .SignupPlanPage .BestPlan-container .Plans-table tbody tr:nth-child(5)::after {
+    content: "Downloads";
+  }
 }
 .SignupPlanPage .BestPlan-container .Plans-table tbody tr td {
   padding: 16px 32px;
@@ -173,9 +237,13 @@
   color: #333;
   font-weight: 300;
 }
+@media only screen and (max-width: 576px) {
+  .SignupPlanPage .BestPlan-container .Plans-table tbody tr td {
+    padding: 48px 16px 16px 16px;
+  }
+}
 .SignupPlanPage .BestPlan-container .Plans-table tbody tr td[active=false] {
-  opacity: 0.8;
-  filter: grayscale(1);
+  color: #8c8c8c;
 }
 .SignupPlanPage .BestPlan-container .Plans-table tbody tr td:first-child {
   padding-left: 16px;

@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setPlan, setStep} from '../../store/features/signupSlice';
 
+import { motion } from 'framer-motion';
+
 enum Plan{
     DefaultWithAds,
     Default,
@@ -16,6 +18,8 @@ enum Plan{
 }
 
 export default function SignupPlanPage(): JSX.Element{
+
+	const width = window.innerWidth;
 
     const dispatch = useDispatch();
 
@@ -61,7 +65,11 @@ export default function SignupPlanPage(): JSX.Element{
     }
 
     return (
-        <div className='SignupPlanPage'>
+        <motion.div 
+            className='SignupPlanPage'
+            initial={{ x: -(width/2), opacity: 0}}
+			animate={{x: 0, opacity: 1, transition:{type: "easeIn", duration: 0.6}}}
+        >
 
             <header className='Header'>
                 <a href="/">
@@ -219,6 +227,6 @@ export default function SignupPlanPage(): JSX.Element{
                 </div>
             </footer>
 
-        </div>
+        </motion.div>
     );
 }

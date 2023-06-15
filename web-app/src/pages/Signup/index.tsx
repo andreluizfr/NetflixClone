@@ -7,7 +7,11 @@ import checkmarkGroup from '../../assets/svg/checkmark-group.svg';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 
+import { motion } from 'framer-motion';
+
 export default function SignupPage(): JSX.Element {
+
+	const width = window.innerWidth;
 
     const [step, setStep] = useState(1);
 
@@ -16,7 +20,12 @@ export default function SignupPage(): JSX.Element {
     }
 
     return (
-        <div className='SignupPage'>
+        <motion.div 
+            className='SignupPage'
+            initial={{ x: -(width/2), opacity: 0}}
+			animate={{x: 0, opacity: 1, transition:{type: "easeIn", duration: 0.6}}}
+        >
+
             <header className='Header'>
                 <Link to="/">
                     <img className='Logo' src={logo} alt="Netflix Logo"/>
@@ -29,7 +38,7 @@ export default function SignupPage(): JSX.Element {
 
             <main className='Steps-container'>
                 {step===1 &&
-                    <form className='Signup-container-1'>
+                    <div className='Signup-container-1'>
 
                         <img 
                             className='Icon' 
@@ -49,11 +58,11 @@ export default function SignupPage(): JSX.Element {
                             Próximo
                         </button>
 
-                    </form>
+                    </div>
                 }
 
                 {step===2 &&
-                    <form className='Signup-container-2'>
+                    <div className='Signup-container-2'>
 
                         <img 
                             className='Icon' 
@@ -96,7 +105,7 @@ export default function SignupPage(): JSX.Element {
                             </Link>
                         </button>
 
-                    </form>
+                    </div>
                 }
                 
             </main>
@@ -124,6 +133,6 @@ export default function SignupPage(): JSX.Element {
                 </div>
             </footer>
 
-        </div>
+        </motion.div>
     );
 }

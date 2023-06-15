@@ -11,6 +11,8 @@ const LoginPage = lazy(() => import('./pages/Login'));
 const SignupPage = lazy(() => import('./pages/Signup'));
 const SignupPlanPage = lazy(() => import('./pages/SignupPlan'));
 const SignupRegistrationPage = lazy(() => import('./pages/SignupRegistration'));
+const SignupPaymentPickerPage = lazy(() => import('./pages/SignupPaymentPicker'));
+const SignupInformationsPage = lazy(() => import('./pages/SignupInformations'));
 const ContentsPage = lazy(() => import('./pages/Contents'));
 
 function App() {
@@ -40,9 +42,18 @@ function App() {
             element: <SignupRegistrationPage/>,
           },
           {
+            path: "/signup/paymentPicker",
+            element: <SignupPaymentPickerPage/>,
+          },
+          {
+            path: "/signup/informations",
+            element: <SignupInformationsPage/>,
+          },
+          {
             path: "/contents",
             element: <ContentsPage/>,
           },
+          
         ])
       }/> 
     </Suspense>

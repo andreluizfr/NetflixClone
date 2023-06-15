@@ -96,6 +96,9 @@
   font-size: 0.7rem;
   top: 6px;
 }
+.Animated-input .Input[theme=light]:valid[wasBlured=true] {
+  border: 1px solid rgba(0, 128, 0, 0.6);
+}
 .Animated-input .Input[theme=light]:valid + .Title {
   font-size: 0.7rem;
   font-weight: 300;
