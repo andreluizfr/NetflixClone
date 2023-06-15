@@ -1,0 +1,52 @@
+.UserDropdownMenu {
+  background-color: black;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: 0;
+}
+
+.ProfileDropdownMenuTrigger {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+}
+.ProfileDropdownMenuTrigger .Profile-icon {
+  width: 20px;
+  height: 20px;
+  transition: 0.1s;
+  cursor: pointer;
+}
+.ProfileDropdownMenuTrigger .Profile-icon:hover {
+  opacity: 0.7;
+}
+
+.ProfileDropdownMenuContent {
+  z-index: 999999999;
+  padding: 0.2rem;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.ProfileDropdownMenuContent ul .ProfileDropdownMenuItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 8px;
+}
+.ProfileDropdownMenuContent ul .ProfileDropdownMenuItem .Item-container {
+  font-size: 0.8rem;
+  text-align: left;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+.ProfileDropdownMenuContent ul .ProfileDropdownMenuItem .Item-container:visited {
+  color: rgb(255, 255, 255);
+}
+.ProfileDropdownMenuContent ul:hover {
+  opacity: 0.8;
+}
+.ProfileDropdownMenuContent ul:focus-visible {
+  outline: 1px solid rgb(255, 255, 255);
+}/*# sourceMappingURL=styles.css.map */

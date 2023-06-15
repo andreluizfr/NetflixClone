@@ -1,1 +1,232 @@
-/*# sourceMappingURL=styles.css.map */
+.ContentsPage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgb(0, 0, 0);
+}
+.ContentsPage .Header {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.24);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+}
+.ContentsPage .Header .Logo-container {
+  margin-left: 16px;
+}
+.ContentsPage .Header .Logo-container .Logo {
+  height: 24px;
+  width: auto;
+}
+.ContentsPage .Header .Content-navigation ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.ContentsPage .Header .Content-navigation ul li {
+  list-style-type: none;
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+.ContentsPage .Header .Content-navigation ul li:hover {
+  text-decoration: underline;
+}
+.ContentsPage .Header .Extra-space {
+  flex: 1 1 0;
+}
+.ContentsPage .Header .Other-options-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+.ContentsPage .Header .Other-options-container .Search-icon {
+  margin-right: 8px;
+  width: 16px;
+  height: auto;
+  filter: invert(1);
+  cursor: pointer;
+}
+.ContentsPage .Header .Other-options-container .Notifications-icon {
+  width: 24px;
+  height: auto;
+  filter: invert(1);
+  cursor: pointer;
+}
+.ContentsPage .Work-preview {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0;
+}
+.ContentsPage .Work-preview .Background-video {
+  height: auto;
+  width: 100%;
+}
+.ContentsPage .Work-preview .Work-preview-menu {
+  position: absolute;
+  left: 20px;
+  bottom: 100px;
+}
+.ContentsPage .Work-preview .Work-preview-menu .Title {
+  color: rgb(255, 255, 255);
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  font-weight: 400;
+  -webkit-text-stroke: 0.5px;
+}
+.ContentsPage .Work-preview .Work-preview-menu .Toolbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+.ContentsPage .Work-preview .Work-preview-menu .Toolbar .Button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.ContentsPage .Work-preview .Work-preview-menu .Toolbar .Button img {
+  width: 12px;
+  height: auto;
+}
+.ContentsPage .Work-preview .Work-preview-menu .Toolbar .Button:nth-child(1) {
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+}
+.ContentsPage .Work-preview .Work-preview-menu .Toolbar .Button:nth-child(2) {
+  color: rgb(255, 255, 255);
+  background-color: #8c8c8c;
+}
+.ContentsPage .Contents-container {
+  width: 100%;
+  padding: 16px;
+}
+.ContentsPage .Contents-container .Section {
+  margin-bottom: 48px;
+}
+.ContentsPage .Contents-container .Section .Title {
+  margin: 4px 0;
+  color: rgb(255, 255, 255);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.ContentsPage .Contents-container .Section .Playlist {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+  gap: 4px;
+  padding: 4px;
+}
+.ContentsPage .Contents-container .Section .Playlist .Thumbnail {
+  width: 192px;
+  height: auto;
+  z-index: 999;
+  transition: transform 400ms;
+  cursor: pointer;
+}
+.ContentsPage .Contents-container .Section .Playlist .Thumbnail:hover {
+  transform: scale(1.1);
+}
+.ContentsPage footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px 32px;
+  background-color: rgb(0, 0, 0);
+}
+@media only screen and (max-width: 720px) {
+  .ContentsPage footer {
+    border-top: 1px solid #8c8c8c;
+  }
+}
+.ContentsPage footer .Row-1 {
+  margin-bottom: 12px;
+  font-size: 1rem;
+  color: #b3b3b3;
+}
+.ContentsPage footer .Row-1 a {
+  color: #b3b3b3;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.ContentsPage footer .Row-1 a:visited {
+  color: #b3b3b3;
+}
+.ContentsPage footer .Row-2 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  -moz-column-gap: 36px;
+       column-gap: 36px;
+  row-gap: 14px;
+}
+.ContentsPage footer .Row-2 > a {
+  color: #b3b3b3;
+  font-size: 0.8rem;
+  text-decoration: underline;
+}
+.ContentsPage footer .Row-2 > a:visited {
+  text-decoration: none;
+  color: #b3b3b3;
+}
+.ContentsPage footer .Row-3 {
+  margin-bottom: 4px;
+}
+.ContentsPage footer .Row-3 .Select-language {
+  height: 36px;
+  padding: 8px 8px 8px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 4px;
+  background-color: #333;
+  background-image: url("../../assets/svg/globe.svg");
+  background-position: 5% 50%;
+  background-repeat: no-repeat;
+  background-size: 12%;
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+}
+.ContentsPage footer .Row-3 .Select-language option {
+  background-color: rgb(255, 255, 255);
+  font-size: 0.8rem;
+  color: rgb(0, 0, 0);
+}
+.ContentsPage footer .Row-3 .Select-language:focus {
+  outline-offset: 1px;
+  outline: 2px solid rgb(255, 255, 255);
+}
+.ContentsPage footer .Row-3 .Select-language::-ms-expand {
+  display: none;
+}
+.ContentsPage footer .Row-4 {
+  margin-bottom: 12px;
+  color: #b3b3b3;
+  font-size: 1rem;
+}/*# sourceMappingURL=styles.css.map */

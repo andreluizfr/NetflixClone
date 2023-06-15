@@ -1,0 +1,77 @@
+@import '../../assets/sass/variables';
+@import '../../assets/sass/mixins';
+
+.UserDropdownMenu{
+    background-color: black;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    outline: 0;
+}
+
+.ProfileDropdownMenuTrigger{
+    width: 20px;
+    height: 20px;
+    padding: 0;
+
+    .Profile-icon{
+        width: 20px;
+        height: 20px;
+        transition: .1s;
+        cursor: pointer;
+
+        &:hover{
+            opacity: .7;
+        }
+    }
+}
+
+
+.ProfileDropdownMenuContent{
+    z-index: 999999999;
+    padding: .2rem;
+    border-radius: 4px;
+    background-color: rgba($background-primary-color, 0.7);
+
+    ul{
+        .ProfileDropdownMenuItem{
+            @include flex-row-start-center;
+            padding: 8px 16px;
+            gap: 8px;
+            
+            .Item-container{
+                font-size: $font-size-small;
+                text-align: left;
+                text-decoration: none;
+                color: $font-primary-color;
+                cursor: pointer;
+
+                &:visited{
+                    color: $font-primary-color;
+                }
+            }
+        
+            img{
+
+            }
+
+            .ProfileName{
+
+            }
+
+            .Option{
+
+            }
+            
+        }
+
+        &:hover{
+            opacity: 0.8;
+        }
+
+        &:focus-visible{
+            outline: 1px solid $background-secondary-color;
+        }
+    }
+
+}
