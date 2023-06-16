@@ -85,12 +85,37 @@
   left: 20px;
   bottom: 100px;
 }
+@media only screen and (max-width: 956px) {
+  .ContentsPage .Work-preview .Work-preview-menu {
+    bottom: 76px;
+  }
+}
+@media only screen and (max-width: 720px) {
+  .ContentsPage .Work-preview .Work-preview-menu {
+    bottom: 56px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .ContentsPage .Work-preview .Work-preview-menu {
+    bottom: 36px;
+  }
+}
 .ContentsPage .Work-preview .Work-preview-menu .Title {
   color: rgb(255, 255, 255);
   font-family: "Playfair Display", serif;
   font-size: 2rem;
   font-weight: 400;
   -webkit-text-stroke: 0.5px;
+}
+@media only screen and (max-width: 720px) {
+  .ContentsPage .Work-preview .Work-preview-menu .Title {
+    font-size: 1.6rem;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .ContentsPage .Work-preview .Work-preview-menu .Title {
+    font-size: 1.2rem;
+  }
 }
 .ContentsPage .Work-preview .Work-preview-menu .Toolbar {
   display: flex;
@@ -124,10 +149,11 @@
 }
 .ContentsPage .Contents-container {
   width: 100%;
-  padding: 16px;
 }
 .ContentsPage .Contents-container .Section {
-  margin-bottom: 48px;
+  margin-bottom: 36px;
+  padding: 16px;
+  overflow: hidden;
 }
 .ContentsPage .Contents-container .Section .Title {
   margin: 4px 0;
@@ -136,22 +162,55 @@
   font-weight: 500;
 }
 .ContentsPage .Contents-container .Section .Playlist {
+  position: relative;
+  z-index: 999;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  overflow: hidden;
+  overflow: visible;
   gap: 4px;
-  padding: 4px;
+  padding: 16px;
 }
 .ContentsPage .Contents-container .Section .Playlist .Thumbnail {
-  width: 192px;
-  height: auto;
   z-index: 999;
   transition: transform 400ms;
   cursor: pointer;
 }
 .ContentsPage .Contents-container .Section .Playlist .Thumbnail:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
+  z-index: 9999;
+}
+.ContentsPage .Contents-container .Section .Playlist::before, .ContentsPage .Contents-container .Section .Playlist::after {
+  content: "";
+  position: absolute;
+  z-index: 99999;
+  width: 24px;
+  height: 100%;
+  background-image: url(../../assets/svg/arrow-right.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: invert(0.5);
+  transition: scale 400ms;
+  cursor: pointer;
+}
+.ContentsPage .Contents-container .Section .Playlist::before:hover, .ContentsPage .Contents-container .Section .Playlist::after:hover {
+  transform: scale(1.2);
+}
+.ContentsPage .Contents-container .Section .Playlist::before {
+  transform: rotateZ(180deg);
+  left: -16px;
+}
+.ContentsPage .Contents-container .Section .Playlist::after {
+  right: -12px;
+  visibility: hidden;
+}
+.ContentsPage .Contents-container .Section .Playlist:hover::before {
+  filter: invert(1);
+}
+.ContentsPage .Contents-container .Section .Playlist:hover::after {
+  visibility: visible;
+  filter: invert(1);
 }
 .ContentsPage footer {
   width: 100%;

@@ -42,7 +42,7 @@ export default function ProfileDropdownMenu(): JSX.Element {
                         {
                             (new Array(10)).fill(0).map((value, index)=>{
                                 return (
-                                    <motion.li className='ProfileDropdownMenuItem'>
+                                    <motion.li className='ProfileDropdownMenuItem' key={"profileDropdownMenuItem-"+index}>
                                         <Link to="#" className='Item-container' key={"profile-"+index}>
                                             <img className='' src={""} alt="profile icon"/>
                                             <span className='ProfileName'>{""}</span>

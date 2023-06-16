@@ -92,12 +92,32 @@
             left: 20px;
             bottom: 100px;
 
+            @include mq-large{
+                bottom: 76px;
+            }
+
+            @include mq-medium{
+                bottom: 56px;
+            }
+
+            @include mq-small{
+                bottom: 36px;
+            }
+
             .Title{
                 color: $font-primary-color;
                 font-family: 'Playfair Display', serif;
                 font-size: $font-size-xl;
                 font-weight: 400;
                 -webkit-text-stroke: 0.5px;
+
+                @include mq-medium{
+                    font-size: $font-size-large;
+                }
+    
+                @include mq-small{
+                    font-size: $font-size-medium;
+                }
             }
 
             .Toolbar{
@@ -133,10 +153,11 @@
 
     .Contents-container{
         width: 100%;
-        padding: 16px;
 
         .Section{
-            margin-bottom: 48px;
+            margin-bottom: 36px;
+            padding: 16px;
+            overflow: hidden;
 
             .Title{
                 margin: 4px 0;
@@ -145,23 +166,61 @@
                 font-weight: 500;
             }
             .Playlist{
+                position: relative;
+                z-index: 999;
                 @include flex-row-start-center;
-                overflow: hidden;
+                overflow: visible; //to not crop the thumbnail while scaling it
                 gap: 4px;
-                padding: 4px;
+                padding: 16px;
 
                 .Thumbnail{
-                    width: 192px;
-                    height: auto;
                     z-index: 999;
-
                     transition: transform 400ms;
                     cursor: pointer;
 
                     &:hover{
-                        transform: scale(1.1);
+                        transform: scale(1.15);
+                        z-index: 9999;
                     }
-                }   
+                } 
+
+                &::before, &::after{
+                    content: "";
+                    position: absolute;
+                    z-index: 99999;
+                    width: 24px;
+                    height: 100%;
+
+                    background-image: url(../../assets/svg/arrow-right.svg);
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    
+                    filter: invert(0.5);
+                    transition: scale 400ms;
+                    cursor: pointer;
+
+                    &:hover{
+                        transform: scale(1.2);
+                    }
+                }
+
+                &::before{
+                    transform: rotateZ(180deg);
+                    left: -16px;
+                }
+                &::after{
+                    right: -12px;
+                    visibility: hidden;
+                }
+
+                &:hover::before{
+                    filter: invert(1);
+                }
+                &:hover::after{
+                    visibility: visible;
+                    filter: invert(1);
+                }
             }
         }
     }

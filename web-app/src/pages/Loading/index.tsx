@@ -9,7 +9,7 @@ export default function Loading() : JSX.Element {
 
             <DotLoader
                 className='Loader'
-                color="white"
+                color="rgb(229,9,20)"
                 size={70}
                 aria-label="Loading Spinner"
                 data-testid="loader"

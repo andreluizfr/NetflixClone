@@ -7,10 +7,13 @@ import bellIcon from '../../assets/img/bell-icon.png';
 import TheWitcher3Preview from '../../assets/video/the-witcher-3-preview.mp4';
 
 import ProfileDropdownMenu from '../../components/ProfileDropdownMenu';
+import ImprovedImage from '../../components/ImprovedImage';
 
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+
 import { motion } from 'framer-motion';
+
 
 export default function ContentsPage(): JSX.Element {
 
@@ -97,10 +100,13 @@ export default function ContentsPage(): JSX.Element {
                     >
                         {   
                             (new Array(20)).fill(0).map((value, index)=>
-                                <img 
+                                <ImprovedImage
                                     src="https://occ-0-1722-2773.1.nflxso.net/dnm/api/v6/6gmvu2hxdfnQ55LZZjyzYR4kzGk/AAAABdzOeOqPEk1M_DWfMF64utFLlsrEMLTsiViL_B4cVd1PuKFzMNbkkathcJBDLghK2pIeAanGHGL_X5pgpNZDnCQPlbK9mVM8UFdjutj-fHXxQASUlsEWhvy25GXqlXGZVz_3.jpg?r=fb8" 
                                     className='Thumbnail'
-                                    key={"work-"+index}
+                                    Key={"work-"+index}
+                                    hash="|GAT1d?wXnIUMdiwEhsmada0RPjEs.xZs:SNsos.4nDii_xu%MxtxEWWkCtl%2ofaKNGRkwdS2WBXTxaxFjFR*S3s.oLWVW;j[WWWWbHoLoLWqa|s:bHS2WBWBR*R*WooLIoM{fjozozofS2aybHoLW;a{S2Wqs.X8bHWV"
+                                    width={192}
+                                    height={108}
                                 />
                             )
                         }
@@ -118,10 +124,13 @@ export default function ContentsPage(): JSX.Element {
                     >
                         {   
                             (new Array(20)).fill(0).map((value, index)=>
-                                <img 
+                                <ImprovedImage
                                     src="https://occ-0-1722-2773.1.nflxso.net/dnm/api/v6/6gmvu2hxdfnQ55LZZjyzYR4kzGk/AAAABdzOeOqPEk1M_DWfMF64utFLlsrEMLTsiViL_B4cVd1PuKFzMNbkkathcJBDLghK2pIeAanGHGL_X5pgpNZDnCQPlbK9mVM8UFdjutj-fHXxQASUlsEWhvy25GXqlXGZVz_3.jpg?r=fb8" 
                                     className='Thumbnail'
-                                    key={"work-"+index}
+                                    Key={"work-"+index}
+                                    hash="|GAT1d?wXnIUMdiwEhsmada0RPjEs.xZs:SNsos.4nDii_xu%MxtxEWWkCtl%2ofaKNGRkwdS2WBXTxaxFjFR*S3s.oLWVW;j[WWWWbHoLoLWqa|s:bHS2WBWBR*R*WooLIoM{fjozozofS2aybHoLW;a{S2Wqs.X8bHWV"
+                                    width={192}
+                                    height={108}
                                 />
                             )
                         }
@@ -139,10 +148,13 @@ export default function ContentsPage(): JSX.Element {
                     >
                         {   
                             (new Array(20)).fill(0).map((value, index)=>
-                                <img 
+                                <ImprovedImage
                                     src="https://occ-0-1722-2773.1.nflxso.net/dnm/api/v6/6gmvu2hxdfnQ55LZZjyzYR4kzGk/AAAABdzOeOqPEk1M_DWfMF64utFLlsrEMLTsiViL_B4cVd1PuKFzMNbkkathcJBDLghK2pIeAanGHGL_X5pgpNZDnCQPlbK9mVM8UFdjutj-fHXxQASUlsEWhvy25GXqlXGZVz_3.jpg?r=fb8" 
                                     className='Thumbnail'
-                                    key={"work-"+index}
+                                    Key={"work-"+index}
+                                    hash="|GAT1d?wXnIUMdiwEhsmada0RPjEs.xZs:SNsos.4nDii_xu%MxtxEWWkCtl%2ofaKNGRkwdS2WBXTxaxFjFR*S3s.oLWVW;j[WWWWbHoLoLWqa|s:bHS2WBWBR*R*WooLIoM{fjozozofS2aybHoLW;a{S2Wqs.X8bHWV"
+                                    width={192}
+                                    height={108}
                                 />
                             )
                         }
@@ -160,10 +172,13 @@ export default function ContentsPage(): JSX.Element {
                     >
                         {   
                             (new Array(20)).fill(0).map((value, index)=>
-                                <img 
+                                <ImprovedImage
                                     src="https://occ-0-1722-2773.1.nflxso.net/dnm/api/v6/6gmvu2hxdfnQ55LZZjyzYR4kzGk/AAAABdzOeOqPEk1M_DWfMF64utFLlsrEMLTsiViL_B4cVd1PuKFzMNbkkathcJBDLghK2pIeAanGHGL_X5pgpNZDnCQPlbK9mVM8UFdjutj-fHXxQASUlsEWhvy25GXqlXGZVz_3.jpg?r=fb8" 
                                     className='Thumbnail'
-                                    key={"work-"+index}
+                                    Key={"work-"+index}
+                                    hash="|GAT1d?wXnIUMdiwEhsmada0RPjEs.xZs:SNsos.4nDii_xu%MxtxEWWkCtl%2ofaKNGRkwdS2WBXTxaxFjFR*S3s.oLWVW;j[WWWWbHoLoLWqa|s:bHS2WBWBR*R*WooLIoM{fjozozofS2aybHoLW;a{S2Wqs.X8bHWV"
+                                    width={192}
+                                    height={108}
                                 />
                             )
                         }
@@ -181,10 +196,13 @@ export default function ContentsPage(): JSX.Element {
                     >
                         {   
                             (new Array(20)).fill(0).map((value, index)=>
-                                <img 
+                                <ImprovedImage
                                     src="https://occ-0-1722-2773.1.nflxso.net/dnm/api/v6/6gmvu2hxdfnQ55LZZjyzYR4kzGk/AAAABdzOeOqPEk1M_DWfMF64utFLlsrEMLTsiViL_B4cVd1PuKFzMNbkkathcJBDLghK2pIeAanGHGL_X5pgpNZDnCQPlbK9mVM8UFdjutj-fHXxQASUlsEWhvy25GXqlXGZVz_3.jpg?r=fb8" 
                                     className='Thumbnail'
-                                    key={"work-"+index}
+                                    Key={"work-"+index}
+                                    hash="|GAT1d?wXnIUMdiwEhsmada0RPjEs.xZs:SNsos.4nDii_xu%MxtxEWWkCtl%2ofaKNGRkwdS2WBXTxaxFjFR*S3s.oLWVW;j[WWWWbHoLoLWqa|s:bHS2WBWBR*R*WooLIoM{fjozozofS2aybHoLW;a{S2Wqs.X8bHWV"
+                                    width={192}
+                                    height={108}
                                 />
                             )
                         }
