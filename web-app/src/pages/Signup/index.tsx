@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useState } from 'react';
 
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 
 export default function SignupPage(): JSX.Element {
 
@@ -25,6 +26,14 @@ export default function SignupPage(): JSX.Element {
             initial={{ x: -(width/2), opacity: 0}}
 			animate={{x: 0, opacity: 1, transition:{type: "easeIn", duration: 0.6}}}
         >
+            <Helmet>
+                <meta property="og:title" content="Netflix Signup" />
+                <meta property="og:url" content="http://localhost:5173/signup" />
+                <meta property="og:image" content={logo} />
+                <meta property="og:image:alt" content="Netflix logo" />
+                <meta property="og:description" content="Signup for the best streaming site for watching Movies, Tv Series and Animes" />
+                <meta property="og:site_name" content="Netflix" />
+            </Helmet>
 
             <header className='Header'>
                 <Link to="/">

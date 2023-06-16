@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { useDispatch } from 'react-redux';
 import { saveEmail } from '../../store/features/signupSlice';
+import { Helmet } from 'react-helmet-async';
 
 export default function Home(): JSX.Element{
 
@@ -23,6 +24,15 @@ export default function Home(): JSX.Element{
 
     return(
         <div className='HomePage'>
+            <Helmet>
+                <meta property="og:title" content="Netflix" />
+                <meta property="og:url" content="http://localhost:5173/" />
+                <meta property="og:image" content={logo} />
+                <meta property="og:image:alt" content="Netflix logo" />
+                <meta property="og:description" content="Streaming site for Watching Movies, Tv Series and Animes" />
+                <meta property="og:site_name" content="Netflix" />
+            </Helmet>
+            
             <div className='Background-gradient'>
                     
                 <header className='Header'>

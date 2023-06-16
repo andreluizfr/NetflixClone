@@ -6,25 +6,30 @@ import searchIcon from '../../assets/img/search-icon.png';
 import bellIcon from '../../assets/img/bell-icon.png';
 import TheWitcher3Preview from '../../assets/video/the-witcher-3-preview.mp4';
 
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-
 import ProfileDropdownMenu from '../../components/ProfileDropdownMenu';
 
-import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
 
 export default function ContentsPage(): JSX.Element {
 
-    useEffect(()=>{
-        const fontLink = document.createElement("link");
-        fontLink.innerHTML = '<link rel="preconnect" href="https://fonts.googleapis.com">'
-        + '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-        + '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">';
-        document.head.appendChild(fontLink);
-    }, []);
-    
+    const height = window.innerHeight;
+    const width = window.innerWidth;
+
     return (
         <motion.div className='ContentsPage'>
+            <Helmet>
+                <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
+                <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+                <meta property="og:title" content="Netflix Contents" />
+                <meta property="og:url" content="http://localhost:5173/contents" />
+                <meta property="og:image" content={logo} />
+                <meta property="og:image:alt" content="Netflix logo" />
+                <meta property="og:description" content="Watch the best Movies, Tv Series and Animes" />
+                <meta property="og:site_name" content="Netflix" />
+            </Helmet>
 
             <header className='Header'>
                 <div className='Logo-container'>
@@ -53,7 +58,11 @@ export default function ContentsPage(): JSX.Element {
                 </nav>
             </header>
 
-            <aside className='Work-preview'>
+            <motion.aside 
+                className='Work-preview'
+                initial={{y: -(height/2), opacity: 0}}
+                animate={{y: 0, opacity: 1, transition:{type: "easeOut", duration: 0.6}}}
+            >
                 <video className='Background-video' muted autoPlay loop>
                     <source src={TheWitcher3Preview} type="video/mp4"/>
                 </video>
@@ -73,7 +82,7 @@ export default function ContentsPage(): JSX.Element {
                         </button>
                     </div>
                 </div>
-            </aside>
+            </motion.aside>
 
             <main className='Contents-container'>
 
@@ -81,7 +90,11 @@ export default function ContentsPage(): JSX.Element {
                     <h1 className='Title'>
                         Continuar assistindo como {"perfil1"}
                     </h1>
-                    <div className='Playlist'>
+                    <motion.div 
+                        className='Playlist'
+                        initial={{x: -(width/2), opacity: 0}}
+                        animate={{x: 0, opacity: 1, transition:{type: "spring", bounce: 0.3, duration: 2}}}
+                    >
                         {   
                             (new Array(20)).fill(0).map((value, index)=>
                                 <img 
@@ -91,14 +104,18 @@ export default function ContentsPage(): JSX.Element {
                                 />
                             )
                         }
-                    </div>
+                    </motion.div>
                 </section>
 
                 <section className='Section'>
                     <h1 className='Title'>
                         Continuar assistindo como {"perfil1"}
                     </h1>
-                    <div className='Playlist'>
+                    <motion.div 
+                        className='Playlist'
+                        initial={{x: -(width/2), opacity: 0}}
+                        animate={{x: 0, opacity: 1, transition:{type: "spring", bounce: 0.3, duration: 2}}}
+                    >
                         {   
                             (new Array(20)).fill(0).map((value, index)=>
                                 <img 
@@ -108,14 +125,18 @@ export default function ContentsPage(): JSX.Element {
                                 />
                             )
                         }
-                    </div>
+                    </motion.div>
                 </section>
 
                 <section className='Section'>
                     <h1 className='Title'>
                         Continuar assistindo como {"perfil1"}
                     </h1>
-                    <div className='Playlist'>
+                    <motion.div 
+                        className='Playlist'
+                        initial={{x: -(width/2), opacity: 0}}
+                        animate={{x: 0, opacity: 1, transition:{type: "spring", bounce: 0.3, duration: 2}}}
+                    >
                         {   
                             (new Array(20)).fill(0).map((value, index)=>
                                 <img 
@@ -125,14 +146,18 @@ export default function ContentsPage(): JSX.Element {
                                 />
                             )
                         }
-                    </div>
+                    </motion.div>
                 </section>
 
                 <section className='Section'>
                     <h1 className='Title'>
                         Continuar assistindo como {"perfil1"}
                     </h1>
-                    <div className='Playlist'>
+                    <motion.div 
+                        className='Playlist'
+                        initial={{x: -(width/2), opacity: 0}}
+                        animate={{x: 0, opacity: 1, transition:{type: "spring", bounce: 0.3, duration: 2}}}
+                    >
                         {   
                             (new Array(20)).fill(0).map((value, index)=>
                                 <img 
@@ -142,14 +167,18 @@ export default function ContentsPage(): JSX.Element {
                                 />
                             )
                         }
-                    </div>
+                    </motion.div>
                 </section>
 
                 <section className='Section'>
                     <h1 className='Title'>
                         Continuar assistindo como {"perfil1"}
                     </h1>
-                    <div className='Playlist'>
+                    <motion.div 
+                        className='Playlist'
+                        initial={{x: -(width/2), opacity: 0}}
+                        animate={{x: 0, opacity: 1, transition:{type: "spring", bounce: 0.3, duration: 2}}}
+                    >
                         {   
                             (new Array(20)).fill(0).map((value, index)=>
                                 <img 
@@ -159,7 +188,7 @@ export default function ContentsPage(): JSX.Element {
                                 />
                             )
                         }
-                    </div>
+                    </motion.div>
                 </section>
 
             </main>
