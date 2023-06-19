@@ -284,7 +284,6 @@
   padding-bottom: 18px;
   border-radius: 4px;
   background-color: rgb(229, 9, 20);
-  cursor: pointer;
 }
 .SignupPlanPage .BestPlan-background .BestPlan-container .Center .NextStep-button:hover {
   opacity: 0.95;
@@ -294,6 +293,7 @@
   font-size: 1.6rem;
   font-weight: 400;
   text-decoration: none;
+  cursor: pointer;
 }
 .SignupPlanPage .BestPlan-background .BestPlan-container .Center .NextStep-button a:visited {
   color: rgb(255, 255, 255);

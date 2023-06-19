@@ -298,8 +298,6 @@
                     padding-bottom: 18px;
                     border-radius: 4px;
                     background-color: $button-primary-color;
-            
-                    cursor: pointer;
         
                     &:hover{
                         opacity: 0.95;
@@ -310,6 +308,7 @@
                         font-size: $font-size-large;
                         font-weight: 400;
                         text-decoration: none;
+                        cursor: pointer;
         
                         &:visited{
                             color: $font-primary-color;

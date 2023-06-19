@@ -1,11 +1,10 @@
 import './styles.css';
 import logo from '../../assets/svg/logo.svg';
 
-import { useRef, lazy, Suspense } from 'react';
+import { useRef, lazy } from 'react';
 
 import Header from './Header';
 const WorkPreview = lazy(()=> import('./WorkPreview'));
-import WorkPreviewFallback from './WorkPreviewFallback';
 import Playlist from './Playlist';
 import Footer from './Footer';
 
@@ -49,9 +48,7 @@ export default function ContentsPage(): JSX.Element {
 
             <Header headerRef={headerRef}/>
 
-            <Suspense fallback={<WorkPreviewFallback/>}>
-                <WorkPreview/>
-            </Suspense>
+            <WorkPreview/>
             
             <main className='Contents-container'>
                 <Playlist title={"Continuar assistindo como perfil1"} works={playlists[0].works}/>

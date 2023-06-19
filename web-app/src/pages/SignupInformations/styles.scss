@@ -8,7 +8,7 @@
     width: 100%;
     background-color: $background-secondary-color;
 
-    .Header{
+    & > .Header{
         @include flex-row-space-between-center;
         width: 100%;
         padding: 16px;
@@ -134,7 +134,7 @@
 
     }
 
-    footer{
+    & > footer{
         width: 100%;
         @include flex-column-start-start;
         gap: 16px;

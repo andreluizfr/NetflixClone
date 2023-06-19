@@ -1,4 +1,4 @@
-.Header {
+.ContentsPage > .Header {
   position: fixed;
   top: 0;
   z-index: 9999;
@@ -12,41 +12,41 @@
   background-color: transparent;
   transition: background-color 300ms;
 }
-.Header .Logo-container {
+.ContentsPage > .Header .Logo-container {
   margin-left: 16px;
 }
 @media only screen and (max-width: 956px) {
-  .Header .Logo-container {
+  .ContentsPage > .Header .Logo-container {
     margin-left: 64px;
   }
 }
 @media only screen and (max-width: 576px) {
-  .Header .Logo-container {
+  .ContentsPage > .Header .Logo-container {
     margin-left: 32px;
   }
 }
-.Header .Logo-container .Logo {
+.ContentsPage > .Header .Logo-container .Logo {
   height: 24px;
   width: auto;
 }
-.Header .Content-navigation ul {
+.ContentsPage > .Header .Content-navigation ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
   padding: 0;
 }
-.Header .Content-navigation ul li {
+.ContentsPage > .Header .Content-navigation ul li {
   list-style-type: none;
   font-size: 0.8rem;
   font-weight: 300;
   color: rgb(255, 255, 255);
   cursor: pointer;
 }
-.Header .Content-navigation ul li:hover {
+.ContentsPage > .Header .Content-navigation ul li:hover {
   text-decoration: underline;
 }
-.Header .Hamburguer-menu::before {
+.ContentsPage > .Header .Hamburguer-menu::before {
   content: "";
   display: block;
   width: 24px;
@@ -61,10 +61,10 @@
   filter: invert(1);
   transition: all 200ms;
 }
-.Header .Hamburguer-menu:hover::before {
+.ContentsPage > .Header .Hamburguer-menu:hover::before {
   transform: rotateZ(90deg);
 }
-.Header .Hamburguer-menu ul {
+.ContentsPage > .Header .Hamburguer-menu ul {
   position: absolute;
   top: 32px;
   left: 0;
@@ -79,28 +79,28 @@
   opacity: 0;
   transition: opacity 400ms;
 }
-.Header .Hamburguer-menu:hover ul {
+.ContentsPage > .Header .Hamburguer-menu:hover ul {
   visibility: visible;
   opacity: 1;
 }
-.Header .Extra-space {
+.ContentsPage > .Header .Extra-space {
   flex: 1 1 0;
 }
-.Header .Other-options-container {
+.ContentsPage > .Header .Other-options-container {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
   padding-right: 8px;
 }
-.Header .Other-options-container .Search-icon {
+.ContentsPage > .Header .Other-options-container .Search-icon {
   margin-right: 8px;
   width: 16px;
   height: auto;
   filter: invert(1);
   cursor: pointer;
 }
-.Header .Other-options-container .Notifications-icon {
+.ContentsPage > .Header .Other-options-container .Notifications-icon {
   width: 24px;
   height: auto;
   filter: invert(1);

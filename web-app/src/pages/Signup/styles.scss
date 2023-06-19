@@ -14,9 +14,12 @@
         border-bottom: 1px solid rgba(0,0,0,0.16);
 
         a{
+            cursor: pointer;
+
             .Logo{
                 height: 46px;
                 width: auto;
+                pointer-events: none;
             }
         }
 
@@ -25,6 +28,7 @@
             font-size: $font-size-normal;
             font-weight: 500;
             text-decoration: none;
+            cursor: pointer;
 
             &:visited{
                 color: $font-quinary-color;
@@ -179,8 +183,6 @@
                 padding-bottom: 18px;
                 border-radius: 4px;
                 background-color: $button-primary-color;
-                
-                cursor: pointer;
 
                 &:hover{
                     opacity: 0.95;
@@ -191,6 +193,8 @@
                     font-size: $font-size-large;
                     font-weight: 400;
                     text-decoration: none;
+                    cursor: pointer;
+                    width: 100%;
                     
                     &:visited{
                         color: $font-primary-color;

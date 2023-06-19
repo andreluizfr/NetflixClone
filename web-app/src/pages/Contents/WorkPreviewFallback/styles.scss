@@ -1,9 +1,0 @@
-@import '../../../assets/sass/variables';
-@import '../../../assets/sass/mixins';
-
-.Work-preview-fallback{
-    @include flex-column-center-center;
-    width: 100%;
-    aspect-ratio: 16/9;
-    background-color: $background-primary-color;
-}
