@@ -25,7 +25,7 @@ export default function SignupInformationsPage(): JSX.Element{
     const signup = useSelector((state: StoreState) => state.signup);
     const dispatch = useDispatch();
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<registerForm>();
+    const { register, handleSubmit } = useForm<registerForm>();
 
     function onSubmit (data: registerForm){
         dispatch(saveBirthdayDate(data.birthdayDate));

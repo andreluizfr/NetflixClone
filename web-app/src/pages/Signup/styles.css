@@ -1,4 +1,8 @@
 .SignupPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
   width: 100%;
   background-color: rgb(255, 255, 255);
@@ -28,11 +32,7 @@
   text-decoration: underline;
 }
 .SignupPage .Steps-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  flex: 1;
 }
 .SignupPage .Steps-container .Signup-container-1 {
   min-width: 320px;

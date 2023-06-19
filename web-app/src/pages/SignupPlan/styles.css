@@ -33,7 +33,10 @@
 .SignupPlanPage .Header .Login-link:hover {
   text-decoration: underline;
 }
-.SignupPlanPage .BestPlan-container {
+.SignupPlanPage .BestPlan-background {
+  flex: 1;
+}
+.SignupPlanPage .BestPlan-background .BestPlan-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -43,18 +46,18 @@
   gap: 8px;
   padding: 24px;
 }
-.SignupPlanPage .BestPlan-container .Step-info {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Step-info {
   color: #333;
   font-size: 0.8rem;
   font-weight: 400;
   text-align: center;
 }
 @media only screen and (max-width: 576px) {
-  .SignupPlanPage .BestPlan-container .Step-info {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Step-info {
     text-align: left;
   }
 }
-.SignupPlanPage .BestPlan-container .Title {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Title {
   margin: 0 0 16px 0;
   color: #333;
   font-size: 2rem;
@@ -62,23 +65,23 @@
   text-align: center;
 }
 @media only screen and (max-width: 576px) {
-  .SignupPlanPage .BestPlan-container .Title {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Title {
     text-align: left;
   }
 }
-.SignupPlanPage .BestPlan-container .Advantages {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Advantages {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 8px;
   margin: 0;
 }
-.SignupPlanPage .BestPlan-container .Advantages .Icon {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Advantages .Icon {
   margin: 0;
   width: 24px;
   height: auto;
 }
-.SignupPlanPage .BestPlan-container .Advantages .Text {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Advantages .Text {
   margin: 0;
   color: #333;
   font-size: 1.2rem;
@@ -86,7 +89,7 @@
   text-align: left;
   letter-spacing: -0.1px;
 }
-.SignupPlanPage .BestPlan-container .Plans {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -95,23 +98,23 @@
   top: 0;
   background-color: white;
 }
-.SignupPlanPage .BestPlan-container .Plans .Stretch {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Stretch {
   flex-grow: 1;
   min-width: 378px;
   width: 45%;
   height: 100px;
 }
 @media only screen and (max-width: 956px) {
-  .SignupPlanPage .BestPlan-container .Plans .Stretch {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Stretch {
     min-width: 0;
   }
 }
 @media only screen and (max-width: 576px) {
-  .SignupPlanPage .BestPlan-container .Plans .Stretch {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Stretch {
     display: none;
   }
 }
-.SignupPlanPage .BestPlan-container .Plans .Plans-container {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Plans-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -119,35 +122,35 @@
   flex-grow: 1;
 }
 @media only screen and (max-width: 956px) {
-  .SignupPlanPage .BestPlan-container .Plans .Plans-container {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Plans-container {
     flex-grow: 0;
     justify-content: flex-end;
   }
 }
 @media only screen and (max-width: 576px) {
-  .SignupPlanPage .BestPlan-container .Plans .Plans-container {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Plans-container {
     flex-grow: 1;
     justify-content: stretch;
     gap: 8px;
   }
 }
-.SignupPlanPage .BestPlan-container .Plans .Plans-container span {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Plans-container span {
   margin: 16px;
   background-color: white;
 }
 @media only screen and (max-width: 576px) {
-  .SignupPlanPage .BestPlan-container .Plans .Plans-container span {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Plans-container span {
     margin: 4px 0;
     flex: 1;
     width: 100%;
   }
 }
 @media only screen and (max-width: 576px) {
-  .SignupPlanPage .BestPlan-container .Plans .Plans-container span:first-child .Plan {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Plans-container span:first-child .Plan {
     padding-top: 16px;
   }
 }
-.SignupPlanPage .BestPlan-container .Plans .Plans-container span .Plan {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Plans-container span .Plan {
   display: table-cell;
   position: relative;
   min-width: 92px;
@@ -163,7 +166,7 @@
   font-weight: 500;
 }
 @media only screen and (max-width: 576px) {
-  .SignupPlanPage .BestPlan-container .Plans .Plans-container span .Plan {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Plans-container span .Plan {
     height: 76px;
     min-width: none;
     max-width: none;
@@ -172,10 +175,10 @@
     padding-top: 28px;
   }
 }
-.SignupPlanPage .BestPlan-container .Plans .Plans-container span .Plan[active=false] {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Plans-container span .Plan[active=false] {
   background-color: rgb(235, 109, 115);
 }
-.SignupPlanPage .BestPlan-container .Plans .Plans-container span .Plan[active=true]::after {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Plans-container span .Plan[active=true]::after {
   position: absolute;
   bottom: -6px;
   left: 42%;
@@ -186,27 +189,27 @@
   background-color: rgb(229, 9, 20);
   transform: rotateZ(45deg);
 }
-.SignupPlanPage .BestPlan-container .Plans .Plans-container span:last-child {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans .Plans-container span:last-child {
   margin-right: 4px;
 }
-.SignupPlanPage .BestPlan-container .Plans-table {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table {
   border-collapse: collapse;
   width: 100%;
 }
-.SignupPlanPage .BestPlan-container .Plans-table tbody {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody {
   border-spacing: 50px 0;
   width: 100%;
 }
-.SignupPlanPage .BestPlan-container .Plans-table tbody tr {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr {
   position: relative;
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.24);
 }
-.SignupPlanPage .BestPlan-container .Plans-table tbody tr:last-child {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr:last-child {
   border-bottom: none;
 }
 @media only screen and (max-width: 576px) {
-  .SignupPlanPage .BestPlan-container .Plans-table tbody tr::after {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr::after {
     position: absolute;
     width: 95%;
     top: 12px;
@@ -215,58 +218,58 @@
     font-size: 0.8rem;
     color: #333;
   }
-  .SignupPlanPage .BestPlan-container .Plans-table tbody tr:nth-child(1)::after {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr:nth-child(1)::after {
     content: "Preço por mês";
   }
-  .SignupPlanPage .BestPlan-container .Plans-table tbody tr:nth-child(2)::after {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr:nth-child(2)::after {
     content: "Qualidade do vídeo";
   }
-  .SignupPlanPage .BestPlan-container .Plans-table tbody tr:nth-child(3)::after {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr:nth-child(3)::after {
     content: "Resolução";
   }
-  .SignupPlanPage .BestPlan-container .Plans-table tbody tr:nth-child(4)::after {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr:nth-child(4)::after {
     content: "Assista na TV, computador, celular ou tablet";
   }
-  .SignupPlanPage .BestPlan-container .Plans-table tbody tr:nth-child(5)::after {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr:nth-child(5)::after {
     content: "Downloads";
   }
 }
-.SignupPlanPage .BestPlan-container .Plans-table tbody tr td {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr td {
   padding: 16px 32px;
   text-align: center;
   color: #333;
   font-weight: 300;
 }
 @media only screen and (max-width: 576px) {
-  .SignupPlanPage .BestPlan-container .Plans-table tbody tr td {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr td {
     padding: 48px 16px 16px 16px;
   }
 }
-.SignupPlanPage .BestPlan-container .Plans-table tbody tr td[active=false] {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr td[active=false] {
   color: #8c8c8c;
 }
-.SignupPlanPage .BestPlan-container .Plans-table tbody tr td:first-child {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr td:first-child {
   padding-left: 16px;
   text-align: left;
 }
 @media only screen and (max-width: 576px) {
-  .SignupPlanPage .BestPlan-container .Plans-table tbody tr td:first-child {
+  .SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr td:first-child {
     display: none;
   }
 }
-.SignupPlanPage .BestPlan-container .Plans-table tbody tr td:last-child {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr td:last-child {
   padding-right: 8px;
 }
-.SignupPlanPage .BestPlan-container .Plans-table tbody tr td:nth-child(n+2) {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Plans-table tbody tr td:nth-child(n+2) {
   font-weight: 500;
 }
-.SignupPlanPage .BestPlan-container .Center {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Center {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
-.SignupPlanPage .BestPlan-container .Center .AllPlans-button {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Center .AllPlans-button {
   padding: 8px 12px;
   border-radius: 4px;
   background-color: #E3E3E3;
@@ -274,7 +277,7 @@
   font-size: 0.8rem;
   font-weight: 600;
 }
-.SignupPlanPage .BestPlan-container .Center .NextStep-button {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Center .NextStep-button {
   margin: 24px 0 0 0;
   width: 400px;
   padding-top: 18px;
@@ -283,31 +286,31 @@
   background-color: rgb(229, 9, 20);
   cursor: pointer;
 }
-.SignupPlanPage .BestPlan-container .Center .NextStep-button:hover {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Center .NextStep-button:hover {
   opacity: 0.95;
 }
-.SignupPlanPage .BestPlan-container .Center .NextStep-button a {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Center .NextStep-button a {
   color: rgb(255, 255, 255);
   font-size: 1.6rem;
   font-weight: 400;
   text-decoration: none;
 }
-.SignupPlanPage .BestPlan-container .Center .NextStep-button a:visited {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Center .NextStep-button a:visited {
   color: rgb(255, 255, 255);
 }
-.SignupPlanPage .BestPlan-container .Disclaimers p {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Disclaimers p {
   color: #8c8c8c;
   font-size: 0.8rem;
   font-weight: 300;
 }
-.SignupPlanPage .BestPlan-container .Disclaimers p a {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Disclaimers p a {
   color: #0071eb;
   text-decoration: none;
 }
-.SignupPlanPage .BestPlan-container .Disclaimers p a:visited {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Disclaimers p a:visited {
   color: #0071eb;
 }
-.SignupPlanPage .BestPlan-container .Disclaimers p a:hover {
+.SignupPlanPage .BestPlan-background .BestPlan-container .Disclaimers p a:hover {
   text-decoration: underline;
 }
 .SignupPlanPage footer {

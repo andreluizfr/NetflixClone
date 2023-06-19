@@ -5,6 +5,7 @@
   justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
+  min-width: 324px;
   width: 100%;
   background-color: rgb(0, 0, 0);
 }
@@ -15,14 +16,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
   width: 100%;
+  min-width: 324px;
   padding: 8px;
-  background: rgba(0, 0, 0, 0.24);
-  -webkit-backdrop-filter: blur(2px);
-          backdrop-filter: blur(2px);
+  background-color: transparent;
+  transition: background-color 300ms;
 }
 .ContentsPage .Header .Logo-container {
   margin-left: 16px;
+}
+@media only screen and (max-width: 956px) {
+  .ContentsPage .Header .Logo-container {
+    margin-left: 64px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .ContentsPage .Header .Logo-container {
+    margin-left: 32px;
+  }
 }
 .ContentsPage .Header .Logo-container .Logo {
   height: 24px;
@@ -33,6 +45,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  padding: 0;
 }
 .ContentsPage .Header .Content-navigation ul li {
   list-style-type: none;
@@ -44,6 +57,40 @@
 .ContentsPage .Header .Content-navigation ul li:hover {
   text-decoration: underline;
 }
+.ContentsPage .Header .Hamburguer-menu::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 8px;
+  left: 0;
+  background-image: url("../../assets/img/hamburger-menu.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: invert(1);
+  transition: all 200ms;
+}
+.ContentsPage .Header .Hamburguer-menu:hover::before {
+  transform: rotateZ(90deg);
+}
+.ContentsPage .Header .Hamburguer-menu ul {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: rgb(0, 0, 0);
+  visibility: hidden;
+}
+.ContentsPage .Header .Hamburguer-menu:hover ul {
+  visibility: visible;
+}
 .ContentsPage .Header .Extra-space {
   flex: 1 1 0;
 }
@@ -51,7 +98,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
   padding-right: 8px;
 }
 .ContentsPage .Header .Other-options-container .Search-icon {
@@ -101,6 +148,7 @@
   }
 }
 .ContentsPage .Work-preview .Work-preview-menu .Title {
+  margin-bottom: 12px;
   color: rgb(255, 255, 255);
   font-family: "Playfair Display", serif;
   font-size: 2rem;
@@ -109,11 +157,13 @@
 }
 @media only screen and (max-width: 720px) {
   .ContentsPage .Work-preview .Work-preview-menu .Title {
+    margin-bottom: 8px;
     font-size: 1.6rem;
   }
 }
 @media only screen and (max-width: 576px) {
   .ContentsPage .Work-preview .Work-preview-menu .Title {
+    margin-bottom: 4px;
     font-size: 1.2rem;
   }
 }
@@ -135,6 +185,12 @@
   font-size: 0.8rem;
   cursor: pointer;
 }
+@media only screen and (max-width: 576px) {
+  .ContentsPage .Work-preview .Work-preview-menu .Toolbar .Button {
+    padding: 6px;
+    font-size: 0.7rem;
+  }
+}
 .ContentsPage .Work-preview .Work-preview-menu .Toolbar .Button img {
   width: 12px;
   height: auto;
@@ -148,69 +204,8 @@
   background-color: #8c8c8c;
 }
 .ContentsPage .Contents-container {
+  flex: 1;
   width: 100%;
-}
-.ContentsPage .Contents-container .Section {
-  margin-bottom: 36px;
-  padding: 16px;
-  overflow: hidden;
-}
-.ContentsPage .Contents-container .Section .Title {
-  margin: 4px 0;
-  color: rgb(255, 255, 255);
-  font-size: 1.2rem;
-  font-weight: 500;
-}
-.ContentsPage .Contents-container .Section .Playlist {
-  position: relative;
-  z-index: 999;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  overflow: visible;
-  gap: 4px;
-  padding: 16px;
-}
-.ContentsPage .Contents-container .Section .Playlist .Thumbnail {
-  z-index: 999;
-  transition: transform 400ms;
-  cursor: pointer;
-}
-.ContentsPage .Contents-container .Section .Playlist .Thumbnail:hover {
-  transform: scale(1.15);
-  z-index: 9999;
-}
-.ContentsPage .Contents-container .Section .Playlist::before, .ContentsPage .Contents-container .Section .Playlist::after {
-  content: "";
-  position: absolute;
-  z-index: 99999;
-  width: 24px;
-  height: 100%;
-  background-image: url(../../assets/svg/arrow-right.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  filter: invert(0.5);
-  transition: scale 400ms;
-  cursor: pointer;
-}
-.ContentsPage .Contents-container .Section .Playlist::before:hover, .ContentsPage .Contents-container .Section .Playlist::after:hover {
-  transform: scale(1.2);
-}
-.ContentsPage .Contents-container .Section .Playlist::before {
-  transform: rotateZ(180deg);
-  left: -16px;
-}
-.ContentsPage .Contents-container .Section .Playlist::after {
-  right: -12px;
-  visibility: hidden;
-}
-.ContentsPage .Contents-container .Section .Playlist:hover::before {
-  filter: invert(1);
-}
-.ContentsPage .Contents-container .Section .Playlist:hover::after {
-  visibility: visible;
-  filter: invert(1);
 }
 .ContentsPage footer {
   width: 100%;

@@ -44,7 +44,7 @@ body {
 
 * {
   border: none;
-  margin: none;
+  margin: 0;
   outline: none;
   box-sizing: border-box;
 }

@@ -2,6 +2,8 @@
 @import '../../assets/sass/mixins';
 
 .SignupPaymentPickerPage{
+    @include flex-column-center-center;
+    width: 100%;
     min-height: 100vh; 
     width: 100%;
     background-color: $background-secondary-color;
@@ -36,8 +38,7 @@
     }
 
     .Steps-container{
-        @include flex-column-center-center;
-        width: 100%;
+        flex: 1;
 
         .PaymentPicker-container{
             min-width: 320px;

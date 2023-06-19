@@ -33,7 +33,10 @@
   height: 48px;
   width: auto;
 }
-.LoginPage .Background-filter .Login-form {
+.LoginPage .Background-filter .Login-background {
+  flex: 1;
+}
+.LoginPage .Background-filter .Login-background .Login-form {
   width: 440px;
   display: flex;
   flex-direction: column;
@@ -44,18 +47,18 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 @media only screen and (max-width: 720px) {
-  .LoginPage .Background-filter .Login-form {
+  .LoginPage .Background-filter .Login-background .Login-form {
     width: 100%;
     padding: 0 22px;
   }
 }
-.LoginPage .Background-filter .Login-form > .Title {
+.LoginPage .Background-filter .Login-background .Login-form > .Title {
   margin: 0 0 8px 0;
   font-size: 2rem;
   color: rgb(255, 255, 255);
   font-weight: 600;
 }
-.LoginPage .Background-filter .Login-form .Login-button {
+.LoginPage .Background-filter .Login-background .Login-form .Login-button {
   width: 100%;
   height: 48px;
   border-radius: 4px;
@@ -65,23 +68,23 @@
   font-weight: 600;
   cursor: pointer;
 }
-.LoginPage .Background-filter .Login-form .Remember-me-and-need-help-container {
+.LoginPage .Background-filter .Login-background .Login-form .Remember-me-and-need-help-container {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.LoginPage .Background-filter .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox {
+.LoginPage .Background-filter .Login-background .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.LoginPage .Background-filter .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox label input {
+.LoginPage .Background-filter .Login-background .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox label input {
   position: relative;
   inset: 0;
   zoom: 1.4;
 }
-.LoginPage .Background-filter .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox label input::before {
+.LoginPage .Background-filter .Login-background .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox label input::before {
   content: "";
   display: block;
   position: absolute;
@@ -91,7 +94,7 @@
   border-radius: 2px;
   background-color: #737373;
 }
-.LoginPage .Background-filter .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox label input::after {
+.LoginPage .Background-filter .Login-background .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox label input::after {
   content: "";
   display: none;
   position: absolute;
@@ -103,45 +106,45 @@
   background-size: 80%;
   background-repeat: no-repeat;
 }
-.LoginPage .Background-filter .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox label input:focus::before {
+.LoginPage .Background-filter .Login-background .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox label input:focus::before {
   background-color: rgb(255, 255, 255);
 }
-.LoginPage .Background-filter .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox label input:checked::after {
+.LoginPage .Background-filter .Login-background .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox label input:checked::after {
   display: block;
 }
-.LoginPage .Background-filter .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox span {
+.LoginPage .Background-filter .Login-background .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox span {
   color: #b3b3b3;
   font-size: 0.8rem;
 }
-.LoginPage .Background-filter .Login-form .Remember-me-and-need-help-container .Need-help {
+.LoginPage .Background-filter .Login-background .Login-form .Remember-me-and-need-help-container .Need-help {
   color: #b3b3b3;
   font-size: 0.8rem;
   cursor: pointer;
 }
-.LoginPage .Background-filter .Login-form .Aditional-infos-container {
+.LoginPage .Background-filter .Login-background .Login-form .Aditional-infos-container {
   color: #8c8c8c;
 }
-.LoginPage .Background-filter .Login-form .Aditional-infos-container .New-members {
+.LoginPage .Background-filter .Login-background .Login-form .Aditional-infos-container .New-members {
   margin: 8px 0 8px 0;
   font-size: 1rem;
 }
-.LoginPage .Background-filter .Login-form .Aditional-infos-container .New-members strong {
+.LoginPage .Background-filter .Login-background .Login-form .Aditional-infos-container .New-members strong {
   color: rgb(255, 255, 255);
 }
-.LoginPage .Background-filter .Login-form .Aditional-infos-container .Recaptcha-notice {
+.LoginPage .Background-filter .Login-background .Login-form .Aditional-infos-container .Recaptcha-notice {
   margin: 8px 0 0 0;
   font-size: 0.8rem;
   line-height: 15px;
 }
-.LoginPage .Background-filter .Login-form .Aditional-infos-container .Recaptcha-notice a {
+.LoginPage .Background-filter .Login-background .Login-form .Aditional-infos-container .Recaptcha-notice a {
   color: #0071eb;
   text-decoration: none;
 }
-.LoginPage .Background-filter .Login-form .Aditional-infos-container .Recaptcha-notice a:visited {
+.LoginPage .Background-filter .Login-background .Login-form .Aditional-infos-container .Recaptcha-notice a:visited {
   color: #0071eb;
   text-decoration: none;
 }
-.LoginPage .Background-filter .Login-form .Aditional-infos-container .Recaptcha-notice a:hover {
+.LoginPage .Background-filter .Login-background .Login-form .Aditional-infos-container .Recaptcha-notice a:hover {
   text-decoration: underline;
 }
 .LoginPage .Background-filter footer {

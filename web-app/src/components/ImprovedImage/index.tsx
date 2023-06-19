@@ -9,7 +9,6 @@ interface ImprovedImageProps extends React.HTMLProps<HTMLImageElement> {
     punch?: number;
     resolutionX?: number;
     resolutionY?: number;
-    Key?: number | string;
 }
 
 export default function ImprovedImage(props: ImprovedImageProps): JSX.Element {
@@ -23,6 +22,7 @@ export default function ImprovedImage(props: ImprovedImageProps): JSX.Element {
         loadImage();
         if(!created)
             getBlurImage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ref, ref.current]);
 
     function loadImage(){
@@ -31,7 +31,7 @@ export default function ImprovedImage(props: ImprovedImageProps): JSX.Element {
         img.onload = () => setLoading(false);
         img.onerror = () => setError(true);
 
-        img.crossOrigin = "anonymous";
+        //img.crossOrigin = "Anonymous";
         img.src = props.src || "";
     }
 
@@ -67,7 +67,6 @@ export default function ImprovedImage(props: ImprovedImageProps): JSX.Element {
                     alt="the link of image is broken"
                     width={props.width}
                     height={props.height}
-                    key={props.Key}
                     style={{filter: "invert(1)"}}
                     loading="lazy"
                 />
@@ -76,7 +75,6 @@ export default function ImprovedImage(props: ImprovedImageProps): JSX.Element {
         return  <div 
                     className={props.className}
                     ref={ref} 
-                    key={props.Key}
                 />
             
     else
@@ -86,7 +84,6 @@ export default function ImprovedImage(props: ImprovedImageProps): JSX.Element {
                     alt={props.alt}
                     width={props.width}
                     height={props.height}
-                    key={props.Key}
                     loading="lazy"
                 />
                 

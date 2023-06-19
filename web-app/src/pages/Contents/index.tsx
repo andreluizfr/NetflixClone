@@ -4,24 +4,46 @@ import playButton from '../../assets/svg/play-button.svg';
 import infoCircle from '../../assets/svg/info-circle.svg';
 import searchIcon from '../../assets/img/search-icon.png';
 import bellIcon from '../../assets/img/bell-icon.png';
-import TheWitcher3Preview from '../../assets/video/the-witcher-3-preview.mp4';
+//enviar diretamente faz com que fique na tela de loading dos suspense um bom tempo
+import TheWitcher3Preview from '../../assets/video/the-witcher-3-preview.mp4'; 
 
 import ProfileDropdownMenu from '../../components/ProfileDropdownMenu';
-import ImprovedImage from '../../components/ImprovedImage';
+import Playlist from './Playlist';
 
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform  } from 'framer-motion';
 
+import playlistsData from './playlists.json';
+import { useMediaQuery } from 'react-responsive';
+
+const playlists = playlistsData.playlists;
 
 export default function ContentsPage(): JSX.Element {
 
     const height = window.innerHeight;
-    const width = window.innerWidth;
+
+    const isLarge = useMediaQuery({ query: '(max-width: 956px)' });
+
+    const pageRef = useRef(null);
+    const headerRef = useRef(null);
+
+	const { scrollYProgress } = useScroll({
+		target: pageRef
+	});
+    
+    useTransform(scrollYProgress, value=>{
+        //value in %
+        if(headerRef?.current && (value*100) >= 10)
+            (headerRef.current as HTMLElement).style.backgroundColor = "#000000";
+        else if(headerRef?.current && (value*100) < 10)
+            (headerRef.current as HTMLElement).style.backgroundColor = "transparent";
+	});
 
     return (
-        <motion.div className='ContentsPage'>
+        <motion.div className='ContentsPage' ref={pageRef}>
             <Helmet>
                 <link rel="preconnect" href="https://fonts.googleapis.com"/>
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
@@ -34,23 +56,46 @@ export default function ContentsPage(): JSX.Element {
                 <meta property="og:site_name" content="Netflix" />
             </Helmet>
 
-            <header className='Header'>
-                <div className='Logo-container'>
-                    <Link to="/contents">
-                        <img className='Logo' src={logo} alt="Netflix Logo"/>
-                    </Link> 
-                </div>
+            <header className='Header' ref={headerRef}>
+                {isLarge?
+                    <>  
+                        <nav className='Content-navigation Hamburguer-menu'>
+                            <ul>
+                                <li>Início</li>
+                                <li>Séries</li>
+                                <li>Filmes</li>
+                                <li>Bombando</li>
+                                <li>Minha lista</li>
+                                <li>Navegar por idiomas</li>
+                            </ul>
+                        </nav>
 
-                <nav className='Content-navigation'>
-                    <ul>
-                        <li>Início</li>
-                        <li>Séries</li>
-                        <li>Filmes</li>
-                        <li>Bombando</li>
-                        <li>Minha lista</li>
-                        <li>Navegar por idiomas</li>
-                    </ul>
-                </nav>
+                        <div className='Logo-container'>
+                            <Link to="/contents">
+                                <img className='Logo' src={logo} alt="Netflix Logo"/>
+                            </Link> 
+                        </div>
+                    </>
+                    :
+                    <>
+                        <div className='Logo-container'>
+                            <Link to="/contents">
+                                <img className='Logo' src={logo} alt="Netflix Logo"/>
+                            </Link> 
+                        </div>
+
+                        <nav className='Content-navigation'>
+                            <ul>
+                                <li>Início</li>
+                                <li>Séries</li>
+                                <li>Filmes</li>
+                                <li>Bombando</li>
+                                <li>Minha lista</li>
+                                <li>Navegar por idiomas</li>
+                            </ul>
+                        </nav>
+                    </>
+                }
 
                 <span className='Extra-space'/>
 
@@ -76,7 +121,7 @@ export default function ContentsPage(): JSX.Element {
                     <div className='Toolbar'>
                         <button className='Button'>
                             <img src={playButton} alt="play icon"/>
-                            Assistir
+                            Assistir 
                         </button>
 
                         <button className='Button'>
@@ -88,127 +133,11 @@ export default function ContentsPage(): JSX.Element {
             </motion.aside>
 
             <main className='Contents-container'>
-
-                <section className='Section'>
-                    <h1 className='Title'>
-                        Continuar assistindo como {"perfil1"}
-                    </h1>
-                    <motion.div 
-                        className='Playlist'
-                        initial={{x: -(width/2), opacity: 0}}
-                        animate={{x: 0, opacity: 1, transition:{type: "spring", bounce: 0.3, duration: 2}}}
-                    >
-                        {   
-                            (new Array(20)).fill(0).map((value, index)=>
-                                <ImprovedImage
-                                    src="https://occ-0-1722-2773.1.nflxso.net/dnm/api/v6/6gmvu2hxdfnQ55LZZjyzYR4kzGk/AAAABdzOeOqPEk1M_DWfMF64utFLlsrEMLTsiViL_B4cVd1PuKFzMNbkkathcJBDLghK2pIeAanGHGL_X5pgpNZDnCQPlbK9mVM8UFdjutj-fHXxQASUlsEWhvy25GXqlXGZVz_3.jpg?r=fb8" 
-                                    className='Thumbnail'
-                                    Key={"work-"+index}
-                                    hash="|GAT1d?wXnIUMdiwEhsmada0RPjEs.xZs:SNsos.4nDii_xu%MxtxEWWkCtl%2ofaKNGRkwdS2WBXTxaxFjFR*S3s.oLWVW;j[WWWWbHoLoLWqa|s:bHS2WBWBR*R*WooLIoM{fjozozofS2aybHoLW;a{S2Wqs.X8bHWV"
-                                    width={192}
-                                    height={108}
-                                />
-                            )
-                        }
-                    </motion.div>
-                </section>
-
-                <section className='Section'>
-                    <h1 className='Title'>
-                        Continuar assistindo como {"perfil1"}
-                    </h1>
-                    <motion.div 
-                        className='Playlist'
-                        initial={{x: -(width/2), opacity: 0}}
-                        animate={{x: 0, opacity: 1, transition:{type: "spring", bounce: 0.3, duration: 2}}}
-                    >
-                        {   
-                            (new Array(20)).fill(0).map((value, index)=>
-                                <ImprovedImage
-                                    src="https://occ-0-1722-2773.1.nflxso.net/dnm/api/v6/6gmvu2hxdfnQ55LZZjyzYR4kzGk/AAAABdzOeOqPEk1M_DWfMF64utFLlsrEMLTsiViL_B4cVd1PuKFzMNbkkathcJBDLghK2pIeAanGHGL_X5pgpNZDnCQPlbK9mVM8UFdjutj-fHXxQASUlsEWhvy25GXqlXGZVz_3.jpg?r=fb8" 
-                                    className='Thumbnail'
-                                    Key={"work-"+index}
-                                    hash="|GAT1d?wXnIUMdiwEhsmada0RPjEs.xZs:SNsos.4nDii_xu%MxtxEWWkCtl%2ofaKNGRkwdS2WBXTxaxFjFR*S3s.oLWVW;j[WWWWbHoLoLWqa|s:bHS2WBWBR*R*WooLIoM{fjozozofS2aybHoLW;a{S2Wqs.X8bHWV"
-                                    width={192}
-                                    height={108}
-                                />
-                            )
-                        }
-                    </motion.div>
-                </section>
-
-                <section className='Section'>
-                    <h1 className='Title'>
-                        Continuar assistindo como {"perfil1"}
-                    </h1>
-                    <motion.div 
-                        className='Playlist'
-                        initial={{x: -(width/2), opacity: 0}}
-                        animate={{x: 0, opacity: 1, transition:{type: "spring", bounce: 0.3, duration: 2}}}
-                    >
-                        {   
-                            (new Array(20)).fill(0).map((value, index)=>
-                                <ImprovedImage
-                                    src="https://occ-0-1722-2773.1.nflxso.net/dnm/api/v6/6gmvu2hxdfnQ55LZZjyzYR4kzGk/AAAABdzOeOqPEk1M_DWfMF64utFLlsrEMLTsiViL_B4cVd1PuKFzMNbkkathcJBDLghK2pIeAanGHGL_X5pgpNZDnCQPlbK9mVM8UFdjutj-fHXxQASUlsEWhvy25GXqlXGZVz_3.jpg?r=fb8" 
-                                    className='Thumbnail'
-                                    Key={"work-"+index}
-                                    hash="|GAT1d?wXnIUMdiwEhsmada0RPjEs.xZs:SNsos.4nDii_xu%MxtxEWWkCtl%2ofaKNGRkwdS2WBXTxaxFjFR*S3s.oLWVW;j[WWWWbHoLoLWqa|s:bHS2WBWBR*R*WooLIoM{fjozozofS2aybHoLW;a{S2Wqs.X8bHWV"
-                                    width={192}
-                                    height={108}
-                                />
-                            )
-                        }
-                    </motion.div>
-                </section>
-
-                <section className='Section'>
-                    <h1 className='Title'>
-                        Continuar assistindo como {"perfil1"}
-                    </h1>
-                    <motion.div 
-                        className='Playlist'
-                        initial={{x: -(width/2), opacity: 0}}
-                        animate={{x: 0, opacity: 1, transition:{type: "spring", bounce: 0.3, duration: 2}}}
-                    >
-                        {   
-                            (new Array(20)).fill(0).map((value, index)=>
-                                <ImprovedImage
-                                    src="https://occ-0-1722-2773.1.nflxso.net/dnm/api/v6/6gmvu2hxdfnQ55LZZjyzYR4kzGk/AAAABdzOeOqPEk1M_DWfMF64utFLlsrEMLTsiViL_B4cVd1PuKFzMNbkkathcJBDLghK2pIeAanGHGL_X5pgpNZDnCQPlbK9mVM8UFdjutj-fHXxQASUlsEWhvy25GXqlXGZVz_3.jpg?r=fb8" 
-                                    className='Thumbnail'
-                                    Key={"work-"+index}
-                                    hash="|GAT1d?wXnIUMdiwEhsmada0RPjEs.xZs:SNsos.4nDii_xu%MxtxEWWkCtl%2ofaKNGRkwdS2WBXTxaxFjFR*S3s.oLWVW;j[WWWWbHoLoLWqa|s:bHS2WBWBR*R*WooLIoM{fjozozofS2aybHoLW;a{S2Wqs.X8bHWV"
-                                    width={192}
-                                    height={108}
-                                />
-                            )
-                        }
-                    </motion.div>
-                </section>
-
-                <section className='Section'>
-                    <h1 className='Title'>
-                        Continuar assistindo como {"perfil1"}
-                    </h1>
-                    <motion.div 
-                        className='Playlist'
-                        initial={{x: -(width/2), opacity: 0}}
-                        animate={{x: 0, opacity: 1, transition:{type: "spring", bounce: 0.3, duration: 2}}}
-                    >
-                        {   
-                            (new Array(20)).fill(0).map((value, index)=>
-                                <ImprovedImage
-                                    src="https://occ-0-1722-2773.1.nflxso.net/dnm/api/v6/6gmvu2hxdfnQ55LZZjyzYR4kzGk/AAAABdzOeOqPEk1M_DWfMF64utFLlsrEMLTsiViL_B4cVd1PuKFzMNbkkathcJBDLghK2pIeAanGHGL_X5pgpNZDnCQPlbK9mVM8UFdjutj-fHXxQASUlsEWhvy25GXqlXGZVz_3.jpg?r=fb8" 
-                                    className='Thumbnail'
-                                    Key={"work-"+index}
-                                    hash="|GAT1d?wXnIUMdiwEhsmada0RPjEs.xZs:SNsos.4nDii_xu%MxtxEWWkCtl%2ofaKNGRkwdS2WBXTxaxFjFR*S3s.oLWVW;j[WWWWbHoLoLWqa|s:bHS2WBWBR*R*WooLIoM{fjozozofS2aybHoLW;a{S2Wqs.X8bHWV"
-                                    width={192}
-                                    height={108}
-                                />
-                            )
-                        }
-                    </motion.div>
-                </section>
-
+                {/*        Primeira seção é igual as outras em estrutura, mas sempre fixa            */}
+                <Playlist title={"Continuar assistindo como perfil1"} works={playlists[0].works}/>
+                {playlists.map((playlist, index)=>{
+                    return <Playlist title={playlist.title} works={playlist.works} key={playlist.title+index}/>
+                })}
             </main>
 
             <footer>

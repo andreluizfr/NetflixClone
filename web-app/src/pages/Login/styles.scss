@@ -36,128 +36,132 @@
             
         }
 
-        .Login-form{
-            width: 440px;
-            @include flex-column-start-start;
-            gap: 16px;
-            padding: 60px 68px;
-            background-color: rgba(0,0,0,0.7);
+        .Login-background {
+            flex: 1;
+            
+            .Login-form{
+                width: 440px;
+                @include flex-column-start-start;
+                gap: 16px;
+                padding: 60px 68px;
+                background-color: rgba(0,0,0,0.7);
 
-            @include mq-medium{
-                width: 100%;
-                padding: 0 22px;
-            }
-
-            & > .Title{
-                margin: 0 0 8px 0;
-                font-size: $font-size-xl;
-                color: $font-primary-color;
-                font-weight: 600;
-            }
-
-            .Login-button{
-                width: 100%;
-                height: 48px;
-                border-radius: 4px;
-                background-color: $button-primary-color;
-
-                color: $font-primary-color;
-                font-size: $font-size-normal;
-                font-weight: 600;
-
-                cursor: pointer;
-            }
-
-            .Remember-me-and-need-help-container{
-                width: 100%;
-                @include flex-row-space-between-center;
-
-                .Remember-me-checkbox{
-                    @include flex-row-center-center;
-
-                    label{
-                        input{
-                            position: relative;
-                            inset: 0;
-                            zoom: 1.4;
-                        }
-                        input::before{
-                            content: "";
-                            display: block;
-                            position: absolute;
-                            inset: 0;
-                            width: 12px;
-                            height: 12px;
-                            border-radius: 2px;
-
-                            background-color: #737373;;
-                        }
-                        input::after{
-                            content: "";
-                            display: none;
-                            position: absolute;
-                            inset: 0;
-                            width: 12px;
-                            height: 12px;
-                            background-image: url("../../assets/svg/check.svg");
-                            background-position: center;
-                            background-size: 80%;
-                            background-repeat: no-repeat;
-                        }
-                    }
-
-                    label input:focus::before{
-                        background-color: $background-secondary-color;
-                    }
-
-                    label input:checked::after{
-                        display: block;
-                    }
-
-                    span{
-                        color: $font-quaternary-color;
-                        font-size: $font-size-small;
-                    }
+                @include mq-medium{
+                    width: 100%;
+                    padding: 0 22px;
                 }
 
-                .Need-help{
-                    color: $font-quaternary-color;
-                    font-size: $font-size-small;
+                & > .Title{
+                    margin: 0 0 8px 0;
+                    font-size: $font-size-xl;
+                    color: $font-primary-color;
+                    font-weight: 600;
+                }
+
+                .Login-button{
+                    width: 100%;
+                    height: 48px;
+                    border-radius: 4px;
+                    background-color: $button-primary-color;
+
+                    color: $font-primary-color;
+                    font-size: $font-size-normal;
+                    font-weight: 600;
+
                     cursor: pointer;
                 }
-            }
 
-            .Aditional-infos-container{
-                color: $font-tertiary-color;
+                .Remember-me-and-need-help-container{
+                    width: 100%;
+                    @include flex-row-space-between-center;
 
-                .New-members{
-                    margin: 8px 0 8px 0;
-                    font-size: $font-size-normal;
+                    .Remember-me-checkbox{
+                        @include flex-row-center-center;
 
-                    strong{
-                        color: $font-primary-color;
+                        label{
+                            input{
+                                position: relative;
+                                inset: 0;
+                                zoom: 1.4;
+                            }
+                            input::before{
+                                content: "";
+                                display: block;
+                                position: absolute;
+                                inset: 0;
+                                width: 12px;
+                                height: 12px;
+                                border-radius: 2px;
+
+                                background-color: #737373;;
+                            }
+                            input::after{
+                                content: "";
+                                display: none;
+                                position: absolute;
+                                inset: 0;
+                                width: 12px;
+                                height: 12px;
+                                background-image: url("../../assets/svg/check.svg");
+                                background-position: center;
+                                background-size: 80%;
+                                background-repeat: no-repeat;
+                            }
+                        }
+
+                        label input:focus::before{
+                            background-color: $background-secondary-color;
+                        }
+
+                        label input:checked::after{
+                            display: block;
+                        }
+
+                        span{
+                            color: $font-quaternary-color;
+                            font-size: $font-size-small;
+                        }
+                    }
+
+                    .Need-help{
+                        color: $font-quaternary-color;
+                        font-size: $font-size-small;
+                        cursor: pointer;
                     }
                 }
-                .Recaptcha-notice{
-                    margin: 8px 0 0 0;
-                    font-size: $font-size-small;
-                    line-height: 15px;
 
-                    a{
-                        color: #0071eb;
-                        text-decoration: none;
+                .Aditional-infos-container{
+                    color: $font-tertiary-color;
 
-                        &:visited{
+                    .New-members{
+                        margin: 8px 0 8px 0;
+                        font-size: $font-size-normal;
+
+                        strong{
+                            color: $font-primary-color;
+                        }
+                    }
+                    .Recaptcha-notice{
+                        margin: 8px 0 0 0;
+                        font-size: $font-size-small;
+                        line-height: 15px;
+
+                        a{
                             color: #0071eb;
                             text-decoration: none;
-                        }
-                        &:hover{
-                            text-decoration: underline;
+
+                            &:visited{
+                                color: #0071eb;
+                                text-decoration: none;
+                            }
+                            &:hover{
+                                text-decoration: underline;
+                            }
                         }
                     }
                 }
+                
             }
-            
         }
 
         footer{

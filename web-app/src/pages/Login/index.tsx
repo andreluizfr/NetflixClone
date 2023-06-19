@@ -14,58 +14,60 @@ export default function Login(): JSX.Element{
                     </a>
                 </header>
 
-                <form className='Login-form'>
-                    <h1 className='Title'>Entrar</h1>
+                <div className='Login-background'>
+                    <form className='Login-form'>
+                        <h1 className='Title'>Entrar</h1>
 
-                    <AnimatedInput 
-                        title='Email ou número de telefone'
-                        warning='Informe um email ou número de telefone válido.'
-                        hasShow={false}
-                        type='email'
-                        required
-                    />
+                        <AnimatedInput 
+                            title='Email ou número de telefone'
+                            warning='Informe um email ou número de telefone válido.'
+                            hasShow={false}
+                            type='email'
+                            required
+                        />
 
-                    <AnimatedInput 
-                        title='Senha' 
-                        warning='A senha deve ter entre 4 e 60 caracteres.'
-                        hasShow={true}
-                        type='password'
-                        minLength={4}
-                        maxLength={60}
-                        required
-                    />
+                        <AnimatedInput 
+                            title='Senha' 
+                            warning='A senha deve ter entre 4 e 60 caracteres.'
+                            hasShow={true}
+                            type='password'
+                            minLength={4}
+                            maxLength={60}
+                            required
+                        />
 
-                    <button className='Login-button'>
-                        Entrar
-                    </button>
+                        <button className='Login-button'>
+                            Entrar
+                        </button>
 
-                    <div className='Remember-me-and-need-help-container'>
-                        <div className='Remember-me-checkbox'>
-                            <label>
-                                <input type='checkbox' required/>
-                                <span/>
-                            </label>
+                        <div className='Remember-me-and-need-help-container'>
+                            <div className='Remember-me-checkbox'>
+                                <label>
+                                    <input type='checkbox' required/>
+                                    <span/>
+                                </label>
 
-                            <span>
-                                Lembre-se de mim
+                                <span>
+                                    Lembre-se de mim
+                                </span>
+                            </div>
+
+                            <span className='Need-help'>
+                                Precisa de ajuda?
                             </span>
                         </div>
 
-                        <span className='Need-help'>
-                            Precisa de ajuda?
-                        </span>
-                    </div>
-
-                    <div className='Aditional-infos-container'>
-                        <p className='New-members'>
-                            Novo por aqui? <strong>Assine agora</strong>.
-                        </p>
-                        <p className='Recaptcha-notice'>
-                            Esta página é protegida pelo Google reCAPTCHA
-                            para garantir que você não é um robô. <a href="#">Saiba mais.</a>
-                        </p>
-                    </div>
-                </form>
+                        <div className='Aditional-infos-container'>
+                            <p className='New-members'>
+                                Novo por aqui? <strong>Assine agora</strong>.
+                            </p>
+                            <p className='Recaptcha-notice'>
+                                Esta página é protegida pelo Google reCAPTCHA
+                                para garantir que você não é um robô. <a href="#">Saiba mais.</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
 
                 <footer>
                     <div className='Row-1'>

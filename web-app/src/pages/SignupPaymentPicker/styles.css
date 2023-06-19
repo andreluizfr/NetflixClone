@@ -1,4 +1,9 @@
 .SignupPaymentPickerPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   min-height: 100vh;
   width: 100%;
   background-color: rgb(255, 255, 255);
@@ -28,11 +33,7 @@
   text-decoration: underline;
 }
 .SignupPaymentPickerPage .Steps-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  flex: 1;
 }
 .SignupPaymentPickerPage .Steps-container .PaymentPicker-container {
   min-width: 320px;

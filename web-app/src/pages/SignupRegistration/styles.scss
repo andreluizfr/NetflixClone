@@ -5,6 +5,7 @@
     min-height: 100vh; 
     width: 100%;
     background-color: $background-secondary-color;
+    @include flex-column-center-center;
 
     .Header{
         @include flex-row-space-between-center;
@@ -36,8 +37,7 @@
     }
 
     .Steps-container{
-        @include flex-column-center-center;
-        width: 100%;
+        flex: 1;
 
         .Signup-container-1{
             min-width: 320px;

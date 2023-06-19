@@ -1,20 +1,21 @@
 import './styles.css';
 import profilePicture from '../../assets/img/profile-picture.jpg';
-import * as Popover from '@radix-ui/react-popover';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { motion, useAnimation } from 'framer-motion';
+//import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { Link } from 'react-router-dom';
 
 
 
 export default function ProfileDropdownMenu(): JSX.Element {
-
+    /*
     const profileIconControls = useAnimation();
-
+    
     function animateProfileIcon (){
         profileIconControls.start({rotate: [45, -45, 45, 0]});
     };
+    */
     
     return(
         <DropdownMenu.Root>
@@ -23,7 +24,7 @@ export default function ProfileDropdownMenu(): JSX.Element {
                     className='Profile-icon'
                     alt='profile icon' 
                     src={profilePicture}
-                    animate={profileIconControls}
+                    //animate={profileIconControls}
                     transition={{type:'spring', bounce: 0.8}}
                 />
             </DropdownMenu.Trigger>
@@ -40,7 +41,7 @@ export default function ProfileDropdownMenu(): JSX.Element {
                     >
                         
                         {
-                            (new Array(10)).fill(0).map((value, index)=>{
+                            (new Array(10)).fill(0).map((index: number)=>{
                                 return (
                                     <motion.li className='ProfileDropdownMenuItem' key={"profileDropdownMenuItem-"+index}>
                                         <Link to="#" className='Item-container' key={"profile-"+index}>
