@@ -2,7 +2,7 @@ import './styles.css';
 import logo from '../../assets/svg/logo.svg';
 import devices from '../../assets/img/devices.png';
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store';
@@ -22,6 +22,8 @@ export default function SignupInformationsPage(): JSX.Element{
 
     const width = window.innerWidth;
 
+    const navigate = useNavigate();
+
     const signup = useSelector((state: StoreState) => state.signup);
     const dispatch = useDispatch();
 
@@ -30,13 +32,12 @@ export default function SignupInformationsPage(): JSX.Element{
     function onSubmit (data: registerForm){
         dispatch(saveBirthdayDate(data.birthdayDate));
         //dar refetch na request do react query
-        window.location.href = "http://localhost:5173/contents";
+        navigate("/contents");
     };
     
     useEffect(()=>{
         if(!(signup.email!==null && signup.password!==null && signup.plan!==null && signup.payment!==null)){
-            console.log()
-            window.location.href = "http://localhost:5173/signup";
+            navigate("/signup");
         }
     }, []);
 

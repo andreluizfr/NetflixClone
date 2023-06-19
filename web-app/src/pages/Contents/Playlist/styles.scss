@@ -17,9 +17,10 @@
     & > .Playlist{
         z-index: 999;
         @include flex-row-start-center;
-        overflow: visible; //to not crop the thumbnail while scaling it
         gap: 4px;
         padding: 16px;
+
+        overflow: auto; //to not crop the thumbnail while scaling it
         cursor: grab;
 
         .Thumbnail{
@@ -32,6 +33,11 @@
                 z-index: 9999;
             }
         } 
+
+        &::-webkit-scrollbar{
+            display: none;
+        }
+
     }
 
     &::before, &::after{

@@ -1,0 +1,9 @@
+.Work-preview-fallback {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background-color: rgb(0, 0, 0);
+}/*# sourceMappingURL=styles.css.map */

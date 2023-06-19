@@ -100,6 +100,9 @@
 .SignupPaymentPickerPage .Steps-container .Register-form .Row {
   flex-direction: row;
 }
+.SignupPaymentPickerPage .Steps-container .Register-form .Row label {
+  margin-left: 8px;
+}
 .SignupPaymentPickerPage .Steps-container .Register-form .Register-button {
   margin: 8px 0 0 0;
   width: 100%;
