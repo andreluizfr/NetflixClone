@@ -24,7 +24,9 @@ public class UpdateAccountPlanBusiness {
 
             Account account;
             if(optionalAccount.isPresent()){
+                
                 account = optionalAccount.get();
+                account.setCurrentPlan(data.plan());
 
                 switch (data.plan()) {
                     case BASIC_WITH_ADS:

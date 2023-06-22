@@ -97,4 +97,8 @@ public class Account {
                 "}";
     }
 
+    public void setLimitOfProfiles(int limitOfProfiles) {
+        this.limitOfProfiles = limitOfProfiles;
+    }
+
 }
