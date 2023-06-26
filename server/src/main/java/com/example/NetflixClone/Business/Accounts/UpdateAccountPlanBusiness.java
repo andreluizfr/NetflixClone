@@ -12,7 +12,7 @@ import com.example.NetflixClone.Repositories.AccountRepositoryDAO;
 
 @Service
 public class UpdateAccountPlanBusiness {
-    
+
     @Autowired
     AccountRepositoryDAO accountRepository;
 
@@ -23,8 +23,8 @@ public class UpdateAccountPlanBusiness {
             Optional<Account> optionalAccount = accountRepository.findById(data.accountId());
 
             Account account;
-            if(optionalAccount.isPresent()){
-                
+            if (optionalAccount.isPresent()) {
+
                 account = optionalAccount.get();
                 account.setCurrentPlan(data.plan());
 
@@ -38,10 +38,9 @@ public class UpdateAccountPlanBusiness {
                     case PREMIUM:
                         account.setLimitOfProfiles(8);
                         break;
-                }   
+                }
 
-            }
-            else{
+            } else {
                 throw new FailToUpdateAccountPlanException("Conta não foi encontrada.");
             }
 

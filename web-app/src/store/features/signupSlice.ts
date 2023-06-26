@@ -1,18 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-enum Plan{
-    DefaultWithAds,
-    Default,
-    Premium
-}
+import Plan from '../../types/Plan';
+import PaymentType from '../../types/PaymentType';
 
 interface SignupState {
     step: number
     email: string | null
     plan: Plan | null
     password: string | null
-    payment: string | null
-    birthdayDate: Date | null
+    paymentType: PaymentType | null
+    birthDate: Date | null
 }
 
 const signupSlice = createSlice({
@@ -22,8 +19,8 @@ const signupSlice = createSlice({
         email: null,
         plan: null,
         password: null,
-        payment: null,
-        birthdayDate: null
+        paymentType: null,
+        birthDate: null
     } as SignupState,
     reducers: {
         setStep(state, action) {
@@ -39,14 +36,22 @@ const signupSlice = createSlice({
         savePassword(state, action) {
             state.password = action.payload;
         },
-        savePayment(state, action) {
-            state.payment = action.payload;
+        savePaymentType(state, action) {
+            state.paymentType = action.payload;
         },
-        saveBirthdayDate(state, action) {
-            state.birthdayDate = action.payload;
+        saveBirthDate(state, action) {
+            state.birthDate = action.payload;
+        },
+        clear(state, action) {
+            state.step= 1;
+            state.email= null;
+            state.plan= null;
+            state.password= null;
+            state.paymentType= null;
+            state.birthDate= null;
         },
     }
 });
 
-export const { setStep, saveEmail, setPlan, savePassword, savePayment, saveBirthdayDate } = signupSlice.actions;
+export const { setStep, saveEmail, setPlan, savePassword, savePaymentType, saveBirthDate, clear } = signupSlice.actions;
 export default signupSlice.reducer;

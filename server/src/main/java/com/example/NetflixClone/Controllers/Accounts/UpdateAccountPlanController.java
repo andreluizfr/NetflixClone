@@ -22,22 +22,23 @@ public class UpdateAccountPlanController {
     UpdateAccountPlanBusiness updateAccountPlanBusiness;
 
     @PostMapping("/updatePlan")
-      public ResponseEntity<Object> updateAccountPlan(@RequestBody UpdateAccountPlanDTO data) {
+    public ResponseEntity<Object> updateAccountPlan(@RequestBody UpdateAccountPlanDTO data) {
 
         try {
             Account updatedAccount = updateAccountPlanBusiness.execute(data);
 
-            return ResponseErrorHandler.generateResponse("Plano da conta atualizado com sucesso.", HttpStatus.INTERNAL_SERVER_ERROR,
+            return ResponseErrorHandler.generateResponse("Plano da conta atualizado com sucesso.",
+                    HttpStatus.INTERNAL_SERVER_ERROR,
                     updatedAccount);
 
         } catch (FailToUpdateAccountPlanException e) {
 
             e.printStackTrace();
-            
+
             return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null,
                     FailToCreateUserException.getErrorCode());
         }
 
     }
-    
+
 }

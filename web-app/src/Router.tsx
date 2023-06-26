@@ -13,6 +13,7 @@ const SignupPlanPage = lazy(() => import('./pages/SignupPlan'));
 const SignupRegistrationPage = lazy(() => import('./pages/SignupRegistration'));
 const SignupPaymentPickerPage = lazy(() => import('./pages/SignupPaymentPicker'));
 const SignupInformationsPage = lazy(() => import('./pages/SignupInformations'));
+const SignupPaymentPage = lazy(() => import('./pages/SignupPayment'));
 const ContentsPage = lazy(() => import('./pages/Contents'));
 
 function App() {
@@ -48,6 +49,10 @@ function App() {
           {
             path: "/signup/informations",
             element: <SignupInformationsPage/>,
+          },
+          {
+            path: "/signup/payment",
+            element: <SignupPaymentPage/>,
           },
           {
             path: "/contents",

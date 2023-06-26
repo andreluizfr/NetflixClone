@@ -22,7 +22,7 @@ public class GetAllAccountsBusiness {
             List<Account> accounts = accountRepository.findAll();
 
             return accounts;
-            
+
         } catch (RuntimeException e) {
 
             throw new FailToGetAllAccountsException(e.getMessage());

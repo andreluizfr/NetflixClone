@@ -30,8 +30,8 @@ public class GetAccountController {
             Account account = getAccountBusiness.execute(id);
 
             return ResponseErrorHandler.generateResponse("Conta buscada com sucesso.",
-                HttpStatus.OK,
-                account);
+                    HttpStatus.OK,
+                    account);
 
         } catch (FailToGetAccountException e) {
 

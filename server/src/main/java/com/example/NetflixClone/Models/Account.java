@@ -10,14 +10,16 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import com.example.NetflixClone.Models.enums.Plan;
+import com.example.NetflixClone.Models.records.Profile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.mercadopago.resources.payment.Payment;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -48,17 +50,18 @@ public class Account {
     private Plan currentPlan;
  
     //1 mês após fazer o pagamento
-    @Column(name = "plan_expire_date") 
+    @Column(name = "plan_expire_date", nullable = true) 
     private LocalDate planExpireDate;
 
-    @OneToMany(mappedBy = "account")
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "payment_history")
     private List<Payment> paymentHistory;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "profiles")
     private List<Profile> profiles;
 
-    @Column(name = "limit_o_profiles", nullable = true)
+    @Column(name = "limit_of_profiles", nullable = true)
     private int limitOfProfiles;
 
     @Column(name = "created_at")

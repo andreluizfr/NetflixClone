@@ -6,15 +6,18 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store';
-import { saveBirthdayDate } from '../../store/features/signupSlice';
-import { useEffect } from 'react';
+import { saveBirthDate } from '../../store/features/signupSlice';
+import { useEffect, useState } from 'react';
 
 import { useForm } from "react-hook-form";
 
 import { motion } from 'framer-motion';
+import CreateUserQuery from '../../queries/Users/CreateUser';
+import { useLocalStorage } from '../../hooks/UseLocalStorage';
+import { User } from '../../types/User';
 
 interface registerForm{
-    birthdayDate: Date,
+    birthDate: Date,
     checkbox: boolean
 }
 
@@ -28,18 +31,37 @@ export default function SignupInformationsPage(): JSX.Element{
     const dispatch = useDispatch();
 
     const { register, handleSubmit } = useForm<registerForm>();
-
-    function onSubmit (data: registerForm){
-        dispatch(saveBirthdayDate(data.birthdayDate));
-        //dar refetch na request do react query
-        navigate("/contents");
-    };
+    const [birthDate, setBirthDate] = useState<Date | null>(null);
+    
+    const createUserQuery = CreateUserQuery(signup.email, signup.password, birthDate);
+    const [user, setUser] = useLocalStorage("user", JSON.stringify(null));
     
     useEffect(()=>{
-        if(!(signup.email!==null && signup.password!==null && signup.plan!==null && signup.payment!==null)){
+
+        if(!(signup.email!==null && signup.password!==null && signup.plan!==null && signup.paymentType!==null)){
             navigate("/signup");
         }
+
+        const User = JSON.parse(user) as User;
+        if(User && !User.account.isActive){
+            navigate("/signup/payment");
+        }
+
     }, []);
+
+    function onSubmit (data: registerForm){
+        dispatch(saveBirthDate(data.birthDate));
+        setBirthDate(data.birthDate);
+        if(birthDate)
+            createUserQuery.refetch();
+    };
+
+    useEffect(()=>{
+        if(createUserQuery.data?.data){
+            setUser(JSON.stringify(createUserQuery.data.data));
+            navigate("/signup/payment");
+        }
+    }, [createUserQuery.data]);
 
     return (
         <motion.div 
@@ -78,7 +100,7 @@ export default function SignupInformationsPage(): JSX.Element{
                         <input 
                             type="date"
                             required
-                            {...register("birthdayDate")}
+                            {...register("birthDate")}
                         />
                     </div>
                 

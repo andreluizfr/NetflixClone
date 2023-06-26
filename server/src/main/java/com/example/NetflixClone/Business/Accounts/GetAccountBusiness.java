@@ -12,7 +12,7 @@ import com.example.NetflixClone.Repositories.AccountRepositoryDAO;
 
 @Service
 public class GetAccountBusiness {
-    
+
     @Autowired
     AccountRepositoryDAO accountRepository;
 
@@ -22,8 +22,9 @@ public class GetAccountBusiness {
 
             Optional<Account> optionalAccount = accountRepository.findById(id);
 
-            if(optionalAccount.isPresent()) return optionalAccount.get();
-            
+            if (optionalAccount.isPresent())
+                return optionalAccount.get();
+
             throw new FailToGetAccountException("O id não pertence a nenhuma conta registrada.");
 
         } catch (RuntimeException e) {

@@ -3,21 +3,35 @@ import logo from '../../assets/svg/logo.svg';
 import devices from '../../assets/img/devices.png';
 import AnimatedInput from '../../components/AnimatedInput';
 
-import { Link } from "react-router-dom";
-import { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { saveEmail, savePassword} from '../../store/features/signupSlice';
 
 import { motion } from 'framer-motion';
 
+import { useLocalStorage } from '../../hooks/UseLocalStorage';
+import { User } from '../../types/User';
+
 export default function SignupRegistrationPage(): JSX.Element {
 
 	const width = window.innerWidth;
 
+    const navigate = useNavigate();
+
     const dispatch = useDispatch();
 
     const [step, setStep] = useState(1);
+
+    const [user, setUser] = useLocalStorage("user", JSON.stringify(null));
+    
+    useEffect(()=>{
+        const User = JSON.parse(user) as User;
+        if(User && !User.account.isActive){
+            navigate("/signup/payment");
+        }
+    }, []);
 
     function goToNextStep(){
         setStep(current=>current+1);

@@ -12,9 +12,11 @@ import secureBadge from '../../assets/svg/secureBadge.svg';
 import { Link } from "react-router-dom";
 
 import { useDispatch } from 'react-redux';
-import { savePayment } from '../../store/features/signupSlice';
+import { savePaymentType } from '../../store/features/signupSlice';
 
 import { motion } from 'framer-motion';
+
+import PaymentType from '../../types/PaymentType';
 
 export default function SignupPaymentPickerPage(): JSX.Element{
 
@@ -22,8 +24,8 @@ export default function SignupPaymentPickerPage(): JSX.Element{
 
     const dispatch = useDispatch();
 
-    function setPayment(payment: string){
-        dispatch(savePayment(payment));
+    function setPayment(paymentType: PaymentType){
+        dispatch(savePaymentType(paymentType));
     }
 
     return (
@@ -77,7 +79,7 @@ export default function SignupPaymentPickerPage(): JSX.Element{
                         />
                     </div>
 
-                    <Link to="/signup/informations" onClick={()=>setPayment("credit_card")}>
+                    <Link to="/signup/informations" onClick={()=>setPayment(PaymentType.credit_card)}>
                         <div className='Payment-info-container'>
                             <div className='Column-1'>
                                 <div className='Title'>
@@ -121,12 +123,36 @@ export default function SignupPaymentPickerPage(): JSX.Element{
                         </div>
                     </Link>
 
-                    <Link to="/signup/informations" onClick={()=>setPayment("prepaid_card")}>
+                    <Link to="/signup/informations" onClick={()=>setPayment(PaymentType.prepaid_card)}>
                         <div className='Payment-info-container'>
 
                             <div className='Column-1 Inline'>
                                 <div className='Title'>
                                     Código do cartão pré-pago
+                                </div>
+
+                                <img 
+                                    className='NetflixCard-icon'
+                                    alt='Netflix gift card icon'
+                                    src={netflixGift}
+                                />
+                            </div>
+
+                            <div className='Column-2'>
+                                <img 
+                                    alt='arrow right icon'
+                                    src={arrowRight}
+                                />
+                            </div>
+                        </div>
+                    </Link>
+
+                    <Link to="/signup/informations" onClick={()=>setPayment(PaymentType.debit_card)}>
+                        <div className='Payment-info-container'>
+
+                            <div className='Column-1 Inline'>
+                                <div className='Title'>
+                                    Pix
                                 </div>
 
                                 <img 

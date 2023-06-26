@@ -58,7 +58,7 @@ public class User implements Serializable {
     public User(UserDTO userDTO) {
         this.email = userDTO.email();
         this.password = userDTO.password();
-        this.birthDate = LocalDate.parse(userDTO.birthDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.birthDate = LocalDate.parse(userDTO.birthDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.role = Role.BASIC;
         this.account = userDTO.account();
         this.createdAt = LocalDateTime.now();

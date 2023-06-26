@@ -10,8 +10,6 @@ import com.example.NetflixClone.Models.User;
 
 public interface UserRepositoryDAO extends JpaRepository<User, UUID> {
     List<User> findByEmail(String email);
-
     List<User> findByAccountId(UUID id);
-
     List<User> findByCreatedAtBetween(LocalDateTime to, LocalDateTime from);
 }

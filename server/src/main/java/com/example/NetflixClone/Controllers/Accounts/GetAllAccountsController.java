@@ -28,8 +28,8 @@ public class GetAllAccountsController {
             List<Account> accounts = getAllAccountsBusiness.execute();
 
             return ResponseErrorHandler.generateResponse("Todas as contas buscada com sucesso.",
-                HttpStatus.OK,
-                accounts);
+                    HttpStatus.OK,
+                    accounts);
 
         } catch (FailToGetAllAccountsException e) {
 
