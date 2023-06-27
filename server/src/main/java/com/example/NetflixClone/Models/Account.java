@@ -13,7 +13,7 @@ import com.example.NetflixClone.Models.enums.Plan;
 import com.example.NetflixClone.Models.records.Profile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import com.mercadopago.resources.payment.Payment;
+import com.mercadopago.resources.preference.Preference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -55,7 +55,7 @@ public class Account {
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "payment_history")
-    private List<Payment> paymentHistory;
+    private List<Preference> paymentHistory;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "profiles")
@@ -69,7 +69,7 @@ public class Account {
 
     public Account() {
         this.isActive = false;
-        this.paymentHistory = new ArrayList<Payment>();
+        this.paymentHistory = new ArrayList<Preference>();
         this.profiles = new ArrayList<Profile>();
         this.limitOfProfiles = 0;
         this.createdAt = LocalDateTime.now();
@@ -90,13 +90,13 @@ public class Account {
     public String toString() {
         return "{" +
                 "  id: " + this.id.toString() + "\n" +
-                "  id: " + this.user + "\n" +
-                "  id: " + this.currentPlan.toString() + "\n" +
-                "  id: " + this.isActive + "\n" +
-                "  id: " + this.paymentHistory.toString() + "\n" +
-                "  id: " + this.profiles.toString() + "\n" +
-                "  id: " + this.limitOfProfiles + "\n" +
-                "  id: " + this.createdAt.toString() + "\n" +
+                "  user: " + this.user + "\n" +
+                "  currentPlan: " + this.currentPlan + "\n" +
+                "  isActive: " + this.isActive + "\n" +
+                "  paymentHistory: " + this.paymentHistory.toString() + "\n" +
+                "  profiles: " + this.profiles.toString() + "\n" +
+                "  limitOfProfiles: " + this.limitOfProfiles + "\n" +
+                "  createdAt: " + this.createdAt.toString() + "\n" +
                 "}";
     }
 

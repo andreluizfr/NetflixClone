@@ -8,11 +8,17 @@ import { StoreState } from '../../store';
 
 import { motion } from 'framer-motion';
 
-import CreditCardPaymentForm from './CreditCardPaymentForm';
-import PaymentType from '../../types/PaymentType';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+import { initMercadoPago, Wallet} from '@mercadopago/sdk-react';
+import CreatePlanPaymentQuery from '../../queries/Payments/CreatePlanPayment';
+import { useLocalStorage } from '../../hooks/UseLocalStorage';
+import { User } from '../../types/User';
+
 
 export default function SignupPaymentPage(): JSX.Element{
+
+    initMercadoPago(import.meta.env.VITE_MERCADO_PAGO_PUBLIC_KEY);
 
     const width = window.innerWidth;
 
@@ -20,17 +26,29 @@ export default function SignupPaymentPage(): JSX.Element{
 
     const signup = useSelector((state: StoreState) => state.signup);
 
-    useEffect(()=>{
+    const [userString, setUserString] = useLocalStorage("user", "null");
+    const [user, setUser] = useState<User | null>(JSON.parse(userString) as unknown as User);
 
+    const createPlanPaymentQuery = CreatePlanPaymentQuery(user?.account.id, signup.plan, signup.paymentType);
+
+    useEffect(()=>{
         if(signup.paymentType === null){
             navigate("/signup/paymentPicker");
         }
-
         if(signup.plan === null){
             navigate("/signup/planform");
         }
-
     }, []);
+
+    useEffect(()=>{
+        if(user?.account.id!==null && signup.plan!==null && signup.paymentType!==null)
+            createPlanPaymentQuery.refetch();
+    }, [user?.account.id, signup.plan, signup.paymentType])
+
+    useEffect(()=>{
+        if(createPlanPaymentQuery.data)
+            console.log(createPlanPaymentQuery.data);
+    }, [createPlanPaymentQuery.data]);
         
     return (
         <motion.div 
@@ -49,7 +67,10 @@ export default function SignupPaymentPage(): JSX.Element{
             </header>
 
             <main className='Payment-container'>
-                {(signup.paymentType === PaymentType.credit_card) && <CreditCardPaymentForm/>}
+                <div id="wallet_container"></div>
+                {createPlanPaymentQuery.data &&
+                    <Wallet initialization={{ preferenceId: createPlanPaymentQuery.data.data.id }} />
+                }
             </main>
 
             <footer>
