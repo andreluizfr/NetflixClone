@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import com.example.NetflixClone.Models.enums.Role;
 
 import jakarta.persistence.CascadeType;
@@ -57,7 +59,7 @@ public class User implements Serializable {
 
     public User(UserDTO userDTO) {
         this.email = userDTO.email();
-        this.password = userDTO.password();
+        this.password = this.hashPassword(userDTO.password());
         this.birthDate = LocalDate.parse(userDTO.birthDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.role = Role.BASIC;
         this.account = userDTO.account();
@@ -74,18 +76,26 @@ public class User implements Serializable {
     public int hashCode() {
         return this.id.hashCode();
     }
-    /*
-     * @Override
-     * public String toString() {
-     * return "{" +
-     * "  id: " + this.id.toString() + "\n" +
-     * "  id: " + this.email + "\n" +
-     * "  id: " + this.password + "\n" +
-     * "  id: " + this.birthDate.toString() + "\n" +
-     * "  id: " + this.role.toString() + "\n" +
-     * "  id: " + this.account.toString() + "\n" +
-     * "  id: " + this.createdAt.toString() + "\n" +
-     * "}";
-     * }
-     */
+
+    @Override
+    public String toString() {
+        return "{" +
+        "  id: " + this.id + "\n" +
+        "  id: " + this.email + "\n" +
+        "  id: " + this.password + "\n" +
+        "  id: " + this.birthDate.toString() + "\n" +
+        "  id: " + this.role + "\n" +
+        "  id: " + this.account.toString() + "\n" +
+        "  id: " + this.createdAt.toString() + "\n" +
+        "}";
+    }
+
+    public String hashPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    public boolean validatePassword(String password) {
+        return BCrypt.checkpw(this.password, password);
+    }
+
 }
