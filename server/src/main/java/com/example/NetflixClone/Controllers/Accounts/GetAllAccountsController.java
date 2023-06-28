@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.NetflixClone.Business.Accounts.GetAllAccountsBusiness;
 import com.example.NetflixClone.Controllers.ResponseErrorHandler;
-import com.example.NetflixClone.CustomExceptions.FailToGetAllAccountsException;
-import com.example.NetflixClone.CustomExceptions.FailToGetUserException;
 import com.example.NetflixClone.Models.Account;
 
 @RestController
@@ -31,13 +29,12 @@ public class GetAllAccountsController {
                     HttpStatus.OK,
                     accounts);
 
-        } catch (FailToGetAllAccountsException e) {
+        } catch (RuntimeException e) {
 
             e.printStackTrace();
 
             return ResponseErrorHandler.generateResponse(e.getMessage(),
-                    HttpStatus.BAD_REQUEST, null,
-                    FailToGetUserException.getErrorCode());
+                    HttpStatus.INTERNAL_SERVER_ERROR, null);
 
         }
 

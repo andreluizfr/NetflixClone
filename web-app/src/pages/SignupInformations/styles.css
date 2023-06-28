@@ -42,8 +42,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 32px;
-  margin: 16px 0;
+  padding: 60px 68px;
 }
 @media only screen and (max-width: 576px) {
   .SignupPaymentPickerPage .Steps-container .Register-form {
@@ -130,7 +129,6 @@
   align-items: flex-start;
   gap: 16px;
   padding: 24px 32px;
-  margin-top: 76px;
   background-color: rgba(0, 0, 0, 0.06);
 }
 .SignupPaymentPickerPage > footer .Row-1 {

@@ -1,9 +1,10 @@
 import { useQuery } from 'react-query';
 import axios from '../../libs/axios';
+axios.defaults.withCredentials = false; 
 
-import Axios from 'axios';
 import { AxiosError } from 'axios';
 import { User } from '../../types/User';
+//import { useNavigate } from 'react-router-dom';
 
 interface CreateUserResponse {
     message: string;
@@ -15,9 +16,11 @@ async function createUser (
     password: string | null,
     birthDate: Date | null, 
     ){
-
+    
     if(email && password && birthDate){
 
+        //const navigate = useNavigate();
+        
         try{
 
             const response = await axios.post(
@@ -32,24 +35,34 @@ async function createUser (
 
         } catch (err: any) {
 
-            const error = err as (Error | AxiosError);
+            const error = err as AxiosError;
 
-            if(Axios.isAxiosError(error)){
+            if (error.response) {
+                // The request was made and the server responded with a status code that falls out of the range of 2xx 
+                
+                const data = error.response.data as CreateUserResponse;
 
-                if (error.response) {
-                    // The request was made and the server responded with a status code that falls out of the range of 2xx 
-                    throw new Error(error.response.status + " - " + (error.response.data as CreateUserResponse).message);
+                switch(error.response.status){ 
+                    case 400: { //Bad Request. Erro nos parametros passados
+                        setTimeout(()=>window.location.href = import.meta.env.BASE_URL + "/signup", 3000);
+                        throw new Error(error.response.status + " - " + data.message);
+                    }
+                    case 500: //Internal server error. erro durante a criaçao das entidades, nada a ser tratado
+                        throw new Error(error.response.status + " - " + data.message);
+
+                    default: //erro não mapeado pelo controlador do backend, nada a ser tratado
+                        throw new Error(error.response.status + " - " + data.message);
                 }
-                else if (error.request) {
-                    // The request was made but no response was received, `error.request` is an instance of XMLHttpRequest in the browser 
-                    throw new Error('O servidor não pode responder a essa requisição.');
-                } 
-                else {
-                    // Something happened in setting up the request that triggered an Error
-                    throw new Error(error.message);
-                }
 
-            } else throw new Error(error.message); //Erro fora do axios
+            }
+            else if (error.request) {
+                // The request was made but no response was received, `error.request` is an instance of XMLHttpRequest in the browser 
+                throw new Error('O servidor não pode responder a essa requisição.');
+            } 
+            else {
+                // Something happened in setting up the request that triggered an Error
+                throw new Error(error.message);
+            }
 
         }
 
@@ -66,10 +79,6 @@ export default function CreateUserQuery (
     const createUserQuery = useQuery<CreateUserResponse, unknown>(
         'createUser',
         async () => createUser(email, password, birthDate),
-        {
-            refetchOnWindowFocus: false,
-            enabled: false,
-        }
     );
 
     return createUserQuery;

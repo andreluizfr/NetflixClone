@@ -4,12 +4,12 @@ import axios from '../../libs/axios';
 import PaymentType from '../../types/PaymentType';
 import Plan from '../../types/Plan';
 
-import Axios from 'axios';
+//import Axios from 'axios';
 import { AxiosError } from 'axios';
 
 interface CreatePlanPaymentResponse {
     message: string;
-    data: PreferenceResponse;
+    data: PreferenceResponse | null;
 }
 
 async function createPlanPayment (
@@ -34,28 +34,44 @@ async function createPlanPayment (
 
         } catch (err: any) {
 
-            const error = err as (Error | AxiosError);
+            //const error = err as (Error | AxiosError);
+            const error = err as AxiosError;
 
-            if(Axios.isAxiosError(error)){
+            //if(Axios.isAxiosError(error)){
+            if (error.response) {
+                // The request was made and the server responded with a status code that falls out of the range of 2xx
 
-                if (error.response) {
-                    // The request was made and the server responded with a status code that falls out of the range of 2xx 
-                    throw new Error(error.response.status + " - " +(error.response.data as CreatePlanPaymentResponse).message);
+                const data = error.response.data as CreatePlanPaymentResponse;
+
+                switch(error.response.status){
+                    case 400:
+                        localStorage.removeItem("user"); //Bad Request. Parâmetros errados, então remover conta salva e reiniciar o processo
+                        return data;
+                    case 404:
+                        localStorage.removeItem("user"); //Not Found. Conta do usuário não foi encontrada, então remover conta salva e reiniciar o processo
+                        return data;
+                    case 502: //Bad Gateway. Erro com a api de pagamento, nada a ser tratado
+                        throw new Error(error.response.status + " - " + data.message);
+                    case 500: //Internal Server Error. Erro em runtime desconhecido, nada a ser tratado
+                        throw new Error(error.response.status + " - " + data.message);
+
+                    default: //Erro não mapeado pelo controlador no backend
+                        throw new Error(error.response.status + " - " + data.message);
                 }
-                else if (error.request) {
-                    // The request was made but no response was received, `error.request` is an instance of XMLHttpRequest in the browser 
-                    throw new Error('O servidor não pode responder a essa requisição.');
-                } 
-                else {
-                    // Something happened in setting up the request that triggered an Error
-                    throw new Error(error.message);
-                }
 
-            } else throw new Error(error.message); //Erro fora do axios
-
+            }
+            else if (error.request) {
+                // The request was made but no response was received, `error.request` is an instance of XMLHttpRequest in the browser 
+                throw new Error('O servidor não pode responder a essa requisição.');
+            } 
+            else {
+                // Something happened in setting up the request that triggered an Error
+                throw new Error(error.message);
+            }
+            //} else throw new Error(error.message); //Erro fora do axios
         }
 
-    } else return undefined;
+    } else throw new Error('Error: AccountId, Plan or PaymentType are Undefined.');
 
 }
 
@@ -65,12 +81,11 @@ export default function CreatePlanPaymentQuery (
     paymentType: PaymentType | null
     ) {
 
-    const createPlanPaymentQuery = useQuery<CreatePlanPaymentResponse | undefined, unknown>(
+    const createPlanPaymentQuery = useQuery<CreatePlanPaymentResponse, unknown>(
         'createPlanPayment',
         async () => createPlanPayment(accountId, plan, paymentType),
         {
-            refetchOnWindowFocus: false,
-            enabled: true
+            enabled: true,
         }
     );
 

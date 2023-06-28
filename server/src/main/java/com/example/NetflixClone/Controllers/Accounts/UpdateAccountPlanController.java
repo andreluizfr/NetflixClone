@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.NetflixClone.Business.Accounts.UpdateAccountPlanBusiness;
 import com.example.NetflixClone.Controllers.ResponseErrorHandler;
-import com.example.NetflixClone.CustomExceptions.FailToCreateUserException;
-import com.example.NetflixClone.CustomExceptions.FailToUpdateAccountPlanException;
+import com.example.NetflixClone.CustomExceptions.FailToFindAccountException;
 import com.example.NetflixClone.Models.Account;
 
 @RestController
@@ -31,12 +30,22 @@ public class UpdateAccountPlanController {
                     HttpStatus.INTERNAL_SERVER_ERROR,
                     updatedAccount);
 
-        } catch (FailToUpdateAccountPlanException e) {
+        } catch (IllegalArgumentException e) {
+
+            System.out.println(e.getMessage());
+
+            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST, null);
+        } catch (FailToFindAccountException e) {
+
+            System.out.println(e.getMessage());
+
+            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null,
+                    FailToFindAccountException.getErrorCode());
+        } catch (RuntimeException e) {
 
             e.printStackTrace();
 
-            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null,
-                    FailToCreateUserException.getErrorCode());
+            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
 
     }

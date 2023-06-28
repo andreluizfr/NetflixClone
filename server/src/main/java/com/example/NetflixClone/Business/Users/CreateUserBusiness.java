@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.NetflixClone.Controllers.Users.CreateUserDTO;
-import com.example.NetflixClone.CustomExceptions.FailToCreateUserException;
 import com.example.NetflixClone.Models.Account;
 import com.example.NetflixClone.Models.User;
 import com.example.NetflixClone.Models.UserDTO;
@@ -20,25 +19,19 @@ public class CreateUserBusiness {
     @Autowired
     AccountRepositoryDAO accountRepository;
 
-    public User execute(CreateUserDTO data) throws FailToCreateUserException {
+    public User execute(CreateUserDTO data) throws IllegalAccessException {
 
-        Account newAccount;
-        User newUser;
+        if(data.email()==null || data.password()==null || data.birthDate()==null)
+            throw new IllegalArgumentException("Error: email, password or birthDate not found");
 
-        try {
-            Account account = new Account();
-            newAccount = accountRepository.save(account);
+        Account account = new Account();
+        Account newAccount = accountRepository.save(account);
 
-            UserDTO newUserDTO = new UserDTO(data.email(), data.password(), data.birthDate(), newAccount);
-            User user = new User(newUserDTO);
-            newUser = userRepository.save(user);
+        UserDTO newUserDTO = new UserDTO(data.email(), data.password(), data.birthDate(), newAccount);
+        User user = new User(newUserDTO);
+        User newUser = userRepository.save(user);
 
-            return newUser;
-
-        } catch (RuntimeException e) {
-
-            throw new FailToCreateUserException(e.getMessage());
-        }
+        return newUser;
 
     }
 }

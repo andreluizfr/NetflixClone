@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.NetflixClone.Business.Users.GetAllUsersBusiness;
 import com.example.NetflixClone.Controllers.ResponseErrorHandler;
-import com.example.NetflixClone.CustomExceptions.FailToGetAllUsersException;
 import com.example.NetflixClone.Models.User;
 
 @RestController
@@ -28,15 +27,13 @@ public class GetAllUsersController {
             List<User> users = getAllUsersBusiness.execute();
 
             return ResponseErrorHandler.generateResponse("Usuários buscados com sucesso.",
-                    HttpStatus.INTERNAL_SERVER_ERROR, users);
+                    HttpStatus.OK, users);
 
-        } catch (FailToGetAllUsersException e) {
+        } catch (RuntimeException e) {
 
             e.printStackTrace();
 
-            return ResponseErrorHandler.generateResponse(e.getMessage(),
-                    HttpStatus.INTERNAL_SERVER_ERROR, null,
-                    FailToGetAllUsersException.getErrorCode());
+            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
 
     }

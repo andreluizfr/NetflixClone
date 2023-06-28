@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.NetflixClone.Business.Accounts.GetAccountBusiness;
 import com.example.NetflixClone.Controllers.ResponseErrorHandler;
-import com.example.NetflixClone.CustomExceptions.FailToGetAccountException;
-import com.example.NetflixClone.CustomExceptions.FailToGetUserException;
+import com.example.NetflixClone.CustomExceptions.FailToFindAccountException;
+import com.example.NetflixClone.CustomExceptions.FailToFindUserException;
 import com.example.NetflixClone.Models.Account;
 
 @RestController
@@ -33,13 +33,29 @@ public class GetAccountController {
                     HttpStatus.OK,
                     account);
 
-        } catch (FailToGetAccountException e) {
+        } catch (IllegalArgumentException e) {
+
+            System.out.println(e.getMessage());
+
+            return ResponseErrorHandler.generateResponse(e.getMessage(),
+                    HttpStatus.BAD_REQUEST, null,
+                    FailToFindUserException.getErrorCode());
+
+        } catch (FailToFindAccountException e) {
+
+            System.out.println(e.getMessage());
+
+            return ResponseErrorHandler.generateResponse(e.getMessage(),
+                    HttpStatus.NOT_FOUND, null,
+                    FailToFindUserException.getErrorCode());
+
+        } catch (RuntimeException e) {
 
             e.printStackTrace();
 
             return ResponseErrorHandler.generateResponse(e.getMessage(),
-                    HttpStatus.BAD_REQUEST, null,
-                    FailToGetUserException.getErrorCode());
+                    HttpStatus.INTERNAL_SERVER_ERROR, null,
+                    FailToFindUserException.getErrorCode());
 
         }
 

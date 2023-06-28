@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.NetflixClone.Controllers.Payments.CreatePlanPaymentDTO;
 import com.example.NetflixClone.CustomExceptions.FailToCreatePlanPaymentException;
-import com.example.NetflixClone.CustomExceptions.FailToGetAccountException;
+import com.example.NetflixClone.CustomExceptions.FailToFindAccountException;
 import com.example.NetflixClone.Models.Account;
 import com.example.NetflixClone.Models.enums.Plan;
 import com.example.NetflixClone.Repositories.AccountRepositoryDAO;
@@ -28,37 +28,41 @@ public class CreatePlanPaymentBusiness {
     @Autowired
     AccountRepositoryDAO accountRepository;
 
-    public Preference execute(CreatePlanPaymentDTO data) throws FailToCreatePlanPaymentException, FailToGetAccountException, IllegalArgumentException{
+    public Preference execute(CreatePlanPaymentDTO data) throws FailToCreatePlanPaymentException,
+            FailToFindAccountException, IllegalArgumentException {
 
-        if(data.plan() == null) throw new IllegalArgumentException("plan is null");
-        if(data.accountId() == null) throw new IllegalArgumentException("accountId is null");
-        if(data.paymentType() == null) throw new IllegalArgumentException("paymentType is null");
+        if (data.plan() == null)
+            throw new IllegalArgumentException("plan is null");
+        if (data.accountId() == null)
+            throw new IllegalArgumentException("accountId is null");
+        if (data.paymentType() == null)
+            throw new IllegalArgumentException("paymentType is null");
 
         MercadoPagoConfig.setAccessToken("TEST-8648720384457418-062712-0ab43f56c05f8ff06f555474f5e80e57-1321642718");
 
         PreferenceClient client = new PreferenceClient();
 
         BigDecimal price = this.getPriceByPlan(data.plan());
-        
-        List<PreferenceItemRequest> items = new ArrayList<>(); 
-        
+
+        List<PreferenceItemRequest> items = new ArrayList<>();
+
         PreferenceItemRequest item = PreferenceItemRequest
-            .builder()
-            .title(data.plan().toString())
-            .quantity(1)
-            .unitPrice(price)
-            .build();
+                .builder()
+                .title(data.plan().toString())
+                .quantity(1)
+                .unitPrice(price)
+                .build();
 
         items.add(item);
 
         PreferenceRequest request = PreferenceRequest
-            .builder()
-            .purpose("wallet_purchase")
-            .notificationUrl("https://eoifqric780iqcx.m.pipedream.net") //em dev
-            .items(items).build();
+                .builder()
+                .purpose("wallet_purchase")
+                .notificationUrl("https://eoifqric780iqcx.m.pipedream.net") // em dev
+                .items(items).build();
 
         try {
-            
+
             Optional<Account> optionalAccount = accountRepository.findById(data.accountId());
 
             if (optionalAccount.isPresent()) {
@@ -72,31 +76,28 @@ public class CreatePlanPaymentBusiness {
                 List<Preference> paymentHistory = account.getPaymentHistory();
                 paymentHistory.add(preference);
                 account.setPaymentHistory(paymentHistory);
-                //System.out.println(account);
-                //accountRepository.save(account);
+                // System.out.println(account);
+                // accountRepository.save(account);
 
                 return preference;
 
             } else {
 
-                throw new FailToGetAccountException("o id não é de uma conta registrada.");
+                throw new FailToFindAccountException("o id não é de uma conta registrada.");
             }
 
         } catch (MPApiException e) {
 
             throw new FailToCreatePlanPaymentException(
-                e.getMessage() + "\n"
-                + e.getApiResponse().getContent() + "\n"
-                + e.getApiResponse().getStatusCode()
-            );
+                    e.getMessage() + "\n"
+                            + e.getApiResponse().getContent() + "\n"
+                            + e.getApiResponse().getStatusCode());
 
         } catch (MPException e) {
 
             throw new FailToCreatePlanPaymentException(e.getMessage());
-        } catch (Exception e) {
+        } 
 
-            throw new FailToCreatePlanPaymentException(e.getMessage());
-        }
     }
 
     private BigDecimal getPriceByPlan(Plan plan) {
@@ -112,96 +113,109 @@ public class CreatePlanPaymentBusiness {
                 return new BigDecimal("19.90");
         }
     }
-        
-    /* 
 
-    private PaymentCreateRequest getRequestByPaymentMethodId(String paymentMethod, CreatePlanPaymentDTO data,
-            BigDecimal price) {
-        switch (paymentMethod) {
-            case "pix":
-                return this.generatePixPaymentRequest(data, price);
-            case "bolbradesco":
-                return this.generateBolBradescoPaymentRequest(data, price);
+    /*
+     * 
+     * private PaymentCreateRequest getRequestByPaymentMethodId(String
+     * paymentMethod, CreatePlanPaymentDTO data,
+     * BigDecimal price) {
+     * switch (paymentMethod) {
+     * case "pix":
+     * return this.generatePixPaymentRequest(data, price);
+     * case "bolbradesco":
+     * return this.generateBolBradescoPaymentRequest(data, price);
+     * 
+     * default:
+     * return this.generateVisaMastercardPaymentRequest(data, price);
+     * }
+     * }
+     * 
+     * private PaymentCreateRequest generatePixPaymentRequest(CreatePlanPaymentDTO
+     * data, BigDecimal price) {
+     * 
+     * // Pix tem 24 hrs para pagar
+     * LocalDateTime dateOfExpiration = LocalDateTime.now();
+     * dateOfExpiration = dateOfExpiration.plusDays(1);
+     * 
+     * OffsetDateTime offsetDateTime = OffsetDateTime.of(dateOfExpiration,
+     * ZoneOffset.UTC);
+     * 
+     * PaymentCreateRequest createdRequest = PaymentCreateRequest.builder()
+     * .description(data.paymentForm().description())
+     * .externalReference("account_id: " + data.accountId())
+     * .installments(data.paymentForm().installments())
+     * .order(PaymentOrderRequest.builder().type("mercadolibre").id((new
+     * Date()).getTime()).build())
+     * .payer(PaymentPayerRequest.builder().email(data.paymentForm().payer().email()
+     * ).build())
+     * .paymentMethodId(data.paymentForm().payment_method_id().toString())
+     * .transactionAmount(price)
+     * .notificationUrl("http://localhost:8080/api/payment/feedback") // em dev
+     * .dateOfExpiration(offsetDateTime)
+     * .build();
+     * 
+     * return createdRequest;
+     * }
+     * 
+     * private PaymentCreateRequest
+     * generateBolBradescoPaymentRequest(CreatePlanPaymentDTO data, BigDecimal
+     * price) {
+     * 
+     * // Pix tem 3 dias para pagar
+     * LocalDateTime dateOfExpiration = LocalDateTime.now();
+     * dateOfExpiration = dateOfExpiration.plusDays(3);
+     * 
+     * OffsetDateTime offsetDateTime = OffsetDateTime.of(dateOfExpiration,
+     * ZoneOffset.UTC);
+     * 
+     * PaymentCreateRequest createdRequest = PaymentCreateRequest.builder()
+     * .description(data.paymentForm().description())
+     * .externalReference("account_id: " + data.accountId())
+     * .installments(data.paymentForm().installments())
+     * .order(PaymentOrderRequest.builder().type("mercadolibre").id((new
+     * Date()).getTime()).build())
+     * .payer(PaymentPayerRequest.builder().email(data.paymentForm().payer().email()
+     * ).build())
+     * .paymentMethodId(data.paymentForm().payment_method_id().toString())
+     * .transactionAmount(price)
+     * .notificationUrl("http://localhost:8080/api/payment/feedback") // em dev
+     * .dateOfExpiration(offsetDateTime)
+     * .build();
+     * 
+     * return createdRequest;
+     * }
+     * 
+     * private PaymentCreateRequest
+     * generateVisaMastercardPaymentRequest(CreatePlanPaymentDTO data, BigDecimal
+     * price) {
+     * 
+     * System.out.println(data.paymentForm().payment_method_id());
+     * System.out.println(data.paymentForm().token());
+     * 
+     * PaymentCreateRequest createdRequest = PaymentCreateRequest.builder()
+     * .token(data.paymentForm().token())
+     * .description(data.paymentForm().description())
+     * .installments(data.paymentForm().installments())
+     * .payer(PaymentPayerRequest.builder().email(data.paymentForm().payer().email()
+     * ).build())
+     * .payer(
+     * PaymentPayerRequest.builder()
+     * .email(data.paymentForm().payer().email())
+     * //.firstName(data.payer().firstName())
+     * .identification(
+     * IdentificationRequest
+     * .builder()
+     * .type(data.paymentForm().payer().identification().type())
+     * .number(data.paymentForm().payer().identification().number())
+     * .build())
+     * .build())
+     * .paymentMethodId(data.paymentForm().payment_method_id())
+     * .transactionAmount(price)
+     * .notificationUrl("https://eoifqric780iqcx.m.pipedream.net") // em dev
+     * .build();
+     * 
+     * return createdRequest;
+     * }
+     */
 
-            default:
-                return this.generateVisaMastercardPaymentRequest(data, price);
-        }
-    }
-
-    private PaymentCreateRequest generatePixPaymentRequest(CreatePlanPaymentDTO data, BigDecimal price) {
-
-        // Pix tem 24 hrs para pagar
-        LocalDateTime dateOfExpiration = LocalDateTime.now();
-        dateOfExpiration = dateOfExpiration.plusDays(1);
-
-        OffsetDateTime offsetDateTime = OffsetDateTime.of(dateOfExpiration, ZoneOffset.UTC);
-
-        PaymentCreateRequest createdRequest = PaymentCreateRequest.builder()
-                .description(data.paymentForm().description())
-                .externalReference("account_id: " + data.accountId())
-                .installments(data.paymentForm().installments())
-                .order(PaymentOrderRequest.builder().type("mercadolibre").id((new Date()).getTime()).build())
-                .payer(PaymentPayerRequest.builder().email(data.paymentForm().payer().email()).build())
-                .paymentMethodId(data.paymentForm().payment_method_id().toString())
-                .transactionAmount(price)
-                .notificationUrl("http://localhost:8080/api/payment/feedback") // em dev
-                .dateOfExpiration(offsetDateTime)
-                .build();
-
-        return createdRequest;
-    }
-
-    private PaymentCreateRequest generateBolBradescoPaymentRequest(CreatePlanPaymentDTO data, BigDecimal price) {
-
-        // Pix tem 3 dias para pagar
-        LocalDateTime dateOfExpiration = LocalDateTime.now();
-        dateOfExpiration = dateOfExpiration.plusDays(3);
-
-        OffsetDateTime offsetDateTime = OffsetDateTime.of(dateOfExpiration, ZoneOffset.UTC);
-
-        PaymentCreateRequest createdRequest = PaymentCreateRequest.builder()
-                .description(data.paymentForm().description())
-                .externalReference("account_id: " + data.accountId())
-                .installments(data.paymentForm().installments())
-                .order(PaymentOrderRequest.builder().type("mercadolibre").id((new Date()).getTime()).build())
-                .payer(PaymentPayerRequest.builder().email(data.paymentForm().payer().email()).build())
-                .paymentMethodId(data.paymentForm().payment_method_id().toString())
-                .transactionAmount(price)
-                .notificationUrl("http://localhost:8080/api/payment/feedback") // em dev
-                .dateOfExpiration(offsetDateTime)
-                .build();
-
-        return createdRequest;
-    }
-
-    private PaymentCreateRequest generateVisaMastercardPaymentRequest(CreatePlanPaymentDTO data, BigDecimal price) {
-
-        System.out.println(data.paymentForm().payment_method_id());
-        System.out.println(data.paymentForm().token());
-
-        PaymentCreateRequest createdRequest = PaymentCreateRequest.builder()
-                .token(data.paymentForm().token())
-                .description(data.paymentForm().description())
-                .installments(data.paymentForm().installments())
-                .payer(PaymentPayerRequest.builder().email(data.paymentForm().payer().email()).build())
-                .payer(
-                    PaymentPayerRequest.builder()
-                        .email(data.paymentForm().payer().email())
-                        //.firstName(data.payer().firstName())
-                        .identification(
-                            IdentificationRequest
-                                .builder()
-                                .type(data.paymentForm().payer().identification().type())
-                                .number(data.paymentForm().payer().identification().number())
-                                .build())
-                        .build())
-                .paymentMethodId(data.paymentForm().payment_method_id())
-                .transactionAmount(price)
-                .notificationUrl("https://eoifqric780iqcx.m.pipedream.net") // em dev
-                .build();
-
-        return createdRequest;
-    }
-         */
-   
 }

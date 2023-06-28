@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.NetflixClone.Business.Users.CreateUserBusiness;
 import com.example.NetflixClone.Controllers.ResponseErrorHandler;
-import com.example.NetflixClone.CustomExceptions.FailToCreateUserException;
 import com.example.NetflixClone.Models.User;
 
-@CrossOrigin(origins = { "http://localhost:8080", "http://localhost:5173" }, allowCredentials = "true")
+@CrossOrigin(origins = { "http://localhost:8080", "http://localhost:5173" })
 @RestController
 @RequestMapping("/api/user")
 public class CreateUserController {
@@ -31,12 +30,17 @@ public class CreateUserController {
             return ResponseErrorHandler.generateResponse("Conta criada com sucesso.", HttpStatus.CREATED,
                     newUser);
 
-        } catch (FailToCreateUserException e) {
+        } catch (IllegalAccessException  e) {
+
+            System.out.println(e.getMessage());
+
+            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST, null);
+
+        } catch (RuntimeException e) {
 
             e.printStackTrace();
 
-            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null,
-                    FailToCreateUserException.getErrorCode());
+            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
 
     }

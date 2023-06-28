@@ -45,7 +45,6 @@
             @include flex-column-start-center;
             gap: 8px;
             padding: 60px 68px;
-            margin-top: 64px;
 
             @include mq-small{
                 align-items: flex-start;
@@ -116,7 +115,6 @@
             @include flex-column-start-start;
             gap: 8px;
             padding: 60px 68px;
-            margin-top: 64px;
 
             @include mq-small{
                 align-items: flex-start;
@@ -177,7 +175,6 @@
         @include flex-column-start-start;
         gap: 16px;
         padding: 24px 32px;
-        margin-top: 76px;
         background-color: rgba(0,0,0,0.06);
 
         .Row-1{

@@ -45,7 +45,6 @@
             max-width: 560px;
             @include flex-column-start-center;
             padding: 32px;
-            margin: 16px 0;
 
             @include mq-small{
                 align-items: flex-start;
@@ -165,7 +164,6 @@
         @include flex-column-start-start;
         gap: 16px;
         padding: 24px 32px;
-        margin-top: 76px;
         background-color: rgba(0,0,0,0.06);
 
         .Row-1{

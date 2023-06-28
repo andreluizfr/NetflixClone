@@ -1,9 +1,9 @@
 package com.example.NetflixClone.CustomExceptions;
 
-public class FailToGetAccountException extends Exception {
+public class FailToFindAccountException extends Exception {
 	private static final int errorCode = 4;
 
-	public FailToGetAccountException(String message) {
+	public FailToFindAccountException(String message) {
 		super("Conta não foi encontrada: " + message);
 	}
 

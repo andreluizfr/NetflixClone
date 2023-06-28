@@ -45,7 +45,7 @@
             width: 100%;
             max-width: 812px;
             gap: 8px;
-            padding: 24px;
+            padding: 32px 24px;
 
             .Step-info{
                 color: $font-quinary-color;
@@ -346,7 +346,6 @@
         @include flex-column-start-start;
         gap: 16px;
         padding: 24px 32px;
-        margin-top: 76px;
         background-color: rgba(0,0,0,0.06);
 
         .Row-1{

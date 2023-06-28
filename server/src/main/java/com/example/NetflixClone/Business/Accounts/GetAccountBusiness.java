@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.NetflixClone.CustomExceptions.FailToGetAccountException;
+import com.example.NetflixClone.CustomExceptions.FailToFindAccountException;
 import com.example.NetflixClone.Models.Account;
 import com.example.NetflixClone.Repositories.AccountRepositoryDAO;
 
@@ -16,21 +16,16 @@ public class GetAccountBusiness {
     @Autowired
     AccountRepositoryDAO accountRepository;
 
-    public Account execute(UUID id) throws FailToGetAccountException {
+    public Account execute(UUID id) throws FailToFindAccountException, IllegalArgumentException, RuntimeException {
 
-        try {
+        if(id == null) throw new IllegalArgumentException("Error: id is null.");
 
-            Optional<Account> optionalAccount = accountRepository.findById(id);
+        Optional<Account> optionalAccount = accountRepository.findById(id);
 
-            if (optionalAccount.isPresent())
-                return optionalAccount.get();
+        if (optionalAccount.isPresent())
+            return optionalAccount.get();
 
-            throw new FailToGetAccountException("O id não pertence a nenhuma conta registrada.");
-
-        } catch (RuntimeException e) {
-
-            throw new FailToGetAccountException(e.getMessage());
-        }
+        throw new FailToFindAccountException("O id " + id + " não pertence a nenhuma conta registrada.");
 
     }
 

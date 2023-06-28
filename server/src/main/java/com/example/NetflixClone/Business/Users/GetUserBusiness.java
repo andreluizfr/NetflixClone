@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.NetflixClone.CustomExceptions.FailToGetUserException;
+import com.example.NetflixClone.CustomExceptions.FailToFindUserException;
 import com.example.NetflixClone.Models.User;
 import com.example.NetflixClone.Repositories.UserRepositoryDAO;
 
@@ -15,20 +15,15 @@ public class GetUserBusiness {
     @Autowired
     UserRepositoryDAO userRepository;
 
-    public User execute(UUID id) throws FailToGetUserException {
+    public User execute(UUID id) throws IllegalArgumentException, FailToFindUserException {
 
-        try {
+        if(id == null) throw new IllegalArgumentException("Error: id is null.");
             
-            Optional<User> optionalUser = userRepository.findById(id);
+        Optional<User> optionalUser = userRepository.findById(id);
 
-            if(optionalUser.isPresent()) return optionalUser.get();
-            
-            throw new FailToGetUserException("O id não pertence a nenhum usuário registrado.");
-
-        } catch (RuntimeException e) {
-
-            throw new FailToGetUserException(e.getMessage());
-        }
+        if(optionalUser.isPresent()) return optionalUser.get();
+        
+        throw new FailToFindUserException("O id " + id + " não pertence a nenhum usuário registrado.");
 
     }
 }

@@ -67,8 +67,10 @@ export default function SignupPaymentPage(): JSX.Element{
             </header>
 
             <main className='Payment-container'>
-                <div id="wallet_container"></div>
-                {createPlanPaymentQuery.data &&
+                {createPlanPaymentQuery.isLoading &&
+                    <div>Loading...</div>
+                }
+                {createPlanPaymentQuery.data?.data &&
                     <Wallet initialization={{ preferenceId: createPlanPaymentQuery.data.data.id }} />
                 }
             </main>

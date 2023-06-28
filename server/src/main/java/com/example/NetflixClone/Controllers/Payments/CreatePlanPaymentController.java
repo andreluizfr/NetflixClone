@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.NetflixClone.Business.Payments.CreatePlanPaymentBusiness;
 import com.example.NetflixClone.Controllers.ResponseErrorHandler;
 import com.example.NetflixClone.CustomExceptions.FailToCreatePlanPaymentException;
-import com.example.NetflixClone.CustomExceptions.FailToGetAccountException;
+import com.example.NetflixClone.CustomExceptions.FailToFindAccountException;
 import com.mercadopago.resources.preference.Preference;
 
 @CrossOrigin(origins = { "http://localhost:8080", "http://localhost:5173" }, allowCredentials = "true")
@@ -32,19 +32,32 @@ public class CreatePlanPaymentController {
             return ResponseErrorHandler.generateResponse("Pagamento iniciado com sucesso.", HttpStatus.CREATED,
                     preference);
 
-        } catch (FailToCreatePlanPaymentException | FailToGetAccountException  e) {
+        } catch (IllegalArgumentException e) {
 
-            e.printStackTrace();
-
-            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null,
-                    FailToCreatePlanPaymentException.getErrorCode());
-
-        } catch (IllegalArgumentException  e) {
-
-            e.printStackTrace();
+            System.out.println(e.getMessage());
 
             return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST, null,
                     FailToCreatePlanPaymentException.getErrorCode());
+
+        } catch (FailToFindAccountException e) {
+
+            System.out.println(e.getMessage());
+
+            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null,
+                    FailToCreatePlanPaymentException.getErrorCode());
+
+        } catch (FailToCreatePlanPaymentException e) {
+
+            System.out.println(e.getMessage());
+
+            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, null,
+                    FailToCreatePlanPaymentException.getErrorCode());
+
+        } catch (RuntimeException e) {
+
+            e.printStackTrace();
+
+            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
 
     }

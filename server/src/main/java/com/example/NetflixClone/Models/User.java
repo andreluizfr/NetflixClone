@@ -37,7 +37,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")
@@ -95,6 +95,8 @@ public class User implements Serializable {
     }
 
     public boolean validatePassword(String password) {
+        System.out.println(this.password);
+        System.out.println(password);
         return BCrypt.checkpw(this.password, password);
     }
 

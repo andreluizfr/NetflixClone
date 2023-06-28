@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.NetflixClone.Business.Users.GetUserBusiness;
 import com.example.NetflixClone.Controllers.ResponseErrorHandler;
-import com.example.NetflixClone.CustomExceptions.FailToGetUserException;
+import com.example.NetflixClone.CustomExceptions.FailToFindUserException;
 import com.example.NetflixClone.Models.User;
 
 @RestController
@@ -32,14 +32,25 @@ public class GetUserController {
                 HttpStatus.OK,
                 user);
 
-        } catch (FailToGetUserException e) {
+        } catch (IllegalArgumentException e) {
+
+            System.out.println(e.getMessage());
+
+            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST, null);
+
+        } catch (FailToFindUserException e) {
+
+            System.out.println(e.getMessage());
+
+            return ResponseErrorHandler.generateResponse(e.getMessage(),
+                HttpStatus.NOT_FOUND, null,
+                FailToFindUserException.getErrorCode());
+
+        } catch (RuntimeException e) {
 
             e.printStackTrace();
 
-            return ResponseErrorHandler.generateResponse(e.getMessage(),
-                    HttpStatus.INTERNAL_SERVER_ERROR, null,
-                    FailToGetUserException.getErrorCode());
-
+            return ResponseErrorHandler.generateResponse(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
 
     }

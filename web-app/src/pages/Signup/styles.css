@@ -38,6 +38,10 @@
 }
 .SignupPage .Steps-container {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .SignupPage .Steps-container .Signup-container-1 {
   min-width: 320px;
@@ -48,7 +52,6 @@
   align-items: center;
   gap: 8px;
   padding: 60px 68px;
-  margin-top: 64px;
 }
 @media only screen and (max-width: 576px) {
   .SignupPage .Steps-container .Signup-container-1 {
@@ -117,7 +120,6 @@
   align-items: center;
   gap: 8px;
   padding: 60px 68px;
-  margin-top: 64px;
 }
 @media only screen and (max-width: 576px) {
   .SignupPage .Steps-container .Signup-container-2 {
@@ -202,7 +204,6 @@
   align-items: flex-start;
   gap: 16px;
   padding: 24px 32px;
-  margin-top: 76px;
   background-color: rgba(0, 0, 0, 0.06);
 }
 .SignupPage footer .Row-1 {
