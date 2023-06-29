@@ -16,10 +16,13 @@ public class LoginBusiness {
     @Autowired
     UserRepositoryDAO userRepository;
 
-    public User execute(LoginDTO data) throws IllegalArgumentException, FailToFindUserException, UnmatchedPasswordException {
+    public User execute(LoginDTO data)
+            throws IllegalArgumentException, FailToFindUserException, UnmatchedPasswordException {
 
-        if(data.email() == null) throw new IllegalArgumentException("email is null");
-        if(data.password() == null) throw new IllegalArgumentException("password is null");
+        if (data.email() == null)
+            throw new IllegalArgumentException("email is null");
+        if (data.password() == null)
+            throw new IllegalArgumentException("password is null");
 
         Optional<User> optionalUser = userRepository.findOneByEmail(data.email());
 
@@ -27,9 +30,11 @@ public class LoginBusiness {
 
             User user = optionalUser.get();
 
-            if(user.validatePassword(data.password())) return user;
+            if (user.validatePassword(data.password()))
+                return user;
 
-            else throw new UnmatchedPasswordException("A senha não combinou com a do usuário buscado no banco.");
+            else
+                throw new UnmatchedPasswordException("A senha não combinou com a do usuário buscado no banco.");
 
         } else {
 

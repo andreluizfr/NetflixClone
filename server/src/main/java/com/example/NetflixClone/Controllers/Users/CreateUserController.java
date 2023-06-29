@@ -1,6 +1,10 @@
 package com.example.NetflixClone.Controllers.Users;
 
+import org.postgresql.util.PSQLException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,9 +34,27 @@ public class CreateUserController {
             return ResponseErrorHandler.generateResponse("Conta criada com sucesso.", HttpStatus.CREATED,
                     newUser);
 
-        } catch (IllegalAccessException  e) {
+        } catch (IllegalAccessException e) {
 
             System.out.println(e.getMessage());
+
+            return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST, null);
+
+        } catch (DataIntegrityViolationException e) {
+
+            Throwable cause = e.getMostSpecificCause();
+
+            if (cause instanceof PSQLException) {
+
+                PSQLException pSQLException = (PSQLException) cause;
+
+                if(pSQLException.getErrorCode() == 0) //unica chave com unique é email
+                    return ResponseErrorHandler.generateResponse("Error: email já cadastrado",
+                        HttpStatus.UNPROCESSABLE_ENTITY, null);
+                
+            }
+
+            e.printStackTrace();
 
             return ResponseErrorHandler.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST, null);
 

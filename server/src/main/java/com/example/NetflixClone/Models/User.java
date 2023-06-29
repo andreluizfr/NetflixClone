@@ -95,9 +95,7 @@ public class User implements Serializable {
     }
 
     public boolean validatePassword(String password) {
-        System.out.println(this.password);
-        System.out.println(password);
-        return BCrypt.checkpw(this.password, password);
+        return BCrypt.checkpw(password, this.password);
     }
 
 }
