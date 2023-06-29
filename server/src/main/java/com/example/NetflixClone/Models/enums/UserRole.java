@@ -1,5 +1,5 @@
 package com.example.NetflixClone.Models.enums;
 
-public enum Role {
+public enum UserRole {
     BASIC, ADMIN
 }

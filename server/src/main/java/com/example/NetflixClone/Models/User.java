@@ -4,11 +4,16 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-import com.example.NetflixClone.Models.enums.Role;
+import com.example.NetflixClone.Models.enums.UserRole;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -31,7 +36,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Entity(name = "User")
 @Table(name = "tbl_user")
-public class User implements Serializable {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -47,7 +52,7 @@ public class User implements Serializable {
     private LocalDate birthDate;
 
     @Column(name = "role")
-    private Role role;
+    private UserRole role;
 
     // @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
@@ -61,7 +66,7 @@ public class User implements Serializable {
         this.email = userDTO.email();
         this.password = this.hashPassword(userDTO.password());
         this.birthDate = LocalDate.parse(userDTO.birthDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        this.role = Role.BASIC;
+        this.role = UserRole.BASIC;
         this.account = userDTO.account();
         this.createdAt = LocalDateTime.now();
     }
@@ -96,6 +101,37 @@ public class User implements Serializable {
 
     public boolean validatePassword(String password) {
         return BCrypt.checkpw(password, this.password);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
 }
