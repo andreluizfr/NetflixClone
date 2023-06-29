@@ -1,13 +1,12 @@
 package com.example.NetflixClone.Business.Auth;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
 import com.example.NetflixClone.Controllers.Auth.LoginDTO;
-import com.example.NetflixClone.CustomExceptions.FailToFindUserException;
-import com.example.NetflixClone.CustomExceptions.UnmatchedPasswordException;
 import com.example.NetflixClone.Models.User;
 import com.example.NetflixClone.Repositories.UserRepositoryDAO;
 
@@ -16,30 +15,21 @@ public class LoginBusiness {
     @Autowired
     UserRepositoryDAO userRepository;
 
-    public User execute(LoginDTO data)
-            throws IllegalArgumentException, FailToFindUserException, UnmatchedPasswordException {
+    @Autowired
+    AuthenticationManager authenticationManager;
 
-        if (data.email() == null)
-            throw new IllegalArgumentException("email is null");
-        if (data.password() == null)
-            throw new IllegalArgumentException("password is null");
+    @Autowired
+    TokenService tokenService;
 
-        Optional<User> optionalUser = userRepository.findOneByEmail(data.email());
+    public String execute(LoginDTO data) throws IllegalArgumentException, AuthenticationException{
 
-        if (optionalUser.isPresent()) {
+        var emailPassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
 
-            User user = optionalUser.get();
+        var auth = this.authenticationManager.authenticate(emailPassword);
 
-            if (user.validatePassword(data.password()))
-                return user;
-
-            else
-                throw new UnmatchedPasswordException("A senha não combinou com a do usuário buscado no banco.");
-
-        } else {
-
-            throw new FailToFindUserException("email não registrado.");
-        }
+        String accessToken = tokenService.generateToken((User) auth.getPrincipal());
+        
+        return accessToken;
 
     }
 

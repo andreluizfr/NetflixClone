@@ -1,9 +1,7 @@
 package com.example.NetflixClone.Business.Users;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.example.NetflixClone.Controllers.Users.CreateUserDTO;
@@ -24,7 +22,7 @@ public class CreateUserBusiness {
 
     public User execute(CreateUserDTO data) throws IllegalAccessException, DataIntegrityViolationException {
 
-        if(data.email()==null || data.password()==null || data.birthDate()==null)
+        if (data.email() == null || data.password() == null || data.birthDate() == null)
             throw new IllegalArgumentException("Error: email, password or birthDate not found");
 
         Account account = new Account();

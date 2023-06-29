@@ -1,6 +1,5 @@
 package com.example.NetflixClone.Models;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +10,8 @@ import java.util.UUID;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+//import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.NetflixClone.Models.enums.UserRole;
 
@@ -54,7 +54,7 @@ public class User implements UserDetails {
     @Column(name = "role")
     private UserRole role;
 
-    // @JsonManagedReference
+    //@JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account; // Foreign Key, Owner of one-to-one relation key
@@ -85,28 +85,33 @@ public class User implements UserDetails {
     @Override
     public String toString() {
         return "{" +
-        "  id: " + this.id + "\n" +
-        "  id: " + this.email + "\n" +
-        "  id: " + this.password + "\n" +
-        "  id: " + this.birthDate.toString() + "\n" +
-        "  id: " + this.role + "\n" +
-        "  id: " + this.account.toString() + "\n" +
-        "  id: " + this.createdAt.toString() + "\n" +
-        "}";
+                "  id: " + this.id + "\n" +
+                "  id: " + this.email + "\n" +
+                "  id: " + this.password + "\n" +
+                "  id: " + this.birthDate.toString() + "\n" +
+                "  id: " + this.role + "\n" +
+                "  id: " + this.account.toString() + "\n" +
+                "  id: " + this.createdAt.toString() + "\n" +
+                "}";
     }
 
     public String hashPassword(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
+        //return BCrypt.hashpw(password, BCrypt.gensalt());
+        return new BCryptPasswordEncoder().encode(password);
     }
 
+    /* 
     public boolean validatePassword(String password) {
         return BCrypt.checkpw(password, this.password);
     }
+    */
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        if (this.role == UserRole.ADMIN)
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
