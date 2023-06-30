@@ -59,9 +59,9 @@ export default function Playlist({title, works}: props) {
             translateX.set(0);
             baseX.set(0);
         }
-        else if(translateX.get() < (- (IMG_WIDTH * works.length) - (PADDING_X * works.length) + width)){  //
-            translateX.set(- (IMG_WIDTH * works.length) - (PADDING_X * works.length) + width);
-            baseX.set(- (IMG_WIDTH * works.length) - (PADDING_X * works.length) + width);
+        else if(translateX.get() < (- (IMG_WIDTH * works.length) + (PADDING_X * works.length) + width)){  //
+            translateX.set(- (IMG_WIDTH * works.length) + (PADDING_X * works.length) + width);
+            baseX.set(- (IMG_WIDTH * works.length) + (PADDING_X * works.length) + width);
         }
         else 
             baseX.set(translateX.get());
