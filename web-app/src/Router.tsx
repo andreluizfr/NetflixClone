@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 
 import {
 	createBrowserRouter,
@@ -27,13 +27,8 @@ function App() {
 	const user = useSelector((state: StoreState) => state.user);
 	
 	const fetchUserQuery = FetchUser();
-	
-  	useEffect(()=>{
-		if(fetchUserQuery.data)
-      		console.log(fetchUserQuery.data);
-	}, [fetchUserQuery.data]);
 
- 	if(fetchUserQuery.isFetching || fetchUserQuery.isLoading)
+	if(fetchUserQuery.isFetching || fetchUserQuery.isLoading)
 		return(
 			<RouterProvider router={
 				createBrowserRouter([

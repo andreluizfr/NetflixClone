@@ -1,5 +1,10 @@
 import { QueryClient } from 'react-query';
 
+export interface QueryError {
+    httpStatusCode: number | null;
+    message: string;
+}
+
 export const queryClient = new QueryClient({
     defaultOptions: {
         queries: {

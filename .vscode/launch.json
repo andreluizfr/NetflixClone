@@ -9,6 +9,16 @@
             "projectName": "server",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-NetflixCloneApplication<NetflixClone>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.NetflixClone.NetflixCloneApplication",
+            "projectName": "NetflixClone",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

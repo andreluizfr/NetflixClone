@@ -1,5 +1,8 @@
 package com.example.NetflixClone.Business.Auth;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 @EnableWebSecurity
@@ -26,6 +30,16 @@ public class SecurityConfiguration {
 
         return httpSecurity
             .csrf(csrf -> csrf.disable())
+            .cors(cors -> {
+                cors.configurationSource(request -> {
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
+                    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTION"));
+                    config.setAllowedHeaders(Arrays.asList("Content-Type", "Accept", "Authorization", "Access-control-allow-methods", "Access-Control-Allow-Origin", "Access-control-allow-headers"));
+                    config.setAllowCredentials(true);
+                    return config;
+                });
+            })
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(HttpMethod.POST, "/api/user/create").permitAll()

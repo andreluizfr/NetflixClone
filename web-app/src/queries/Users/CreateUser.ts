@@ -1,86 +1,123 @@
 import { useQuery } from 'react-query';
-import axios from '../../libs/axios';
-axios.defaults.withCredentials = false; 
+import { QueryError } from '../../libs/react-query';
 
 import { AxiosError } from 'axios';
-import { User } from '../../types/User';
-//import { useNavigate } from 'react-router-dom';
+import axios, { CustomResponse } from '../../libs/axios';
 
-interface CreateUserResponse {
-    message: string;
-    data: User;
+import { User } from '../../types/User';
+
+import { useDispatch } from 'react-redux';
+import { addUser } from '../../store/features/userSlice';
+import { saveEmail, setStep } from '../../store/features/signupSlice';
+
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { AnyAction, Dispatch } from '@reduxjs/toolkit';
+
+export default function CreateUserQuery (
+    email: string | null,
+    password: string | null,
+    birthDate: Date | null, 
+) {
+
+    const createUserQuery = useQuery<CustomResponse<User>['data'], QueryError>('createUser', async () => createUser(email, password, birthDate));
+    
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    if (createUserQuery.data) HandleCreateUserQuerySuccess(createUserQuery.data, dispatch, navigate);
+
+    else if (createUserQuery.isError) HandleCreateUserQueryError(createUserQuery.error, dispatch, navigate);
+
+    return createUserQuery; //para fazer o devido uso com relação a camada de view do react
+
 }
 
 async function createUser (
     email: string | null,
     password: string | null,
     birthDate: Date | null, 
-    ){
+){
     
     if(email && password && birthDate){
-
-        //const navigate = useNavigate();
         
         try{
 
-            const response = await axios.post(
+            const response = await axios.post<CustomResponse<User>["data"]>(
                 '/user/create',
                 {email, password, birthDate},
             );
 
-            const data = response.data as CreateUserResponse;
-            console.log(data);
-            
-            return data;
+            return response.data;
 
-        } catch (err: any) {
+        } catch (err: unknown) {
 
-            const error = err as AxiosError;
+            const error = err as AxiosError<CustomResponse<User>["data"]>;
 
-            if (error.response) {
-                // The request was made and the server responded with a status code that falls out of the range of 2xx 
-                
-                const data = error.response.data as CreateUserResponse;
+            if (error.response) throw {
+                httpStatusCode: error.response.status,
+                message:  error.response.data.message
+            };
 
-                switch(error.response.status){ 
-                    case 400: { //Bad Request. Erro nos parametros passados
-                        setTimeout(()=>window.location.href = import.meta.env.BASE_URL + "/signup", 3000);
-                        throw new Error(error.response.status + " - " + data.message);
-                    }
-                    case 500: //Internal server error. erro durante a criaçao das entidades, nada a ser tratado
-                        throw new Error(error.response.status + " - " + data.message);
+            else if (error.request) throw {
+                httpStatusCode: null,
+                message:  'Erro: O servidor não pode responder a essa requisição.'
+            };
 
-                    default: //erro não mapeado pelo controlador do backend, nada a ser tratado
-                        throw new Error(error.response.status + " - " + data.message);
-                }
-
-            }
-            else if (error.request) {
-                // The request was made but no response was received, `error.request` is an instance of XMLHttpRequest in the browser 
-                throw new Error('O servidor não pode responder a essa requisição.');
-            } 
-            else {
-                // Something happened in setting up the request that triggered an Error
-                throw new Error(error.message);
-            }
+            else throw {
+                httpStatusCode: null,
+                message:  error.message
+            };
 
         }
 
-    } else throw new Error('Error: Email, Password or Birthday are Undefined.');
+    } else throw {
+        httpStatusCode: null,
+        message: 'Erro: Email, senha ou data de aniversário não foram identificados.'
+    };
 
 }
 
-export default function CreateUserQuery (
-    email: string | null,
-    password: string | null,
-    birthDate: Date | null, 
-    ) {
+function HandleCreateUserQuerySuccess(data: CustomResponse<User>['data'], dispatch: Dispatch<AnyAction>, navigate: NavigateFunction) {
 
-    const createUserQuery = useQuery<CreateUserResponse, unknown>(
-        'createUser',
-        async () => createUser(email, password, birthDate),
-    );
+    console.log(data);
 
-    return createUserQuery;
+    const user = data.data;
+
+    if(user){
+        dispatch(addUser(user));
+        navigate("/signup/payment");
+    }
+}
+
+function HandleCreateUserQueryError(queryError: QueryError, dispatch: Dispatch<AnyAction>, navigate: NavigateFunction) {
+
+    console.error(queryError.message);
+
+    switch(queryError.httpStatusCode){ 
+
+        case 400: {  //Bad Request. Erro nos parametros passados, reiniciar processo de registro
+            setTimeout(()=>navigate("/signup"), 2000);
+            break;
+        }
+        case 422: { //Unprocessable entity. Email já está em uso, voltar para etapa de colocar email
+            dispatch(saveEmail(null));
+            dispatch(setStep(2));
+
+            setTimeout(()=>navigate("/signup/registration"), 2000);
+
+            break;
+        }
+        case 500: { //Internal server error. erro durante a criaçao das entidades, não há tratamento
+            break;
+        }
+        case null: { //Erro antes de receber resposta do servidor, não há tratamento
+            break;
+        }
+
+        default: { //erro não mapeado pelo controlador do backend, não há tratamento
+            break;
+        }
+
+    }
 
 }

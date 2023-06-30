@@ -4,43 +4,51 @@ import devices from '../../assets/img/devices.png';
 import AnimatedInput from '../../components/AnimatedInput';
 
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
-import { saveEmail, savePassword} from '../../store/features/signupSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveEmail, savePassword, setStep} from '../../store/features/signupSlice';
 
 import { motion } from 'framer-motion';
 
-import { useLocalStorage } from '../../hooks/UseLocalStorage';
-import { User } from '../../types/User';
+import { StoreState } from '../../store';
 
 export default function SignupRegistrationPage(): JSX.Element {
 
 	const width = window.innerWidth;
 
     const navigate = useNavigate();
-
     const dispatch = useDispatch();
+    const user = useSelector((state: StoreState) => state.user);
+    const signup = useSelector((state: StoreState) => state.signup);
 
-    const [step, setStep] = useState(1);
-
-    const [user, setUser] = useLocalStorage("user", JSON.stringify(null));
     
     useEffect(()=>{
-        const User = JSON.parse(user) as User;
-        if(User && !User.account.isActive){
-            navigate("/signup/payment");
+        if(user.data?.account.isActive){
+            navigate("/contents");
         }
+        else if(user.data){
+            navigate("/signup/paymentPicker");
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function goToNextStep(){
-        setStep(current=>current+1);
+        dispatch(setStep(2));
     }
 
-    function saveData(){
+    function goToPaymentPicker(){
+
         const inputs = document.getElementsByClassName("Input") as HTMLCollectionOf<HTMLInputElement>;
-        dispatch(saveEmail(inputs[0].value));
-        dispatch(savePassword(inputs[1].value));
+        
+        if(!signup.email) {
+            dispatch(saveEmail(inputs[0].value));
+            dispatch(savePassword(inputs[1].value));
+        } else 
+            dispatch(savePassword(inputs[0].value));
+        
+        dispatch(setStep(1));
+        navigate("/signup/paymentPicker");
     }
 
     return (
@@ -60,7 +68,7 @@ export default function SignupRegistrationPage(): JSX.Element {
             </header>
 
             <main className='Steps-container'>
-                {step===1 &&
+                {signup.step===1 &&
                     <div className='Signup-container-1'>
 
                         <img 
@@ -84,7 +92,7 @@ export default function SignupRegistrationPage(): JSX.Element {
                     </div>
                 }
 
-                {step===2 &&
+                {signup.step===2 &&
                     <div className='Signup-container-2'>
 
                         <span className='Step-info'>PASSO 2 DE 3</span>
@@ -98,15 +106,17 @@ export default function SignupRegistrationPage(): JSX.Element {
                             Nós também detestamos formulários.
                         </p>
 
-                        <AnimatedInput 
-                            title="Email" 
-                            warning="O email é obrigatório."
-                            theme="light"
-                            type="email"
-                            minLength={3}
-                            maxLength={128}
-                            required
-                        />
+                        {!signup.email &&
+                            <AnimatedInput 
+                                title="Email" 
+                                warning="O email é obrigatório."
+                                theme="light"
+                                type="email"
+                                minLength={3}
+                                maxLength={128}
+                                required
+                            />
+                        }
 
                         <AnimatedInput 
                             title="Adicione uma senha" 
@@ -118,10 +128,10 @@ export default function SignupRegistrationPage(): JSX.Element {
                             required
                         />
 
-                        <button className='NextStep-button' onClick={saveData}>
-                            <Link to="/signup/paymentPicker">
+                        <button className='NextStep-button' onClick={goToPaymentPicker}>
+                            <a href="#">
                                 Próximo
-                            </Link>
+                            </a>
                         </button>
 
                     </div>

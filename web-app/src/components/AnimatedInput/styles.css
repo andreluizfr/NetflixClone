@@ -33,11 +33,12 @@
   color: #e87c03;
 }
 .Animated-input .Show {
-  display: none;
   position: absolute;
   top: 16px;
   right: 16px;
   color: #8c8c8c;
+  z-index: 9999;
+  cursor: pointer;
 }
 .Animated-input .Input:focus {
   -webkit-backdrop-filter: opacity(0.3);
@@ -47,9 +48,6 @@
   font-size: 0.7rem;
   font-weight: 500;
   top: 6px;
-}
-.Animated-input .Input:focus ~ .Show {
-  display: block;
 }
 .Animated-input .Input:valid {
   outline: none;

@@ -1,6 +1,6 @@
 import './styles.css';
 import logo from '../../assets/svg/logo.svg';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useDispatch } from 'react-redux';
 import { saveEmail } from '../../store/features/signupSlice';
@@ -9,16 +9,19 @@ import { Helmet } from 'react-helmet-async';
 export default function Home(): JSX.Element{
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     function saveEmailToSignup(e: React.MouseEvent<HTMLAnchorElement>){
 
-        const input = document.getElementsByClassName("Input-email")[0] as HTMLInputElement;
+        const input = document.getElementsByClassName("Email-input")[0] as HTMLInputElement;
         const email = input?.value;
 
         if(email === null) 
             e.preventDefault();
-        else 
+        else {
             dispatch(saveEmail(email));
+            navigate("/signup");
+        }
             
     }
 
@@ -66,9 +69,9 @@ export default function Home(): JSX.Element{
                         <div className='Row-4'>
                             <input className='Email-input' placeholder='Email'/>
                             <button className='Subscribe-button'>
-                                <Link to='/signup' onClick={saveEmailToSignup}>
+                                <a href="#" onClick={saveEmailToSignup}>
                                     {"Vamos lá >"}
-                                </Link>
+                                </a>
                             </button>
                         </div>
                     </div>

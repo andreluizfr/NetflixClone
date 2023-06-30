@@ -4,12 +4,13 @@ import checkmarkGroup from '../../assets/svg/checkmark-group.svg';
 import planGridBoolean from '../../assets/svg/planGrid-boolean.svg';
 
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setPlan, setStep} from '../../store/features/signupSlice';
 
 import { motion } from 'framer-motion';
+import { StoreState } from '../../store';
 
 enum Plan{
     DefaultWithAds,
@@ -21,11 +22,21 @@ export default function SignupPlanPage(): JSX.Element{
 
 	const width = window.innerWidth;
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const user = useSelector((state: StoreState) => state.user);
 
     //setting active attributes for plan spans
     useEffect(()=>{
         changePlan(Plan.DefaultWithAds);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(()=>{
+        if(user.data?.account.isActive){
+            navigate("/contents");
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function setPlanElementToActive(plan: Plan) {

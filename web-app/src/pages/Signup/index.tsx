@@ -5,34 +5,39 @@ import checkmark from '../../assets/img/checkmark.png';
 import checkmarkGroup from '../../assets/svg/checkmark-group.svg';
 
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 
-import { useLocalStorage } from '../../hooks/UseLocalStorage';
-import { User } from '../../types/User';
+import { useDispatch, useSelector } from 'react-redux';
+import { StoreState } from '../../store';
+import { setStep } from '../../store/features/signupSlice';
 
 export default function SignupPage(): JSX.Element {
 
 	const width = window.innerWidth;
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const user = useSelector((state: StoreState) => state.user);
+    const signup = useSelector((state: StoreState) => state.signup);
 
-    const [step, setStep] = useState(1);
+    useEffect(()=>{
+        if(user.data?.account.isActive){
+            navigate("/contents");
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     function goToNextStep(){
-        setStep(current=>current+1);
+        dispatch(setStep(2));
     }
 
-    const [user, setUser] = useLocalStorage("user", JSON.stringify(null));
-    
-    useEffect(()=>{
-        const User = JSON.parse(user) as User;
-        if(User && !User.account.isActive){
-            navigate("/signup/payment");
-        }
-    }, []);
+    function goToPlanForm() {
+        dispatch(setStep(1));
+        navigate("/signup/planform");
+    }
 
     return (
         <motion.div 
@@ -60,7 +65,7 @@ export default function SignupPage(): JSX.Element {
             </header>
 
             <main className='Steps-container'>
-                {step===1 &&
+                {signup.step===1 &&
                     <div className='Signup-container-1'>
 
                         <img 
@@ -84,7 +89,7 @@ export default function SignupPage(): JSX.Element {
                     </div>
                 }
 
-                {step===2 &&
+                {signup.step===2 &&
                     <div className='Signup-container-2'>
 
                         <img 
@@ -122,10 +127,10 @@ export default function SignupPage(): JSX.Element {
                             <p className='Text'>Divirta-se com a Netflix em todos os seus aparelhos.</p>
                         </div>
 
-                        <button className='NextStep-button'>
-                            <Link to="/signup/planform">
+                        <button className='NextStep-button' onClick={goToPlanForm}>
+                            <a href="#">
                                 Próximo
-                            </Link>
+                            </a>
                         </button>
 
                     </div>

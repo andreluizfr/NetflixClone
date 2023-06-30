@@ -1,8 +1,46 @@
 import './styles.css';
 import AnimatedInput from '../../components/AnimatedInput';
 import logo from '../../assets/svg/logo.svg';
+import LoginQuery from '../../queries/Auth/Login';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { StoreState } from '../../store';
+
 
 export default function Login(): JSX.Element{
+
+    const navigate = useNavigate();
+    const user = useSelector((state: StoreState) => state.user);
+
+    const [email, setEmail] = useState<string | null>(null);
+    const [password, setPassword] = useState<string | null>(null);
+    const [readyToLogin, setReadyToLogin] = useState(false);
+
+    const loginQuery = LoginQuery(email, password);
+
+    function onSubmit (e: React.FormEvent){
+        e.preventDefault();
+
+        const inputs = document.getElementsByClassName("Input") as HTMLCollection;
+
+        setEmail((inputs[0] as HTMLInputElement).value);
+        setPassword((inputs[1] as HTMLInputElement).value);
+        setReadyToLogin(true);
+    }
+
+    useEffect(()=>{
+        if(email && password && readyToLogin){
+            loginQuery.refetch();
+            setReadyToLogin(false);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [email, password, readyToLogin]);
+
+    useEffect(()=>{
+        if(user.data)
+            navigate("/contents");
+    }, [navigate, user.data]);
 
     return (
         <div className="LoginPage">
@@ -15,7 +53,7 @@ export default function Login(): JSX.Element{
                 </header>
 
                 <div className='Login-background'>
-                    <form className='Login-form'>
+                    <form className='Login-form' onSubmit={onSubmit}>
                         <h1 className='Title'>Entrar</h1>
 
                         <AnimatedInput 
@@ -36,14 +74,14 @@ export default function Login(): JSX.Element{
                             required
                         />
 
-                        <button className='Login-button'>
+                        <button className='Login-button' type='submit'>
                             Entrar
                         </button>
 
                         <div className='Remember-me-and-need-help-container'>
                             <div className='Remember-me-checkbox'>
                                 <label>
-                                    <input type='checkbox' required/>
+                                    <input type='checkbox'/>
                                     <span/>
                                 </label>
 

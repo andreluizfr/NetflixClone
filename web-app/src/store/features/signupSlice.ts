@@ -9,7 +9,6 @@ interface SignupState {
     plan: Plan | null
     password: string | null
     paymentType: PaymentType | null
-    birthDate: Date | null
 }
 
 const signupSlice = createSlice({
@@ -19,8 +18,7 @@ const signupSlice = createSlice({
         email: null,
         plan: null,
         password: null,
-        paymentType: null,
-        birthDate: null
+        paymentType: null
     } as SignupState,
     reducers: {
         setStep(state, action) {
@@ -39,19 +37,15 @@ const signupSlice = createSlice({
         savePaymentType(state, action) {
             state.paymentType = action.payload;
         },
-        saveBirthDate(state, action) {
-            state.birthDate = action.payload;
-        },
-        clear(state, action) {
+        clear(state) {
             state.step= 1;
             state.email= null;
             state.plan= null;
             state.password= null;
             state.paymentType= null;
-            state.birthDate= null;
         },
     }
 });
 
-export const { setStep, saveEmail, setPlan, savePassword, savePaymentType, saveBirthDate, clear } = signupSlice.actions;
+export const { setStep, saveEmail, setPlan, savePassword, savePaymentType, clear } = signupSlice.actions;
 export default signupSlice.reducer;

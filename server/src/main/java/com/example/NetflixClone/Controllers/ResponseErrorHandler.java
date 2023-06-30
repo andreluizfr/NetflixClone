@@ -13,7 +13,7 @@ public class ResponseErrorHandler {
         jsonMap.put("message", message);
         jsonMap.put("data", responseObj);
 
-        return new ResponseEntity<Object>(jsonMap, httpStatus);
+        return ResponseEntity.status(httpStatus).body(jsonMap);
     }
 
     public static ResponseEntity<Object> generateResponse(String message, HttpStatus httpStatus, Object responseObj,
@@ -22,9 +22,8 @@ public class ResponseErrorHandler {
 
         jsonMap.put("message", message);
         jsonMap.put("data", responseObj);
-        jsonMap.put("error", true);
         jsonMap.put("errorCode", errorCode);
 
-        return new ResponseEntity<Object>(jsonMap, httpStatus);
+        return ResponseEntity.status(httpStatus).body(jsonMap);
     }
 }

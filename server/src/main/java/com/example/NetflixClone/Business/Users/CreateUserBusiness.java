@@ -1,5 +1,7 @@
 package com.example.NetflixClone.Business.Users;
 
+import java.time.format.DateTimeParseException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -20,9 +22,9 @@ public class CreateUserBusiness {
     @Autowired
     AccountRepositoryDAO accountRepository;
 
-    public User execute(CreateUserDTO data) throws IllegalAccessException, DataIntegrityViolationException {
+    public User execute(CreateUserDTO data) throws IllegalAccessException, DataIntegrityViolationException, DateTimeParseException {
 
-        if (data.email() == null || data.password() == null || data.birthDate() == null)
+        if (data.email() == null || data.password() == null || data.birthDate() == null) 
             throw new IllegalArgumentException("Error: email, password or birthDate not found");
 
         Account account = new Account();

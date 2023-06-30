@@ -1,17 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { User } from '../../types/User';
 
-type UserState = User | null;
+type UserState = {
+    data: User | null;
+};
 
 const userSlice = createSlice({
     name: 'user',
-    initialState: null as UserState,
+    initialState: {
+        data: null
+    } as UserState,
     reducers: {
         addUser(state, action) {
-            state = action.payload as User;
+            state.data = action.payload;
+            localStorage.setItem("user", JSON.stringify(action.payload as User));
         },
         removeUser(state){
-            state = null;
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            state.data = null;
+            localStorage.removeItem("user");
+            localStorage.removeItem("x-access-token");
         }
     }
 });

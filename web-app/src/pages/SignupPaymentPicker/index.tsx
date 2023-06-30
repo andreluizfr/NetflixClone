@@ -9,20 +9,31 @@ import elo from '../../assets/img/elo.png';
 import hipercard from '../../assets/img/hipercard.png';
 import arrowRight from '../../assets/svg/arrow-right.svg';
 import secureBadge from '../../assets/svg/secureBadge.svg';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { savePaymentType } from '../../store/features/signupSlice';
 
 import { motion } from 'framer-motion';
 
 import PaymentType from '../../types/PaymentType';
+import { StoreState } from '../../store';
+import { useEffect } from 'react';
 
 export default function SignupPaymentPickerPage(): JSX.Element{
 
 	const width = window.innerWidth;
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const user = useSelector((state: StoreState) => state.user);
+
+    useEffect(()=>{
+        if(user.data?.account.isActive){
+            navigate("/contents");
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     function setPayment(paymentType: PaymentType){
         dispatch(savePaymentType(paymentType));

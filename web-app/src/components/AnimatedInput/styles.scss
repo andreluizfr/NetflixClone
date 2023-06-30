@@ -39,12 +39,16 @@
     }
 
     .Show{
-        display: none;
         position: absolute;
         top: 16px; //altura do input é 3rem fixos
         right: 16px;
         color: $font-tertiary-color;
+
+        z-index: 9999;
+        cursor: pointer;
     }
+
+
 
 
 
@@ -58,9 +62,6 @@
         top: 6px;
     }
 
-    .Input:focus ~ .Show{
-        display: block;
-    }
 
 
 

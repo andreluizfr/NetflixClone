@@ -1,98 +1,20 @@
 import { useQuery } from 'react-query';
-import axios from '../../libs/axios';
+import { QueryError } from '../../libs/react-query';
+
 import { AxiosError } from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addUser, removeUser } from '../../store/features/userSlice';
+import axios, { CustomResponse } from '../../libs/axios';
+
 import { User } from '../../types/User';
 
-interface FetchUserResponse {
-    message: string;
-    data: User | null;
-}
+import { useDispatch } from 'react-redux';
+import { addUser, removeUser } from '../../store/features/userSlice';
 
-async function fetchUser (){
+import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 
-    const accessToken = localStorage.getItem("x-access-token");
-
-    if(accessToken){
-
-        const navigate = useNavigate();
-        const dispatch = useDispatch();
-
-        try{
-
-            const response = await axios.get(
-                '/user/fetchUser', 
-                {headers: { Authorization: `Bearer ${accessToken}` }}
-            );
-
-            const data = response.data as FetchUserResponse;
-
-            dispatch(addUser(data));
-            
-            return data;
-
-        } catch (err: any) {
-
-            const error = err as AxiosError;
-
-            if (error.response) {
-                // The request was made and the server responded with a status code that falls out of the range of 2xx
-
-                const data = error.response.data as FetchUserResponse;
-
-                switch(error.response.status){ 
-                    case 401: { //Unauthorized. Não autenticado, token inválido
-                        localStorage.removeItem("x-access-token");
-                        dispatch(removeUser());
-
-                        setTimeout(()=>navigate("/"), 3000);
-                        return data;
-                    }
-                    case 403: { //Forbidden. token válido mas expirado
-                        localStorage.removeItem("x-access-token"); 
-                        //chamar função de refresh, inves de fazer essas linhas abaixo
-                        dispatch(removeUser());
-
-                        setTimeout(()=>navigate("/"), 3000);
-                        return data;
-                    }
-                    case 500: //Internal server error. erro em runtime desconhecido, nada a ser tratado
-                        return {
-                            message: "Error: " + error.response.status + " - " + data.message,
-                            data: null
-                        } as FetchUserResponse;
-
-                    default: //erro não mapeado pelo controlador do backend
-                        return {
-                            message: "Error: " + error.response.status + " - " + data.message,
-                            data: null
-                        } as FetchUserResponse;
-                }
-
-            }
-            else if (error.request) {
-                // The request was made but no response was received, `error.request` is an instance of XMLHttpRequest in the browser 
-                throw new Error(" O servidor não pode responder a essa requisição.");
-            } 
-            else {
-                // Something happened in setting up the request that triggered an Error
-                throw new Error(error.message);
-            }
-
-        }
-
-    } else return {
-            message: "Error: AccessToken not found.",
-            data: null
-        } as FetchUserResponse;
-
-}
 
 export default function FetchUserQuery () {
 
-    const fetchUserQuery = useQuery<FetchUserResponse | null, unknown>(
+    const fetchUserQuery = useQuery<CustomResponse<User>['data'], QueryError>(
         'fetchUser',
         async () => fetchUser(),
         {
@@ -113,7 +35,92 @@ export default function FetchUserQuery () {
             },
         }
     );
+    
+    const dispatch = useDispatch();
+    
+    if (fetchUserQuery.data) HandleFetchUserQuerySuccess(fetchUserQuery.data, dispatch);
+
+    else if (fetchUserQuery.isError) HandleFetchUserQueryError(fetchUserQuery.error, dispatch);
 
     return fetchUserQuery;
+
+}
+
+async function fetchUser (){
+
+    const accessToken = localStorage.getItem("x-access-token");
+
+    if(accessToken){
+
+        try{
+
+            const response = await axios.get<CustomResponse<User>["data"]>(
+                '/user/fetch', 
+                {headers: { Authorization: `Bearer ${accessToken}` }}
+            );
+
+            return response.data;
+
+        } catch (err: unknown) {
+
+            const error = err as AxiosError<CustomResponse<User>["data"]>;
+
+            if (error.response) throw {
+                httpStatusCode: error.response.status,
+                message:  error.response.data.message
+            };
+
+            else if (error.request) throw {
+                httpStatusCode: null,
+                message:  'Erro: O servidor não pode responder a essa requisição.'
+            };
+
+            else throw {
+                httpStatusCode: null,
+                message:  error.message
+            };
+
+        }
+
+    } else throw {
+        httpStatusCode: null,
+        message: 'Erro: Token de acesso não encontrado.'
+    };
+
+}
+
+function HandleFetchUserQuerySuccess(data: CustomResponse<User>['data'], dispatch: Dispatch<AnyAction>) {
+
+    console.log(data);
+
+    const user = data.data;
+
+    if(user)
+        dispatch(addUser(user));
+  
+}
+
+function HandleFetchUserQueryError(queryError: QueryError, dispatch: Dispatch<AnyAction>) {
+
+    console.error(queryError.message);
+
+    switch(queryError.httpStatusCode){ 
+
+        case 403: {  //Forbidden. Token inválido ou expirado 
+            dispatch(removeUser()); //se tiver algum salvo
+            break;
+        }
+        case 500: { //Internal server error. erro durante a criaçao das entidades, não há tratamento
+            break;
+        }
+        case null: { //Erro antes de receber resposta do servidor, não há tratamento
+            break;
+        }
+
+        default: { //erro não mapeado pelo controlador do backend, não há tratamento
+            break;
+        }
+
+    }
 
 }

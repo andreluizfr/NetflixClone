@@ -1,74 +1,107 @@
 import { useQuery } from 'react-query';
-import axios from '../../libs/axios';
-import Axios from 'axios';
-import { AxiosError } from 'axios';
+import { QueryError } from '../../libs/react-query';
 
-interface LoginResponse {
-    message: string;
-    data: string; //accessToken
+import { AxiosError } from 'axios';
+import axios, { CustomResponse } from '../../libs/axios';
+
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+
+export default function LoginQuery (
+    email: string | null,
+    password: string | null,
+) {
+
+    const loginQuery = useQuery<CustomResponse<string>['data'], QueryError>('login', async () => login(email, password));
+    
+    const navigate = useNavigate();
+
+    if (loginQuery.data) HandleLoginQuerySuccess(loginQuery.data, navigate);
+
+    else if (loginQuery.isError) HandleLoginQueryError(loginQuery.error);
+
+    return loginQuery; //para fazer o devido uso com relação a camada de view do react
+
 }
 
 async function login (
     email: string | null,
     password: string | null,
-    ){
-
+){
+    
     if(email && password){
-
+        
         try{
 
-            const response = await axios.post(
+            const response = await axios.post<CustomResponse<string>["data"]>(
                 '/auth/login',
                 {email, password},
             );
 
-            const data = response.data as LoginResponse;
-            console.log(data);
-            
-            return data;
+            return response.data;
 
-        } catch (err: any) {
+        } catch (err: unknown) {
 
-            const error = err as (Error | AxiosError);
+            const error = err as AxiosError<CustomResponse<string>["data"]>;
 
-            if(Axios.isAxiosError(error)){
+            if (error.response) throw {
+                httpStatusCode: error.response.status,
+                message:  error.response.data.message
+            };
 
-                if (error.response) {
-                    // The request was made and the server responded with a status code that falls out of the range of 2xx 
-                    throw new Error(error.response.status + " - " + (error.response.data as LoginResponse).message);
-                }
-                else if (error.request) {
-                    // The request was made but no response was received, `error.request` is an instance of XMLHttpRequest in the browser 
-                    throw new Error('O servidor não pode responder a essa requisição.');
-                } 
-                else {
-                    // Something happened in setting up the request that triggered an Error
-                    throw new Error(error.message);
-                }
+            else if (error.request) throw {
+                httpStatusCode: null,
+                message:  'Erro: O servidor não pode responder a essa requisição.'
+            };
 
-            } else throw new Error(error.message); //Erro fora do axios
+            else throw {
+                httpStatusCode: null,
+                message:  error.message
+            };
 
         }
 
-    } else throw new Error('Error: Email or Password are Undefined.');
+    } else throw {
+        httpStatusCode: null,
+        message: 'Erro: Email ou senha não foram identificados.'
+    };
 
 }
 
-export default function LoginQuery (
-    email: string | null,
-    password: string | null,
-    ) {
+function HandleLoginQuerySuccess(data: CustomResponse<string>['data'], navigate: NavigateFunction) {
 
-    const loginQuery = useQuery<LoginResponse, unknown>(
-        'login',
-        async () => login(email, password),
-        {
-            refetchOnWindowFocus: false,
-            enabled: false,
-            retry: false
+    console.log(data);
+
+    const accessToken = data.data;
+
+    if(accessToken){
+        localStorage.setItem("x-access-token", accessToken);
+        navigate("/contents", { replace: true });
+    }
+}
+
+function HandleLoginQueryError(queryError: QueryError) {
+
+    console.error(queryError.message);
+
+    switch(queryError.httpStatusCode){ 
+
+        case 400: { //Bad Request. Erro nos parametros passados. Não há tratamento
+            break;
         }
-    );
+        case 403: { //Forbidden. Email ou senha errada. Não há tratamento
+            break;
+        }
+        case 500: { //Internal server error. erro durante a criaçao das entidades, não há tratamento
+            break;
+        }
+        case null: { //Erro antes de receber resposta do servidor, não há tratamento
+            break;
+        }
 
-    return loginQuery;
+        default: { //erro não mapeado pelo controlador do backend, não há tratamento
+            break;
+        }
+
+    }
 
 }

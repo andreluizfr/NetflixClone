@@ -4,17 +4,14 @@ import devices from '../../assets/img/devices.png';
 
 import { Link, useNavigate } from "react-router-dom";
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { StoreState } from '../../store';
-import { saveBirthDate } from '../../store/features/signupSlice';
 import { useEffect, useState } from 'react';
 
 import { useForm } from "react-hook-form";
 
 import { motion } from 'framer-motion';
 import CreateUserQuery from '../../queries/Users/CreateUser';
-import { useLocalStorage } from '../../hooks/UseLocalStorage';
-import { User } from '../../types/User';
 
 interface registerForm{
     birthDate: Date,
@@ -26,42 +23,40 @@ export default function SignupInformationsPage(): JSX.Element{
     const width = window.innerWidth;
 
     const navigate = useNavigate();
-
     const signup = useSelector((state: StoreState) => state.signup);
-    const dispatch = useDispatch();
+    const user = useSelector((state: StoreState) => state.user);
 
     const { register, handleSubmit } = useForm<registerForm>();
     const [birthDate, setBirthDate] = useState<Date | null>(null);
+    const [readyToCreate, setReadyToCreate] = useState(false);
     
     const createUserQuery = CreateUserQuery(signup.email, signup.password, birthDate);
-    const [user, setUser] = useLocalStorage("user", JSON.stringify(null));
     
     useEffect(()=>{
 
-        if(!(signup.email!==null && signup.password!==null && signup.plan!==null && signup.paymentType!==null)){
-            navigate("/signup");
-        }
+        if(user.data?.account.isActive) navigate("/contents");
 
-        const User = JSON.parse(user) as User;
-        if(User && !User.account.isActive){
-            navigate("/signup/payment");
-        }
+        else if(user.data) navigate("/signup/payment");
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    function onSubmit (data: registerForm){
-        dispatch(saveBirthDate(data.birthDate));
-        setBirthDate(data.birthDate);
-        if(birthDate)
-            createUserQuery.refetch();
-    };
 
     useEffect(()=>{
-        if(createUserQuery.data?.data){
-            setUser(JSON.stringify(createUserQuery.data.data));
-            navigate("/signup/payment");
+        
+        if(birthDate && readyToCreate){
+
+            createUserQuery.refetch();
+
+            setReadyToCreate(false);
         }
-    }, [createUserQuery.data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [birthDate, readyToCreate]);
+
+    function onSubmit (data: registerForm){
+        setBirthDate(data.birthDate);
+        setReadyToCreate(true);
+    }
 
     return (
         <motion.div 

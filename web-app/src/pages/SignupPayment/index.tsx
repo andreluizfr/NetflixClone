@@ -8,13 +8,10 @@ import { StoreState } from '../../store';
 
 import { motion } from 'framer-motion';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { initMercadoPago, Wallet} from '@mercadopago/sdk-react';
 import CreatePlanPaymentQuery from '../../queries/Payments/CreatePlanPayment';
-import { useLocalStorage } from '../../hooks/UseLocalStorage';
-import { User } from '../../types/User';
-
 
 export default function SignupPaymentPage(): JSX.Element{
 
@@ -23,32 +20,23 @@ export default function SignupPaymentPage(): JSX.Element{
     const width = window.innerWidth;
 
     const navigate = useNavigate();
-
     const signup = useSelector((state: StoreState) => state.signup);
+    const user = useSelector((state: StoreState) => state.user);
 
-    const [userString, setUserString] = useLocalStorage("user", "null");
-    const [user, setUser] = useState<User | null>(JSON.parse(userString) as unknown as User);
-
-    const createPlanPaymentQuery = CreatePlanPaymentQuery(user?.account.id, signup.plan, signup.paymentType);
+    const createPlanPaymentQuery = CreatePlanPaymentQuery(user.data?.account.id, signup.plan, signup.paymentType);
 
     useEffect(()=>{
-        if(signup.paymentType === null){
-            navigate("/signup/paymentPicker");
+        if(!user.data || signup.paymentType === null || signup.plan === null){
+            navigate("/signup");
         }
-        if(signup.plan === null){
-            navigate("/signup/planform");
-        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(()=>{
-        if(user?.account.id!==null && signup.plan!==null && signup.paymentType!==null)
+        if(user.data?.account.id!==null && signup.plan!==null && signup.paymentType!==null)
             createPlanPaymentQuery.refetch();
-    }, [user?.account.id, signup.plan, signup.paymentType])
-
-    useEffect(()=>{
-        if(createPlanPaymentQuery.data)
-            console.log(createPlanPaymentQuery.data);
-    }, [createPlanPaymentQuery.data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user.data?.account.id, signup.plan, signup.paymentType]);
         
     return (
         <motion.div 
@@ -72,6 +60,9 @@ export default function SignupPaymentPage(): JSX.Element{
                 }
                 {createPlanPaymentQuery.data?.data &&
                     <Wallet initialization={{ preferenceId: createPlanPaymentQuery.data.data.id }} />
+                }
+                {user && //solução temporária
+                    <Link to="/login">Pular pra login sem realizar pagamento</Link>
                 }
             </main>
 

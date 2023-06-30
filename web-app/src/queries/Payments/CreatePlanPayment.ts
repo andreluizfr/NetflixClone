@@ -1,79 +1,19 @@
 import { useQuery } from 'react-query';
-import axios from '../../libs/axios';
+import { QueryError } from '../../libs/react-query';
 
-import PaymentType from '../../types/PaymentType';
-import Plan from '../../types/Plan';
-
-//import Axios from 'axios';
 import { AxiosError } from 'axios';
+import axios, { CustomResponse } from '../../libs/axios';
 
-interface CreatePlanPaymentResponse {
-    message: string;
-    data: PreferenceResponse | null;
-}
+import Plan from '../../types/Plan';
+import PaymentType from '../../types/PaymentType';
 
-async function createPlanPayment (
-    accountId: string | undefined,
-    plan: Plan | null, 
-    paymentType: PaymentType | null
-    ){
+import { useDispatch } from 'react-redux';
+import { removeUser } from '../../store/features/userSlice';
 
-    if(accountId && plan!=null && paymentType!=null){
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 
-        try{
 
-            const response = await axios.post(
-                '/payment/createPlanPayment',
-                {accountId, plan, paymentType},
-            );
-
-            const data = response.data as CreatePlanPaymentResponse;
-            console.log(data.message);
-
-            return data;
-
-        } catch (err: any) {
-
-            //const error = err as (Error | AxiosError);
-            const error = err as AxiosError;
-
-            //if(Axios.isAxiosError(error)){
-            if (error.response) {
-                // The request was made and the server responded with a status code that falls out of the range of 2xx
-
-                const data = error.response.data as CreatePlanPaymentResponse;
-
-                switch(error.response.status){
-                    case 400:
-                        localStorage.removeItem("user"); //Bad Request. Parâmetros errados, então remover conta salva e reiniciar o processo
-                        return data;
-                    case 404:
-                        localStorage.removeItem("user"); //Not Found. Conta do usuário não foi encontrada, então remover conta salva e reiniciar o processo
-                        return data;
-                    case 502: //Bad Gateway. Erro com a api de pagamento, nada a ser tratado
-                        throw new Error(error.response.status + " - " + data.message);
-                    case 500: //Internal Server Error. Erro em runtime desconhecido, nada a ser tratado
-                        throw new Error(error.response.status + " - " + data.message);
-
-                    default: //Erro não mapeado pelo controlador no backend
-                        throw new Error(error.response.status + " - " + data.message);
-                }
-
-            }
-            else if (error.request) {
-                // The request was made but no response was received, `error.request` is an instance of XMLHttpRequest in the browser 
-                throw new Error('O servidor não pode responder a essa requisição.');
-            } 
-            else {
-                // Something happened in setting up the request that triggered an Error
-                throw new Error(error.message);
-            }
-            //} else throw new Error(error.message); //Erro fora do axios
-        }
-
-    } else throw new Error('Error: AccountId, Plan or PaymentType are Undefined.');
-
-}
 
 export default function CreatePlanPaymentQuery (
     accountId: string | undefined,
@@ -81,15 +21,114 @@ export default function CreatePlanPaymentQuery (
     paymentType: PaymentType | null
     ) {
 
-    const createPlanPaymentQuery = useQuery<CreatePlanPaymentResponse, unknown>(
+    const createPlanPaymentQuery = useQuery<CustomResponse<PreferenceResponse>['data'], QueryError>(
         'createPlanPayment',
         async () => createPlanPayment(accountId, plan, paymentType),
         {
             enabled: true,
+            retry: 3
         }
     );
+    
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    
+    if (createPlanPaymentQuery.data) HandleCreatePlanPaymentQuerySuccess(createPlanPaymentQuery.data, dispatch, navigate);
+
+    else if (createPlanPaymentQuery.isError) HandleCreatePlanPaymentQueryError(createPlanPaymentQuery.error, dispatch, navigate);
 
     return createPlanPaymentQuery;
+
+}
+
+async function createPlanPayment (
+    accountId: string | undefined,
+    plan: Plan | null, 
+    paymentType: PaymentType | null
+){
+
+    const accessToken = localStorage.getItem("x-access-token");
+
+    if(accessToken){
+
+        try{
+
+            const response = await axios.post<CustomResponse<PreferenceResponse>["data"]>(
+                '/payment/createPlanPayment',
+                {accountId, plan, paymentType},
+            );
+
+            return response.data;
+
+        } catch (err: unknown) {
+
+            const error = err as AxiosError<CustomResponse<PreferenceResponse>["data"]>;
+
+            if (error.response) throw {
+                httpStatusCode: error.response.status,
+                message:  error.response.data.message
+            };
+
+            else if (error.request) throw {
+                httpStatusCode: null,
+                message:  'Erro: O servidor não pode responder a essa requisição.'
+            };
+
+            else throw {
+                httpStatusCode: null,
+                message:  error.message
+            };
+
+        }
+
+    } else throw {
+        httpStatusCode: null,
+        message: 'Erro: Id da conta, plano ou tipo de pagamento estão em branco.'
+    };
+
+}
+
+function HandleCreatePlanPaymentQuerySuccess(data: CustomResponse<PreferenceResponse>['data'], dispatch: Dispatch<AnyAction>, navigate: NavigateFunction) {
+
+    console.log(data);
+    
+    const preferenceResponse = data.data;
+
+    navigate("/login");
+  
+}
+
+function HandleCreatePlanPaymentQueryError(queryError: QueryError, dispatch: Dispatch<AnyAction>, navigate: NavigateFunction) {
+
+    console.error(queryError.message);
+
+    switch(queryError.httpStatusCode){ 
+
+        case 400: {  //Bad Request. Parâmetros errados, então remover conta salva e reiniciar o processo
+            dispatch(removeUser());
+            setTimeout(()=>navigate("/signup"), 2000);
+            break;
+        }
+        case 404:{ //Not Found. Conta do usuário não foi encontrada, então remover conta salva e reiniciar o processo
+            dispatch(removeUser()); 
+            setTimeout(()=>navigate("/signup"), 2000);
+            break
+        }
+        case 502: { //Bad Gateway. Erro com a api de pagamento, não há tratamento
+            break;
+        }
+        case 500: { //Internal Server Error. Erro em runtime desconhecido, não há tratamento
+            break;
+        }
+        case null: { //Erro antes de receber resposta do servidor, não há tratamento
+            break;
+        }
+
+        default: { //erro não mapeado pelo controlador do backend, não há tratamento
+            break;
+        }
+
+    }
 
 }
 

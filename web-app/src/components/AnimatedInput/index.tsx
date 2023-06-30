@@ -30,18 +30,17 @@ export default function AnimatedInput(props:Props): JSX.Element {
     }
 
     function toggleShow(event: React.MouseEvent<HTMLElement>){
-        const styledInput = (event.target as HTMLElement).parentElement;
-        const input = styledInput?.firstChild as HTMLInputElement;
-        const state = input.getAttribute("type");
+        const animatedInput = (event.target as HTMLElement).parentElement;
+        const input = ref.current as HTMLInputElement;
 
-        const show = styledInput?.getElementsByClassName("Show")[0] as HTMLSpanElement;
+        const show = animatedInput?.getElementsByClassName("Show")[0] as HTMLSpanElement;
         
-        if(state === "password"){
+        if(input.getAttribute("type") === "password"){
             input.setAttribute("type", "text");
-            show.innerHTML = "OCULTAR";
-        } else if(state === "text"){
+            show.innerText = "OCULTAR";
+        } else if(input.getAttribute("type") === "text"){
             input.setAttribute("type", "password");
-            show.innerHTML = "MOSTRAR";
+            show.innerText = "MOSTRAR";
         }
     }
 

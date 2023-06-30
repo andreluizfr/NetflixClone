@@ -3,7 +3,6 @@ package com.example.NetflixClone.Controllers.Payments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,6 @@ import com.example.NetflixClone.CustomExceptions.FailToCreatePlanPaymentExceptio
 import com.example.NetflixClone.CustomExceptions.FailToFindAccountException;
 import com.mercadopago.resources.preference.Preference;
 
-@CrossOrigin(origins = { "http://localhost:8080", "http://localhost:5173" }, allowCredentials = "true")
 @RestController
 @RequestMapping("/api/payment")
 public class CreatePlanPaymentController {
