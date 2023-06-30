@@ -1,0 +1,123 @@
+@import '../../../assets/sass/variables';
+@import '../../../assets/sass/mixins';
+
+.ContentsPage > .Header{
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+
+    @include flex-row-space-between-center;
+    gap: 16px;
+    width: 100%;
+    min-width: 324px;
+    padding: 8px;
+    background-color: transparent;
+    transition: background-color 300ms;
+
+    .Logo-container{
+        margin-left: 16px;
+
+        @include mq-large{
+            margin-left: 64px;
+        }
+
+        @include mq-small{
+            margin-left: 32px;
+        }
+
+        .Logo{
+            height: 24px;
+            width: auto;
+        }
+    }
+
+    .Content-navigation{
+
+        ul{
+            @include flex-row-space-between-center;
+            gap: 16px;
+            padding: 0;
+
+            li{
+                list-style-type: none;
+                font-size: $font-size-small;
+                font-weight: 300;
+                color: $font-primary-color;
+                cursor: pointer;
+
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .Hamburguer-menu{
+
+        &::before{
+            content: "";
+            display: block;
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            top: 8px;
+            left: 0;
+            background-image: url("../../../assets/img/hamburger-menu.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            filter: invert(1);
+
+            transition: all 200ms;
+        }
+
+        &:hover::before{
+            transform: rotateZ(90deg);
+        }
+
+        ul{
+            position: absolute;
+            top: 32px;
+            left: 0;
+            @include flex-column-space-between-start;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: $background-primary-color;
+            visibility: hidden;
+            opacity: 0;
+
+            transition: opacity 400ms;
+        }
+
+        &:hover ul{
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+    .Extra-space{
+        flex: 1 1 0;
+    }
+
+    .Other-options-container{
+        @include flex-row-center-center;
+        gap: 8px;
+        padding-right: 8px;
+
+        .Search-icon{
+            margin-right: 8px;
+            width: 16px;
+            height: auto;
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        .Notifications-icon{
+            width: 24px;
+            height: auto;
+            filter: invert(1);
+            cursor: pointer;
+        }
+    }
+
+}

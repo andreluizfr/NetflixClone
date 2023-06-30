@@ -4,21 +4,35 @@ import devices from '../../assets/img/devices.png';
 import checkmark from '../../assets/img/checkmark.png';
 import checkmarkGroup from '../../assets/svg/checkmark-group.svg';
 
-import { Link } from "react-router-dom";
-import { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 
+import { useLocalStorage } from '../../hooks/UseLocalStorage';
+import { User } from '../../types/User';
+
 export default function SignupPage(): JSX.Element {
 
 	const width = window.innerWidth;
+
+    const navigate = useNavigate();
 
     const [step, setStep] = useState(1);
 
     function goToNextStep(){
         setStep(current=>current+1);
     }
+
+    const [user, setUser] = useLocalStorage("user", JSON.stringify(null));
+    
+    useEffect(()=>{
+        const User = JSON.parse(user) as User;
+        if(User && !User.account.isActive){
+            navigate("/signup/payment");
+        }
+    }, []);
 
     return (
         <motion.div 

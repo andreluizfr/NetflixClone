@@ -44,7 +44,7 @@
   width: 100%;
   max-width: 812px;
   gap: 8px;
-  padding: 24px;
+  padding: 32px 24px;
 }
 .SignupPlanPage .BestPlan-background .BestPlan-container .Step-info {
   color: #333;
@@ -284,7 +284,6 @@
   padding-bottom: 18px;
   border-radius: 4px;
   background-color: rgb(229, 9, 20);
-  cursor: pointer;
 }
 .SignupPlanPage .BestPlan-background .BestPlan-container .Center .NextStep-button:hover {
   opacity: 0.95;
@@ -294,6 +293,7 @@
   font-size: 1.6rem;
   font-weight: 400;
   text-decoration: none;
+  cursor: pointer;
 }
 .SignupPlanPage .BestPlan-background .BestPlan-container .Center .NextStep-button a:visited {
   color: rgb(255, 255, 255);
@@ -321,7 +321,6 @@
   align-items: flex-start;
   gap: 16px;
   padding: 24px 32px;
-  margin-top: 76px;
   background-color: rgba(0, 0, 0, 0.06);
 }
 .SignupPlanPage footer .Row-1 {

@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "radix": "^0.0.0",
-    "radix-ui": "^1.0.1",
-    "react-hook-form": "^7.44.3"
-  }
-}

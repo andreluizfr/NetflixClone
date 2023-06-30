@@ -43,7 +43,6 @@
   justify-content: flex-start;
   align-items: center;
   padding: 32px;
-  margin: 16px 0;
 }
 @media only screen and (max-width: 576px) {
   .SignupPaymentPickerPage .Steps-container .PaymentPicker-container {
@@ -157,7 +156,6 @@
   align-items: flex-start;
   gap: 16px;
   padding: 24px 32px;
-  margin-top: 76px;
   background-color: rgba(0, 0, 0, 0.06);
 }
 .SignupPaymentPickerPage footer .Row-1 {

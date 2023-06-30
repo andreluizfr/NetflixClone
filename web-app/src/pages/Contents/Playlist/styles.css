@@ -15,9 +15,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  overflow: visible;
   gap: 4px;
   padding: 16px;
+  overflow: auto;
   cursor: grab;
 }
 .Section > .Playlist .Thumbnail {
@@ -28,6 +28,9 @@
 .Section > .Playlist .Thumbnail:hover {
   transform: scale(1.15);
   z-index: 9999;
+}
+.Section > .Playlist::-webkit-scrollbar {
+  display: none;
 }
 .Section::before, .Section::after {
   content: "";

@@ -8,7 +8,7 @@
     width: 100%;
     background-color: $background-secondary-color;
 
-    .Header{
+    & > .Header{
         @include flex-row-space-between-center;
         width: 100%;
         padding: 16px;
@@ -44,8 +44,7 @@
             min-width: 320px;
             max-width: 560px;
             @include flex-column-start-center;
-            padding: 32px;
-            margin: 16px 0;
+            padding: 60px 68px;
 
             @include mq-small{
                 align-items: flex-start;
@@ -101,6 +100,10 @@
 
             .Row{
                 flex-direction: row;
+
+                label{
+                    margin-left: 8px;
+                }
             }
 
             .Register-button{
@@ -130,12 +133,11 @@
 
     }
 
-    footer{
+    & > footer{
         width: 100%;
         @include flex-column-start-start;
         gap: 16px;
         padding: 24px 32px;
-        margin-top: 76px;
         background-color: rgba(0,0,0,0.06);
 
         .Row-1{

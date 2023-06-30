@@ -1,18 +1,14 @@
+import { Account } from "./Account";
+
 export enum Role{
-    Commmon,
-    Admin
+    BASIC, ADMIN
 }
 
 export interface User {
-    id?: string,
-    firstName: string,
-    lastName: string,
+    id: string,
     email: string,
     birthDate: Date,
-    cpf: string,
-    phoneNumber: string,
-    photoURL?: string,
-    emailVerified: boolean,
     role: Role,
-    created_at: Date
+    account: Account,
+    createdAt: Date
 };

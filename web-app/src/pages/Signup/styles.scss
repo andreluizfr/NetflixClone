@@ -14,9 +14,12 @@
         border-bottom: 1px solid rgba(0,0,0,0.16);
 
         a{
+            cursor: pointer;
+
             .Logo{
                 height: 46px;
                 width: auto;
+                pointer-events: none;
             }
         }
 
@@ -25,6 +28,7 @@
             font-size: $font-size-normal;
             font-weight: 500;
             text-decoration: none;
+            cursor: pointer;
 
             &:visited{
                 color: $font-quinary-color;
@@ -38,6 +42,7 @@
 
     .Steps-container{
         flex: 1;
+        @include flex-column-center-center;
         
         .Signup-container-1{
             min-width: 320px;
@@ -45,7 +50,6 @@
             @include flex-column-start-center;
             gap: 8px;
             padding: 60px 68px;
-            margin-top: 64px;
 
             @include mq-small{
                 align-items: flex-start;
@@ -116,7 +120,6 @@
             @include flex-column-start-center;
             gap: 8px;
             padding: 60px 68px;
-            margin-top: 64px;
 
             @include mq-small{
                 align-items: flex-start;
@@ -179,8 +182,6 @@
                 padding-bottom: 18px;
                 border-radius: 4px;
                 background-color: $button-primary-color;
-                
-                cursor: pointer;
 
                 &:hover{
                     opacity: 0.95;
@@ -191,6 +192,8 @@
                     font-size: $font-size-large;
                     font-weight: 400;
                     text-decoration: none;
+                    cursor: pointer;
+                    width: 100%;
                     
                     &:visited{
                         color: $font-primary-color;
@@ -206,7 +209,6 @@
         @include flex-column-start-start;
         gap: 16px;
         padding: 24px 32px;
-        margin-top: 76px;
         background-color: rgba(0,0,0,0.06);
 
         .Row-1{

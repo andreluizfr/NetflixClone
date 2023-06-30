@@ -15,15 +15,20 @@
   padding: 16px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.16);
 }
+.SignupPage .Header a {
+  cursor: pointer;
+}
 .SignupPage .Header a .Logo {
   height: 46px;
   width: auto;
+  pointer-events: none;
 }
 .SignupPage .Header .Login-link {
   color: #333;
   font-size: 1rem;
   font-weight: 500;
   text-decoration: none;
+  cursor: pointer;
 }
 .SignupPage .Header .Login-link:visited {
   color: #333;
@@ -33,6 +38,10 @@
 }
 .SignupPage .Steps-container {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .SignupPage .Steps-container .Signup-container-1 {
   min-width: 320px;
@@ -43,7 +52,6 @@
   align-items: center;
   gap: 8px;
   padding: 60px 68px;
-  margin-top: 64px;
 }
 @media only screen and (max-width: 576px) {
   .SignupPage .Steps-container .Signup-container-1 {
@@ -112,7 +120,6 @@
   align-items: center;
   gap: 8px;
   padding: 60px 68px;
-  margin-top: 64px;
 }
 @media only screen and (max-width: 576px) {
   .SignupPage .Steps-container .Signup-container-2 {
@@ -174,7 +181,6 @@
   padding-bottom: 18px;
   border-radius: 4px;
   background-color: rgb(229, 9, 20);
-  cursor: pointer;
 }
 .SignupPage .Steps-container .Signup-container-2 .NextStep-button:hover {
   opacity: 0.95;
@@ -184,6 +190,8 @@
   font-size: 1.6rem;
   font-weight: 400;
   text-decoration: none;
+  cursor: pointer;
+  width: 100%;
 }
 .SignupPage .Steps-container .Signup-container-2 .NextStep-button a:visited {
   color: rgb(255, 255, 255);
@@ -196,7 +204,6 @@
   align-items: flex-start;
   gap: 16px;
   padding: 24px 32px;
-  margin-top: 76px;
   background-color: rgba(0, 0, 0, 0.06);
 }
 .SignupPage footer .Row-1 {
