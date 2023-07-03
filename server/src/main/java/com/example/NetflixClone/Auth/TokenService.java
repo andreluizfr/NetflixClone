@@ -1,4 +1,4 @@
-package com.example.NetflixClone.Business.Auth;
+package com.example.NetflixClone.Auth;
 
 import java.util.Date;
 
@@ -16,32 +16,32 @@ public class TokenService {
 
     @Value("${api.security.token.secret}")
     private String secret;
-    
-    public String generateToken(User user) throws JWTCreationException{
 
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+    public String generateToken(User user) throws JWTCreationException {
 
-            String token = JWT.create()
+        Algorithm algorithm = Algorithm.HMAC256(secret);
+
+        String token = JWT.create()
                 .withIssuer("auth-api")
                 .withSubject(user.getEmail())
-                .withExpiresAt(this.genExpirationDate()) //15 min
+                .withExpiresAt(this.genExpirationDate()) // 15 min
                 .sign(algorithm);
 
-            return token;
+        return token;
     }
 
-    public String validateToken(String token) throws JWTVerificationException{
+    public String validateToken(String token) throws JWTVerificationException {
 
         Algorithm algorithm = Algorithm.HMAC256(secret);
 
         return JWT.require(algorithm)
-            .withIssuer("auth-api")
-            .build()
-            .verify(token)
-            .getSubject();
+                .withIssuer("auth-api")
+                .build()
+                .verify(token)
+                .getSubject();
     }
 
-    private Date genExpirationDate(){
-        return new Date( (new Date()).getTime() + (15 * 60 * 1000) );
+    private Date genExpirationDate() {
+        return new Date((new Date()).getTime() + (15 * 60 * 1000));
     }
 }

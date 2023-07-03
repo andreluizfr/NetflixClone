@@ -1,4 +1,4 @@
-package com.example.NetflixClone.Business.Auth;
+package com.example.NetflixClone.Auth;
 
 import java.io.IOException;
 

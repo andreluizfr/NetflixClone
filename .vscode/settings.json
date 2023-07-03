@@ -1,4 +1,11 @@
 {
     "java.configuration.updateBuildConfiguration": "automatic",
-    "java.compile.nullAnalysis.mode": "disabled"
+    "java.compile.nullAnalysis.mode": "disabled",
+    "java.project.sourcePaths": [
+        "netflix-clone-admin\\src\\main\\java",
+        "netflix-clone-admin\\src\\main"
+    ],
+    "java.project.referencedLibraries": [
+        "WebContent/WEB-INF/lib/**/*.jar"
+    ]
 }

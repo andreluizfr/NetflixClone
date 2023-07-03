@@ -6,6 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
+import com.example.NetflixClone.Auth.TokenService;
 import com.example.NetflixClone.Controllers.Auth.LoginDTO;
 import com.example.NetflixClone.Models.User;
 import com.example.NetflixClone.Repositories.UserRepositoryDAO;
@@ -21,14 +22,14 @@ public class LoginBusiness {
     @Autowired
     TokenService tokenService;
 
-    public String execute(LoginDTO data) throws IllegalArgumentException, AuthenticationException{
+    public String execute(LoginDTO data) throws IllegalArgumentException, AuthenticationException {
 
         var emailPassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
 
         var auth = this.authenticationManager.authenticate(emailPassword);
 
         String accessToken = tokenService.generateToken((User) auth.getPrincipal());
-        
+
         return accessToken;
 
     }

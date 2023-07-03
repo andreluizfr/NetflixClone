@@ -1,5 +1,6 @@
 {
     "configurations": [
+        
         {
             "type": "java",
             "name": "Spring Boot-NetflixCloneApplication<server>",
@@ -19,6 +20,14 @@
             "projectName": "NetflixClone",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Apache Tomcat",
+            "type": "java",
+            "request": "launch",
+            "mainClass": "",
+            "projectName": "netflix-clone-admin",
+            "args": ""
         }
     ]
 }
