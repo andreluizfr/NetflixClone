@@ -2,7 +2,7 @@ package com.example.NetflixClone.Models;
 
 import com.example.NetflixClone.Models.enums.Genre;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,18 +28,21 @@ public class Anime extends Media{
     @Column(name = "studio")
     private String studio;
 
-    Anime(
+    public Anime(
         String title,
-        boolean isAnimated,
-        ArrayList<Genre> genres,
+        boolean isAnimation,
+        List<Genre> genres,
         String director,
         int releaseYear,
+        String description,
+        int ageRating,
+        String thumbnailUrl,
 
         int numberOfSeasons,
         int seasonNumber,
         String studio
     ) {
-        super(title, isAnimated, genres, director, releaseYear);
+        super(title, isAnimation, genres, director, releaseYear, description, ageRating, thumbnailUrl);
 
         this.numberOfSeasons = numberOfSeasons;
         this.seasonNumber = seasonNumber;

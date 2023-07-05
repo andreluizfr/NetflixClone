@@ -5,6 +5,7 @@ import com.example.admin.Models.Movie;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.example.admin.JPAUtil;
 
@@ -33,6 +34,23 @@ public class JPAMovieDAO implements MovieDAO {
 		em.close();
 
 		return movies;
+	}
+
+	public Movie findById(UUID id) {
+		EntityManager em = JPAUtil.getEntityManager();
+		
+		
+		return null;
+	}
+
+	public Movie update(Movie m) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Movie delete(UUID id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

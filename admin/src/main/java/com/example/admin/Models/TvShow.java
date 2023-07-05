@@ -3,7 +3,6 @@ package com.example.admin.Models;
 import com.example.admin.Models.enums.Genre;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,25 +21,26 @@ public class TvShow extends Media{
     @Column(name = "actors_actresses")
     private List<String> actorsActresses;
 
-    TvShow(
+    public TvShow(
         String title,
-        boolean isAnimated,
-        ArrayList<Genre> genres,
+        boolean isAnimation,
+        List<Genre> genres,
         String director,
         int releaseYear,
+        String description,
+        int ageRating,
+        String thumbnailUrl,
 
         int numberOfSeasons,
         int seasonNumber,
-        ArrayList<String> actorsActresses
+        List<String> actorsActresses
     ) {
-        super(title, isAnimated, genres, director, releaseYear);
+        super(title, isAnimation, genres, director, releaseYear, description, ageRating, thumbnailUrl);
 
         this.numberOfSeasons = numberOfSeasons;
         this.seasonNumber = seasonNumber;
         this.actorsActresses = actorsActresses;
     }
-    
-    TvShow() {}
 
     @Override
     public boolean equals(Object arg0) {
@@ -54,3 +54,4 @@ public class TvShow extends Media{
     }
 
 }
+

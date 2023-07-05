@@ -4,7 +4,6 @@ import com.example.NetflixClone.Models.enums.Genre;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.ArrayList;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,8 +33,8 @@ public class Media {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "is_nimated")
-    private boolean isAnimated;
+    @Column(name = "is_animation")
+    private boolean isAnimation;
 
     @Column(name = "genres")
     private List<Genre> genres;
@@ -46,25 +45,37 @@ public class Media {
     @Column(name = "release_year")
     private int releaseYear;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "age_rating")
     private int ageRating;
+
+    @Column(name = "thumbnail_url")
+    private String thumbnailUrl;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    Media(
+    public Media(
         String title,
-        boolean isAnimated,
+        boolean isAnimation,
         List<Genre> genres,
         String director,
-        int releaseYear
+        int releaseYear,
+        String description,
+        int ageRating,
+        String thumbnailUrl
     ) {
 
         this.title = title;
-        this.isAnimated = isAnimated;
+        this.isAnimation = isAnimation;
         this.genres = genres;
         this.director = director;
         this.releaseYear = releaseYear;
+        this.description = description;
+        this.ageRating = ageRating;
+        this.thumbnailUrl = thumbnailUrl;
         this.createdAt = LocalDateTime.now();
     }
 

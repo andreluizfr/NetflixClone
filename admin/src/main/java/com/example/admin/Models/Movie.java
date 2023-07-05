@@ -22,25 +22,26 @@ public class Movie extends Media{
     @Column(name = "actors_actresses")
     private List<String> actorsActresses;
 
-    Movie(
+    public Movie(
         String title,
-        boolean isAnimated,
+        boolean isAnimation,
         List<Genre> genres,
         String director,
         int releaseYear,
+        String description,
+        int ageRating,
+        String thumbnailUrl,
 
         boolean isMovieSeries,
         int sequenceNumber,
         List<String> actorsActresses
     ) {
-        super(title, isAnimated, genres, director, releaseYear);
+        super(title, isAnimation, genres, director, releaseYear, description, ageRating, thumbnailUrl);
 
         this.isMovieSeries = isMovieSeries;
         this.sequenceNumber = sequenceNumber; // receber 1 se nao for
         this.actorsActresses = actorsActresses;
     }
-    
-    Movie() {}
 
     @Override
     public boolean equals(Object arg0) {
@@ -50,7 +51,10 @@ public class Movie extends Media{
 
     @Override
     public int hashCode() {
-        return this.id.hashCode();
+    	if(this.id!=null)
+    		return this.id.hashCode();
+    	else return 1;
     }
 
 }
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns = "http://www.w3.org/1999/xhtml"
+    xmlns:h = "http://xmlns.jcp.org/jsf/html"
+    xmlns:f = "http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+		<title>JSF Tutorial!</title>
+    </h:head>
+
+    <h:body>
+
+		<h1>Movie registering</h1>
+
+		<h:form>
+         
+            <h:panelGrid columns="2">
+
+                Title <h:inputText value="#{addMovieBean.title}"/>
+
+                Is Animation? 
+                <h:selectOneRadio value="#{addMovieBean.isAnimation}">
+            		<f:selectItem itemLabel="True" itemValue="true"/>
+                	<f:selectItem itemLabel="False" itemValue="false"/>
+            	</h:selectOneRadio>
+  				
+  			 
+  				Added Genres <h:panelGroup id="addedGenresList"> #{addMovieBean.genres} </h:panelGroup>
+  			
+  				Genres
+            	<h:selectOneMenu value="#{addMovieBean.genreItemState}">
+            		<f:ajax event="change" listener="#{addMovieBean.addGenre}" render="addedGenresList"/> 
+            		<f:selectItems value="#{addMovieBean.genresList}" />
+            	</h:selectOneMenu>
+            	
+            	Director <h:inputText value="#{addMovieBean.director}"/>
+ 				
+ 				Realease Year <h:inputText value="#{addMovieBean.releaseYear}"/>
+            	
+            	Description <h:inputTextarea rows="3" cols="20" value="#{addMovieBean.description}"/>
+            	
+   				Age Rating
+   				<h:selectOneMenu value="#{addMovieBean.ageRating}">
+               		<f:selectItem itemLabel="Livre" itemValue="0"/>
+                	<f:selectItem itemLabel="10" itemValue="10"/>
+                	<f:selectItem itemLabel="12" itemValue="12"/>
+                	<f:selectItem itemLabel="14" itemValue="14"/>
+                	<f:selectItem itemLabel="16" itemValue="16"/>
+                	<f:selectItem itemLabel="18" itemValue="18"/>
+            	</h:selectOneMenu>
+
+				Is a Movie Series? 
+                <h:selectOneRadio value="#{addMovieBean.isMovieSeries}">
+            		<f:selectItem itemLabel="True" itemValue="true"/>
+                	<f:selectItem itemLabel="False" itemValue="false"/>
+            	</h:selectOneRadio>
+            	
+            	Sequence Number <h:inputText value="#{addMovieBean.sequenceNumber}"/>
+            	
+            	Added Actors/Actresses <h:panelGroup id="addedActorsActressesList"> #{addMovieBean.actorsActresses} </h:panelGroup>
+  			
+  				Actors/Actresses (It must seperate by commas)
+            	<h:inputTextarea rows="3" cols="20" value="#{addMovieBean.actorsActressesState}" update="addedActorsActressesList">
+            		<f:ajax event="keydown" listener="#{addMovieBean.updateActorsActressesList}" render="addedActorsActressesList"/> 
+            		<f:ajax event="change" listener="#{addMovieBean.updateActorsActressesList}" render="addedActorsActressesList"/>
+            	</h:inputTextarea>
+            	
+            	Thumbnail URL <h:inputText value="#{addMovieBean.thumbnailUrl}"/>
+
+         </h:panelGrid>
+
+         <h:commandButton value="Cadastrar" action="#{addMovieBean.handleSubmit}"/>
+
+      </h:form>
+
+   </h:body>
+</html>

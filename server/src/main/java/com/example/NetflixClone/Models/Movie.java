@@ -3,7 +3,6 @@ package com.example.NetflixClone.Models;
 import com.example.NetflixClone.Models.enums.Genre;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,18 +26,21 @@ public class Movie extends Media{
     @Column(name = "actors_actresses")
     private List<String> actorsActresses;
 
-    Movie(
+    public Movie(
         String title,
-        boolean isAnimated,
+        boolean isAnimation,
         List<Genre> genres,
         String director,
         int releaseYear,
+        String description,
+        int ageRating,
+        String thumbnailUrl,
 
         boolean isMovieSeries,
         int sequenceNumber,
         List<String> actorsActresses
     ) {
-        super(title, isAnimated, genres, director, releaseYear);
+        super(title, isAnimation, genres, director, releaseYear, description, ageRating, thumbnailUrl);
 
         this.isMovieSeries = isMovieSeries;
         this.sequenceNumber = sequenceNumber; // receber 1 se nao for
