@@ -23,31 +23,34 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "is_animation")
+    @Column(name = "is_animation", nullable = false)
     private boolean isAnimation;
 
-    @Column(name = "genres")
+    @Column(name = "genres", nullable = false)
     private List<Genre> genres;
 
-    @Column(name = "director")
+    @Column(name = "director", nullable = false)
     private String director;
 
-    @Column(name = "release_year")
+    @Column(name = "release_year", nullable = false)
     private int releaseYear;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "age_rating")
+    @Column(name = "age_rating", nullable = false)
     private int ageRating;
 
-    @Column(name = "thumbnail_url")
+    @Column(name = "thumbnail_url", nullable = false)
     private String thumbnailUrl;
+    
+    @Column(name = "thumbnail_blur_hash", nullable = false)
+    private String thumbnailBlurHash;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     public Media(
@@ -58,7 +61,8 @@ public class Media {
         int releaseYear,
         String description,
         int ageRating,
-        String thumbnailUrl
+        String thumbnailUrl,
+        String thumbnailBlurHash
     ) {
 
         this.title = title;
@@ -69,11 +73,12 @@ public class Media {
         this.description = description;
         this.ageRating = ageRating;
         this.thumbnailUrl = thumbnailUrl;
+        this.thumbnailBlurHash = thumbnailBlurHash;
         this.createdAt = LocalDateTime.now();
     }
     
     public Media(Long id, String title, boolean isAnimation, List<Genre> genres, String director, int releaseYear,
-			String description, int ageRating, String thumbnailUrl, LocalDateTime createdAt) {
+			String description, int ageRating, String thumbnailUrl, String thumbnailBlurHash, LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -84,6 +89,7 @@ public class Media {
 		this.description = description;
 		this.ageRating = ageRating;
 		this.thumbnailUrl = thumbnailUrl;
+		this.thumbnailBlurHash = thumbnailBlurHash;
 		this.createdAt = createdAt;
 	}
 

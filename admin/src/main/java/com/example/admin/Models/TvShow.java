@@ -12,13 +12,13 @@ import jakarta.persistence.Table;
 @Table(name = "TvShow")
 public class TvShow extends Media{
 
-    @Column(name = "number_of_seasons")
+    @Column(name = "number_of_seasons", nullable = false)
     private int numberOfSeasons;
 
-    @Column(name = "season_number")
+    @Column(name = "season_number", nullable = false)
     private int seasonNumber;
 
-    @Column(name = "actors_actresses")
+    @Column(name = "actors_actresses", nullable = false)
     private List<String> actorsActresses;
 
     public TvShow(
@@ -30,12 +30,13 @@ public class TvShow extends Media{
         String description,
         int ageRating,
         String thumbnailUrl,
+        String thumbnailBlurHash,
 
         int numberOfSeasons,
         int seasonNumber,
         List<String> actorsActresses
     ) {
-        super(title, isAnimation, genres, director, releaseYear, description, ageRating, thumbnailUrl);
+        super(title, isAnimation, genres, director, releaseYear, description, ageRating, thumbnailUrl, thumbnailBlurHash);
 
         this.numberOfSeasons = numberOfSeasons;
         this.seasonNumber = seasonNumber;

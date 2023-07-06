@@ -37,7 +37,7 @@ public class JPAMovieDAO implements MovieDAO {
 	}
 
 	public Movie findById(UUID id) {
-		EntityManager em = JPAUtil.getEntityManager();
+		//EntityManager em = JPAUtil.getEntityManager();
 		
 		
 		return null;

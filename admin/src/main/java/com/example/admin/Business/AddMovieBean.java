@@ -34,17 +34,19 @@ public class AddMovieBean implements Serializable{
    String director;
    int releaseYear;
    String description;
-   int ageRating;
+   int ageRating = 0;
    String thumbnailUrl;
+   String thumbnailBlurHash;
    
-   boolean isMovieSeries; //próprio da entidade movie
-   int sequenceNumber; //próprio da entidade movie
+   boolean isMovieSeries = false; //próprio da entidade movie
+   int sequenceNumber = 1; //próprio da entidade movie
    Set<String> actorsActresses = new HashSet<>(); //próprio da entidade movie
+   
+   String messageState;
    
    
    public void addGenre() {
 	   this.genres.add(this.genreItemState);
-	   System.out.println(this.genres);
    }
    
    public void updateActorsActressesList() {
@@ -52,10 +54,16 @@ public class AddMovieBean implements Serializable{
    }
    
    public void handleSubmit() {
+	   
 	   Movie m = new Movie(title, isAnimation, new ArrayList<>(genres), director, releaseYear, description,
-			   ageRating, thumbnailUrl, isMovieSeries, sequenceNumber, new ArrayList<>(actorsActresses));
-	   System.out.println(m);
-	   this.jpaMovieDAO.save(m);
+			   ageRating, thumbnailUrl, thumbnailBlurHash, isMovieSeries, sequenceNumber, new ArrayList<>(actorsActresses));
+	   
+	   try {
+		   this.jpaMovieDAO.save(m);
+		   messageState = "Filme adicionado com sucesso.";
+	   } catch (Exception e) {
+		   messageState = e.getMessage();
+	   };
    }
    
    
@@ -149,5 +157,18 @@ public class AddMovieBean implements Serializable{
    public void setThumbnailUrl(String thumbnailUrl) {
 	   this.thumbnailUrl = thumbnailUrl;
    }
+   public String getThumbnailBlurHash() {
+	   return thumbnailBlurHash;
+   }
+   public void setThumbnailBlurHash(String thumbnailBlurHash) {
+	   this.thumbnailBlurHash = thumbnailBlurHash;
+   }
+   public String getMessageState() {
+	   return messageState;
+   }
+   public void setMessageState(String messageState) {
+	   this.messageState = messageState;
+   }
+
 
 }

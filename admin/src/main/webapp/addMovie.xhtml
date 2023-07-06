@@ -26,7 +26,6 @@
                 	<f:selectItem itemLabel="False" itemValue="false"/>
             	</h:selectOneRadio>
   				
-  			 
   				Added Genres <h:panelGroup id="addedGenresList"> #{addMovieBean.genres} </h:panelGroup>
   			
   				Genres
@@ -68,10 +67,14 @@
             	</h:inputTextarea>
             	
             	Thumbnail URL <h:inputText value="#{addMovieBean.thumbnailUrl}"/>
+            	
+            	Thumbnail Blur Hash <h:inputText value="#{addMovieBean.thumbnailBlurHash}"/>
 
          </h:panelGrid>
 
          <h:commandButton value="Cadastrar" action="#{addMovieBean.handleSubmit}"/>
+         <br/>
+         <h:panelGroup id="beanMessage"> #{addMovieBean.messageState} </h:panelGroup>
 
       </h:form>
 

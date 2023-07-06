@@ -15,8 +15,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -50,6 +50,24 @@
       <artifactId>jakarta.transaction-api</artifactId>
       <version>2.0.1</version>
     </dependency>
+    
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>6.0.0</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>jakarta.annotation</groupId>
+	  <artifactId>jakarta.annotation-api</artifactId>
+	  <version>2.1.1</version>
+	</dependency>
+	
+	<dependency>
+      <groupId>jakarta.ejb</groupId>
+      <artifactId>jakarta.ejb-api</artifactId>
+      <version>4.0.1</version>
+    </dependency>
 
     <dependency>
       <groupId>org.hibernate.orm</groupId>
@@ -62,17 +80,27 @@
       <artifactId>postgresql</artifactId>
       <version>42.6.0</version>
     </dependency>
-	
+
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+      <version>8.0.1</version>
+    </dependency>
+    
   </dependencies>
 
   <build>
     <finalName>admin</finalName>
 
-    <resources>
+     <resources>
       <resource>
-        <directory>/src/META-INF/persistence.xml</directory>
+        <directory>src/resources/META-INF</directory>
       </resource>
-    </resources>
+      
+       <resource>
+        <directory>src/webapp/WEB-INF</directory>
+      </resource>
+     </resources>
 
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
@@ -89,8 +117,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
           <configuration>
-                <source>17</source>
-                <target>17</target>
+                <source>11</source>
+                <target>11</target>
             </configuration>
         </plugin>
         <plugin>

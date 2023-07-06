@@ -13,13 +13,13 @@ import jakarta.persistence.Table;
 @Table(name = "Movie")
 public class Movie extends Media{
 
-    @Column(name = "is_movie_series")
+    @Column(name = "is_movie_series", nullable = false)
     private boolean isMovieSeries;
 
-    @Column(name = "sequence_number")
+    @Column(name = "sequence_number", nullable = false)
     private int sequenceNumber;
 
-    @Column(name = "actors_actresses")
+    @Column(name = "actors_actresses", nullable = false)
     private List<String> actorsActresses;
 
     public Movie(
@@ -31,12 +31,13 @@ public class Movie extends Media{
         String description,
         int ageRating,
         String thumbnailUrl,
+        String thumbnailBlurHash,
 
         boolean isMovieSeries,
         int sequenceNumber,
         List<String> actorsActresses
     ) {
-        super(title, isAnimation, genres, director, releaseYear, description, ageRating, thumbnailUrl);
+        super(title, isAnimation, genres, director, releaseYear, description, ageRating, thumbnailUrl, thumbnailBlurHash);
 
         this.isMovieSeries = isMovieSeries;
         this.sequenceNumber = sequenceNumber; // receber 1 se nao for
