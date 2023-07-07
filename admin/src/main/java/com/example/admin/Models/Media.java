@@ -4,6 +4,7 @@ import com.example.admin.Models.enums.Genre;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity(name = "Media")
@@ -22,6 +24,9 @@ public class Media {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
+
+    @ManyToMany(mappedBy = "medias")
+    private Set<MediaList> lists;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -52,6 +57,10 @@ public class Media {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    public Media() {
+    	this.createdAt = LocalDateTime.now();
+    }
 
     public Media(
         String title,
@@ -102,6 +111,70 @@ public class Media {
 	@Override
     public int hashCode() {
         return this.id.hashCode();
+    }
+	
+	public Long getId() {
+        return this.id;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public String getTitle() {
+        return this.title;
+    }
+    public void setLists(Set<MediaList> lists) {
+        this.lists = lists;
+    }
+    public Set<MediaList> getLists() {
+        return this.lists;
+    }
+    public void setIsAnimation(boolean isAnimation) {
+        this.isAnimation = isAnimation;
+    }
+    public boolean getIsAnimation() {
+        return this.isAnimation;
+    }
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+    public List<Genre> getGenres() {
+        return this.genres;
+    }
+    public void setDirector(String director) {
+        this.director = director;
+    }
+    public String getDirector() {
+        return this.director;
+    }
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+    public int getReleaseYear() {
+        return this.releaseYear;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public String getDescription() {
+        return this.description;
+    }
+    public void setAgeRating(int ageRating) {
+        this.ageRating = ageRating;
+    }
+    public int getAgeRating() {
+        return this.ageRating;
+    }
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+    public String getThumbnailUrl() {
+        return this.thumbnailUrl;
+    }
+    public void setThumbnailBlurHash(String thumbnailBlurHash) {
+        this.thumbnailBlurHash = thumbnailBlurHash;
+    }
+    public String getThumbnailBlurHash() {
+        return this.thumbnailBlurHash;
     }
 
 }

@@ -21,6 +21,8 @@ public class TvShow extends Media{
     @Column(name = "actors_actresses", nullable = false)
     private List<String> actorsActresses;
 
+    public TvShow() {super();}
+    
     public TvShow(
         String title,
         boolean isAnimation,
@@ -54,5 +56,23 @@ public class TvShow extends Media{
         return this.id.hashCode();
     }
 
+    public void setNumberOfSeasons(int numberOfSeasons) {
+        this.numberOfSeasons = numberOfSeasons;
+    }
+    public int getNumberOfSeasons() {
+        return this.numberOfSeasons;
+    }
+    public void setSeasonNumber(int seasonNumber) {
+        this.seasonNumber = seasonNumber;
+    }
+    public int getSeasonNumber() {
+        return this.seasonNumber;
+    }
+    public void setActorsActresses(List<String> actorsActresses) {
+        this.actorsActresses = actorsActresses;
+    }
+    public List<String> getActorsActresses() {
+        return this.actorsActresses;
+    }
 }
 

@@ -1,7 +1,6 @@
 package com.example.admin.Repositories;
 
 import java.util.List;
-import java.util.UUID;
 
 import com.example.admin.Models.Movie;
 
@@ -9,12 +8,12 @@ public interface MovieDAO {
 	
 	public void save(Movie m);
 	
-	public List<Movie> findAll();
+	public List<Movie> getAll();
 	
-	public Movie findById(UUID id);
+	public Movie findById(Long id);
 	
-	public Movie update(Movie m);
+	public void update(Movie m);
 	
-	public Movie delete(UUID id);
+	public void remove(Long id);
 	
 }

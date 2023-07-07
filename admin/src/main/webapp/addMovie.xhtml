@@ -18,15 +18,15 @@
          
             <h:panelGrid columns="2">
 
-                Title <h:inputText value="#{addMovieBean.title}"/>
+                Title <h:inputText value="#{addMovieBean.movieToAdd.title}"/>
 
                 Is Animation? 
-                <h:selectOneRadio value="#{addMovieBean.isAnimation}">
+                <h:selectOneRadio value="#{addMovieBean.movieToAdd.isAnimation}">
             		<f:selectItem itemLabel="True" itemValue="true"/>
                 	<f:selectItem itemLabel="False" itemValue="false"/>
             	</h:selectOneRadio>
   				
-  				Added Genres <h:panelGroup id="addedGenresList"> #{addMovieBean.genres} </h:panelGroup>
+  				Added Genres <h:panelGroup id="addedGenresList"> #{addMovieBean.movieToAdd.genres} </h:panelGroup>
   			
   				Genres
             	<h:selectOneMenu value="#{addMovieBean.genreItemState}">
@@ -34,14 +34,14 @@
             		<f:selectItems value="#{addMovieBean.genresList}" />
             	</h:selectOneMenu>
             	
-            	Director <h:inputText value="#{addMovieBean.director}"/>
+            	Director <h:inputText value="#{addMovieBean.movieToAdd.director}"/>
  				
- 				Realease Year <h:inputText value="#{addMovieBean.releaseYear}"/>
+ 				Realease Year <h:inputText value="#{addMovieBean.movieToAdd.releaseYear}"/>
             	
-            	Description <h:inputTextarea rows="3" cols="20" value="#{addMovieBean.description}"/>
+            	Description <h:inputTextarea rows="3" cols="20" value="#{addMovieBean.movieToAdd.description}"/>
             	
    				Age Rating
-   				<h:selectOneMenu value="#{addMovieBean.ageRating}">
+   				<h:selectOneMenu value="#{addMovieBean.movieToAdd.ageRating}">
                		<f:selectItem itemLabel="Livre" itemValue="0"/>
                 	<f:selectItem itemLabel="10" itemValue="10"/>
                 	<f:selectItem itemLabel="12" itemValue="12"/>
@@ -51,14 +51,14 @@
             	</h:selectOneMenu>
 
 				Is a Movie Series? 
-                <h:selectOneRadio value="#{addMovieBean.isMovieSeries}">
+                <h:selectOneRadio value="#{addMovieBean.movieToAdd.isMovieSeries}">
             		<f:selectItem itemLabel="True" itemValue="true"/>
                 	<f:selectItem itemLabel="False" itemValue="false"/>
             	</h:selectOneRadio>
             	
-            	Sequence Number <h:inputText value="#{addMovieBean.sequenceNumber}"/>
+            	Sequence Number <h:inputText value="#{addMovieBean.movieToAdd.sequenceNumber}"/>
             	
-            	Added Actors/Actresses <h:panelGroup id="addedActorsActressesList"> #{addMovieBean.actorsActresses} </h:panelGroup>
+            	Added Actors/Actresses <h:panelGroup id="addedActorsActressesList"> #{addMovieBean.movieToAdd.actorsActresses} </h:panelGroup>
   			
   				Actors/Actresses (It must seperate by commas)
             	<h:inputTextarea rows="3" cols="20" value="#{addMovieBean.actorsActressesState}" update="addedActorsActressesList">
@@ -66,9 +66,9 @@
             		<f:ajax event="change" listener="#{addMovieBean.updateActorsActressesList}" render="addedActorsActressesList"/>
             	</h:inputTextarea>
             	
-            	Thumbnail URL <h:inputText value="#{addMovieBean.thumbnailUrl}"/>
+            	Thumbnail URL <h:inputText value="#{addMovieBean.movieToAdd.thumbnailUrl}"/>
             	
-            	Thumbnail Blur Hash <h:inputText value="#{addMovieBean.thumbnailBlurHash}"/>
+            	Thumbnail Blur Hash <h:inputText value="#{addMovieBean.movieToAdd.thumbnailBlurHash}"/>
 
          </h:panelGrid>
 

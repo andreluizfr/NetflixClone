@@ -22,6 +22,8 @@ public class Movie extends Media{
     @Column(name = "actors_actresses", nullable = false)
     private List<String> actorsActresses;
 
+    public Movie() {super();}
+
     public Movie(
         String title,
         boolean isAnimation,
@@ -55,6 +57,26 @@ public class Movie extends Media{
     	if(this.id!=null)
     		return this.id.hashCode();
     	else return 1;
+    }
+
+
+    public void setIsMovieSeries(boolean isMovieSeries) {
+        this.isMovieSeries = isMovieSeries;
+    }
+    public boolean getIsMovieSeries() {
+        return this.isMovieSeries;
+    }
+    public void setSequenceNumber(int sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
+    }
+    public int getSequenceNumber() {
+        return this.sequenceNumber;
+    }
+    public void setActorsActresses(List<String> actorsActresses) {
+        this.actorsActresses = actorsActresses;
+    }
+    public List<String> getActorsActresses() {
+        return this.actorsActresses;
     }
 
 }

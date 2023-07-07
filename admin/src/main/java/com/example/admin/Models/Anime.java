@@ -54,4 +54,23 @@ public class Anime extends Media{
         return this.id.hashCode();
     }
 
+    public void setNumberOfSeasons(int numberOfSeasons) {
+        this.numberOfSeasons = numberOfSeasons;
+    }
+    public int getNumberOfSeasons() {
+        return this.numberOfSeasons;
+    }
+    public void setSeasonNumber(int seasonNumber) {
+        this.seasonNumber = seasonNumber;
+    }
+    public int getSeasonNumber() {
+        return this.seasonNumber;
+    }
+    public void setStudio(String studio) {
+        this.studio = studio;
+    }
+    public String getStudio() {
+        return this.studio;
+    }
+
 }
