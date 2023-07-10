@@ -43,6 +43,7 @@ export default function ContentsPage(): JSX.Element {
     
     useEffect(()=>{
         httpClient.get("/movie/getAll").then(response=>{
+            console.log(response);
             setMovies(response.data);
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps

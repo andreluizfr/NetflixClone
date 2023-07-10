@@ -29,7 +29,7 @@ public class TvShow extends Media{
         List<Genre> genres,
         String director,
         int releaseYear,
-        String description,
+        String descriptions,
         int ageRating,
         String thumbnailUrl,
         String thumbnailBlurHash,
@@ -38,7 +38,7 @@ public class TvShow extends Media{
         int seasonNumber,
         List<String> actorsActresses
     ) {
-        super(title, isAnimation, genres, director, releaseYear, description, ageRating, thumbnailUrl, thumbnailBlurHash);
+        super(title, isAnimation, genres, director, releaseYear, descriptions, ageRating, thumbnailUrl, thumbnailBlurHash);
 
         this.numberOfSeasons = numberOfSeasons;
         this.seasonNumber = seasonNumber;

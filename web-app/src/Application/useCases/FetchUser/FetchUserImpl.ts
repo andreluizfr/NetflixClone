@@ -41,12 +41,13 @@ export const FetchUserImpl: IFetchUser = () => {
     );
     
     const dispatch = useDispatch();
+    //const navigate = useNavigate();
 
     useEffect(()=>{
         if (queryResult.isError && queryResult.error) HandleFetchUserQueryError(queryResult.error, dispatch);
         else if (queryResult.data?.data) HandleFetchUserQuerySuccess(queryResult.data, dispatch);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [queryResult.data]);
+    }, [queryResult]);
 
     return queryResult;
 }
@@ -88,6 +89,7 @@ function HandleFetchUserQueryError(httpError: IHttpError, dispatch: Dispatch<Any
 
         case HttpStatusCode.Forbidden: {  //Forbidden. Token inválido ou expirado 
             dispatch(removeUser()); //se tiver algum salvo
+            window.location.href = import.meta.env.VITE_APP_BASE_URL;
             break;
         }
         case HttpStatusCode.Internal_Server_Error: { //Internal server error. erro durante a criaçao das entidades, não há tratamento

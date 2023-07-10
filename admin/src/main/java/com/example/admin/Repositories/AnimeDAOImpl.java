@@ -62,7 +62,7 @@ public class AnimeDAOImpl implements AnimeDAO {
 			anime.setGenres(updatedAnime.getGenres());
 			anime.setDirector(updatedAnime.getDirector());
 			anime.setReleaseYear(updatedAnime.getReleaseYear());
-			anime.setDescription(updatedAnime.getDescription());
+			anime.setDescriptions(updatedAnime.getDescriptions());
 			anime.setAgeRating(updatedAnime.getAgeRating());
 			anime.setThumbnailUrl(updatedAnime.getThumbnailUrl());
 			anime.setThumbnailBlurHash(updatedAnime.getThumbnailBlurHash());

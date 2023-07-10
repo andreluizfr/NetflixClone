@@ -42,6 +42,7 @@ public class TokenService {
     }
 
     private Date genExpirationDate() {
-        return new Date((new Date()).getTime() + (15 * 60 * 1000));
+        //return new Date((new Date()).getTime() + (24 * 60 * 60 * 1000));  //24hrs
+        return new Date((new Date()).getTime() + (2 * 60 * 1000));  //2min para testes
     }
 }

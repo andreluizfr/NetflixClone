@@ -22,7 +22,7 @@ export const LoginImpl: ILogin = (
         if (queryResult.isError && queryResult.error) HandleLoginQueryError(queryResult.error);
         else if (queryResult.data?.data) HandleLoginQuerySuccess(queryResult.data, navigate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [queryResult.data]);
+    }, [queryResult]);
 
     return queryResult; //para fazer o devido uso com relação a camada de view do react
 }

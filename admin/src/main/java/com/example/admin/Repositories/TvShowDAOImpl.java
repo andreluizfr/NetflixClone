@@ -62,7 +62,7 @@ public class TvShowDAOImpl implements TvShowDAO {
 			tvShow.setGenres(updatedTvShow.getGenres());
 			tvShow.setDirector(updatedTvShow.getDirector());
 			tvShow.setReleaseYear(updatedTvShow.getReleaseYear());
-			tvShow.setDescription(updatedTvShow.getDescription());
+			tvShow.setDescriptions(updatedTvShow.getDescriptions());
 			tvShow.setAgeRating(updatedTvShow.getAgeRating());
 			tvShow.setThumbnailUrl(updatedTvShow.getThumbnailUrl());
 			tvShow.setThumbnailBlurHash(updatedTvShow.getThumbnailBlurHash());

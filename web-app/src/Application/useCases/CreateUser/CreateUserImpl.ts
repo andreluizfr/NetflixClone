@@ -27,7 +27,7 @@ export const CreateUserImpl: ICreateUser = (email, password, birthDate) => {
         if (queryResult.isError && queryResult.error) HandleCreateUserQueryError(queryResult.error, dispatch, navigate);
         else if (queryResult.data?.data) HandleCreateUserQuerySuccess(queryResult.data, navigate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [queryResult.isError, queryResult.data]);
+    }, [queryResult]);
 
     return queryResult; //para fazer o devido uso com relação a camada de view do react
 }

@@ -42,7 +42,7 @@ export const  CreatePlanPaymentImpl: ICreatePlanPayment = (
         if (queryResult.isError && queryResult.error) HandleCreatePlanPaymentQueryError(queryResult.error, dispatch, navigate);
         else if (queryResult.data?.data) HandleCreatePlanPaymentQuerySuccess(queryResult.data, navigate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [queryResult.data]);
+    }, [queryResult]);
 
     return queryResult;
 }

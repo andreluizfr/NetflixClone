@@ -62,7 +62,7 @@ public class MovieDAOImpl implements MovieDAO {
 			movie.setGenres(updatedMovie.getGenres());
 			movie.setDirector(updatedMovie.getDirector());
 			movie.setReleaseYear(updatedMovie.getReleaseYear());
-			movie.setDescription(updatedMovie.getDescription());
+			movie.setDescriptions(updatedMovie.getDescriptions());
 			movie.setAgeRating(updatedMovie.getAgeRating());
 			movie.setThumbnailUrl(updatedMovie.getThumbnailUrl());
 			movie.setThumbnailBlurHash(updatedMovie.getThumbnailBlurHash());

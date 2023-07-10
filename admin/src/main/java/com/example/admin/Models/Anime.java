@@ -27,7 +27,7 @@ public class Anime extends Media{
         List<Genre> genres,
         String director,
         int releaseYear,
-        String description,
+        String descriptions,
         int ageRating,
         String thumbnailUrl,
         String thumbnailBlurHash,
@@ -36,7 +36,7 @@ public class Anime extends Media{
         int seasonNumber,
         String studio
     ) {
-        super(title, isAnimation, genres, director, releaseYear, description, ageRating, thumbnailUrl, thumbnailBlurHash);
+        super(title, isAnimation, genres, director, releaseYear, descriptions, ageRating, thumbnailUrl, thumbnailBlurHash);
 
         this.numberOfSeasons = numberOfSeasons;
         this.seasonNumber = seasonNumber;

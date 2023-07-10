@@ -43,8 +43,8 @@ public class Media {
     @Column(name = "release_year", nullable = false)
     private int releaseYear;
 
-    @Column(name = "description", nullable = false)
-    private String description;
+    @Column(name = "descriptions", nullable = false)
+    private String descriptions;
 
     @Column(name = "age_rating", nullable = false)
     private int ageRating;
@@ -68,7 +68,7 @@ public class Media {
         List<Genre> genres,
         String director,
         int releaseYear,
-        String description,
+        String descriptions,
         int ageRating,
         String thumbnailUrl,
         String thumbnailBlurHash
@@ -79,7 +79,7 @@ public class Media {
         this.genres = genres;
         this.director = director;
         this.releaseYear = releaseYear;
-        this.description = description;
+        this.descriptions = descriptions;
         this.ageRating = ageRating;
         this.thumbnailUrl = thumbnailUrl;
         this.thumbnailBlurHash = thumbnailBlurHash;
@@ -87,7 +87,7 @@ public class Media {
     }
     
     public Media(Long id, String title, boolean isAnimation, List<Genre> genres, String director, int releaseYear,
-			String description, int ageRating, String thumbnailUrl, String thumbnailBlurHash, LocalDateTime createdAt) {
+			String descriptions, int ageRating, String thumbnailUrl, String thumbnailBlurHash, LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -95,7 +95,7 @@ public class Media {
 		this.genres = genres;
 		this.director = director;
 		this.releaseYear = releaseYear;
-		this.description = description;
+		this.descriptions = descriptions;
 		this.ageRating = ageRating;
 		this.thumbnailUrl = thumbnailUrl;
 		this.thumbnailBlurHash = thumbnailBlurHash;
@@ -152,11 +152,11 @@ public class Media {
     public int getReleaseYear() {
         return this.releaseYear;
     }
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions;
     }
-    public String getDescription() {
-        return this.description;
+    public String getDescriptions() {
+        return this.descriptions;
     }
     public void setAgeRating(int ageRating) {
         this.ageRating = ageRating;
