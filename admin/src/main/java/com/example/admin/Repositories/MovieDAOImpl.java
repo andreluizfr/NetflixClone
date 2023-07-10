@@ -42,6 +42,8 @@ public class MovieDAOImpl implements MovieDAO {
 		
 		Movie movie = em.find(Movie.class, id);
 
+		em.close();
+
         if (movie == null) 
             throw new EntityNotFoundException("Can't find movie for id "
                     + id);

@@ -41,7 +41,6 @@ export const FetchUserImpl: IFetchUser = () => {
     );
     
     const dispatch = useDispatch();
-    //const navigate = useNavigate();
 
     useEffect(()=>{
         if (queryResult.isError && queryResult.error) HandleFetchUserQueryError(queryResult.error, dispatch);
