@@ -44,10 +44,10 @@ public class SecurityConfiguration {
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.GET, "/admin/example").permitAll()
-
                         .requestMatchers(HttpMethod.POST, "/api/user/create").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/api/movie/getAll").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/api/user/get").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/user/getAll").hasRole("ADMIN")

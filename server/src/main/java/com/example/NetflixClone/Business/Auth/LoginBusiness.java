@@ -24,6 +24,8 @@ public class LoginBusiness {
 
     public String execute(LoginDTO data) throws IllegalArgumentException, AuthenticationException {
 
+        System.out.println(data.email() + " " + data.password());
+
         var emailPassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
 
         var auth = this.authenticationManager.authenticate(emailPassword);

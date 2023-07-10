@@ -7,24 +7,27 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@NoArgsConstructor
+@Setter
+@AllArgsConstructor
 @Entity(name = "Movie")
 @Table(name = "Movie")
 public class Movie extends Media{
 
-    @Column(name = "is_movie_series")
+   @Column(name = "is_movie_series", nullable = false)
     private boolean isMovieSeries;
 
-    @Column(name = "sequence_number")
+    @Column(name = "sequence_number", nullable = false)
     private int sequenceNumber;
 
-    @Column(name = "actors_actresses")
+    @Column(name = "actors_actresses", nullable = false)
     private List<String> actorsActresses;
+
+    public Movie() {super();}
 
     public Movie(
         String title,
@@ -32,15 +35,16 @@ public class Movie extends Media{
         List<Genre> genres,
         String director,
         int releaseYear,
-        String description,
+        String descriptions,
         int ageRating,
         String thumbnailUrl,
+        String thumbnailBlurHash,
 
         boolean isMovieSeries,
         int sequenceNumber,
         List<String> actorsActresses
     ) {
-        super(title, isAnimation, genres, director, releaseYear, description, ageRating, thumbnailUrl);
+        super(title, isAnimation, genres, director, releaseYear, descriptions, ageRating, thumbnailUrl, thumbnailBlurHash);
 
         this.isMovieSeries = isMovieSeries;
         this.sequenceNumber = sequenceNumber; // receber 1 se nao for

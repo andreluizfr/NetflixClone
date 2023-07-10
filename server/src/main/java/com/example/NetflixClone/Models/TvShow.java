@@ -6,41 +6,44 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@NoArgsConstructor
+@Setter
+@AllArgsConstructor
 @Entity(name = "TvShow")
-@Table(name = "TvShow")
+//@Table(name = "TvShow")
 public class TvShow extends Media{
 
-    @Column(name = "number_of_seasons")
+    @Column(name = "number_of_seasons", nullable = false)
     private int numberOfSeasons;
 
-    @Column(name = "season_number")
+    @Column(name = "season_number", nullable = false)
     private int seasonNumber;
 
-    @Column(name = "actors_actresses")
+    @Column(name = "actors_actresses", nullable = false)
     private List<String> actorsActresses;
 
+    public TvShow() {super();}
+    
     public TvShow(
         String title,
         boolean isAnimation,
         List<Genre> genres,
         String director,
         int releaseYear,
-        String description,
+        String descriptions,
         int ageRating,
         String thumbnailUrl,
+        String thumbnailBlurHash,
 
         int numberOfSeasons,
         int seasonNumber,
         List<String> actorsActresses
     ) {
-        super(title, isAnimation, genres, director, releaseYear, description, ageRating, thumbnailUrl);
+        super(title, isAnimation, genres, director, releaseYear, descriptions, ageRating, thumbnailUrl, thumbnailBlurHash);
 
         this.numberOfSeasons = numberOfSeasons;
         this.seasonNumber = seasonNumber;

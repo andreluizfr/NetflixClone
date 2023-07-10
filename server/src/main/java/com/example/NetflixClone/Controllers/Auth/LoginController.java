@@ -40,7 +40,7 @@ public class LoginController {
 
             System.out.println("Error: " + e.getMessage());
 
-            return ResponseErrorHandler.generateResponse("Error: " + e.getMessage(),
+            return ResponseErrorHandler.generateResponse("Error: E-mail ou senha errada",
                     HttpStatus.FORBIDDEN, null);
 
         } catch (RuntimeException e) {

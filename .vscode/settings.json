@@ -7,5 +7,6 @@
     ],
     "java.project.referencedLibraries": [
         "WebContent/WEB-INF/lib/**/*.jar"
-    ]
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
 }

@@ -1,0 +1,233 @@
+@import '../../assets/sass/variables';
+@import '../../assets/sass/mixins';
+
+.SignupPaymentPickerPage{
+    @include flex-column-center-center;
+    width: 100%;
+    min-height: 100vh; 
+    width: 100%;
+    background-color: $background-secondary-color;
+
+    & > .Header{
+        @include flex-row-space-between-center;
+        width: 100%;
+        padding: 16px;
+        border-bottom: 1px solid rgba(0,0,0,0.16);
+
+        a{
+            .Logo{
+                height: 46px;
+                width: auto;
+
+                @include mq-small{
+                    height: 32px;
+                }
+            }
+        }
+
+        .Login-link{
+            color: $font-quinary-color;
+            font-size: $font-size-normal;
+            font-weight: 500;
+            text-decoration: none;
+
+            &:visited{
+                color: $font-quinary-color;
+            }
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+        
+    }
+
+    .Steps-container{
+        flex: 1;
+
+        .Register-form{
+            min-width: 320px;
+            max-width: 560px;
+            @include flex-column-start-center;
+            padding: 60px 68px;
+
+            @include mq-small{
+                align-items: flex-start;
+            }
+
+            .Icon{
+                width: 248px;
+                height: auto;
+                margin-bottom: 36px;
+            }
+
+            .Step-info{
+                color: $font-quinary-color;
+                font-size: $font-size-small;
+                font-weight: 400;
+                text-align: center;
+
+                @include mq-small{
+                    text-align: left;
+                }
+            }
+
+            .Title{
+                margin: 0 0 16px 0;
+                color: $font-quinary-color;
+                font-size: $font-size-xl;
+                font-weight: 500;
+                text-align: center;
+
+                @include mq-small{
+                    text-align: left;
+                }
+            }
+
+            .Input{
+                @include flex-column-center-center;
+                margin-bottom: 16px;
+
+                label{
+                    color: $font-quinary-color;
+                    font-size: $font-size-normal;
+                }
+                input[type="date"]{
+                    margin-top: 4px;
+                    padding: 8px;
+                    border-radius: 4px;
+                    background-color: $button-primary-color;
+
+                    color: $font-primary-color;
+                    font-size: $font-size-normal;
+                }
+            }
+
+            .Row{
+                flex-direction: row;
+
+                label{
+                    margin-left: 8px;
+                }
+            }
+
+            .Register-button{
+                margin: 8px 0 0 0;
+                width: 100%;
+                padding-top: 18px;
+                padding-bottom: 18px;
+                border-radius: 4px;
+                background-color: $button-primary-color;
+
+                color: $font-primary-color;
+                font-size: $font-size-large;
+                font-weight: 400;
+                
+                cursor: pointer;
+
+                @include mq-small{
+                    font-size: $font-size-medium;
+                }
+
+                &:hover{
+                    opacity: 0.95;
+                }
+            }
+
+            a{
+                width: 100%;
+                text-decoration: none;
+            }
+        }       
+
+    }
+
+    & > footer{
+        width: 100%;
+        @include flex-column-start-start;
+        gap: 16px;
+        padding: 24px 32px;
+        background-color: rgba(0,0,0,0.06);
+
+        .Row-1{
+            margin-bottom: 12px;
+            font-size: $font-size-normal;
+            font-weight: 400;
+            color: $font-tertiary-color;
+
+            a{
+                color: $font-tertiary-color;
+                text-decoration: none;
+                cursor: pointer;
+
+                &:visited{
+                    color: $font-tertiary-color;
+                    text-decoration: none;
+                }
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .Row-2{
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat( auto-fit, minmax(100px, 1fr) );
+            column-gap: 36px;
+            row-gap: 14px;
+
+            & > a {
+                color: $font-tertiary-color;
+                font-size: $font-size-small;
+                font-weight: 300;
+                text-decoration: none;
+
+                &:visited{
+                    color: $font-tertiary-color;
+                    text-decoration: none;
+                }
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .Row-3{
+            margin-bottom: 24px;
+
+            .Select-language{
+                padding: 13px 4px 13px 44px;
+                border: 1px solid rgba(255,255,255,0.24);
+                border-radius: 2px;
+
+                background-color: $background-secondary-color;
+                background-image: url('../../assets/svg/globe2.svg');
+                background-position: 10% 50%;
+                background-repeat: no-repeat;
+                background-size: 12%;
+
+                backdrop-filter: grayscale(0.7);
+
+                color: $font-tertiary-color;
+                font-size: $font-size-normal;
+
+                option{
+                    background-color: $background-secondary-color;
+
+                    font-size: $font-size-normal;
+                    color: $font-primary-color;
+                }
+
+                &:focus{
+                    outline-offset: 1px;
+                    outline: 2px solid $button-secondary-color;
+                }
+
+                &::-ms-expand {
+                    display: none;
+                }
+            }
+        }
+    }
+
+}

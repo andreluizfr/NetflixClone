@@ -15,11 +15,11 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.AllArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@Setter
 @AllArgsConstructor
 @Entity(name = "Media")
 @Table(name = "Media")
@@ -30,32 +30,39 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "is_animation")
+    @Column(name = "is_animation", nullable = false)
     private boolean isAnimation;
 
-    @Column(name = "genres")
+    @Column(name = "genres", nullable = false)
     private List<Genre> genres;
 
-    @Column(name = "director")
+    @Column(name = "director", nullable = false)
     private String director;
 
-    @Column(name = "release_year")
+    @Column(name = "release_year", nullable = false)
     private int releaseYear;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "descriptions", nullable = false)
+    private String descriptions;
 
-    @Column(name = "age_rating")
+    @Column(name = "age_rating", nullable = false)
     private int ageRating;
 
-    @Column(name = "thumbnail_url")
+    @Column(name = "thumbnail_url", nullable = false)
     private String thumbnailUrl;
+    
+    @Column(name = "thumbnail_blur_hash", nullable = false)
+    private String thumbnailBlurHash;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    public Media() {
+    	this.createdAt = LocalDateTime.now();
+    }
 
     public Media(
         String title,
@@ -63,9 +70,10 @@ public class Media {
         List<Genre> genres,
         String director,
         int releaseYear,
-        String description,
+        String descriptions,
         int ageRating,
-        String thumbnailUrl
+        String thumbnailUrl,
+        String thumbnailBlurHash
     ) {
 
         this.title = title;
@@ -73,9 +81,10 @@ public class Media {
         this.genres = genres;
         this.director = director;
         this.releaseYear = releaseYear;
-        this.description = description;
+        this.descriptions = descriptions;
         this.ageRating = ageRating;
         this.thumbnailUrl = thumbnailUrl;
+        this.thumbnailBlurHash = thumbnailBlurHash;
         this.createdAt = LocalDateTime.now();
     }
 
