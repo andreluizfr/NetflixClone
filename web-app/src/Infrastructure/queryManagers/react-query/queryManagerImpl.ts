@@ -20,7 +20,8 @@ export const ReactQueryManagerImpl: IQueryManager = <T>(
     const error = query.error;
     const data = query.data;
     const refetch = query.refetch;
+    const remove = query.remove;
 
-    return {isLoading, isError, error, data, refetch};
+    return {isLoading, isError, error, data, refetch, remove};
 
 }

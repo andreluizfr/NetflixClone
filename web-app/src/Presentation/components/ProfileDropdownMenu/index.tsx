@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 
 import { Link } from 'react-router-dom';
 
+import { removeUser } from '@Infrastructure/stores/redux/features/userSlice';
+import { useDispatch } from 'react-redux';
 
 
 export default function ProfileDropdownMenu(): JSX.Element {
@@ -16,6 +18,11 @@ export default function ProfileDropdownMenu(): JSX.Element {
         profileIconControls.start({rotate: [45, -45, 45, 0]});
     };
     */
+   const dispatch = useDispatch();
+
+    function logout(){
+        dispatch(removeUser());
+    }
     
     return(
         <DropdownMenu.Root>
@@ -44,7 +51,7 @@ export default function ProfileDropdownMenu(): JSX.Element {
                             (new Array(10)).fill(0).map((index: number)=>{
                                 return (
                                     <motion.li className='ProfileDropdownMenuItem' key={"profileDropdownMenuItem-"+index}>
-                                        <Link to="#" className='Item-container' key={"profile-"+index}>
+                                        <Link to="#" className='Item-container'>
                                             <img className='' src={""} alt="profile icon"/>
                                             <span className='ProfileName'>{""}</span>
                                         </Link>
@@ -79,6 +86,13 @@ export default function ProfileDropdownMenu(): JSX.Element {
                                 <img className='' src={""} alt="help icon"/>
                                 <span className='Option'>Central de Ajuda</span>
                             </Link>
+                        </motion.li>
+
+                        <motion.li className='ProfileDropdownMenuItem'>
+                            <div className='Item-container' onClick={logout}>
+                                <img className='' src={""} alt="help icon"/>
+                                <span className='Option'>SAIR (Temporário)</span>
+                            </div>
                         </motion.li>
                         
                     </motion.ul>

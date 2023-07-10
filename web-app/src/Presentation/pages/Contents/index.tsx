@@ -11,7 +11,6 @@ import Footer from './Footer';
 
 import playlistsData from './playlists.json';
 
-import { FetchUserImpl } from '@Application/useCases/FetchUser/FetchUserImpl';
 import { makeHttpClient } from '@Main/factories/infrastructure/makeHttpClient';
 
 import { Helmet } from 'react-helmet-async';
@@ -38,17 +37,15 @@ export default function ContentsPage(): JSX.Element {
             (headerRef.current as HTMLElement).style.backgroundColor = "transparent";
 	});
 
-    FetchUserImpl();
-
     const [movies, setMovies] = useState<Media[]>([] as Media[]);
 
     const httpClient = makeHttpClient<Media[]>();
     
     useEffect(()=>{
-
         httpClient.get("/movie/getAll").then(response=>{
             setMovies(response.data);
         });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

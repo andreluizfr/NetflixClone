@@ -9,9 +9,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.NetflixClone.Models.Account;
 import com.example.NetflixClone.Models.Movie;
+import com.example.NetflixClone.Models.User;
+import com.example.NetflixClone.Models.UserDTO;
 import com.example.NetflixClone.Models.enums.Genre;
+import com.example.NetflixClone.Repositories.AccountRepositoryDAO;
 import com.example.NetflixClone.Repositories.MovieRepositoryDAO;
+import com.example.NetflixClone.Repositories.UserRepositoryDAO;
 
 @SpringBootApplication
 public class NetflixCloneApplication implements CommandLineRunner{
@@ -20,11 +25,27 @@ public class NetflixCloneApplication implements CommandLineRunner{
 		SpringApplication.run(NetflixCloneApplication.class, args);
 	}
 
+	
+	// ####### Populando BD #########
+
+	@Autowired
+	private AccountRepositoryDAO accountRepository;
+
+	@Autowired
+	private UserRepositoryDAO userRepository;
+
 	@Autowired
 	private MovieRepositoryDAO movieRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
+
+		Account account = new Account();
+		this.accountRepository.save(account);
+
+		UserDTO userDTO = new UserDTO("andre@email.com", "andre123", "1999-07-22", null);
+		User user = new User(userDTO);
+		this.userRepository.save(user);
 
 		List<Genre> genres = new ArrayList<Genre>(Arrays.asList(Genre.ROMANCE));
 		List<String> actorsActresses = new ArrayList<String>(Arrays.asList("Josephine Langford", "Hero Fiennes-Tiffin"));

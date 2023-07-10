@@ -65,10 +65,15 @@ function Router() {
 						path: "/signup/payment",
 						element: <SignupPaymentPage/>,
 					},
-					//user.data && localStorage.getItem("x-access-token") &&
+					user.data &&
 					{
 						path: "/contents",
 						element: <ContentsPage/>,
+					},
+					!user.data &&
+					{
+						path: "/contents",
+						element: <>Você não tem permissão pra acessa essa página</>,
 					},
 					{
 						path: "*",

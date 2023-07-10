@@ -32,51 +32,44 @@
     padding: .2rem;
     border-radius: 4px;
     background-color: rgba($background-primary-color, 0.7);
+    list-style: none;
+    list-style-type: none;
 
-    ul{
+    .ProfileDropdownMenuItem{
+        @include flex-row-start-center;
+        padding: 8px 16px;
+        gap: 8px;
         list-style: none;
         list-style-type: none;
-
-        .ProfileDropdownMenuItem{
-            @include flex-row-start-center;
-            padding: 8px 16px;
-            gap: 8px;
-            list-style: none;
-            list-style-type: none;
-            
-            .Item-container{
-                font-size: $font-size-small;
-                text-align: left;
-                text-decoration: none;
-                color: $font-primary-color;
-                cursor: pointer;
-
-                &:visited{
-                    color: $font-primary-color;
-                }
-            }
         
+        .Item-container{
+            font-size: $font-size-small;
+            text-align: left;
+            text-decoration: none;
+            color: $font-primary-color;
+            cursor: pointer;
+
+            &:visited{
+                color: $font-primary-color;
+            }
+
             img{
 
             }
 
-            .ProfileName{
-
-            }
-
             .Option{
-
+                color: $font-primary-color;
             }
-            
         }
+        
+    }
 
-        &:hover{
-            opacity: 0.8;
-        }
+    &:hover{
+        opacity: 0.8;
+    }
 
-        &:focus-visible{
-            outline: 1px solid $background-secondary-color;
-        }
+    &:focus-visible{
+        outline: 1px solid $background-secondary-color;
     }
 
 }

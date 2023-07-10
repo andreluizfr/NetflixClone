@@ -7,4 +7,5 @@ export interface IQueryResult<T> {
     error: IHttpError | null;
     data: IHttpResponse<T> | undefined;
     refetch: () => any;
+    remove: () => any;
 }
