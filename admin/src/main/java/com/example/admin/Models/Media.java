@@ -1,6 +1,10 @@
 package com.example.admin.Models;
 
 import com.example.admin.Models.enums.Genre;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -55,6 +59,8 @@ public class Media {
     @Column(name = "thumbnail_blur_hash", nullable = false)
     private String thumbnailBlurHash;
 
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 

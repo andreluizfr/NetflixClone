@@ -38,14 +38,19 @@
             font-weight: 400;
             -webkit-text-stroke: 0.5px;
 
-            @include mq-medium{
+            @include mq-large{
                 margin-bottom: 8px;
                 font-size: $font-size-large;
             }
 
+            @include mq-medium{
+                margin-bottom: 8px;
+                font-size: $font-size-medium;
+            }
+
             @include mq-small{
                 margin-bottom: 4px;
-                font-size: $font-size-medium;
+                font-size: $font-size-normal;
             }
         }
 

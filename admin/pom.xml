@@ -80,6 +80,13 @@
       <artifactId>postgresql</artifactId>
       <version>42.6.0</version>
     </dependency>
+
+    <!-- problem with serialization of java localDateTime -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>2.13.4</version>
+		</dependency>
     
   </dependencies>
 

@@ -137,7 +137,11 @@
 
 
 
-
+@mixin mq-small-mobile{
+    @media only screen and (max-width: 576px) {
+        @content;
+    }
+}
 
 @mixin mq-small{
     @media only screen and (max-width: 576px) {

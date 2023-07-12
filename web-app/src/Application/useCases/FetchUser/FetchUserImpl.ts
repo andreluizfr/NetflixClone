@@ -22,9 +22,11 @@ export const FetchUserImpl: IFetchUser = () => {
         'fetchUser',
         {
             enabled: true,
-            staleTime: 1 * 1000, //Until 1s it will not make the Request. When the 1s pass it uses cache as fallback while loading the query
+            staleTime: 2 * 1000, //Until 1s it will not make the Request. When the 1s pass it uses cache as fallback while loading the query
             cacheTime: 60 * 60 * 1000, //after 1 hour, the cache it will be invalid and it will no be used as fallback if the data is stale. It has to be greater than staleTime
-            refetchInterval: 2 * 1000, //run each 2s
+            //refetchInterval: 2 * 1000, //run each 2s
+            refetchOnMount: true,
+            refetchWindowFocus: true,
             initialData: ()=>{
                 let data;
                 const user = localStorage.getItem("user");

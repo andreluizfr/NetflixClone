@@ -24,7 +24,7 @@ public class FetchUserController {
         try {
             User user = fetchUserBusiness.execute();
 
-            return ResponseErrorHandler.generateResponse("Dados buscados com sucesso.", HttpStatus.OK,
+            return ResponseErrorHandler.generateResponse("Dados de usuário buscados com sucesso.", HttpStatus.OK,
                     user);
 
         } catch (RuntimeException e) {

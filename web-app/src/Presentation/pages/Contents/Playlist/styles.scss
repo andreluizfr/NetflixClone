@@ -7,11 +7,23 @@
     padding: 16px;
     overflow: hidden;
 
+    @include mq-small{
+        margin-bottom: 0;
+    }
+
+    @include mq-medium{
+        margin-bottom: 12px;
+    }
+
     & > .Title{
         margin: 4px 0;
         color: $font-primary-color;
         font-size: $font-size-medium;
         font-weight: 500;
+
+        @include mq-small{
+            font-size: $font-size-normal;
+        }
     }
 
     & > .Playlist{
@@ -31,6 +43,13 @@
             z-index: 999;
             transition: transform 400ms;
             cursor: pointer;
+
+            @include mq-small{
+                min-width: 81px;
+                min-height: 108px;
+                max-width: 81px;
+                max-height: 108px;
+            }
 
             &:hover{
                 transform: scale(1.15);

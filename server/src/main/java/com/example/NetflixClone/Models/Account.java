@@ -43,7 +43,7 @@ public class Account {
     @OneToOne(mappedBy = "account")
     private User user;
 
-    @Column(name = "is_active")
+    @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
     @Column(name = "current_plan", nullable = true)
@@ -54,24 +54,23 @@ public class Account {
     private LocalDate planExpireDate;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "payment_history")
+    @Column(name = "payment_history", nullable = false)
     private List<Preference> paymentHistory;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "profiles")
+    @Column(name = "profiles", nullable = false)
     private List<Profile> profiles;
 
-    @Column(name = "limit_of_profiles", nullable = true)
+    @Column(name = "limit_of_profiles")
     private int limitOfProfiles;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     public Account() {
         this.isActive = false;
         this.paymentHistory = new ArrayList<Preference>();
         this.profiles = new ArrayList<Profile>();
-        this.limitOfProfiles = 0;
         this.createdAt = LocalDateTime.now();
     }
 

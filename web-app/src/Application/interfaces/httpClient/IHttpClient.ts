@@ -1,4 +1,4 @@
-import { IHttpResponse } from "@Model/http/IHttpResponse";
+import { IHttpResponse } from "@Application/interfaces/httpClient/IHttpResponse";
 
 //Bridge pattern
 export interface IHttpClient<T>{

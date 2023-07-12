@@ -48,3 +48,22 @@ body {
   outline: none;
   box-sizing: border-box;
 }
+
+*::-webkit-scrollbar {
+  width: 14px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 3px solid #000000;
+  background: #525252;
+  border-radius: 8px;
+
+  transition: .2s all;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgb(229,9,20);
+}

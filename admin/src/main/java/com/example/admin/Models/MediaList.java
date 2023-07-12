@@ -3,16 +3,15 @@ package com.example.admin.Models;
 import java.util.Set;
 import java.util.UUID;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.JoinColumn;
-
 
 @Entity(name = "MediaList")
 @Table(name = "MediaList")
@@ -25,11 +24,8 @@ public class MediaList {
     @Column(name = "title", nullable = false)
     String title;
 
-    @ManyToMany
-    @JoinTable(
-    name = "media_list_media", 
-    joinColumns = @JoinColumn(name = "media_list_id"), 
-    inverseJoinColumns = @JoinColumn(name = "media_id"))
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name= "medias", nullable = false)
     private Set<Media> medias;
 
     public MediaList() {}

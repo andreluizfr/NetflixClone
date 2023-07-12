@@ -39,16 +39,22 @@
   font-weight: 400;
   -webkit-text-stroke: 0.5px;
 }
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 956px) {
   .Work-preview .Work-preview-menu .Title {
     margin-bottom: 8px;
     font-size: 1.6rem;
   }
 }
+@media only screen and (max-width: 720px) {
+  .Work-preview .Work-preview-menu .Title {
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+  }
+}
 @media only screen and (max-width: 576px) {
   .Work-preview .Work-preview-menu .Title {
     margin-bottom: 4px;
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 }
 .Work-preview .Work-preview-menu .Toolbar {

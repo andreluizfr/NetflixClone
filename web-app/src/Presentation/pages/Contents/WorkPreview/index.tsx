@@ -1,14 +1,20 @@
 import './styles.css';
 import playButton from '../../../assets/svg/play-button.svg';
 import infoCircle from '../../../assets/svg/info-circle.svg';
-import TheWitcher3Preview from '../../../assets/video/the-witcher-3-preview.mp4';
+
+import { Suspense, lazy } from 'react';
+
+//import ImprovedVideo from '@Presentation/components/ImprovedVideo';
+const ImprovedVideo = lazy(() => import('@Presentation/components/ImprovedVideo'));
 
 import { motion } from 'framer-motion';
+
+
+import LoadingSpinner from '@Presentation/components/ImprovedVideo/LoadingSpinner';
 
 export default function WorkPreview(): JSX.Element {
 
     const height = window.innerHeight;
-    const width = window.innerWidth;
 
     return (
         <motion.aside 
@@ -16,24 +22,10 @@ export default function WorkPreview(): JSX.Element {
             initial={{y: -(height/2), opacity: 0}}
             animate={{y: 0, opacity: 1, transition:{type: "easeOut", duration: 0.6}}}
         >
-
-            {
-            <video className='Background-video' muted autoPlay loop>
-                <source src={TheWitcher3Preview} type="video/mp4"/>
-            </video>
-            }
-    {/*
-            <iframe 
-                width={width} 
-                src="https://www.youtube.com/embed/TN-_xS4Kdpg?controls=0" 
-                title="The Witcher 3" 
-                frameBorder="0" 
-                allow="accelerometer; muted; autoplay; loop; clipboard-write; encrypted-media; gyroscope; web-share" 
-                allowFullScreen
-            >
-            </iframe>
-*/}
-            {
+            <Suspense fallback={<LoadingSpinner/>}>
+                <ImprovedVideo src='/the-witcher-3-preview.mp4' type='video/mp4' className='Background-video'/>
+            </Suspense>
+        
             <div className='Work-preview-menu'>
                 <h1 className='Title'>
                     The Witcher: temporada 3
@@ -50,7 +42,6 @@ export default function WorkPreview(): JSX.Element {
                     </button>
                 </div>
             </div>
-        }
         </motion.aside>
     )
 }

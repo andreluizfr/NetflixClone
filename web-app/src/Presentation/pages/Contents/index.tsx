@@ -1,25 +1,19 @@
 import './styles.css';
 import logo from '../../assets/svg/logo.svg';
 
-import { useRef, lazy, Suspense, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 import Header from './Header';
-import LoadingPage from '../../pages/Loading';
-const WorkPreview = lazy(()=> import('./WorkPreview'));
+import WorkPreview from './WorkPreview';
 import Playlist from './Playlist';
 import Footer from './Footer';
-
-import playlistsData from './playlists.json';
 
 import { makeHttpClient } from '@Main/factories/infrastructure/makeHttpClient';
 
 import { Helmet } from 'react-helmet-async';
 
 import { motion, useScroll, useTransform  } from 'framer-motion';
-import { Media } from '@Model/entities/Media';
-
-
-const playlists = playlistsData.playlists;
+import { MediaList } from '@Model/entities/MediaList';
 
 export default function ContentsPage(): JSX.Element {
     const pageRef = useRef(null);
@@ -37,14 +31,20 @@ export default function ContentsPage(): JSX.Element {
             (headerRef.current as HTMLElement).style.backgroundColor = "transparent";
 	});
 
-    const [movies, setMovies] = useState<Media[]>([] as Media[]);
+    const [mediasLists, setMediasLists] = useState<MediaList[]>([] as MediaList[]);
 
-    const httpClient = makeHttpClient<Media[]>();
+    const httpClient = makeHttpClient<MediaList[]>();
     
     useEffect(()=>{
-        httpClient.get("/movie/getAll").then(response=>{
+        const accessToken = localStorage.getItem("x-access-token");
+
+        httpClient.get(
+            "/mediaList/getAll",
+            {headers: { Authorization: `Bearer ${accessToken}` }}
+        ).then(response=>{
             console.log(response);
-            setMovies(response.data);
+            if(response.data)
+                setMediasLists(response.data);
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -55,7 +55,7 @@ export default function ContentsPage(): JSX.Element {
                 <link rel="preconnect" href="https://fonts.googleapis.com"/>
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
                 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-                <meta property="og:title" content="Netflix Contents" />
+    <meta property="og:title" content="Netflix Contents" />
                 <meta property="og:url" content="http://localhost:5173/contents" />
                 <meta property="og:image" content={logo} />
                 <meta property="og:image:alt" content="Netflix logo" />
@@ -65,14 +65,12 @@ export default function ContentsPage(): JSX.Element {
 
             <Header headerRef={headerRef}/>
 
-            <Suspense fallback={<LoadingPage/>}>
-                <WorkPreview/>
-            </Suspense>
+            <WorkPreview/>
             
             <main className='Contents-container'>
-                <Playlist title={"Continuar assistindo como perfil1"} medias={movies}/>
-                {playlists.map((playlist, index)=>{
-                    return <Playlist title={playlist.title} medias={movies} key={playlist.title+index}/>
+                {/*<Playlist title={"Continuar assistindo como perfil1"} medias={medias}/>*/}
+                {mediasLists.map((mediasList, index)=>{
+                    return <Playlist title={mediasList.title} medias={mediasList.medias} key={mediasList.title+index}/>
                 })}
             </main>
 

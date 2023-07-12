@@ -4,11 +4,26 @@
   padding: 16px;
   overflow: hidden;
 }
+@media only screen and (max-width: 576px) {
+  .Section {
+    margin-bottom: 0;
+  }
+}
+@media only screen and (max-width: 720px) {
+  .Section {
+    margin-bottom: 12px;
+  }
+}
 .Section > .Title {
   margin: 4px 0;
   color: rgb(255, 255, 255);
   font-size: 1.2rem;
   font-weight: 500;
+}
+@media only screen and (max-width: 576px) {
+  .Section > .Title {
+    font-size: 1rem;
+  }
 }
 .Section > .Playlist {
   z-index: 999;
@@ -28,6 +43,14 @@
   z-index: 999;
   transition: transform 400ms;
   cursor: pointer;
+}
+@media only screen and (max-width: 576px) {
+  .Section > .Playlist .Thumbnail {
+    min-width: 81px;
+    min-height: 108px;
+    max-width: 81px;
+    max-height: 108px;
+  }
 }
 .Section > .Playlist .Thumbnail:hover {
   transform: scale(1.15);

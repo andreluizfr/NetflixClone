@@ -80,8 +80,6 @@ export default function Playlist({title, medias}: props) {
                             className='Thumbnail'
                             key={"media-"+media.id}
                             hash={media.thumbnailBlurHash}
-                            width={108}
-                            height={144}
                         />
                     )
                 }
