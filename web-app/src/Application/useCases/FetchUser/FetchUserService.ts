@@ -1,7 +1,6 @@
-import { makeQueryManager } from "@Main/factories/infrastructure/makeQueryManager";
 import { makeHttpClient } from "@Main/factories/infrastructure/makeHttpClient";
+import { makePersistentStorage } from "@Main/factories/infrastructure/makePersistentStorage";
 
-import { IFetchUser } from "@Application/useCases/FetchUser/IFetchUser";
 import { HttpStatusCode } from "@Application/interfaces/httpClient/HttpStatusCode";
 import { IHttpError } from "@Application/interfaces/httpClient/IHttpError";
 import { IHttpResponse } from "@Application/interfaces/httpClient/IHttpResponse";
@@ -10,33 +9,31 @@ import { User } from "@Model/entities/User";
 
 import { saveUser, removeUser } from '@Infrastructure/stores/redux/features/userSlice';
 
+import { useQuery } from "react-query";
 import { AnyAction } from "@reduxjs/toolkit";
 import { Dispatch, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
+export const FetchUserService = () => {
 
-export const FetchUserImpl: IFetchUser = () => {
-
-    const queryResult = makeQueryManager<User>(
-        async () => FetchUserHttpRequest(),
+    const queryResult = useQuery<IHttpResponse<User>, IHttpError>(
         'fetchUser',
+        async () => FetchUserHttpRequest(),
         {
             enabled: true,
-            staleTime: 2 * 1000, //Until 1s it will not make the Request. When the 1s pass it uses cache as fallback while loading the query
-            cacheTime: 60 * 60 * 1000, //after 1 hour, the cache it will be invalid and it will no be used as fallback if the data is stale. It has to be greater than staleTime
-            //refetchInterval: 2 * 1000, //run each 2s
+            staleTime: 0,
+            cacheTime: 60 * 60 * 1000,
             refetchOnMount: true,
-            refetchWindowFocus: true,
+            refetchOnWindowFocus: true,
             initialData: ()=>{
-                let data;
-                const user = localStorage.getItem("user");
 
-                if(user) data = JSON.parse(user) as User;
-                else data = null;
+                const persistentStorage = makePersistentStorage();
+
+                const user = persistentStorage.get<User>("user");
 
                 return {
                     message: "fetched user data in storage", 
-                    data: data
+                    data: user
                 };
             },
         }
@@ -48,14 +45,16 @@ export const FetchUserImpl: IFetchUser = () => {
         if (queryResult.isError && queryResult.error) HandleFetchUserQueryError(queryResult.error, dispatch);
         else if (queryResult.data?.data) HandleFetchUserQuerySuccess(queryResult.data, dispatch);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [queryResult]);
+    }, [queryResult.isError, queryResult.error, queryResult.data]);
 
     return queryResult;
 }
 
 async function FetchUserHttpRequest (){
+    
+    const persistentStorage = makePersistentStorage();
 
-    const accessToken = localStorage.getItem("x-access-token");
+    const accessToken = persistentStorage.get<string>("x-access-token");
 
     if(!accessToken)
         throw {
@@ -93,14 +92,20 @@ function HandleFetchUserQueryError(httpError: IHttpError, dispatch: Dispatch<Any
             window.location.href = import.meta.env.VITE_APP_BASE_URL;
             break;
         }
-        case HttpStatusCode.Internal_Server_Error: { //Internal server error. erro durante a criaçao das entidades, não há tratamento
+        case HttpStatusCode.Internal_Server_Error: { //Internal server error. Não sabemos qual motivo, mas tem que sair igual
+            dispatch(removeUser()); //se tiver algum salvo
+            window.location.href = import.meta.env.VITE_APP_BASE_URL;
             break;
         }
         case null: { //Erro desconhecido, servidor indisponível, ou não passou em validação para inciar a request
+            dispatch(removeUser()); //se de algum jeito tiver algum salvo
+            window.location.href = import.meta.env.VITE_APP_BASE_URL;
             break;
         }
 
-        default: { //erro não mapeado pelo controlador do backend, não há tratamento
+        default: { //erro não mapeado pelo controlador do backend. Não sabemos qual motivo, mas tem que sair igual
+            dispatch(removeUser()); //se tiver algum salvo
+            window.location.href = import.meta.env.VITE_APP_BASE_URL;
             break;
         }
     }

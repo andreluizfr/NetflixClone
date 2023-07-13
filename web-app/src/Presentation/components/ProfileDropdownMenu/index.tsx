@@ -6,8 +6,11 @@ import { motion } from 'framer-motion';
 
 import { Link } from 'react-router-dom';
 
-import { removeUser } from '@Infrastructure/stores/redux/features/userSlice';
 import { useDispatch } from 'react-redux';
+
+import { makePersistentStorage } from '@Main/factories/infrastructure/makePersistentStorage';
+
+import { removeUser } from '@Infrastructure/stores/redux/features/userSlice';
 
 
 export default function ProfileDropdownMenu(): JSX.Element {
@@ -18,10 +21,13 @@ export default function ProfileDropdownMenu(): JSX.Element {
         profileIconControls.start({rotate: [45, -45, 45, 0]});
     };
     */
+   const persistentStorage = makePersistentStorage();
+
    const dispatch = useDispatch();
 
     function logout(){
         dispatch(removeUser());
+        persistentStorage.remove("x-access-token");
     }
     
     return(

@@ -4,18 +4,24 @@ import logo from '../../assets/svg/logo.svg';
 import { useRef, useEffect, useState } from 'react';
 
 import Header from './Header';
-import WorkPreview from './WorkPreview';
+import Preview from './Preview';
 import Playlist from './Playlist';
 import Footer from './Footer';
 
 import { makeHttpClient } from '@Main/factories/infrastructure/makeHttpClient';
+import { makePersistentStorage } from '@Main/factories/infrastructure/makePersistentStorage';
+
+import { MediaList } from '@Model/entities/MediaList';
+import { Media } from '@Model/entities/Media';
 
 import { Helmet } from 'react-helmet-async';
 
 import { motion, useScroll, useTransform  } from 'framer-motion';
-import { MediaList } from '@Model/entities/MediaList';
 
 export default function ContentsPage(): JSX.Element {
+
+    const persistentStorage = makePersistentStorage();
+
     const pageRef = useRef(null);
     const headerRef = useRef(null);
 
@@ -25,18 +31,21 @@ export default function ContentsPage(): JSX.Element {
     
     useTransform(scrollYProgress, value=>{
         //value in %
-        if(headerRef?.current && (value*100) >= 10)
+        if(headerRef?.current && (value*100) >= 8)
             (headerRef.current as HTMLElement).style.backgroundColor = "#000000";
-        else if(headerRef?.current && (value*100) < 10)
+        else if(headerRef?.current && (value*100) < 8)
             (headerRef.current as HTMLElement).style.backgroundColor = "transparent";
 	});
 
     const [mediasLists, setMediasLists] = useState<MediaList[]>([] as MediaList[]);
 
     const httpClient = makeHttpClient<MediaList[]>();
+
+    const [previewMedia, setPreviewMedia] = useState<Media | null>(null);
     
     useEffect(()=>{
-        const accessToken = localStorage.getItem("x-access-token");
+        
+        const accessToken = persistentStorage.get("x-access-token");
 
         httpClient.get(
             "/mediaList/getAll",
@@ -65,12 +74,12 @@ export default function ContentsPage(): JSX.Element {
 
             <Header headerRef={headerRef}/>
 
-            <WorkPreview/>
+            <Preview media={previewMedia}/>
             
             <main className='Contents-container'>
                 {/*<Playlist title={"Continuar assistindo como perfil1"} medias={medias}/>*/}
                 {mediasLists.map((mediasList, index)=>{
-                    return <Playlist title={mediasList.title} medias={mediasList.medias} key={mediasList.title+index}/>
+                    return <Playlist title={mediasList.title} medias={mediasList.medias} key={mediasList.title+index} setPreviewMedia={setPreviewMedia}/>
                 })}
             </main>
 

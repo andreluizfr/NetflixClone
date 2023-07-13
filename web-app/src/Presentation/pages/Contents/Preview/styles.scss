@@ -1,0 +1,231 @@
+@import '../../../assets/sass/variables';
+@import '../../../assets/sass/mixins';
+
+
+.Preview{
+    position: relative;
+    @include flex-column-center-start;
+    width: 100%;
+    padding: 0;
+
+    .Background-image{
+        //height: auto;
+        width: 100%;
+        aspect-ratio: 16/6;
+        object-fit: cover;
+        object-position: top;
+    }
+
+    .Background-video{
+        height: auto;
+        width: 100%;
+    }
+
+    .Preview-infos{
+        @include flex-column-center-start;
+        gap: 8px;
+        padding: 8%;
+        position: absolute;
+        width: 60%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: linear-gradient(to right, rgba(0,0,0, 1) 50%, rgba(0,0,0, 0.95) 80%, rgba(0,0,0,0.8) 90%, rgba(0,0,0,0));
+
+        @include mq-medium{
+            padding: 6%;
+        }
+
+        @include mq-small{
+            padding: 5%;
+        }
+
+        .Title{
+            margin-top: 24px;
+            color: $font-primary-color;
+            white-space: nowrap;
+
+            @include mq-small{
+                margin-top: 32px;
+            }
+        }
+
+        .Row-1{
+            @include flex-row-center-center;
+            gap: 8px;
+
+            color: $font-quaternary-color;
+            font-size: $font-size-smaller;
+            font-weight: 300;
+
+            .Relevance{
+                color: $primary-green;
+            }
+        }
+
+        .Row-2{
+            
+            .Description{
+                color: $font-quaternary-color;
+                font-size: $font-size-small;
+                font-weight: 300;
+
+                @include mq-medium{
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 3;
+                    overflow: hidden;
+                }
+
+                @include mq-small{
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
+                    overflow: hidden;
+                }
+            }
+        }
+
+        .Row-3{
+
+            .ActorsActresses{
+                color: $font-quaternary-color;
+                text-align: left;
+                font-size: $font-size-smaller;
+                font-weight: 300;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .Genres{
+                color: $font-quaternary-color;
+                text-align: left;
+                font-size: $font-size-smaller;
+                font-weight: 300;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+        }
+
+        .Toolbar{
+            margin-top: 32px;
+            @include flex-row-start-center;
+            gap: 8px;
+
+            @include mq-medium{
+                margin-top: 8px;
+            }
+
+            @include mq-small{
+                margin-top: 4px;
+            }
+            
+            .Button{
+                @include flex-row-center-center;
+                gap: 4px;
+                padding: 8px;
+                border: none;
+                outline: none;
+                border-radius: 4px;
+                font-size: $font-size-small;
+                cursor: pointer;
+
+                @include mq-medium{
+                    padding: 7px;
+                }
+
+                @include mq-small{
+                    padding: 6px;
+                    font-size: $font-size-smaller;
+                }
+
+                img{
+                    width: 12px;
+                    height: auto;
+                }
+            }
+            .Button:nth-child(1){
+                color: $font-secondary-color;
+                background-color: $button-secondary-color;
+            }
+            .Button:nth-child(2){
+                color: $font-primary-color;
+                background-color: $button-tertiary-color;
+            }
+        }
+    }
+
+    .Preview-menu{
+        position: absolute;
+        left: 20px;
+        bottom: 100px;
+
+        @include mq-large{
+            bottom: 76px;
+        }
+
+        @include mq-medium{
+            bottom: 56px;
+        }
+
+        @include mq-small{
+            bottom: 36px;
+        }
+
+        .Title{
+            margin-bottom: 12px;
+            color: $font-primary-color;
+            font-family: 'Playfair Display', serif;
+            font-size: $font-size-xl;
+            font-weight: 400;
+            -webkit-text-stroke: 0.5px;
+
+            @include mq-large{
+                margin-bottom: 8px;
+                font-size: $font-size-large;
+            }
+
+            @include mq-medium{
+                margin-bottom: 8px;
+                font-size: $font-size-medium;
+            }
+
+            @include mq-small{
+                margin-bottom: 4px;
+                font-size: $font-size-normal;
+            }
+        }
+
+        .Toolbar{
+            @include flex-row-start-center;
+            gap: 8px;
+            
+            .Button{
+                @include flex-row-center-center;
+                gap: 4px;
+                padding: 8px;
+                border: none;
+                outline: none;
+                border-radius: 4px;
+                font-size: $font-size-small;
+                cursor: pointer;
+
+                @include mq-small{
+                    padding: 6px;
+                    font-size: $font-size-smaller;
+                }
+
+                img{
+                    width: 12px;
+                    height: auto;
+                }
+            }
+            .Button:nth-child(1){
+                color: $font-secondary-color;
+                background-color: $button-secondary-color;
+            }
+            .Button:nth-child(2){
+                color: $font-primary-color;
+                background-color: $button-tertiary-color;
+            }
+        }
+    }
+}

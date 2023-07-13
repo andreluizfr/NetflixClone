@@ -3,7 +3,7 @@
 
 .Section{
     position: relative;
-    margin-bottom: 36px;
+    margin-bottom: 12px;
     padding: 16px;
     overflow: hidden;
 
@@ -16,53 +16,94 @@
     }
 
     & > .Title{
-        margin: 4px 0;
         color: $font-primary-color;
         font-size: $font-size-medium;
         font-weight: 500;
 
         @include mq-small{
             font-size: $font-size-normal;
+            font-weight: 400;
         }
     }
 
-    & > .Playlist{
-        z-index: 999;
-        @include flex-row-start-center;
-        gap: 4px;
-        padding: 16px;
+    & > .Playlist-container{
+        position: relative;
+        width: 100%;
 
-        overflow: auto; //to not crop the thumbnail while scaling it
-        cursor: grab;
+        .Arrow{
+            position: absolute;
+            z-index: 99999;
+            width: 24px;
+            height: 100%;
 
-        .Thumbnail{
-            min-width: 108px;
-            min-height: 144px;
-            max-width: 108px;
-            max-height: 144px;
-            z-index: 999;
-            transition: transform 400ms;
+            background-image: url(../../../assets/svg/arrow-right.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            
+            filter: invert(0.5);
+            transition: scale 400ms;
             cursor: pointer;
-
-            @include mq-small{
-                min-width: 81px;
-                min-height: 108px;
-                max-width: 81px;
-                max-height: 108px;
-            }
-
-            &:hover{
-                transform: scale(1.15);
-                z-index: 9999;
-            }
-        } 
-
-        &::-webkit-scrollbar{
-            display: none;
         }
 
-    }
+        .Left-arrow{
+            transform: rotateZ(180deg);
+            top: 0;
+            left: -20px;
+        }
+        .Right-arrow{
+            top: 0;
+            right: -20px;
+            visibility: hidden;
+        }
+        &:hover .Left-arrow{
+            filter: invert(1);
+        }
+        &:hover .Right-arrow{
+            visibility: visible;
+            filter: invert(1);
+        }
 
+        & > .Playlist{
+            z-index: 999;
+            @include flex-row-start-center;
+            gap: 2px;
+            padding: 2px 0;
+    
+            overflow-x: auto;
+            overflow-y: visible;
+            cursor: grab;
+    
+            .Thumbnail{
+                min-width: 144px;
+                min-height: 81px;
+                max-width: 144px;
+                max-height: 81px;
+                border: 1px solid $background-primary-color;
+                z-index: 999;
+                transition: border 400ms;
+                cursor: pointer;
+    
+                @include mq-small{
+                    min-width: 112px;
+                    min-height: 63px;
+                    max-width: 112px;
+                    max-height: 63px;
+                }
+    
+                &:hover{
+                    border: 1px solid $background-secondary-color;
+                    z-index: 9999;
+                }
+            } 
+    
+            &::-webkit-scrollbar{
+                display: none;
+            }
+        }
+    }
+    
+    /*
     &::before, &::after{
         content: "";
         position: absolute;
@@ -102,5 +143,6 @@
         visibility: visible;
         filter: invert(1);
     }
+    */
 
 }

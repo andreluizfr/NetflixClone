@@ -4,12 +4,12 @@
 .ContentsPage > .Header{
     position: fixed;
     top: 0;
-    z-index: 9999;
+    z-index: 999999;
 
     @include flex-row-space-between-center;
     gap: 16px;
     width: 100%;
-    min-width: 324px;
+    min-width: 480px;
     padding: 8px;
     background-color: transparent;
     transition: background-color 300ms;

@@ -1,0 +1,236 @@
+.Preview {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0;
+}
+.Preview .Background-image {
+  width: 100%;
+  aspect-ratio: 16/6;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
+}
+.Preview .Background-video {
+  height: auto;
+  width: 100%;
+}
+.Preview .Preview-infos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8%;
+  position: absolute;
+  width: 60%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, rgb(0, 0, 0) 50%, rgba(0, 0, 0, 0.95) 80%, rgba(0, 0, 0, 0.8) 90%, rgba(0, 0, 0, 0));
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-infos {
+    padding: 6%;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos {
+    padding: 5%;
+  }
+}
+.Preview .Preview-infos .Title {
+  margin-top: 24px;
+  color: rgb(255, 255, 255);
+  white-space: nowrap;
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos .Title {
+    margin-top: 32px;
+  }
+}
+.Preview .Preview-infos .Row-1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: #b3b3b3;
+  font-size: 0.7rem;
+  font-weight: 300;
+}
+.Preview .Preview-infos .Row-1 .Relevance {
+  color: rgb(115, 204, 133);
+}
+.Preview .Preview-infos .Row-2 .Description {
+  color: #b3b3b3;
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-infos .Row-2 .Description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos .Row-2 .Description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+}
+.Preview .Preview-infos .Row-3 .ActorsActresses {
+  color: #b3b3b3;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 300;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.Preview .Preview-infos .Row-3 .Genres {
+  color: #b3b3b3;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 300;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.Preview .Preview-infos .Toolbar {
+  margin-top: 32px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-infos .Toolbar {
+    margin-top: 8px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos .Toolbar {
+    margin-top: 4px;
+  }
+}
+.Preview .Preview-infos .Toolbar .Button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-infos .Toolbar .Button {
+    padding: 7px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos .Toolbar .Button {
+    padding: 6px;
+    font-size: 0.7rem;
+  }
+}
+.Preview .Preview-infos .Toolbar .Button img {
+  width: 12px;
+  height: auto;
+}
+.Preview .Preview-infos .Toolbar .Button:nth-child(1) {
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+}
+.Preview .Preview-infos .Toolbar .Button:nth-child(2) {
+  color: rgb(255, 255, 255);
+  background-color: #8c8c8c;
+}
+.Preview .Preview-menu {
+  position: absolute;
+  left: 20px;
+  bottom: 100px;
+}
+@media only screen and (max-width: 956px) {
+  .Preview .Preview-menu {
+    bottom: 76px;
+  }
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-menu {
+    bottom: 56px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-menu {
+    bottom: 36px;
+  }
+}
+.Preview .Preview-menu .Title {
+  margin-bottom: 12px;
+  color: rgb(255, 255, 255);
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  font-weight: 400;
+  -webkit-text-stroke: 0.5px;
+}
+@media only screen and (max-width: 956px) {
+  .Preview .Preview-menu .Title {
+    margin-bottom: 8px;
+    font-size: 1.6rem;
+  }
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-menu .Title {
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-menu .Title {
+    margin-bottom: 4px;
+    font-size: 1rem;
+  }
+}
+.Preview .Preview-menu .Toolbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+.Preview .Preview-menu .Toolbar .Button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-menu .Toolbar .Button {
+    padding: 6px;
+    font-size: 0.7rem;
+  }
+}
+.Preview .Preview-menu .Toolbar .Button img {
+  width: 12px;
+  height: auto;
+}
+.Preview .Preview-menu .Toolbar .Button:nth-child(1) {
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+}
+.Preview .Preview-menu .Toolbar .Button:nth-child(2) {
+  color: rgb(255, 255, 255);
+  background-color: #8c8c8c;
+}/*# sourceMappingURL=styles.css.map */

@@ -1,7 +1,6 @@
-import { makeQueryManager } from "@Main/factories/infrastructure/makeQueryManager";
 import { makeHttpClient } from "@Main/factories/infrastructure/makeHttpClient";
+import { makePersistentStorage } from "@Main/factories/infrastructure/makePersistentStorage";
 
-import { ICreatePlanPayment } from "@Application/useCases/CreatePlanPayment/ICreatePlanPayment";
 import { HttpStatusCode } from "@Application/interfaces/httpClient/HttpStatusCode";
 import { IHttpError } from "@Application/interfaces/httpClient/IHttpError";
 import { IHttpResponse } from "@Application/interfaces/httpClient/IHttpResponse";
@@ -12,23 +11,22 @@ import { PreferenceResponse } from "@Model/types/PreferenceResponse";
 
 import { removeUser } from '@Infrastructure/stores/redux/features/userSlice';
 
+import { useQuery } from "react-query";
 import { AnyAction } from "@reduxjs/toolkit";
 import { Dispatch, useEffect } from "react";
 import { useDispatch } from "react-redux";
-
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
 
-
-export const  CreatePlanPaymentImpl: ICreatePlanPayment = (
+export const  CreatePlanPaymentService = (
     accountId: string | undefined,
     plan: Plan | null, 
     paymentType: PaymentType | null
 ) => {
 
-    const queryResult = makeQueryManager<PreferenceResponse>(
-        async () => createPlanPaymentHttpRequest(accountId, plan, paymentType),
+    const queryResult = useQuery<IHttpResponse<PreferenceResponse>, IHttpError>(
         'createPlanPayment',
+        async () => createPlanPaymentHttpRequest(accountId, plan, paymentType),
         {
             enabled: true,
             retry: 3
@@ -42,7 +40,7 @@ export const  CreatePlanPaymentImpl: ICreatePlanPayment = (
         if (queryResult.isError && queryResult.error) HandleCreatePlanPaymentQueryError(queryResult.error, dispatch, navigate);
         else if (queryResult.data?.data) HandleCreatePlanPaymentQuerySuccess(queryResult.data, navigate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [queryResult]);
+    }, [queryResult.isError, queryResult.error, queryResult.data]);
 
     return queryResult;
 }
@@ -53,7 +51,9 @@ async function createPlanPaymentHttpRequest (
     paymentType: PaymentType | null
 ){
 
-    const accessToken = localStorage.getItem("x-access-token");
+    const persistentStorage = makePersistentStorage();
+
+    const accessToken = persistentStorage.get<string>("x-access-token");
 
     if(accessToken)
         throw {
@@ -74,8 +74,6 @@ async function createPlanPaymentHttpRequest (
 function HandleCreatePlanPaymentQuerySuccess(data: IHttpResponse<PreferenceResponse>, navigate: NavigateFunction) {
 
     console.log(data);
-    
-    //const preferenceResponse = data.data;
 
     navigate("/login");
 }

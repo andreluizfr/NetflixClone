@@ -1,7 +1,5 @@
-import { makeQueryManager } from "@Main/factories/infrastructure/makeQueryManager";
 import { makeHttpClient } from "@Main/factories/infrastructure/makeHttpClient";
 
-import { ICreateUser } from "@Application/useCases/CreateUser/ICreateUser";
 import { HttpStatusCode } from "@Application/interfaces/httpClient/HttpStatusCode";
 import { IHttpError } from "@Application/interfaces/httpClient/IHttpError";
 import { IHttpResponse } from "@Application/interfaces/httpClient/IHttpResponse";
@@ -10,15 +8,22 @@ import { saveEmail, saveStep } from "@Infrastructure/stores/redux/features/signu
 
 import { User } from "@Model/entities/User";
 
+import { useQuery } from "react-query";
 import { AnyAction } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { Dispatch, useEffect } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
+export const CreateUserService = (
+    email: string | null,
+    password: string | null,
+    birthDate: Date | null
+) => {
 
-export const CreateUserImpl: ICreateUser = (email, password, birthDate) => {
-
-    const queryResult = makeQueryManager<User>(async () => CreateUserHttpRequest(email, password, birthDate), 'createUser');
+    const queryResult = useQuery<IHttpResponse<User>, IHttpError>(
+        'createUser',
+        async () => CreateUserHttpRequest(email, password, birthDate)
+    );
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -27,7 +32,7 @@ export const CreateUserImpl: ICreateUser = (email, password, birthDate) => {
         if (queryResult.isError && queryResult.error) HandleCreateUserQueryError(queryResult.error, dispatch, navigate);
         else if (queryResult.data?.data) HandleCreateUserQuerySuccess(queryResult.data, navigate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [queryResult]);
+    }, [queryResult.isError, queryResult.error, queryResult.data]);
 
     return queryResult; //para fazer o devido uso com relação a camada de view do react
 }

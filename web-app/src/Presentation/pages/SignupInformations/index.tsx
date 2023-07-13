@@ -2,7 +2,7 @@ import './styles.css';
 import logo from '@Presentation/assets/svg/logo.svg';
 import devices from '@Presentation/assets/img/devices.png';
 
-import { CreateUserImpl } from '@Application/useCases/CreateUser/CreateUserImpl';
+import { CreateUserService } from '@Application/useCases/CreateUser/CreateUserService';
 import { StoreState } from '@Infrastructure/stores/redux/config';
 import { useSelector } from 'react-redux';
 
@@ -31,7 +31,7 @@ export default function SignupInformationsPage(): JSX.Element{
     const [birthDate, setBirthDate] = useState<Date | null>(null);
     const [readyToCreate, setReadyToCreate] = useState(false);
     
-    const createUserResult = CreateUserImpl(signup.email, signup.password, birthDate);
+    const createUserResult = CreateUserService(signup.email, signup.password, birthDate);
 
     useEffect(()=>{
 

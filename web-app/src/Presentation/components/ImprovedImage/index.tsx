@@ -63,6 +63,7 @@ export default function ImprovedImage(props: ImprovedImageProps): JSX.Element {
                     src={props.src}
                     alt={props.alt}
                     loading="lazy"
+                    onMouseOver={props.onMouseOver}
                 />
                 
 }

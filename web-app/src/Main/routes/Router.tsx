@@ -11,23 +11,13 @@ const SignupInformationsPage = lazy(() => import('@Presentation/pages/SignupInfo
 const SignupPaymentPage = lazy(() => import('@Presentation/pages/SignupPayment'));
 const ContentsPage = lazy(() => import('@Presentation/pages/Contents'));
 
-import { FetchUserImpl } from '@Application/useCases/FetchUser/FetchUserImpl';
-
-import { StoreState } from '@Infrastructure/stores/redux/config';
-import { useSelector } from 'react-redux';
-
-
 import {
 	createBrowserRouter,
-	RouteObject,
 	RouterProvider
 } from "react-router-dom";
+import { AuthProvider } from '@Main/providers/AuthProvider';
 
 function Router() {
-
-	const user = useSelector((state: StoreState) => state.user);
-	
-	FetchUserImpl();
 	
 	return (
 		<Suspense fallback={<LoadingPage/>}>
@@ -65,21 +55,19 @@ function Router() {
 						path: "/signup/payment",
 						element: <SignupPaymentPage/>,
 					},
-					user.data &&
 					{
 						path: "/contents",
-						element: <ContentsPage/>,
+						element: <AuthProvider><ContentsPage/></AuthProvider>,
 					},
-					!user.data &&
 					{
-						path: "/contents",
-						element: <>Você não tem permissão pra acessa essa página</>,
+						path: "/403",
+						element: <>Você não tem permissão pra acessar essa página</>,
 					},
 					{
 						path: "*",
 						element: <>Página não encontrada</>,
 					}
-				].filter(Boolean) as RouteObject[])
+				])
 			}/> 
 		</Suspense>
 	);

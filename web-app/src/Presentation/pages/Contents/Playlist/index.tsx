@@ -1,16 +1,18 @@
 import './styles.css';
 import ImprovedImage from '../../../components/ImprovedImage';
 
-import { motion } from 'framer-motion';
-import { useRef } from 'react';
 import { Media } from '@Model/entities/Media';
+
+import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 interface props {
     title: string,
     medias: Media[],
+    setPreviewMedia: React.Dispatch<React.SetStateAction<Media | null>>
 }
 
-export default function Playlist({title, medias}: props) {
+export default function Playlist({title, medias, setPreviewMedia}: props) {
 
     const width = window.innerWidth;
 
@@ -58,32 +60,68 @@ export default function Playlist({title, medias}: props) {
         }
     }
 
+    function handleMouseOver(media: Media) {
+        setPreviewMedia(media);
+    }
+
+    const [intervals, setIntervals] = useState<NodeJS.Timer>();
+
     return (
         <section className='Section'>
             <h1 className='Title'>
                 {title}
             </h1>
 
-            <motion.div 
-                className='Playlist'
-                initial={{x: -(width/2), opacity: 0}}
-                animate={{x: 0, opacity: 1, transition:{type: "spring", bounce: 0.3, duration: 2}}}
-                onMouseDown={(e)=>handleMouseDown(e)}
-                onMouseMove={(e)=>handleMouseMove(e)}
-                onMouseUp={(e)=>handleMouseUp(e)}
-                ref={playlistContainerRef}
-            >
-                {   
-                    medias.map((media)=>
-                        <ImprovedImage
-                            src={media.thumbnailUrl} 
-                            className='Thumbnail'
-                            key={"media-"+media.id}
-                            hash={media.thumbnailBlurHash}
-                        />
-                    )
-                }
-            </motion.div>
+            <div className='Playlist-container'>
+                <span 
+                    className='Arrow Left-arrow'
+                    onMouseOver={()=>{
+                        const interval = setInterval(()=>{
+                            if(playlistContainerRef.current)
+                                (playlistContainerRef.current as HTMLDivElement).scrollBy(-2, 0);
+                        }, 1);
+                
+                        setIntervals(interval);
+                    }}
+                    onMouseOut={()=>clearInterval(intervals)}
+                />
+            
+                <motion.div 
+                    className='Playlist'
+                    initial={{x: -(width/2), opacity: 0}}
+                    animate={{x: 0, opacity: 1, transition:{type: "spring", bounce: 0.3, duration: 2}}}
+                    onMouseDown={(e)=>handleMouseDown(e)}
+                    onMouseMove={(e)=>handleMouseMove(e)}
+                    onMouseUp={(e)=>handleMouseUp(e)}
+                    ref={playlistContainerRef}
+                >
+                    {   
+                        medias.map((media)=>
+                            <ImprovedImage
+                                src={media.thumbnailUrl} 
+                                className='Thumbnail'
+                                key={"media-"+media.id}
+                                hash={media.thumbnailBlurHash}
+                                onMouseOver={()=>handleMouseOver(media)}
+                                //onClick={}
+                            />
+                        )
+                    }
+                </motion.div>
+
+                <span 
+                    className='Arrow Right-arrow'
+                    onMouseOver={()=>{
+                        const interval = setInterval(()=>{
+                            if(playlistContainerRef.current)
+                                (playlistContainerRef.current as HTMLDivElement).scrollBy(2, 0);
+                        }, 1);
+                
+                        setIntervals(interval);
+                    }}
+                    onMouseOut={()=>clearInterval(intervals)}
+                />
+            </div>
         </section>
     );
 }

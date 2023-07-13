@@ -1,7 +1,7 @@
 import './styles.css';
 import logo from '@Presentation/assets/svg/logo.svg';
 
-import { CreatePlanPaymentImpl } from '@Application/useCases/CreatePlanPayment/CreatePlanPaymentImpl';
+import { CreatePlanPaymentService } from '@Application/useCases/CreatePlanPayment/CreatePlanPaymentService';
 
 import { StoreState } from '@Infrastructure/stores/redux/config';
 
@@ -25,7 +25,7 @@ export default function SignupPaymentPage(): JSX.Element{
     const signup = useSelector((state: StoreState) => state.signup);
     const user = useSelector((state: StoreState) => state.user);
 
-    const createPlanPaymentResult = CreatePlanPaymentImpl(user.data?.account.id, signup.plan, signup.paymentType);
+    const createPlanPaymentResult = CreatePlanPaymentService(user.data?.account.id, signup.plan, signup.paymentType);
 
     useEffect(()=>{
         if(!user.data || signup.paymentType === null || signup.plan === null){

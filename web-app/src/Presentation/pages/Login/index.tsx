@@ -2,7 +2,7 @@ import './styles.css';
 import AnimatedInput from '@Presentation/components/AnimatedInput';
 import logo from '@Presentation/assets/svg/logo.svg';
 
-import { LoginImpl } from '@Application/useCases/Login/LoginImpl';
+import { LoginService } from '@Application/useCases/Login/LoginService';
 
 import { StoreState } from '@Infrastructure/stores/redux/config';
 
@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Helmet } from 'react-helmet-async';
 
 
 export default function Login(): JSX.Element{
@@ -22,7 +23,7 @@ export default function Login(): JSX.Element{
     const [email, setEmail] = useState<string | null>(null);
     const [password, setPassword] = useState<string | null>(null);
 
-    const loginResult = LoginImpl(email, password);
+    const loginResult = LoginService(email, password);
 
     function onSubmit (e: React.FormEvent){
         e.preventDefault();
@@ -33,8 +34,6 @@ export default function Login(): JSX.Element{
         setPassword((inputs[1] as HTMLInputElement).value);
     }
 
-
-    //botão pra logar foi pressionado, então estados
     useEffect(()=>{
         if(email && password){
             loginResult.refetch();
@@ -47,7 +46,7 @@ export default function Login(): JSX.Element{
 
     //já está possivelmente logado
     useEffect(()=>{
-        if(user.data && localStorage.getItem("x-access-token"))
+        if(user.data)
             navigate("/contents");
     }, [navigate, user.data]);
 
@@ -64,6 +63,15 @@ export default function Login(): JSX.Element{
 
     return (
         <div className="LoginPage">
+            <Helmet>
+                <meta property="og:title" content="Netflix login page" />
+                <meta property="og:url" content="http://localhost:5173/login" />
+                <meta property="og:image" content={logo} />
+                <meta property="og:image:alt" content="Netflix logo" />
+                <meta property="og:description" content="Log in to watch the best Movies, Tv Series and Animes" />
+                <meta property="og:site_name" content="Netflix" />
+            </Helmet>
+            
             <div className="Background-filter">
 
                 <header className='Header'>

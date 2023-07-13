@@ -1,9 +1,10 @@
+import { makePersistentStorage } from '@Main/factories/infrastructure/makePersistentStorage';
+
 import { User } from '@Model/entities/User';
 
 import { ReduxAction } from './ReduxAction';
 
 import { createSlice } from '@reduxjs/toolkit';
-
 
 export interface UserState {
     data: User | null;
@@ -17,13 +18,17 @@ const userSlice = createSlice({
     reducers: {
         saveUser(state, action: ReduxAction<User>) {
             state.data = action.payload;
-            localStorage.setItem("user", JSON.stringify(action.payload as User));
+
+            const persistentStorage = makePersistentStorage();
+            persistentStorage.set("user", action.payload);
         },
         removeUser(state){
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             state.data = null;
-            localStorage.removeItem("user");
-            localStorage.removeItem("x-access-token");
+
+            const persistentStorage = makePersistentStorage();
+            persistentStorage.remove("user");
+            persistentStorage.remove("x-access-token");
         }
     }
 });
