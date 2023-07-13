@@ -10,6 +10,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Login(): JSX.Element{
 
@@ -18,7 +21,6 @@ export default function Login(): JSX.Element{
 
     const [email, setEmail] = useState<string | null>(null);
     const [password, setPassword] = useState<string | null>(null);
-    const [readyToLogin, setReadyToLogin] = useState(false);
 
     const loginResult = LoginImpl(email, password);
 
@@ -29,22 +31,36 @@ export default function Login(): JSX.Element{
 
         setEmail((inputs[0] as HTMLInputElement).value);
         setPassword((inputs[1] as HTMLInputElement).value);
-        setReadyToLogin(true);
     }
 
+
+    //botão pra logar foi pressionado, então estados
     useEffect(()=>{
-        if(email && password && readyToLogin){
+        if(email && password){
             loginResult.refetch();
-            setReadyToLogin(false);
+            setEmail(null);
+            setPassword(null);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [email, password, readyToLogin]);
+    }, [email, password]);
+
 
     //já está possivelmente logado
     useEffect(()=>{
         if(user.data && localStorage.getItem("x-access-token"))
             navigate("/contents");
     }, [navigate, user.data]);
+
+
+    //manipulador da view com a resposta do login
+    useEffect(()=>{
+        if(loginResult.isError && loginResult.error)
+            toast(loginResult.error.httpStatusCode+": "+loginResult.error.message);
+        else if(loginResult.data?.data)
+            toast("Login realizado com sucesso, você será redirecionado em breve.");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loginResult.isError, loginResult.data, loginResult.error]);
+
 
     return (
         <div className="LoginPage">
@@ -134,6 +150,7 @@ export default function Login(): JSX.Element{
                 </footer>
 
             </div>
+            <ToastContainer/>
         </div>
     );
 }
