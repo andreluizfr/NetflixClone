@@ -25,7 +25,7 @@ public class LoginController {
         try {
             String accessToken = loginBusiness.execute(data);
 
-            return ResponseErrorHandler.generateResponse("Login realizado com sucesso.",
+            return ResponseErrorHandler.generateResponse("Login realizado com sucesso, você será redirecionado em breve.",
                     HttpStatus.OK,
                     accessToken);
 

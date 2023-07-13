@@ -8,6 +8,7 @@ import { IHttpResponse } from "@Application/interfaces/httpClient/IHttpResponse"
 
 import { useEffect } from "react";
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+//import { useQuery } from "react-query";
 
 export const LoginImpl: ILogin = (
     email: string | null,
@@ -15,6 +16,7 @@ export const LoginImpl: ILogin = (
 ) => {
 
     const queryResult = makeQueryManager<string>(async () => LoginHttpRequest(email, password), 'login');
+    //const queryResult = useQuery<IHttpResponse<string>, IHttpError>('login', async () => LoginHttpRequest(email, password));
     
     const navigate = useNavigate();
 
@@ -56,7 +58,8 @@ function HandleLoginQuerySuccess(data: IHttpResponse<string>, navigate: Navigate
 
     if(accessToken){
         localStorage.setItem("x-access-token", accessToken);
-        navigate("/contents", { replace: true });
+        setTimeout(()=>navigate("/contents", { replace: true }), 3000);
+        //navigate("/contents", { replace: true });
     }
 }
 
