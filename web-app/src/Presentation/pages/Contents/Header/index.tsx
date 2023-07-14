@@ -28,7 +28,7 @@ export default function Header({headerRef}: {headerRef: React.MutableRefObject<n
                 </nav>
 
                 <div className='Logo-container'>
-                    <Link to="/contents">
+                    <Link to="/">
                         <img className='Logo' src={logo} alt="Netflix Logo"/>
                     </Link> 
                 </div>
@@ -36,7 +36,7 @@ export default function Header({headerRef}: {headerRef: React.MutableRefObject<n
             :
             <>
                 <div className='Logo-container'>
-                    <Link to="/contents">
+                    <Link to="/">
                         <img className='Logo' src={logo} alt="Netflix Logo"/>
                     </Link> 
                 </div>

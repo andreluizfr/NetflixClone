@@ -1,16 +1,32 @@
 import './styles.css';
 import logo from '../../assets/svg/logo.svg';
+
+import { useEffect } from 'react';
+
 import { Link, useNavigate } from "react-router-dom";
+
 import { Helmet } from 'react-helmet-async';
 
 import { saveEmail } from '@Infrastructure/stores/redux/features/signupDataSlice';
-import { useDispatch } from 'react-redux';
+import { StoreState } from '@Infrastructure/stores/redux/config';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 export default function Home(): JSX.Element{
 
-    const dispatch = useDispatch();
+    //  ############# Redirecionamento de página ##################
     const navigate = useNavigate();
+    const user = useSelector((state: StoreState) => state.user);
+    
+    useEffect(()=>{
+        if(user.data){
+            navigate("/contents");
+        }
+    }, []);
 
+    //  ############# Manipulação de dados da view ##################
+    const dispatch = useDispatch();
+    
     function saveEmailToSignup(e: React.MouseEvent<HTMLAnchorElement>){
 
         const input = document.getElementsByClassName("Email-input")[0] as HTMLInputElement;
@@ -21,10 +37,11 @@ export default function Home(): JSX.Element{
         else {
             dispatch(saveEmail(email));
             navigate("/signup");
-        }
-            
+        }   
     }
 
+
+    //  ############# Renderização do conteúdo ##################
     return(
         <div className='HomePage'>
             <Helmet>

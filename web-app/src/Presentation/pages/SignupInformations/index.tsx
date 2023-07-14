@@ -14,6 +14,11 @@ import { useForm } from "react-hook-form";
 
 import { motion } from 'framer-motion';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { Helmet } from 'react-helmet-async';
+
 interface registerForm{
     birthDate: Date,
     checkbox: boolean
@@ -21,27 +26,35 @@ interface registerForm{
 
 export default function SignupInformationsPage(): JSX.Element{
 
-    const width = window.innerWidth;
-
+    //  ############# Redirecionamento de página ##################
     const navigate = useNavigate();
     const signup = useSelector((state: StoreState) => state.signup);
     const user = useSelector((state: StoreState) => state.user);
 
+    useEffect(()=>{
+
+        if(user.data?.account?.isActive){
+            navigate("/contents");
+        }
+        else if(!user.data || !signup.plan || !signup.paymentType){ 
+            toast.error("Alguns dos seus dados estão faltando, você terá que reiniciar o processo.", {
+                position: "top-center",
+                hideProgressBar: false
+            });
+            setTimeout(()=>navigate("/signup"), 2000);
+        }
+        else if(user.data && signup.plan && signup.paymentType){
+            navigate("/signup/payment");
+        }
+    }, []);
+
+
+    //  ############# Manipulação de dados na view ##################
     const { register, handleSubmit } = useForm<registerForm>();
     const [birthDate, setBirthDate] = useState<Date | null>(null);
     const [readyToCreate, setReadyToCreate] = useState(false);
     
     const createUserResult = CreateUserService(signup.email, signup.password, birthDate);
-
-    useEffect(()=>{
-
-        if(user.data?.account.isActive) navigate("/contents");
-
-        else if(user.data) navigate("/signup/payment");
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
 
     useEffect(()=>{
         
@@ -59,12 +72,35 @@ export default function SignupInformationsPage(): JSX.Element{
         setReadyToCreate(true);
     }
 
+
+    //  ############# Renderização do conteúdo ##################
+    const width = window.innerWidth;
+
     return (
         <motion.div 
             className='SignupPaymentPickerPage'
             initial={{ x: -(width/2), opacity: 0}}
 			animate={{x: 0, opacity: 1, transition:{type: "easeIn", duration: 0.6}}}
         >
+            
+            <Helmet>
+                <meta property="og:title" content="Netflix login page" />
+                <meta property="og:url" content="http://localhost:5173/login" />
+                <meta property="og:image" content={logo} />
+                <meta property="og:image:alt" content="Netflix logo" />
+                <meta property="og:description" content="Log in to watch the best Movies, Tv Series and Animes" />
+                <meta property="og:site_name" content="Netflix" />
+            </Helmet>
+
+            <ToastContainer
+                autoClose={2000} //mesmo tempo do redirecionamento feito pelo serviço do login
+                newestOnTop={true}
+                pauseOnFocusLoss={false}
+                draggable={false}
+                pauseOnHover={false}
+                hideProgressBar={false}
+            />
+            
             <header className='Header'>
                 <Link to="/">
                     <img className='Logo' src={logo} alt="Netflix Logo"/>

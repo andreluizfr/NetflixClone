@@ -15,30 +15,46 @@ import { useEffect } from 'react';
 
 import { initMercadoPago, Wallet} from '@mercadopago/sdk-react';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function SignupPaymentPage(): JSX.Element{
 
-    initMercadoPago(import.meta.env.VITE_MERCADO_PAGO_PUBLIC_KEY);
-
-    const width = window.innerWidth;
-
+    //  ############# Redirecionamento de página ##################
     const navigate = useNavigate();
-    const signup = useSelector((state: StoreState) => state.signup);
     const user = useSelector((state: StoreState) => state.user);
+    
+    useEffect(()=>{
+
+        if(user.data?.account?.isActive){
+            navigate("/contents");
+        }
+        else if(!user.data || !signup.paymentType || !signup.plan){
+            toast.error("Alguns dos seus dados estão faltando, você terá que reiniciar o processo.", {
+                position: "top-center",
+                hideProgressBar: false
+            });
+            setTimeout(()=>navigate("/signup"), 2000);
+        }
+    }, []);
+
+
+    //  ############# Manipulação de requisição ##################
+    const signup = useSelector((state: StoreState) => state.signup);
 
     const createPlanPaymentResult = CreatePlanPaymentService(user.data?.account.id, signup.plan, signup.paymentType);
 
     useEffect(()=>{
-        if(!user.data || signup.paymentType === null || signup.plan === null){
-            navigate("/signup");
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(()=>{
         if(user.data?.account.id!==null && signup.plan!==null && signup.paymentType!==null)
             createPlanPaymentResult.refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [user.data?.account.id, signup.plan, signup.paymentType]);
+
+
+    //  ############# Renderização do conteúdo ##################
+    initMercadoPago(import.meta.env.VITE_MERCADO_PAGO_PUBLIC_KEY);
+
+    const width = window.innerWidth;
         
     return (
         <motion.div 
@@ -46,6 +62,17 @@ export default function SignupPaymentPage(): JSX.Element{
             initial={{ x: -(width/2), opacity: 0}}
 			animate={{x: 0, opacity: 1, transition:{type: "easeIn", duration: 0.6}}}
         >
+
+            <ToastContainer
+                autoClose={2000} //mesmo tempo do redirecionamento feito pelo serviço do login
+                newestOnTop={true}
+                pauseOnFocusLoss={false}
+                draggable={false}
+                pauseOnHover={false}
+                hideProgressBar={false}
+                theme="dark"
+            />
+            
             <header className='Header'>
                 <Link to="/">
                     <img className='Logo' src={logo} alt="Netflix Logo"/>

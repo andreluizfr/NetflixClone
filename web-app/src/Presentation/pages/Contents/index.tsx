@@ -18,30 +18,46 @@ import { Helmet } from 'react-helmet-async';
 
 import { motion, useScroll, useTransform  } from 'framer-motion';
 
+import { StoreState } from '@Infrastructure/stores/redux/config';
+import { removeUser } from '@Infrastructure/stores/redux/features/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 export default function ContentsPage(): JSX.Element {
 
+    //  ############# Redirecionamento de página ##################
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const user = useSelector((state: StoreState) => state.user);
+
+    useEffect(()=>{
+
+        if(!user.data){
+            navigate("/403");
+        }
+        else if(!user.data?.account?.isActive){
+            toast.error("Ainda não identificamos o seu pagamento", {
+                position: "top-center",
+                hideProgressBar: true
+            });
+            dispatch(removeUser());
+            setTimeout(()=>navigate("/signup/planform"), 2000);
+        }
+    }, []);
+
+
+    //  ############# Manipulação de requisição ##################
     const persistentStorage = makePersistentStorage();
-
-    const pageRef = useRef(null);
-    const headerRef = useRef(null);
-
-	const { scrollYProgress } = useScroll({
-		target: pageRef
-	});
-    
-    useTransform(scrollYProgress, value=>{
-        //value in %
-        if(headerRef?.current && (value*100) >= 8)
-            (headerRef.current as HTMLElement).style.backgroundColor = "#000000";
-        else if(headerRef?.current && (value*100) < 8)
-            (headerRef.current as HTMLElement).style.backgroundColor = "transparent";
-	});
 
     const [mediasLists, setMediasLists] = useState<MediaList[]>([] as MediaList[]);
 
-    const httpClient = makeHttpClient<MediaList[]>();
-
     const [previewMedia, setPreviewMedia] = useState<Media | null>(null);
+
+    const httpClient = makeHttpClient<MediaList[]>();
     
     useEffect(()=>{
         
@@ -58,6 +74,25 @@ export default function ContentsPage(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    
+    //  ############# Manipulação de dados da view ##################
+    const pageRef = useRef(null);
+    const headerRef = useRef(null);
+
+	const { scrollYProgress } = useScroll({
+		target: pageRef
+	});
+    
+    useTransform(scrollYProgress, value=>{
+        //value in %
+        if(headerRef?.current && (value*100) >= 8)
+            (headerRef.current as HTMLElement).style.backgroundColor = "#000000";
+        else if(headerRef?.current && (value*100) < 8)
+            (headerRef.current as HTMLElement).style.backgroundColor = "transparent";
+	});
+
+
+    //  ############# Renderização do conteúdo ##################
     return (
         <motion.div className='ContentsPage' ref={pageRef}>
             <Helmet>
@@ -71,6 +106,16 @@ export default function ContentsPage(): JSX.Element {
                 <meta property="og:description" content="Watch the best Movies, Tv Series and Animes" />
                 <meta property="og:site_name" content="Netflix" />
             </Helmet>
+
+             <ToastContainer
+                autoClose={2000} //mesmo tempo do redirecionamento feito pelo serviço do login
+                newestOnTop={true}
+                pauseOnFocusLoss={false}
+                draggable={false}
+                pauseOnHover={false}
+                hideProgressBar={false}
+                theme="dark"
+            />
 
             <Header headerRef={headerRef}/>
 

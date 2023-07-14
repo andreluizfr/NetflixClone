@@ -20,35 +20,42 @@ enum Plan{
 
 export default function SignupPlanPage(): JSX.Element{
 
-	const width = window.innerWidth;
-
+    //  ############# Redirecionamento de página ##################
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(user.data?.account?.isActive){
+            navigate("/contents");
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    
+
+    //  ############# Manipulação de dados da view ##################
     const dispatch = useDispatch();
     const user = useSelector((state: StoreState) => state.user);
 
-    //setting active attributes for plan spans
     useEffect(()=>{
         changePlan(Plan.DefaultWithAds);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect(()=>{
-        if(user.data?.account.isActive){
-            navigate("/contents");
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    function changePlan(plan: Plan){
+        setPlanElementToActive(plan);
+        setDataElementFromTableToActive(plan);
+    }
 
     function setPlanElementToActive(plan: Plan) {
 
         const plans = document.getElementsByClassName("Plan");
+
         Array.from(plans).forEach(plan=>{
             plan.setAttribute("active", "false");
         });
 
         plans[plan].setAttribute("active", "true");
-        dispatch(savePlan(plan));
 
+        dispatch(savePlan(plan));
     }
 
     function setDataElementFromTableToActive(plan: Plan) {
@@ -67,13 +74,11 @@ export default function SignupPlanPage(): JSX.Element{
             tdEls[plan + 1].setAttribute("active", "true");
             
         });
-
     }
 
-    function changePlan(plan: Plan){
-        setPlanElementToActive(plan);
-        setDataElementFromTableToActive(plan);
-    }
+
+    //  ############# Renderização do conteúdo ##################
+    const width = window.innerWidth;
 
     return (
         <motion.div 

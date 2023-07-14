@@ -21,24 +21,48 @@ import { PaymentType } from '@Model/types/PaymentType';
 
 import { motion } from 'framer-motion';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 export default function SignupPaymentPickerPage(): JSX.Element{
-
-	const width = window.innerWidth;
-
+	
+    //  ############# Redirecionamento de página ##################
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const user = useSelector((state: StoreState) => state.user);
+    const signup = useSelector((state: StoreState) => state.signup);
 
     useEffect(()=>{
-        if(user.data?.account.isActive){
+        if(user.data?.account?.isActive){
             navigate("/contents");
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        else if( !(signup.email && signup.password) && !user.data){ //página anterior, se não tem email e senha e nao tem usuario logado
+            toast.error("Alguns dos seus dados estão faltando, você terá que reiniciar o processo.", {
+                position: "top-center",
+                hideProgressBar: false
+            });
+            setTimeout(()=>navigate("/signup/registration"), 2000);
+        }
+        else if(!signup.plan){ //página de plan, se nao tem os dados de plan
+            toast.error("Alguns dos seus dados estão faltando, você terá que reiniciar o processo.", {
+                position: "top-center",
+                hideProgressBar: false
+            });
+            setTimeout(()=>navigate("/signup/planform"), 2000);
+        }
     }, []);
+
+
+    //  ############# Manipulação de dados na view ##################
+    const dispatch = useDispatch();
 
     function setPayment(paymentType: PaymentType){
         dispatch(savePaymentType(paymentType));
     }
+
+
+    //  ############# Renderização do conteúdo ##################
+    const width = window.innerWidth;
 
     return (
         <motion.div 
@@ -46,6 +70,16 @@ export default function SignupPaymentPickerPage(): JSX.Element{
             initial={{ x: -(width/2), opacity: 0}}
 			animate={{x: 0, opacity: 1, transition:{type: "easeIn", duration: 0.6}}}
         >
+
+            <ToastContainer
+                autoClose={2000} //mesmo tempo do redirecionamento feito pelo serviço do login
+                newestOnTop={true}
+                pauseOnFocusLoss={false}
+                draggable={false}
+                pauseOnHover={false}
+                hideProgressBar={false}
+                theme="light"
+            />
 
             <header className='Header'>
                 <Link to="/">

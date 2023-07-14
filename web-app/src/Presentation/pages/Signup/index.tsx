@@ -16,19 +16,20 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function SignupPage(): JSX.Element {
 
-	const width = window.innerWidth;
-
-    const dispatch = useDispatch();
+    //  ############# Redirecionamento de página ##################
     const navigate = useNavigate();
     const user = useSelector((state: StoreState) => state.user);
-    const signup = useSelector((state: StoreState) => state.signup);
 
     useEffect(()=>{
-        if(user.data?.account.isActive){
+        if(user.data?.account?.isActive){
             navigate("/contents");
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    
+    //  ############# Manipulação de dados da view ##################
+    const dispatch = useDispatch();
 
     function goToNextStep(){
         dispatch(saveStep(2));
@@ -38,6 +39,12 @@ export default function SignupPage(): JSX.Element {
         dispatch(saveStep(1));
         navigate("/signup/planform");
     }
+
+
+    //  ############# Renderização do conteúdo ##################
+    const width = window.innerWidth;
+
+    const signup = useSelector((state: StoreState) => state.signup);
 
     return (
         <motion.div 

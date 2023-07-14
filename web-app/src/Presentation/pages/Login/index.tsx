@@ -4,35 +4,21 @@ import logo from '@Presentation/assets/svg/logo.svg';
 
 import { LoginService } from '@Application/useCases/Login/LoginService';
 
-import { StoreState } from '@Infrastructure/stores/redux/config';
-
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import { Helmet } from 'react-helmet-async';
 
 
 export default function Login(): JSX.Element{
 
-    const navigate = useNavigate();
-    const user = useSelector((state: StoreState) => state.user);
-
+    //  ############# Manipulação de requisição ##################
     const [email, setEmail] = useState<string | null>(null);
     const [password, setPassword] = useState<string | null>(null);
 
     const loginResult = LoginService(email, password);
-
-    function onSubmit (e: React.FormEvent){
-        e.preventDefault();
-
-        const inputs = document.getElementsByClassName("Input") as HTMLCollection;
-
-        setEmail((inputs[0] as HTMLInputElement).value);
-        setPassword((inputs[1] as HTMLInputElement).value);
-    }
 
     useEffect(()=>{
         if(email && password){
@@ -43,26 +29,38 @@ export default function Login(): JSX.Element{
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [email, password]);
 
-
-    //já está possivelmente logado
     useEffect(()=>{
-        if(user.data)
-            navigate("/contents");
-    }, [navigate, user.data]);
 
-
-    //manipulador da view com a resposta do login
-    useEffect(()=>{
         if(loginResult.isError && loginResult.error)
-            toast(loginResult.error.httpStatusCode+": "+loginResult.error.message);
+            toast.error(loginResult.error.httpStatusCode+": "+loginResult.error.message, {
+                position: "top-center",
+                hideProgressBar: true
+            });
+
         else if(loginResult.data?.data)
-            toast("Login realizado com sucesso, você será redirecionado em breve.");
+            toast.success("Login realizado com sucesso, você será redirecionado em breve.", {
+                position: "top-right",
+                hideProgressBar: false
+            });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loginResult.isError, loginResult.data, loginResult.error]);
 
 
+    //  ############# Manipulação de dados na view ##################
+    function onSubmit (e: React.FormEvent){
+        e.preventDefault();
+
+        const inputs = document.getElementsByClassName("Input") as HTMLCollection;
+
+        setEmail((inputs[0] as HTMLInputElement).value);
+        setPassword((inputs[1] as HTMLInputElement).value);
+    }
+
+
+    //  ############# Renderização do conteúdo ##################
     return (
         <div className="LoginPage">
+
             <Helmet>
                 <meta property="og:title" content="Netflix login page" />
                 <meta property="og:url" content="http://localhost:5173/login" />
@@ -71,6 +69,16 @@ export default function Login(): JSX.Element{
                 <meta property="og:description" content="Log in to watch the best Movies, Tv Series and Animes" />
                 <meta property="og:site_name" content="Netflix" />
             </Helmet>
+
+            <ToastContainer
+                autoClose={2000} //mesmo tempo do redirecionamento feito pelo serviço do login
+                newestOnTop={true}
+                pauseOnFocusLoss={false}
+                draggable={false}
+                pauseOnHover={false}
+                hideProgressBar={false}
+                theme="dark"
+            />
             
             <div className="Background-filter">
 
@@ -158,7 +166,6 @@ export default function Login(): JSX.Element{
                 </footer>
 
             </div>
-            <ToastContainer/>
         </div>
     );
 }

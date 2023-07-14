@@ -15,6 +15,7 @@ import {
 	createBrowserRouter,
 	RouterProvider
 } from "react-router-dom";
+
 import { AuthProvider } from '@Main/providers/AuthProvider';
 
 function Router() {
@@ -33,27 +34,27 @@ function Router() {
 					},
 					{
 						path: "/signup",
-						element: <SignupPage/>,
+						element: <AuthProvider><SignupPage/></AuthProvider>,
 					},
 					{
 						path: "/signup/planform",
-						element: <SignupPlanPage/>,
+						element: <AuthProvider><SignupPlanPage/></AuthProvider>,
 					},
 					{
 						path: "/signup/registration",
-						element: <SignupRegistrationPage/>,
+						element: <AuthProvider><SignupRegistrationPage/></AuthProvider>,
 					},
 					{
 						path: "/signup/paymentPicker",
-						element: <SignupPaymentPickerPage/>,
+						element: <AuthProvider><SignupPaymentPickerPage/></AuthProvider>,
 					},
 					{
 						path: "/signup/informations",
-						element: <SignupInformationsPage/>,
+						element: <AuthProvider><SignupInformationsPage/></AuthProvider>,
 					},
 					{
 						path: "/signup/payment",
-						element: <SignupPaymentPage/>,
+						element: <AuthProvider><SignupPaymentPage/></AuthProvider>,
 					},
 					{
 						path: "/contents",

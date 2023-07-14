@@ -1,4 +1,5 @@
 import { FetchUserService } from "@Application/useCases/FetchUser/FetchUserService";
+import Loading from "@Presentation/pages/Loading";
 
 import React from "react";
 
@@ -8,7 +9,9 @@ interface AuthProviderProps extends React.HTMLAttributes<HTMLDivElement>{
 
 export function AuthProvider({children}:AuthProviderProps): JSX.Element {
 
-    FetchUserService();
+    const fetchUserResult = FetchUserService();
 
-    return  <>{children}</>
+    if(fetchUserResult.isLoading || fetchUserResult.isFetching) return <Loading/>;
+
+    return <>{children}</>
 }
