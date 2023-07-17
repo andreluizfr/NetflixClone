@@ -190,25 +190,17 @@
                 border-radius: 4px;
                 background-color: $button-primary-color;
 
+                color: $font-primary-color;
+                font-size: $font-size-large;
+                font-weight: 400;
+                cursor: pointer;
+
+                @include mq-small{
+                    font-size: $font-size-medium;
+                }
+                
                 &:hover{
                     opacity: 0.95;
-                }
-
-                a{
-                    color: $font-primary-color;
-                    font-size: $font-size-large;
-                    font-weight: 400;
-                    text-decoration: none;
-                    cursor: pointer;
-                    width: 100%;
-
-                    @include mq-small{
-                        font-size: $font-size-medium;
-                    }
-                    
-                    &:visited{
-                        color: $font-primary-color;
-                    }
                 }
             }
         }

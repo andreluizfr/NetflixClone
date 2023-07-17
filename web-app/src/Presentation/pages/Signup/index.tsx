@@ -135,9 +135,7 @@ export default function SignupPage(): JSX.Element {
                         </div>
 
                         <button className='NextStep-button' onClick={goToPlanForm}>
-                            <a href="#">
-                                Próximo
-                            </a>
+                            Próximo
                         </button>
 
                     </div>

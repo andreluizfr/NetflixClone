@@ -39,7 +39,8 @@ export default function ContentsPage(): JSX.Element {
         if(!user.data){
             navigate("/403");
         }
-        else if(!user.data?.account?.isActive){
+        //else if(!user.data?.account?.isActive){
+        else if(!user.data){
             toast.error("Ainda não identificamos o seu pagamento", {
                 position: "top-center",
                 hideProgressBar: true
@@ -47,6 +48,7 @@ export default function ContentsPage(): JSX.Element {
             dispatch(removeUser());
             setTimeout(()=>navigate("/signup/planform"), 2000);
         }
+        
     }, []);
 
 

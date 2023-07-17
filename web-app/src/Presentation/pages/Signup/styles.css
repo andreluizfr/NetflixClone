@@ -190,25 +190,18 @@
   padding-bottom: 18px;
   border-radius: 4px;
   background-color: rgb(229, 9, 20);
-}
-.SignupPage .Steps-container .Signup-container-2 .NextStep-button:hover {
-  opacity: 0.95;
-}
-.SignupPage .Steps-container .Signup-container-2 .NextStep-button a {
   color: rgb(255, 255, 255);
   font-size: 1.6rem;
   font-weight: 400;
-  text-decoration: none;
   cursor: pointer;
-  width: 100%;
 }
 @media only screen and (max-width: 576px) {
-  .SignupPage .Steps-container .Signup-container-2 .NextStep-button a {
+  .SignupPage .Steps-container .Signup-container-2 .NextStep-button {
     font-size: 1.2rem;
   }
 }
-.SignupPage .Steps-container .Signup-container-2 .NextStep-button a:visited {
-  color: rgb(255, 255, 255);
+.SignupPage .Steps-container .Signup-container-2 .NextStep-button:hover {
+  opacity: 0.95;
 }
 .SignupPage footer {
   width: 100%;

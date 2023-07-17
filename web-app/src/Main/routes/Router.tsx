@@ -34,27 +34,27 @@ function Router() {
 					},
 					{
 						path: "/signup",
-						element: <AuthProvider><SignupPage/></AuthProvider>,
+						element: <SignupPage/>,
 					},
 					{
 						path: "/signup/planform",
-						element: <AuthProvider><SignupPlanPage/></AuthProvider>,
+						element: <SignupPlanPage/>,
 					},
 					{
 						path: "/signup/registration",
-						element: <AuthProvider><SignupRegistrationPage/></AuthProvider>,
+						element: <SignupRegistrationPage/>,
 					},
 					{
 						path: "/signup/paymentPicker",
-						element: <AuthProvider><SignupPaymentPickerPage/></AuthProvider>,
+						element: <SignupPaymentPickerPage/>,
 					},
 					{
 						path: "/signup/informations",
-						element: <AuthProvider><SignupInformationsPage/></AuthProvider>,
+						element: <SignupInformationsPage/>,
 					},
 					{
 						path: "/signup/payment",
-						element: <AuthProvider><SignupPaymentPage/></AuthProvider>,
+						element: <SignupPaymentPage/>,
 					},
 					{
 						path: "/contents",

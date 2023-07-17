@@ -29,10 +29,10 @@ export default function SignupPaymentPage(): JSX.Element{
         if(user.data?.account?.isActive){
             navigate("/contents");
         }
-        else if(!user.data || !signup.paymentType || !signup.plan){
+        else if(!user.data || signup.paymentType===null || signup.plan===null){
             toast.error("Alguns dos seus dados estão faltando, você terá que reiniciar o processo.", {
                 position: "top-center",
-                hideProgressBar: false
+                theme: "light"
             });
             setTimeout(()=>navigate("/signup"), 2000);
         }
@@ -42,13 +42,34 @@ export default function SignupPaymentPage(): JSX.Element{
     //  ############# Manipulação de requisição ##################
     const signup = useSelector((state: StoreState) => state.signup);
 
-    const createPlanPaymentResult = CreatePlanPaymentService(user.data?.account.id, signup.plan, signup.paymentType);
+    const createPlanPaymentResult = CreatePlanPaymentService(user.data?.account?.id, signup.plan, signup.paymentType);
 
     useEffect(()=>{
-        if(user.data?.account.id!==null && signup.plan!==null && signup.paymentType!==null)
+        if(user.data?.account?.id!==null && signup.plan!==null && signup.paymentType!==null)
             createPlanPaymentResult.refetch();
 
-    }, [user.data?.account.id, signup.plan, signup.paymentType]);
+    }, [user.data, signup.plan, signup.paymentType]);
+
+    useEffect(()=>{
+        if (createPlanPaymentResult.isError && createPlanPaymentResult.error)
+            toast.error(createPlanPaymentResult.error.message, {
+                position: "top-center",
+                theme: "light"
+            });
+        else if (createPlanPaymentResult.data) {
+            toast.success(createPlanPaymentResult.data.message, {
+                position: "top-right",
+                theme: "light",
+            });
+            toast.success(createPlanPaymentResult.data.message +
+                "Clique no botão azul para realizar o pagamento com nossa operadora parceira.", {
+                position: "top-right",
+                theme: "light",
+                autoClose: 5000
+            });
+        }
+
+    }, [createPlanPaymentResult.isError, createPlanPaymentResult.error, createPlanPaymentResult.data]);
 
 
     //  ############# Renderização do conteúdo ##################
@@ -69,8 +90,7 @@ export default function SignupPaymentPage(): JSX.Element{
                 pauseOnFocusLoss={false}
                 draggable={false}
                 pauseOnHover={false}
-                hideProgressBar={false}
-                theme="dark"
+                hideProgressBar= {true}
             />
             
             <header className='Header'>

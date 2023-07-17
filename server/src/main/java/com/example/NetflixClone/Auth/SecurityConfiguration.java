@@ -46,6 +46,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/user/create").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/payment/createPlanPayment").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/api/user/get").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/user/getAll").hasRole("ADMIN")

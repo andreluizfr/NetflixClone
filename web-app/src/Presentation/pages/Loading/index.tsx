@@ -4,6 +4,7 @@ import DotLoader from "react-spinners/DotLoader";
 
 export default function Loading() : JSX.Element {
 
+    //  ############# Renderização do conteúdo ##################
     return(
         <div className='LoadingPage'>
 

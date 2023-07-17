@@ -113,6 +113,7 @@
   display: block;
 }
 .LoginPage .Background-filter .Login-background .Login-form .Remember-me-and-need-help-container .Remember-me-checkbox span {
+  margin-left: 2px;
   color: #b3b3b3;
   font-size: 0.8rem;
 }

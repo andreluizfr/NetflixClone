@@ -13,6 +13,7 @@ import { AnyAction } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { Dispatch, useEffect } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import { saveUser } from "@Infrastructure/stores/redux/features/userSlice";
 
 export const CreateUserService = (
     email: string | null,
@@ -30,7 +31,7 @@ export const CreateUserService = (
 
     useEffect(()=>{
         if (queryResult.isError && queryResult.error) HandleCreateUserQueryError(queryResult.error, dispatch, navigate);
-        else if (queryResult.data?.data) HandleCreateUserQuerySuccess(queryResult.data, navigate);
+        else if (queryResult.data?.data) HandleCreateUserQuerySuccess(queryResult.data, dispatch, navigate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryResult.isError, queryResult.error, queryResult.data]);
 
@@ -60,11 +61,13 @@ async function CreateUserHttpRequest (
 }
 
 
-function HandleCreateUserQuerySuccess(data: IHttpResponse<User>, navigate: NavigateFunction) {
+function HandleCreateUserQuerySuccess(data: IHttpResponse<User>, dispatch: Dispatch<AnyAction>, navigate: NavigateFunction) {
 
     console.log(data);
 
     const user = data.data;
+
+    dispatch(saveUser(user));
 
     if(user) navigate("/signup/payment");
 }

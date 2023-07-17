@@ -14,8 +14,7 @@ interface props {
 
 export default function Playlist({title, medias, setPreviewMedia}: props) {
 
-    const width = window.innerWidth;
-
+    //  ############# Manipulação de dados na view ##################
     let isMouseDown = false;
     let previousX = 0;
 
@@ -66,6 +65,26 @@ export default function Playlist({title, medias, setPreviewMedia}: props) {
 
     const [intervals, setIntervals] = useState<NodeJS.Timer>();
 
+    function moveContainer(direction: string) {
+
+        const interval = setInterval(()=>{
+
+            if(playlistContainerRef.current){
+
+                if(direction === "left") (playlistContainerRef.current as HTMLDivElement).scrollBy(-2, 0);
+
+                else if(direction === "right") (playlistContainerRef.current as HTMLDivElement).scrollBy(2, 0);
+            }
+                
+        }, 1);
+
+        setIntervals(interval);
+    }
+
+
+    //  ############# Renderização do conteúdo ##################
+    const width = window.innerWidth;
+
     return (
         <section className='Section'>
             <h1 className='Title'>
@@ -75,14 +94,7 @@ export default function Playlist({title, medias, setPreviewMedia}: props) {
             <div className='Playlist-container'>
                 <span 
                     className='Arrow Left-arrow'
-                    onMouseOver={()=>{
-                        const interval = setInterval(()=>{
-                            if(playlistContainerRef.current)
-                                (playlistContainerRef.current as HTMLDivElement).scrollBy(-2, 0);
-                        }, 1);
-                
-                        setIntervals(interval);
-                    }}
+                    onMouseOver={()=>moveContainer("left")}
                     onMouseOut={()=>clearInterval(intervals)}
                 />
             
@@ -111,14 +123,7 @@ export default function Playlist({title, medias, setPreviewMedia}: props) {
 
                 <span 
                     className='Arrow Right-arrow'
-                    onMouseOver={()=>{
-                        const interval = setInterval(()=>{
-                            if(playlistContainerRef.current)
-                                (playlistContainerRef.current as HTMLDivElement).scrollBy(2, 0);
-                        }, 1);
-                
-                        setIntervals(interval);
-                    }}
+                    onMouseOver={()=>moveContainer("right")}
                     onMouseOut={()=>clearInterval(intervals)}
                 />
             </div>

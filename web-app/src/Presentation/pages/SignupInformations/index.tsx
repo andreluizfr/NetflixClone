@@ -36,15 +36,16 @@ export default function SignupInformationsPage(): JSX.Element{
         if(user.data?.account?.isActive){
             navigate("/contents");
         }
-        else if(!user.data || !signup.plan || !signup.paymentType){ 
+        else if(user.data!==null && signup.plan!==null && signup.paymentType!==null){ 
+            navigate("/signup/payment");
+        }
+        else if(!signup.email || !signup.password || signup.plan===null || signup.paymentType===null){ 
+
             toast.error("Alguns dos seus dados estão faltando, você terá que reiniciar o processo.", {
                 position: "top-center",
-                hideProgressBar: false
+                theme: "light"
             });
             setTimeout(()=>navigate("/signup"), 2000);
-        }
-        else if(user.data && signup.plan && signup.paymentType){
-            navigate("/signup/payment");
         }
     }, []);
 
@@ -73,6 +74,17 @@ export default function SignupInformationsPage(): JSX.Element{
     }
 
 
+    //  ############# Manipulação de requisição ##################
+    useEffect(()=>{
+        if(createUserResult.isError && createUserResult.error){
+            toast.error(createUserResult.error.message, {
+                position: "top-center",
+                theme: "light"
+            });
+        }
+    }, [createUserResult.data, createUserResult.error, createUserResult.isError]);
+
+
     //  ############# Renderização do conteúdo ##################
     const width = window.innerWidth;
 
@@ -98,7 +110,7 @@ export default function SignupInformationsPage(): JSX.Element{
                 pauseOnFocusLoss={false}
                 draggable={false}
                 pauseOnHover={false}
-                hideProgressBar={false}
+                hideProgressBar={true}
             />
             
             <header className='Header'>

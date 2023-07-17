@@ -28,10 +28,10 @@ export default function SignupRegistrationPage(): JSX.Element {
             navigate("/contents");
         }
         //próxima página, se tem usuário logado com plano ou dados de email, senha com plano também
-        else if(user.data){ 
+        else if(user.data && signup.plan!==null){ 
             navigate("/signup/paymentPicker");
         }
-        else if(!signup.plan){ //página anterior, se nao tem os dados de plan
+        else if(signup.plan===null){ //página anterior, se nao tem os dados de plan
             toast.error("Alguns dos seus dados estão faltando, você terá que reiniciar o processo.", {
                 position: "top-center",
                 hideProgressBar: false

@@ -10,6 +10,7 @@ import { useMediaQuery } from 'react-responsive';
 
 export default function Header({headerRef}: {headerRef: React.MutableRefObject<null>}): JSX.Element {
 
+    //  ############# Renderização do conteúdo ##################
     const isLarge = useMediaQuery({ query: '(max-width: 956px)' });
 
     return (

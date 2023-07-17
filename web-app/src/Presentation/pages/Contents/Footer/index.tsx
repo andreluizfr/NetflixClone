@@ -2,6 +2,7 @@ import './styles.css';
 
 export default function Footer(): JSX.Element {
 
+    //  ############# Renderização do conteúdo ##################
     return(
         <footer>
             <div className='Row-1'>

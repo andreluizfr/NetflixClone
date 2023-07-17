@@ -43,7 +43,7 @@ export default function SignupPaymentPickerPage(): JSX.Element{
             });
             setTimeout(()=>navigate("/signup/registration"), 2000);
         }
-        else if(!signup.plan){ //página de plan, se nao tem os dados de plan
+        else if(signup.plan===null){ //página de plan, se nao tem os dados de plan
             toast.error("Alguns dos seus dados estão faltando, você terá que reiniciar o processo.", {
                 position: "top-center",
                 hideProgressBar: false

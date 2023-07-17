@@ -1,5 +1,4 @@
 import { makeHttpClient } from "@Main/factories/infrastructure/makeHttpClient";
-import { makePersistentStorage } from "@Main/factories/infrastructure/makePersistentStorage";
 
 import { HttpStatusCode } from "@Application/interfaces/httpClient/HttpStatusCode";
 import { IHttpError } from "@Application/interfaces/httpClient/IHttpError";
@@ -38,7 +37,7 @@ export const  CreatePlanPaymentService = (
 
     useEffect(()=>{
         if (queryResult.isError && queryResult.error) HandleCreatePlanPaymentQueryError(queryResult.error, dispatch, navigate);
-        else if (queryResult.data?.data) HandleCreatePlanPaymentQuerySuccess(queryResult.data, navigate);
+        else if (queryResult.data?.data) HandleCreatePlanPaymentQuerySuccess(queryResult.data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryResult.isError, queryResult.error, queryResult.data]);
 
@@ -51,16 +50,6 @@ async function createPlanPaymentHttpRequest (
     paymentType: PaymentType | null
 ){
 
-    const persistentStorage = makePersistentStorage();
-
-    const accessToken = persistentStorage.get<string>("x-access-token");
-
-    if(accessToken)
-        throw {
-            httpStatusCode: null,
-            message: 'Erro: Token de acesso não encontrado.'
-        } as IHttpError;
-
     const httpClient = makeHttpClient<PreferenceResponse>();
 
     const httpResponse = httpClient.post(
@@ -71,11 +60,9 @@ async function createPlanPaymentHttpRequest (
     return httpResponse;
 }
 
-function HandleCreatePlanPaymentQuerySuccess(data: IHttpResponse<PreferenceResponse>, navigate: NavigateFunction) {
+function HandleCreatePlanPaymentQuerySuccess(data: IHttpResponse<PreferenceResponse>) {
 
     console.log(data);
-
-    navigate("/login");
 }
 
 function HandleCreatePlanPaymentQueryError(httpError: IHttpError, dispatch: Dispatch<AnyAction>, navigate: NavigateFunction) {
