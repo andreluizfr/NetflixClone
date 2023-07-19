@@ -1,5 +1,6 @@
 import { makeHttpClient } from "@Main/factories/infrastructure/makeHttpClient";
 import { makePersistentStorage } from "@Main/factories/infrastructure/makePersistentStorage";
+import { queryClient } from "@Main/providers/ReactQueryProvider";
 
 import { HttpStatusCode } from "@Application/interfaces/httpClient/HttpStatusCode";
 import { IHttpError } from "@Application/interfaces/httpClient/IHttpError";
@@ -9,30 +10,31 @@ import { User } from "@Model/entities/User";
 
 import { saveUser, removeUser } from '@Infrastructure/stores/redux/features/userSlice';
 
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { AnyAction } from "@reduxjs/toolkit";
 import { Dispatch, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
+
 export const FetchUserService = () => {
 
     const queryResult = useQuery<IHttpResponse<User>, IHttpError>(
-        'fetchUser',
+        ['fetchUser'],
         async () => FetchUserHttpRequest(),
         {
             enabled: true,
-            staleTime: 0,
+            staleTime: 5 * 1000,
             cacheTime: 60 * 60 * 1000,
-            refetchOnMount: true,
-            refetchOnWindowFocus: true,
             initialData: ()=>{
 
-                const persistentStorage = makePersistentStorage();
+                const cachedData = queryClient.getQueryData<IHttpResponse<User>>(['fetchUser']);
+                if (cachedData) return cachedData;
 
+                const persistentStorage = makePersistentStorage();
                 const user = persistentStorage.get<User>("user");
 
                 return {
-                    message: "fetched user data in storage", 
+                    message: "Usuário dado pelo storage", 
                     data: user
                 };
             },
@@ -50,7 +52,7 @@ export const FetchUserService = () => {
     return queryResult;
 }
 
-async function FetchUserHttpRequest (){
+export async function FetchUserHttpRequest (){
     
     const persistentStorage = makePersistentStorage();
 

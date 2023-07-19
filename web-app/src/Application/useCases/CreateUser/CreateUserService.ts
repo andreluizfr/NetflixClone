@@ -8,7 +8,7 @@ import { saveEmail, saveStep } from "@Infrastructure/stores/redux/features/signu
 
 import { User } from "@Model/entities/User";
 
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { AnyAction } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { Dispatch, useEffect } from "react";
@@ -22,7 +22,7 @@ export const CreateUserService = (
 ) => {
 
     const queryResult = useQuery<IHttpResponse<User>, IHttpError>(
-        'createUser',
+        ['createUser'],
         async () => CreateUserHttpRequest(email, password, birthDate)
     );
 

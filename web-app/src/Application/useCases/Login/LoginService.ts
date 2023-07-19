@@ -1,13 +1,17 @@
 import { makeHttpClient } from "@Main/factories/infrastructure/makeHttpClient";
 import { makePersistentStorage } from "@Main/factories/infrastructure/makePersistentStorage";
+import { queryClient } from "@Main/providers/ReactQueryProvider";
 
 import { HttpStatusCode } from "@Application/interfaces/httpClient/HttpStatusCode";
 import { IHttpError } from "@Application/interfaces/httpClient/IHttpError";
 import { IHttpResponse } from "@Application/interfaces/httpClient/IHttpResponse";
 
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+
+import { FetchUserHttpRequest } from "../FetchUser/FetchUserService";
+import { GetMediaListsHttpRequest } from "../GetMediaLists/GetMediaListsService";
 
 export const LoginService = (
     email: string | null,
@@ -15,7 +19,7 @@ export const LoginService = (
 ) => {
 
     const queryResult = useQuery<IHttpResponse<string>, IHttpError>(
-        'login',
+        ['login'],
         async () => LoginHttpRequest(email, password)
     );
     
@@ -62,6 +66,9 @@ function HandleLoginQuerySuccess(data: IHttpResponse<string>, navigate: Navigate
         persistentStorage.set("x-access-token", accessToken);
 
         setTimeout(()=>navigate("/contents", { replace: true }), 2000);
+
+        queryClient.prefetchQuery({queryKey: ['fetchUser'], queryFn: FetchUserHttpRequest });
+        queryClient.prefetchQuery({queryKey: ['getMediaLists'], queryFn: GetMediaListsHttpRequest });
     }
 }
 

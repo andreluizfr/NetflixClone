@@ -10,7 +10,7 @@ import { PreferenceResponse } from "@Model/types/PreferenceResponse";
 
 import { removeUser } from '@Infrastructure/stores/redux/features/userSlice';
 
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { AnyAction } from "@reduxjs/toolkit";
 import { Dispatch, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -24,7 +24,7 @@ export const  CreatePlanPaymentService = (
 ) => {
 
     const queryResult = useQuery<IHttpResponse<PreferenceResponse>, IHttpError>(
-        'createPlanPayment',
+        ['createPlanPayment'],
         async () => createPlanPaymentHttpRequest(accountId, plan, paymentType),
         {
             enabled: true,

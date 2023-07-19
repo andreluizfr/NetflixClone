@@ -1,0 +1,70 @@
+//  ############# Redirecionamento de página ##################
+
+//  ############# Manipulação de dados na view ##################
+
+//  ############# Manipulação de requisição ##################
+
+//  ############# Renderização do conteúdo ##################
+
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { Helmet } from 'react-helmet-async';
+
+
+ <ToastContainer
+    autoClose={2000} //mesmo tempo do redirecionamento feito pelo serviço do login
+    newestOnTop={true}
+    pauseOnFocusLoss={false}
+    draggable={false}
+    pauseOnHover={false}
+    hideProgressBar={true}
+/>
+
+
+toast.error(
+    loginResult.error.httpStatusCode+": "+loginResult.error.message, {
+    position: "top-center",
+    theme: "dark"
+});
+
+/signup/
+/signup/planform
+/signup/registration
+/signup/paymentPicker
+/signup/informations
+/signup/payment
+
+
+@DependentScoped 
+- default
+
+@RequestScoped
+- tempo de vida dura apenas na requisição
+
+@SessionScoped
+- tempo de vida enquanto tiver sessao do usuario
+
+@ApplicationScoped
+- enquanto a aplicação estiver rodando, compartilhado entre os usuarios do sistema
+
+@ConversationScoped
+- durante um tempo definido pelo programador atraves de begin() e end()
+
+
+psqlException: Error value too long for type character
+
+
+Tabela (MediaPreview)
+InitialContentsConfiguration {
+	id
+
+	OneToOne relation
+	Media previewMedia;
+	
+	ManyToOne relation
+	Playlist <Set> playlists;
+
+	created_at
+}
