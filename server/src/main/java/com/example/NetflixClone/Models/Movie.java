@@ -4,8 +4,11 @@ import com.example.NetflixClone.Models.enums.Genre;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +21,7 @@ import lombok.Setter;
 @Table(name = "Movie")
 public class Movie extends Media{
 
-   @Column(name = "is_movie_series", nullable = false)
+    @Column(name = "is_movie_series", nullable = false)
     private boolean isMovieSeries;
 
     @Column(name = "sequence_number", nullable = false)
@@ -26,6 +29,10 @@ public class Movie extends Media{
 
     @Column(name = "actors_actresses", nullable = false)
     private List<String> actorsActresses;
+
+    @OneToOne(mappedBy = "movie", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Episode episode;
 
     public Movie() {super();}
 
@@ -38,17 +45,20 @@ public class Movie extends Media{
         String descriptions,
         int ageRating,
         String thumbnailUrl,
-        String thumbnailBlurHash,
+        String posterUrl,
+        String trailerUrl,
 
         boolean isMovieSeries,
         int sequenceNumber,
-        List<String> actorsActresses
+        List<String> actorsActresses,
+        Episode episode
     ) {
-        super(title, isAnimation, genres, director, releaseYear, descriptions, ageRating, thumbnailUrl, thumbnailBlurHash);
+        super(title, isAnimation, genres, director, releaseYear, descriptions, ageRating, thumbnailUrl, posterUrl, trailerUrl);
 
         this.isMovieSeries = isMovieSeries;
         this.sequenceNumber = sequenceNumber; // receber 1 se nao for
         this.actorsActresses = actorsActresses;
+        this.episode = episode;
     }
 
     @Override

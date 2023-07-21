@@ -11,7 +11,8 @@ import org.hibernate.type.SqlTypes;
 
 import com.example.NetflixClone.Models.enums.Plan;
 import com.example.NetflixClone.Models.records.Profile;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import com.mercadopago.resources.preference.Preference;
 
@@ -38,8 +39,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @JsonIgnore
-    // @JsonBackReference
+    @JsonBackReference
     @OneToOne(mappedBy = "account")
     private User user;
 
@@ -61,7 +61,7 @@ public class Account {
     @Column(name = "profiles", nullable = false)
     private List<Profile> profiles;
 
-    @Column(name = "limit_of_profiles")
+    @Column(name = "limit_of_profiles", nullable = true)
     private int limitOfProfiles;
 
     @Column(name = "created_at", nullable = false)

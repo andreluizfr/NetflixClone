@@ -58,8 +58,11 @@ public class Media {
     @Column(name = "thumbnail_url", nullable = false)
     private String thumbnailUrl;
     
-    @Column(name = "thumbnail_blur_hash", nullable = false)
-    private String thumbnailBlurHash;
+    @Column(name = "poster_url", nullable = false)
+    private String posterUrl;
+
+    @Column(name = "trailer_url", nullable = false)
+    private String trailerUrl;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -79,7 +82,8 @@ public class Media {
         String descriptions,
         int ageRating,
         String thumbnailUrl,
-        String thumbnailBlurHash
+        String posterUrl,
+        String trailerUrl
     ) {
 
         this.title = title;
@@ -90,7 +94,8 @@ public class Media {
         this.descriptions = descriptions;
         this.ageRating = ageRating;
         this.thumbnailUrl = thumbnailUrl;
-        this.thumbnailBlurHash = thumbnailBlurHash;
+        this.posterUrl = posterUrl;
+        this.trailerUrl = trailerUrl;
         this.createdAt = LocalDateTime.now();
     }
 

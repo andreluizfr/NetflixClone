@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.NetflixClone.Business.MediaLists.GetAllMediaListsBusiness;
 import com.example.NetflixClone.Controllers.ResponseErrorHandler;
-import com.example.NetflixClone.Repositories.MediaListRepositoryDAO;
 
 import com.example.NetflixClone.Models.MediaList;
 
@@ -19,15 +19,23 @@ import com.example.NetflixClone.Models.MediaList;
 public class GetAllMediaListsController {
 
     @Autowired
-    MediaListRepositoryDAO mediaListRepository;
+    GetAllMediaListsBusiness getAllMediaListsBusiness;
     
     @GetMapping("/getAll")
     public ResponseEntity<Object> getAllMediaLists() {
 
-            List<MediaList> mediaList = mediaListRepository.findAll();
+        try {
+
+            List<MediaList> mediaLists = getAllMediaListsBusiness.execute();
 
             return ResponseErrorHandler.generateResponse("Lista buscado com sucesso.", HttpStatus.OK,
-                    mediaList);
+                    mediaLists);
 
+        } catch (RuntimeException e) {
+
+            return ResponseErrorHandler.generateResponse("Falha ao buscar listas.", HttpStatus.INTERNAL_SERVER_ERROR,
+                    null);
+        }   
+    
     }
 }
