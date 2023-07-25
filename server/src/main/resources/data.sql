@@ -143,3 +143,13 @@ INSERT INTO account (id, is_active, payment_history, profiles, created_at)
 VALUES ('dbca60d0-2f7d-497d-8964-66fe2f62a179', FALSE, '{}', '{}', '2004-10-19 10:24:00+02');
 INSERT INTO user_info (id, email, password, birth_date, role, account_id, created_at)
 VALUES ('385a5f10-694e-430c-853f-5fcdc13b5f17', 'andre@admin.com', '$2a$12$UPjZLdIyd2P73AFPF7IBheJLc1l2X0ugKmDqZz0tPKsPVDgMs41Fy', '1999-07-22', 1, 'dbca60d0-2f7d-497d-8964-66fe2f62a179', '2004-10-19 10:24:01+02');
+
+
+
+
+
+
+
+-- preview media history
+INSERT INTO preview_media (id, media_id, created_at)
+VALUES (1, 3, '2023-07-25 13:54:00+02');

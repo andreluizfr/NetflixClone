@@ -1,6 +1,7 @@
 package com.example.NetflixClone.Models;
 
 import com.example.NetflixClone.Models.enums.Genre;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -18,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import lombok.Getter;
@@ -34,6 +36,7 @@ public class Media {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "media_id")
     protected Long mediaId;
 
     @Column(name = "title", nullable = false)
@@ -68,6 +71,10 @@ public class Media {
 
     @ManyToMany(mappedBy = "medias")
     private Set<MediaList> mediaLists;
+
+    @JsonBackReference
+    @OneToOne(mappedBy = "media")
+    private PreviewMedia previewMedia;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)

@@ -1,9 +1,11 @@
+import { Episode } from "./Episode";
 import { Media } from "./Media";
 
 export interface Movie extends Media{
     isMovieSeries: boolean,
     sequenceNumber: number,
-    actorsActresses: string[]
+    actorsActresses: string[],
+    episode: Episode
 }
 
 export function isMovie (o: object): boolean {

@@ -32,7 +32,7 @@ public class Anime extends Media {
     @Column(name = "voice_actors_actresses", nullable = false)
     private List<String> voiceActorsActresses;
 
-    @OneToMany(mappedBy = "anime", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "animeId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Episode> episodes;
 
     public Anime() {

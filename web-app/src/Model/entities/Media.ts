@@ -21,5 +21,7 @@ export interface Media{
     descriptions: string,
     ageRating: number,
     thumbnailUrl: string,
-    thumbnailBlurHash: string
+    posterUrl: string,
+    trailerUrl: string
+    created_at: Date
 }

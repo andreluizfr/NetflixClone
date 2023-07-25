@@ -29,7 +29,7 @@ public class TvShow extends Media{
     @Column(name = "actors_actresses", nullable = false)
     private List<String> actorsActresses;
 
-    @OneToMany(mappedBy = "tvShow", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tvShowId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Episode> episodes;
 
     public TvShow() {super();}

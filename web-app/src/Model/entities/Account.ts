@@ -1,4 +1,4 @@
-export default interface SeenShow{
+export interface SeenShow{
     id: number,
     title: string,
     thumbnailUrl: string

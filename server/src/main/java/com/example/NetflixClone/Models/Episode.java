@@ -40,11 +40,11 @@ public class Episode {
 
     @ManyToOne
     @JoinColumn(name = "tv_show_id", referencedColumnName = "media_id")
-    private TvShow tvShow;
+    private TvShow tvShowId;
 
     @ManyToOne
     @JoinColumn(name = "anime_id", referencedColumnName = "media_id")
-    private Anime anime;
+    private Anime animeId;
 
     @Column(name = "title", nullable = true)
     String title;

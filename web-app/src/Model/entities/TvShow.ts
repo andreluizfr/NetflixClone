@@ -1,9 +1,11 @@
+import { Episode } from "./Episode";
 import { Media } from "./Media";
 
 export interface TvShow extends Media{
     numberOfSeasons: number,
     seasonNumber: number,
-    actorsActresses: string[]
+    actorsActresses: string[],
+    episodes: Episode[]
 }
 
 export function isTvShow (o: object): boolean {
