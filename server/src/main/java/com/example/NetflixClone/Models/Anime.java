@@ -69,12 +69,12 @@ public class Anime extends Media {
     @Override
     public boolean equals(Object arg0) {
         Anime otherAnime = (Anime) arg0;
-        return this.id.equals(otherAnime.id);
+        return this.mediaId.equals(otherAnime.mediaId);
     }
 
     @Override
     public int hashCode() {
-        return this.id.hashCode();
+        return this.mediaId.hashCode();
     }
 
 }

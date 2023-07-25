@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 import lombok.Getter;
@@ -32,7 +34,7 @@ public class Media {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    protected Long mediaId;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -49,20 +51,23 @@ public class Media {
     @Column(name = "release_year", nullable = false)
     private int releaseYear;
 
-    @Column(name = "descriptions", nullable = false)
+    @Column(name = "descriptions", columnDefinition = "TEXT", nullable = false)
     private String descriptions;
 
     @Column(name = "age_rating", nullable = false)
     private int ageRating;
 
-    @Column(name = "thumbnail_url", nullable = false)
+    @Column(name = "thumbnail_url", columnDefinition = "TEXT", nullable = false)
     private String thumbnailUrl;
     
-    @Column(name = "poster_url", nullable = false)
+    @Column(name = "poster_url", columnDefinition = "TEXT", nullable = false)
     private String posterUrl;
 
-    @Column(name = "trailer_url", nullable = false)
+    @Column(name = "trailer_url", columnDefinition = "TEXT", nullable = false)
     private String trailerUrl;
+
+    @ManyToMany(mappedBy = "medias")
+    private Set<MediaList> mediaLists;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -102,12 +107,12 @@ public class Media {
     @Override
     public boolean equals(Object arg0) {
         Media otherMedia = (Media) arg0;
-        return this.id.equals(otherMedia.id);
+        return this.mediaId.equals(otherMedia.mediaId);
     }
 
     @Override
     public int hashCode() {
-        return this.id.hashCode();
+        return this.mediaId.hashCode();
     }
 
 }

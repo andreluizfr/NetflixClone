@@ -62,12 +62,12 @@ public class TvShow extends Media{
     @Override
     public boolean equals(Object arg0) {
         TvShow otherTvShow = (TvShow) arg0;
-        return this.id.equals(otherTvShow.id);
+        return this.mediaId.equals(otherTvShow.mediaId);
     }
 
     @Override
     public int hashCode() {
-        return this.id.hashCode();
+        return this.mediaId.hashCode();
     }
 
 }

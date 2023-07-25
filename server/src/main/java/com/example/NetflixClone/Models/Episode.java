@@ -3,6 +3,7 @@ package com.example.NetflixClone.Models;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -33,31 +34,31 @@ public class Episode {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @OneToOne
-    @JoinColumn(name = "movie_id")
+    @JsonBackReference
+    @OneToOne(mappedBy = "episode")
     private Movie movie;
 
     @ManyToOne
-    @JoinColumn(name = "tv_show_id")
+    @JoinColumn(name = "tv_show_id", referencedColumnName = "media_id")
     private TvShow tvShow;
 
     @ManyToOne
-    @JoinColumn(name = "anime_id")
+    @JoinColumn(name = "anime_id", referencedColumnName = "media_id")
     private Anime anime;
 
     @Column(name = "title", nullable = true)
     String title;
 
-    @Column(name = "thumbnail_url", nullable = true)
+    @Column(name = "thumbnail_url", columnDefinition = "TEXT", nullable = true)
     String thumbnailUrl;
 
-    @Column(name = "episode_url", nullable = false)
+    @Column(name = "episode_url", columnDefinition = "TEXT", nullable = false)
     String episodeUrl;
 
     @Column(name = "duration", nullable = false) //in minutes
     int duration;
 
-    @Column(name = "order", nullable = true)
+    @Column(name = "ordem", nullable = true)
     int order;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)

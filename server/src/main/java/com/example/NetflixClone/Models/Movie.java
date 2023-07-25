@@ -1,14 +1,15 @@
 package com.example.NetflixClone.Models;
 
 import com.example.NetflixClone.Models.enums.Genre;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,8 +31,9 @@ public class Movie extends Media{
     @Column(name = "actors_actresses", nullable = false)
     private List<String> actorsActresses;
 
-    @OneToOne(mappedBy = "movie", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "episode_id", referencedColumnName = "id")
     private Episode episode;
 
     public Movie() {super();}
@@ -64,12 +66,12 @@ public class Movie extends Media{
     @Override
     public boolean equals(Object arg0) {
         Movie otherMovie = (Movie) arg0;
-        return this.id.equals(otherMovie.id);
+        return this.mediaId.equals(otherMovie.mediaId);
     }
 
     @Override
     public int hashCode() {
-        return this.id.hashCode();
+        return this.mediaId.hashCode();
     }
 
 }

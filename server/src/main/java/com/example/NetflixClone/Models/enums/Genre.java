@@ -15,3 +15,22 @@ public enum Genre {
 		return this.genreValue;
 	}
 }
+
+/* 
+public enum Genre {
+    COMEDY("COMEDY"), ACTION("ACTION"), THRILLER("THRILLER"), HORROR("HORROR"),
+    MYSTERY("MYSTERY"), FANTASY("FANTASY"), ROMANCE("ROMANCE"), SCIENCE_FICTION("SCIENCE_FICTION"),
+    SLICE_OF_LICE("SLICE_OF_LICE"), DOCUMENTARY("DOCUMENTARY");
+
+    public String genreValue;
+
+    Genre(String value) {
+		this.genreValue = value;
+	}
+
+    public String getValue(){
+		return this.genreValue;
+	}
+}
+
+*/
