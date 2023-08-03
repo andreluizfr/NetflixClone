@@ -4,6 +4,9 @@ import com.example.NetflixClone.Models.enums.Genre;
 
 import java.util.List;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,6 +32,7 @@ public class Anime extends Media {
     @Column(name = "studio", nullable = false)
     private String studio;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "voice_actors_actresses", nullable = false)
     private List<String> voiceActorsActresses;
 

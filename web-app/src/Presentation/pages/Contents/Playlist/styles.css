@@ -116,6 +116,8 @@
   min-height: 81px;
   max-width: 144px;
   max-height: 81px;
+  -o-object-fit: cover;
+     object-fit: cover;
   border: 1px solid rgb(0, 0, 0);
   z-index: 999;
   transition: border 400ms;

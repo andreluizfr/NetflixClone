@@ -33,6 +33,9 @@
   left: 0;
   background: linear-gradient(to right, rgb(0, 0, 0) 50%, rgba(0, 0, 0, 0.95) 80%, rgba(0, 0, 0, 0.8) 90%, rgba(0, 0, 0, 0));
 }
+.Preview .Preview-infos[isInitialPreview=true] {
+  background: none;
+}
 @media only screen and (max-width: 720px) {
   .Preview .Preview-infos {
     padding: 6%;

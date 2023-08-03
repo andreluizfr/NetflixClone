@@ -1,8 +1,6 @@
 package com.example.NetflixClone.Models;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -13,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.NetflixClone.Models.enums.UserRole;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -50,12 +46,11 @@ public class User implements UserDetails {
     private String password;
 
     @Column(name = "birth_date", nullable = false)
-    private LocalDate birthDate;
+    private String birthDate;
 
     @Column(name = "role", nullable = false)
     private UserRole role;
 
-    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account; // Foreign Key, Owner of one-to-one relation key
@@ -66,7 +61,9 @@ public class User implements UserDetails {
     public User(UserDTO userDTO) {
         this.email = userDTO.email();
         this.password = this.hashPassword(userDTO.password());
-        this.birthDate = LocalDate.parse(userDTO.birthDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        // this.birthDate = LocalDateTime.parse(userDTO.birthDate(),
+        // DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.birthDate = userDTO.birthDate();
         this.role = UserRole.BASIC;
         this.account = userDTO.account();
         this.createdAt = LocalDateTime.now();

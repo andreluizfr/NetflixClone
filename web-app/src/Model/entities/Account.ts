@@ -17,7 +17,7 @@ export enum Plan {
 
 export interface Account{
     id: string;
-    isActive: boolean;
+    active: boolean;
     currentPlan: Plan;
     planExpireDate: Date;
     paymentHistory: object[];

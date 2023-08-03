@@ -1,6 +1,5 @@
 package com.example.NetflixClone.Models;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,8 +11,7 @@ import org.hibernate.type.SqlTypes;
 import com.example.NetflixClone.Models.enums.Plan;
 import com.example.NetflixClone.Models.records.Profile;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mercadopago.resources.preference.Preference;
 
 import jakarta.persistence.Column;
@@ -39,7 +37,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne(mappedBy = "account")
     private User user;
 
@@ -51,7 +49,7 @@ public class Account {
  
     //1 mês após fazer o pagamento
     @Column(name = "plan_expire_date", nullable = true) 
-    private LocalDate planExpireDate;
+    private LocalDateTime planExpireDate;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "payment_history", nullable = false)
@@ -62,7 +60,7 @@ public class Account {
     private List<Profile> profiles;
 
     @Column(name = "limit_of_profiles", nullable = true)
-    private int limitOfProfiles;
+    private Integer limitOfProfiles;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

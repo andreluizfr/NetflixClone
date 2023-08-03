@@ -28,11 +28,13 @@ public class GetAllMediaListsController {
 
             List<MediaList> mediaLists = getAllMediaListsBusiness.execute();
 
-            return ResponseErrorHandler.generateResponse("Lista buscado com sucesso.", HttpStatus.OK,
+            return ResponseErrorHandler.generateResponse("Lista buscada com sucesso.", HttpStatus.OK,
                     mediaLists);
 
         } catch (RuntimeException e) {
 
+            e.printStackTrace();
+            
             return ResponseErrorHandler.generateResponse("Falha ao buscar listas.", HttpStatus.INTERNAL_SERVER_ERROR,
                     null);
         }   

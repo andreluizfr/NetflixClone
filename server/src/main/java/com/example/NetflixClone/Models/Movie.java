@@ -1,9 +1,11 @@
 package com.example.NetflixClone.Models;
 
 import com.example.NetflixClone.Models.enums.Genre;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.List;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -28,10 +30,10 @@ public class Movie extends Media{
     @Column(name = "sequence_number", nullable = false)
     private int sequenceNumber;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "actors_actresses", nullable = false)
     private List<String> actorsActresses;
 
-    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "episode_id", referencedColumnName = "id")
     private Episode episode;

@@ -8,6 +8,7 @@ import Preview from './Preview';
 import Playlist from './Playlist';
 import Footer from './Footer';
 
+import { GetCurrentPreviewMediaService } from '@Application/useCases/GetCurrentPreviewMedia/GetCurrentPreviewMediaService';
 import { GetMediaListsService } from '@Application/useCases/GetMediaLists/GetMediaListsService';
 
 import { MediaList } from '@Model/entities/MediaList';
@@ -17,10 +18,10 @@ import { Helmet } from 'react-helmet-async';
 
 import { motion, useScroll, useTransform  } from 'framer-motion';
 
-//import { StoreState } from '@Infrastructure/stores/redux/config';
-//import { removeUser } from '@Infrastructure/stores/redux/features/userSlice';
-//import { useNavigate } from 'react-router-dom';
-//import { useDispatch, useSelector } from 'react-redux';
+import { StoreState } from '@Infrastructure/stores/redux/config';
+import { removeUser } from '@Infrastructure/stores/redux/features/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,14 +29,13 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function ContentsPage(): JSX.Element {
 
     //  ############# Redirecionamento de página ##################
-    /*
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state: StoreState) => state.user);
 
     useEffect(()=>{
         
-        if(!user.data?.account?.isActive){
+        if(user.data && !user.data.account.active){
             toast.error("Ainda não identificamos o seu pagamento", {
                 position: "top-center",
                 hideProgressBar: true
@@ -45,15 +45,28 @@ export default function ContentsPage(): JSX.Element {
         }
         
     }, [user.data]);
-    */
+
 
     //  ############# Manipulação de requisição ##################
     const [mediaLists, setMediaLists] = useState<MediaList[]>([] as MediaList[]);
 
     const [previewMedia, setPreviewMedia] = useState<Media | null>(null);
 
+    const getCurrentPreviewMediaResult = GetCurrentPreviewMediaService();
+
     const getMediaListsResult = GetMediaListsService();
-    
+
+    useEffect(()=>{
+        if(getCurrentPreviewMediaResult.isError && getCurrentPreviewMediaResult.error) 
+            toast.error("Parece que o servidor está enfrentando problemas para buscar o preview inicial.", {
+                position: "bottom-center",
+                hideProgressBar: true
+            });
+        else if(getCurrentPreviewMediaResult.data?.data) 
+            setPreviewMedia(getCurrentPreviewMediaResult.data.data.media);
+
+    }, [getCurrentPreviewMediaResult.isError, getCurrentPreviewMediaResult.error, getCurrentPreviewMediaResult.data]);
+
     useEffect(()=>{
         if(getMediaListsResult.isError && getMediaListsResult.error) 
             toast.error("Parece que o servidor está enfrentando problemas para buscar as mídias.", {
@@ -81,6 +94,8 @@ export default function ContentsPage(): JSX.Element {
         else if(headerRef?.current && (value*100) < 8)
             (headerRef.current as HTMLElement).style.backgroundColor = "transparent";
 	});
+
+    const [isInitialPreview, setIsInitialPreview]  = useState(true);
     
 
     //  ############# Renderização do conteúdo ##################
@@ -112,12 +127,18 @@ export default function ContentsPage(): JSX.Element {
 
             <Header headerRef={headerRef}/>
 
-            <Preview media={previewMedia}/>
+            <Preview media={previewMedia} isInitialPreview={isInitialPreview}/>
             
             <main className='Contents-container'>
                 {/*<Playlist title={"Continuar assistindo como perfil1"} medias={medias}/>*/}
                 {mediaLists.map((mediaList, index)=>{
-                    return <Playlist title={mediaList.title} medias={mediaList.medias} key={mediaList.title+index} setPreviewMedia={setPreviewMedia}/>
+                    return <Playlist 
+                                title={mediaList.title} 
+                                medias={mediaList.medias} 
+                                key={mediaList.title+index} 
+                                setPreviewMedia={setPreviewMedia}
+                                setIsInitialPreview={setIsInitialPreview}
+                            />
                 })}
             </main>
 

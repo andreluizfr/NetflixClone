@@ -3,7 +3,7 @@ package com.example.NetflixClone.Models;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -21,11 +21,13 @@ import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "Episode")
 @Table(name = "Episode")
 public class Episode {
@@ -34,32 +36,34 @@ public class Episode {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne(mappedBy = "episode")
     private Movie movie;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "tv_show_id", referencedColumnName = "media_id")
     private TvShow tvShowId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "anime_id", referencedColumnName = "media_id")
     private Anime animeId;
 
     @Column(name = "title", nullable = true)
-    String title;
+    private String title;
 
     @Column(name = "thumbnail_url", columnDefinition = "TEXT", nullable = true)
-    String thumbnailUrl;
+    private String thumbnailUrl;
 
     @Column(name = "episode_url", columnDefinition = "TEXT", nullable = false)
-    String episodeUrl;
+    private String episodeUrl;
 
     @Column(name = "duration", nullable = false) //in minutes
-    int duration;
+    private int duration;
 
     @Column(name = "ordem", nullable = true)
-    int order;
+    private Integer order;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)

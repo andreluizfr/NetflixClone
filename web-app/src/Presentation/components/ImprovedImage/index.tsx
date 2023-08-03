@@ -6,7 +6,6 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import brokenImage from '../../assets/img/broken-image.png';
 
 interface ImprovedImageProps extends React.HTMLProps<HTMLImageElement> {
-    hash: string;
 }
 
 export default function ImprovedImage(props: ImprovedImageProps): JSX.Element {

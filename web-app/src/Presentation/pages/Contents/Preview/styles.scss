@@ -32,6 +32,10 @@
         left: 0;
         background: linear-gradient(to right, rgba(0,0,0, 1) 50%, rgba(0,0,0, 0.95) 80%, rgba(0,0,0,0.8) 90%, rgba(0,0,0,0));
 
+        &[isInitialPreview = "true"]{
+            background: none;
+        }
+
         @include mq-medium{
             padding: 6%;
         }

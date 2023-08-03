@@ -1,6 +1,5 @@
 import { makeHttpClient } from "@Main/factories/infrastructure/makeHttpClient";
 import { makePersistentStorage } from "@Main/factories/infrastructure/makePersistentStorage";
-import { queryClient } from "@Main/providers/ReactQueryProvider";
 
 import { HttpStatusCode } from "@Application/interfaces/httpClient/HttpStatusCode";
 import { IHttpError } from "@Application/interfaces/httpClient/IHttpError";
@@ -26,17 +25,15 @@ export const FetchUserService = () => {
             staleTime: 5 * 1000,
             cacheTime: 60 * 60 * 1000,
             initialData: ()=>{
-
-                const cachedData = queryClient.getQueryData<IHttpResponse<User>>(['fetchUser']);
-                if (cachedData) return cachedData;
-
                 const persistentStorage = makePersistentStorage();
                 const user = persistentStorage.get<User>("user");
 
-                return {
-                    message: "Usuário dado pelo storage", 
-                    data: user
-                };
+                if(user)
+                    return {
+                        message: "Usuário dado pelo storage", 
+                        data: user
+                    };
+                else return undefined;
             },
         }
     );

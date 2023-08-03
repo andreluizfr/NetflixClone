@@ -1,7 +1,7 @@
 package com.example.NetflixClone.Models;
 
 import com.example.NetflixClone.Models.enums.Genre;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -10,6 +10,9 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,12 +26,14 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "Media")
 @Table(name = "Media")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -45,6 +50,7 @@ public class Media {
     @Column(name = "is_animation", nullable = false)
     private boolean isAnimation;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "genres", nullable = false)
     private List<Genre> genres;
 
@@ -69,10 +75,11 @@ public class Media {
     @Column(name = "trailer_url", columnDefinition = "TEXT", nullable = false)
     private String trailerUrl;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "medias")
     private Set<MediaList> mediaLists;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne(mappedBy = "media")
     private PreviewMedia previewMedia;
 
@@ -80,10 +87,6 @@ public class Media {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-
-    public Media() {
-    	this.createdAt = LocalDateTime.now();
-    }
 
     public Media(
         String title,

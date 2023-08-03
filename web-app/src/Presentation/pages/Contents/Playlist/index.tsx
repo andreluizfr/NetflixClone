@@ -9,10 +9,11 @@ import { useRef, useState } from 'react';
 interface props {
     title: string,
     medias: Media[],
-    setPreviewMedia: React.Dispatch<React.SetStateAction<Media | null>>
+    setPreviewMedia: React.Dispatch<React.SetStateAction<Media | null>>,
+    setIsInitialPreview: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function Playlist({title, medias, setPreviewMedia}: props) {
+export default function Playlist({title, medias, setPreviewMedia, setIsInitialPreview}: props) {
 
     //  ############# Manipulação de dados na view ##################
     let isMouseDown = false;
@@ -61,6 +62,7 @@ export default function Playlist({title, medias, setPreviewMedia}: props) {
 
     function handleMouseOver(media: Media) {
         setPreviewMedia(media);
+        setIsInitialPreview(false);
     }
 
     const [intervals, setIntervals] = useState<NodeJS.Timer>();
@@ -108,14 +110,12 @@ export default function Playlist({title, medias, setPreviewMedia}: props) {
                     ref={playlistContainerRef}
                 >
                     {   
-                        medias.map((media)=>
+                        medias?.map((media)=>
                             <ImprovedImage
                                 src={media.thumbnailUrl} 
                                 className='Thumbnail'
-                                key={"media-"+media.id}
-                                hash={media.thumbnailBlurHash}
+                                key={"media-"+media.id+"-"+Math.floor(Math.random() * 1000000)}
                                 onMouseOver={()=>handleMouseOver(media)}
-                                //onClick={}
                             />
                         )
                     }
