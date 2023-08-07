@@ -1,0 +1,202 @@
+.WhoIsWatchingPage {
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgb(0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.WhoIsWatchingPage .Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+}
+.WhoIsWatchingPage .Header a .Logo {
+  height: 32px;
+  width: auto;
+}
+@media only screen and (max-width: 576px) {
+  .WhoIsWatchingPage .Header a .Logo {
+    height: 24px;
+  }
+}
+.WhoIsWatchingPage .Header .Login-link {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.WhoIsWatchingPage .Header .Login-link:visited {
+  color: #333;
+}
+.WhoIsWatchingPage .Header .Login-link:hover {
+  text-decoration: underline;
+}
+.WhoIsWatchingPage .Who-is-watching-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  padding: 64px;
+}
+@media only screen and (max-width: 720px) {
+  .WhoIsWatchingPage .Who-is-watching-container {
+    padding: 32px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .WhoIsWatchingPage .Who-is-watching-container {
+    padding: 16px;
+  }
+}
+.WhoIsWatchingPage .Who-is-watching-container .Title {
+  font-size: 1.6rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+.WhoIsWatchingPage .Who-is-watching-container .Profiles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+@media only screen and (max-width: 576px) {
+  .WhoIsWatchingPage .Who-is-watching-container .Profiles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.WhoIsWatchingPage .Who-is-watching-container .Profiles .Profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.WhoIsWatchingPage .Who-is-watching-container .Profiles .Profile-container .Icon {
+  width: 76px;
+  height: 76px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center center;
+     object-position: center center;
+  border-radius: 3px;
+  filter: brightness(0.8);
+  transition: 300ms all;
+}
+@media only screen and (max-width: 956px) {
+  .WhoIsWatchingPage .Who-is-watching-container .Profiles .Profile-container .Icon {
+    width: 64px;
+    height: 64px;
+  }
+}
+@media only screen and (max-width: 720px) {
+  .WhoIsWatchingPage .Who-is-watching-container .Profiles .Profile-container .Icon {
+    width: 56px;
+    height: 56px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .WhoIsWatchingPage .Who-is-watching-container .Profiles .Profile-container .Icon {
+    width: 64px;
+    height: 64px;
+  }
+}
+.WhoIsWatchingPage .Who-is-watching-container .Profiles .Profile-container .Owner-name {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: #8c8c8c;
+  transition: 300ms all;
+}
+.WhoIsWatchingPage .Who-is-watching-container .Profiles .Profile-container .Owner-name::first-letter {
+  text-transform: capitalize;
+}
+.WhoIsWatchingPage .Who-is-watching-container .Profiles .Profile-container:hover .Icon {
+  filter: brightness(1);
+}
+.WhoIsWatchingPage .Who-is-watching-container .Profiles .Profile-container:hover .Owner-name {
+  color: rgb(255, 255, 255);
+}
+.WhoIsWatchingPage .Who-is-watching-container .Profiles .Add-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.WhoIsWatchingPage .Who-is-watching-container .Profiles .Add-profile .Icon {
+  width: 48px;
+  height: 48px;
+  margin: 14px;
+  filter: invert(0.6);
+  transition: 300ms all;
+}
+@media only screen and (max-width: 956px) {
+  .WhoIsWatchingPage .Who-is-watching-container .Profiles .Add-profile .Icon {
+    width: 40px;
+    height: 40px;
+    margin: 12px;
+  }
+}
+@media only screen and (max-width: 720px) {
+  .WhoIsWatchingPage .Who-is-watching-container .Profiles .Add-profile .Icon {
+    width: 32px;
+    height: 32px;
+    margin: 12px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .WhoIsWatchingPage .Who-is-watching-container .Profiles .Add-profile .Icon {
+    width: 48px;
+    height: 48px;
+    margin: 8px;
+  }
+}
+.WhoIsWatchingPage .Who-is-watching-container .Profiles .Add-profile .Description {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: #8c8c8c;
+  transition: 300ms all;
+}
+.WhoIsWatchingPage .Who-is-watching-container .Profiles .Add-profile:hover .Icon {
+  filter: invert(1);
+}
+.WhoIsWatchingPage .Who-is-watching-container .Profiles .Add-profile:hover .Description {
+  color: rgb(255, 255, 255);
+}
+.WhoIsWatchingPage .Who-is-watching-container .Manage-profiles-button {
+  margin-top: 56px;
+  padding: 6px 16px;
+  border: 1px solid #8c8c8c;
+  background-color: transparent;
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: #8c8c8c;
+  transition: 300ms all;
+  cursor: pointer;
+}
+.WhoIsWatchingPage .Who-is-watching-container .Manage-profiles-button:hover {
+  border: 1px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+}
+@media only screen and (max-width: 720px) {
+  .WhoIsWatchingPage .Who-is-watching-container .Manage-profiles-button {
+    margin-top: 16px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .WhoIsWatchingPage .Who-is-watching-container .Manage-profiles-button {
+    margin-top: 8px;
+  }
+}/*# sourceMappingURL=styles.css.map */

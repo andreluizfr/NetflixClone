@@ -37,19 +37,27 @@
   gap: 8px;
   list-style: none;
   list-style-type: none;
-}
-.ProfileDropdownMenuContent .ProfileDropdownMenuItem .Item-container {
-  font-size: 0.8rem;
-  text-align: left;
   text-decoration: none;
+  font-size: 0.8rem;
   color: rgb(255, 255, 255);
   cursor: pointer;
 }
-.ProfileDropdownMenuContent .ProfileDropdownMenuItem .Item-container:visited {
-  color: rgb(255, 255, 255);
+.ProfileDropdownMenuContent .ProfileDropdownMenuItem .Profile-icon {
+  width: 16px;
+  height: 16px;
 }
-.ProfileDropdownMenuContent .ProfileDropdownMenuItem .Item-container .Option {
-  color: rgb(255, 255, 255);
+.ProfileDropdownMenuContent .ProfileDropdownMenuItem .Profile-name {
+  font-weight: 300;
+}
+.ProfileDropdownMenuContent .ProfileDropdownMenuItem .Profile-name::first-letter {
+  text-transform: capitalize;
+}
+.ProfileDropdownMenuContent .ProfileDropdownMenuItem .Icon {
+  width: 16px;
+  height: 16px;
+}
+.ProfileDropdownMenuContent .ProfileDropdownMenuItem .Option {
+  font-weight: 400;
 }
 .ProfileDropdownMenuContent:hover {
   opacity: 0.8;

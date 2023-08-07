@@ -41,27 +41,31 @@
         gap: 8px;
         list-style: none;
         list-style-type: none;
-        
-        .Item-container{
-            font-size: $font-size-small;
-            text-align: left;
-            text-decoration: none;
-            color: $font-primary-color;
-            cursor: pointer;
+        text-decoration: none;
+        font-size: $font-size-small;
+        color: $font-primary-color;
+        cursor: pointer;
 
-            &:visited{
-                color: $font-primary-color;
-            }
+        .Profile-icon{
+            width: 16px;
+            height: 16px;
+        }
 
-            img{
-
-            }
-
-            .Option{
-                color: $font-primary-color;
+        .Profile-name{
+            font-weight: 300;
+            &::first-letter{
+                text-transform: capitalize;
             }
         }
-        
+
+        .Icon{
+            width: 16px;
+            height: 16px;
+        }
+
+        .Option{
+            font-weight: 400;
+        }
     }
 
     &:hover{

@@ -1,15 +1,4 @@
-export interface SeenShow{
-    id: number,
-    title: string,
-    thumbnailUrl: string
-}
-
-export interface Profile{
-    name: string,
-    iconUrl: string,
-    seenShows: SeenShow[],
-    preferences: object
-}
+import { Profile } from "./Profile";
 
 export enum Plan {
     BASIC_WITH_ADS, BASIC, PREMIUM

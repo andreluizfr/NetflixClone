@@ -24,7 +24,7 @@ export default function SignupPlanPage(): JSX.Element{
     const navigate = useNavigate();
 
     useEffect(()=>{
-        if(user.data?.account?.isActive){
+        if(user.data?.account?.active){
             navigate("/contents");
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps

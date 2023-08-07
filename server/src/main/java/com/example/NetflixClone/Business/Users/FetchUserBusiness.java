@@ -1,5 +1,6 @@
 package com.example.NetflixClone.Business.Users;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +23,8 @@ public class FetchUserBusiness {
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
 
             User user = (User) authentication.getPrincipal();
+
+            Hibernate.initialize(user.getAccount().getProfiles());
 
             return user;
         }

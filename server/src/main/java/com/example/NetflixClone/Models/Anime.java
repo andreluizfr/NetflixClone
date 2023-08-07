@@ -10,6 +10,7 @@ import org.hibernate.type.SqlTypes;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -36,7 +37,7 @@ public class Anime extends Media {
     @Column(name = "voice_actors_actresses", nullable = false)
     private List<String> voiceActorsActresses;
 
-    @OneToMany(mappedBy = "animeId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "animeId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Episode> episodes;
 
     public Anime() {

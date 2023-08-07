@@ -9,6 +9,7 @@ const SignupRegistrationPage = lazy(() => import('@Presentation/pages/SignupRegi
 const SignupPaymentPickerPage = lazy(() => import('@Presentation/pages/SignupPaymentPicker'));
 const SignupInformationsPage = lazy(() => import('@Presentation/pages/SignupInformations'));
 const SignupPaymentPage = lazy(() => import('@Presentation/pages/SignupPayment'));
+const WhoIsWatchingPage = lazy(() => import('@Presentation/pages/WhoIsWatching'));
 const ContentsPage = lazy(() => import('@Presentation/pages/Contents'));
 
 import {
@@ -55,6 +56,10 @@ function Router() {
 					{
 						path: "/signup/payment",
 						element: <SignupPaymentPage/>,
+					},
+					{
+						path: "/whoIsWatching",
+						element: <AuthProvider><WhoIsWatchingPage/></AuthProvider>,
 					},
 					{
 						path: "/contents",

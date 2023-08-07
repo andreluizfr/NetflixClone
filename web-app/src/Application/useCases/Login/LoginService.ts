@@ -65,7 +65,7 @@ function HandleLoginQuerySuccess(data: IHttpResponse<string>, navigate: Navigate
         const persistentStorage = makePersistentStorage();
         persistentStorage.set("x-access-token", accessToken);
 
-        setTimeout(()=>navigate("/contents", { replace: true }), 2000);
+        setTimeout(()=>navigate("/whoIsWatching", { replace: true }), 2000);
 
         queryClient.prefetchQuery({queryKey: ['fetchUser'], queryFn: FetchUserHttpRequest });
         queryClient.prefetchQuery({queryKey: ['getMediaLists'], queryFn: GetMediaListsHttpRequest });

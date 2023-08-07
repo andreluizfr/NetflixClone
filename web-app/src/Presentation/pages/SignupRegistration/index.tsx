@@ -24,7 +24,7 @@ export default function SignupRegistrationPage(): JSX.Element {
 
     useEffect(()=>{
 
-        if(user.data?.account?.isActive){
+        if(user.data?.account?.active){
             navigate("/contents");
         }
         //próxima página, se tem usuário logado com plano ou dados de email, senha com plano também

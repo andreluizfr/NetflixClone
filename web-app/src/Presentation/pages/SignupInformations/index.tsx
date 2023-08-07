@@ -33,7 +33,7 @@ export default function SignupInformationsPage(): JSX.Element{
 
     useEffect(()=>{
 
-        if(user.data?.account?.isActive){
+        if(user.data?.account?.active){
             navigate("/contents");
         }
         else if(user.data!==null && signup.plan!==null && signup.paymentType!==null){ 

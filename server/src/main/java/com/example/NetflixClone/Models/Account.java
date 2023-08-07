@@ -9,16 +9,18 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import com.example.NetflixClone.Models.enums.Plan;
-import com.example.NetflixClone.Models.records.Profile;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mercadopago.resources.preference.Preference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -35,6 +37,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
     private UUID id;
 
     @JsonIgnore
@@ -54,9 +57,9 @@ public class Account {
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "payment_history", nullable = false)
     private List<Preference> paymentHistory;
-
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "profiles", nullable = false)
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "account_id") //como Profile vai se referenciar a essa entidade
     private List<Profile> profiles;
 
     @Column(name = "limit_of_profiles", nullable = true)

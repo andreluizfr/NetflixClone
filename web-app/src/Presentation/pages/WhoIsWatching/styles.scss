@@ -1,0 +1,203 @@
+@import '../../assets/sass/variables';
+@import '../../assets/sass/mixins';
+
+.WhoIsWatchingPage{
+    min-height: 100vh; 
+    width: 100%;
+    background-color: $background-primary-color;
+    @include flex-column-start-center;
+
+    .Header{
+        @include flex-row-space-between-center;
+        width: 100%;
+        padding: 16px;
+        border-bottom: 1px solid rgba(0,0,0,0.16);
+
+        a{
+            .Logo{
+                height: 32px;
+                width: auto;
+
+                @include mq-small{
+                    height: 24px;
+                }
+            }
+        }
+
+        .Login-link{
+            color: $font-quinary-color;
+            font-size: $font-size-normal;
+            font-weight: 500;
+            text-decoration: none;
+
+            &:visited{
+                color: $font-quinary-color;
+            }
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+        
+    }
+
+    .Who-is-watching-container{
+        @include flex-column-center-center;
+        gap: 32px;
+        padding: 64px;
+
+        @include mq-medium{
+            padding: 32px;
+        }
+
+        @include mq-small{
+            padding: 16px;
+        }
+
+        .Title{
+            font-size: $font-size-large;
+            font-family: Arial, Helvetica, sans-serif;
+            color: $font-primary-color;
+            text-align: center;
+        }
+
+        .Profiles{
+            @include flex-row-center-center;
+            gap: 16px;
+
+            @include mq-small{
+                @include flex-column-center-center;
+            }
+
+            .Profile-container{
+                @include flex-column-center-center;
+                gap: 8px;
+                cursor: pointer;
+
+                .Icon{
+                    width: 76px;
+                    height: 76px;
+                    object-fit: cover;
+                    object-position: center center;
+                    border-radius: 3px;
+
+                    filter: brightness(0.8);
+                    transition: 300ms all;
+
+                    @include mq-large{
+                        width: 64px;
+                        height: 64px;
+                    }
+
+                    @include mq-medium{
+                        width: 56px;
+                        height: 56px;
+                    }
+
+                    @include mq-small{
+                        width: 64px;
+                        height: 64px;
+                    }
+                }
+
+                .Owner-name{
+                    font-size: $font-size-small;
+                    font-weight: 300;
+                    color: $font-tertiary-color;
+                    transition: 300ms all;
+
+                    &::first-letter{
+                        text-transform: capitalize;
+                    }
+                }
+
+                &:hover{
+                    .Icon{
+                        filter: brightness(1);
+                    }
+
+                    .Owner-name{
+                        color: $font-primary-color;
+                    }
+                }
+            }
+
+            .Add-profile{
+                @include flex-column-center-center;
+                gap: 8px;
+                cursor: pointer;
+
+                .Icon{
+                    width: 48px;
+                    height: 48px;
+                    margin: 14px;
+                    filter: invert(0.6);
+                    transition: 300ms all;
+
+                    @include mq-large{
+                        width: 40px;
+                        height: 40px;
+                        margin: 12px;
+                    }
+
+                    @include mq-medium{
+                        width: 32px;
+                        height: 32px;
+                        margin: 12px;
+                    }
+
+                    @include mq-small{
+                        width: 48px;
+                        height: 48px;
+                        margin: 8px;
+                    }
+                }
+
+                .Description{
+                    font-size: $font-size-small;
+                    font-weight: 300;
+                    color: $font-tertiary-color;
+                    transition: 300ms all;
+                }
+
+                &:hover{
+                    .Icon{
+                        filter: invert(1);
+                    }
+                    .Description{
+                        color: $font-primary-color;
+                    }
+                }
+            }
+        }
+
+        .Manage-profiles-button{
+            margin-top: 56px;
+            padding: 6px 16px;
+            border: 1px solid $font-tertiary-color;
+            background-color: transparent;
+    
+            font-size: $font-size-small;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: $font-tertiary-color;
+
+            transition: 300ms all;
+            cursor: pointer;
+
+            &:hover{
+                border: 1px solid $font-primary-color;
+                color: $font-primary-color;
+            }
+
+            @include mq-medium{
+                margin-top: 16px;
+            }
+
+            @include mq-small{
+                margin-top: 8px;
+            }
+        }
+
+    }
+
+}

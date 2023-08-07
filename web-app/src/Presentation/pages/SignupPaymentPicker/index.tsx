@@ -33,7 +33,7 @@ export default function SignupPaymentPickerPage(): JSX.Element{
     const signup = useSelector((state: StoreState) => state.signup);
 
     useEffect(()=>{
-        if(user.data?.account?.isActive){
+        if(user.data?.account?.active){
             navigate("/contents");
         }
         else if( !(signup.email && signup.password) && !user.data){ //página anterior, se não tem email e senha e nao tem usuario logado

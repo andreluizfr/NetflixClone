@@ -76,12 +76,16 @@ public class Media {
     private String trailerUrl;
 
     @JsonIgnore
+    @OneToOne(mappedBy = "media")
+    private PreviewMedia previewMedia;
+
+    @JsonIgnore
     @ManyToMany(mappedBy = "medias")
     private Set<MediaList> mediaLists;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "media")
-    private PreviewMedia previewMedia;
+    @ManyToMany(mappedBy = "seenMedias")
+    private Set<Profile> profiles;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
