@@ -1,4 +1,5 @@
 import './styles.css';
+import gestao from '@Presentation/assets/img/gestao.png';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import { motion, useAnimation } from 'framer-motion';
@@ -9,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { makePersistentStorage } from '@Main/factories/infrastructure/makePersistentStorage';
 
-import { removeUser } from '@Infrastructure/stores/redux/features/userSlice';
+import { removeUser, setProfile } from '@Infrastructure/stores/redux/features/userSlice';
 import { useEffect } from 'react';
 import { StoreState } from '@Infrastructure/stores/redux/config';
 import { Profile } from '@Model/entities/Profile';
@@ -41,6 +42,10 @@ export default function ProfileDropdownMenu(): JSX.Element {
     }, []);
 
     const user = useSelector((state: StoreState) => state.user);
+
+    useEffect(()=>{
+        dispatch(setProfile());
+    }, []);
 
     return(
         <DropdownMenu.Root>
@@ -76,30 +81,28 @@ export default function ProfileDropdownMenu(): JSX.Element {
                         }
 
                         <motion.li className='ProfileDropdownMenuItem'>
-                            <img className='Icon' src={""} alt="manage icon"/>
+                            <img className='Icon' src={gestao} alt="manage icon"/>
                             <span className='Option'>Gerenciar perfis </span>
                         </motion.li>
 
                         <motion.li className='ProfileDropdownMenuItem'>
-                            <img className='Icon' src={""} alt="transfer icon"/>
+                            <img className='Icon' src={gestao} alt="transfer icon"/>
                             <span className='Option'>Transferir perfil</span>
                         </motion.li>
 
                         <motion.li className='ProfileDropdownMenuItem'>
-                            <img className='Icon' src={""} alt="account icon"/>
+                            <img className='Icon' src={gestao} alt="account icon"/>
                             <span className='Option'>Conta</span>
                         </motion.li>
 
                         <motion.li className='ProfileDropdownMenuItem'>
-                            <img className='Icon' src={""} alt="help icon"/>
+                            <img className='Icon' src={gestao} alt="help icon"/>
                             <span className='Option'>Central de Ajuda</span>
                         </motion.li>
 
-                        <motion.li className='ProfileDropdownMenuItem'>
-                            <div className='Item-container' onClick={logout}>
-                                <img className='Icon' src={""} alt="help icon"/>
-                                <span className='Option'>Sair</span>
-                            </div>
+                        <motion.li className='ProfileDropdownMenuItem' onClick={logout}>
+                            <img className='Icon' src={gestao} alt="help icon"/>
+                            <span className='Option'>Sair</span>
                         </motion.li>
                         
                     </motion.ul>

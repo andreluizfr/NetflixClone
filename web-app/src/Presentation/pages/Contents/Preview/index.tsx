@@ -12,6 +12,7 @@ import { Anime, isAnime } from '@Model/entities/Anime';
 
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
+import React from 'react';
 
 interface PreviewProps extends React.HTMLAttributes<HTMLElement>{
     media: Media | null;
@@ -57,7 +58,7 @@ export default function Preview({media, isInitialPreview}: PreviewProps): JSX.El
                         <div className="Row-1">
                             <span className='Relevance'>100% relevante</span>
                             <span>{media.releaseYear}</span>
-                            {(isMovie(media) && (media as Movie).isMovieSeries) &&
+                            {(isMovie(media) && (media as Movie).movieSeries) &&
                                 <span>Filme {(media as Movie).sequenceNumber}</span>
                             }
                             {isTvShow(media) &&
@@ -80,6 +81,9 @@ export default function Preview({media, isInitialPreview}: PreviewProps): JSX.El
                             }
                             {isTvShow(media) &&
                                 <i className='ActorsActresses'>{(media as TvShow).actorsActresses.join(", ")}</i>
+                            }
+                            {isAnime(media) &&
+                                <i className='ActorsActresses'>{(media as Anime).voiceActorsActresses.join(", ")}</i>
                             }
                             <i className='Genres'>{media.genres.join(", ")}</i>
                         </div>

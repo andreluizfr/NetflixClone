@@ -33,11 +33,17 @@ const userSlice = createSlice({
             persistentStorage.remove("user");
             persistentStorage.remove("x-access-token");
         },
-        setProfile(state: UserState, action: ReduxAction<Profile>){
-            state.selectedProfile = action.payload;
-
+        setProfile(state: UserState, action: ReduxAction<Profile | undefined> ){
             const persistentStorage = makePersistentStorage();
-            persistentStorage.set("selectedProfile", action.payload);
+
+            if(action.payload === undefined){
+                const selectedProfile = persistentStorage.get<Profile>("selectedProfile");
+                state.selectedProfile = selectedProfile;
+                persistentStorage.set("selectedProfile", selectedProfile);
+            } else {
+                state.selectedProfile = action.payload;
+                persistentStorage.set("selectedProfile", action.payload);
+            }   
         },
         removeProfile(state: UserState){
             state.selectedProfile = null;

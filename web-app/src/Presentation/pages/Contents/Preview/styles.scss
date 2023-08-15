@@ -22,9 +22,9 @@
     }
 
     .Preview-infos{
-        @include flex-column-center-start;
+        @include flex-column-end-start;
         gap: 8px;
-        padding: 8%;
+        padding: 6%;
         position: absolute;
         width: 60%;
         height: 100%;
@@ -34,10 +34,6 @@
 
         &[isInitialPreview = "true"]{
             background: none;
-        }
-
-        @include mq-medium{
-            padding: 6%;
         }
 
         @include mq-small{
@@ -73,6 +69,13 @@
                 color: $font-quaternary-color;
                 font-size: $font-size-small;
                 font-weight: 300;
+                
+                @include mq-large{
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 4;
+                    overflow: hidden;
+                }
 
                 @include mq-medium{
                     display: -webkit-box;
@@ -93,11 +96,16 @@
         .Row-3{
 
             .ActorsActresses{
+                display: block;
                 color: $font-quaternary-color;
                 text-align: left;
                 font-size: $font-size-smaller;
                 font-weight: 300;
                 font-family: Arial, Helvetica, sans-serif;
+
+                @include mq-small{
+                    display: none;
+                }
             }
 
             .Genres{

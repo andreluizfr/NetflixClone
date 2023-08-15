@@ -27,6 +27,7 @@ export default function ImprovedEmbededVideo(props: ImprovedVideoProps): JSX.Ele
     }
 
     const width = window.innerWidth;
+    console.log(window);
 
     if(error)
         return <img 

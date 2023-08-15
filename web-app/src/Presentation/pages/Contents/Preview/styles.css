@@ -22,10 +22,10 @@
 .Preview .Preview-infos {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: flex-start;
   gap: 8px;
-  padding: 8%;
+  padding: 6%;
   position: absolute;
   width: 60%;
   height: 100%;
@@ -35,11 +35,6 @@
 }
 .Preview .Preview-infos[isInitialPreview=true] {
   background: none;
-}
-@media only screen and (max-width: 720px) {
-  .Preview .Preview-infos {
-    padding: 6%;
-  }
 }
 @media only screen and (max-width: 576px) {
   .Preview .Preview-infos {
@@ -73,6 +68,14 @@
   font-size: 0.8rem;
   font-weight: 300;
 }
+@media only screen and (max-width: 956px) {
+  .Preview .Preview-infos .Row-2 .Description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
+}
 @media only screen and (max-width: 720px) {
   .Preview .Preview-infos .Row-2 .Description {
     display: -webkit-box;
@@ -90,11 +93,17 @@
   }
 }
 .Preview .Preview-infos .Row-3 .ActorsActresses {
+  display: block;
   color: #b3b3b3;
   text-align: left;
   font-size: 0.7rem;
   font-weight: 300;
   font-family: Arial, Helvetica, sans-serif;
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos .Row-3 .ActorsActresses {
+    display: none;
+  }
 }
 .Preview .Preview-infos .Row-3 .Genres {
   color: #b3b3b3;

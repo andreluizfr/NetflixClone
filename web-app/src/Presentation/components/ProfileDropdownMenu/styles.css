@@ -1,11 +1,3 @@
-.UserDropdownMenu {
-  background-color: black;
-  padding: 0;
-  margin: 0;
-  border: 0;
-  outline: 0;
-}
-
 .ProfileDropdownMenuTrigger {
   width: 20px;
   height: 20px;
@@ -22,7 +14,6 @@
 }
 
 .ProfileDropdownMenuContent {
-  z-index: 999999999;
   padding: 0.2rem;
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.7);
@@ -42,6 +33,9 @@
   color: rgb(255, 255, 255);
   cursor: pointer;
 }
+.ProfileDropdownMenuContent .ProfileDropdownMenuItem:hover {
+  text-decoration: underline;
+}
 .ProfileDropdownMenuContent .ProfileDropdownMenuItem .Profile-icon {
   width: 16px;
   height: 16px;
@@ -55,6 +49,7 @@
 .ProfileDropdownMenuContent .ProfileDropdownMenuItem .Icon {
   width: 16px;
   height: 16px;
+  filter: invert(1);
 }
 .ProfileDropdownMenuContent .ProfileDropdownMenuItem .Option {
   font-weight: 400;

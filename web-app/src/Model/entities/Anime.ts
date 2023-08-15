@@ -5,7 +5,7 @@ export interface Anime extends Media{
     numberOfSeasons: number,
     seasonNumber: number,
     studio: string,
-    voiceActorsActresses: string,
+    voiceActorsActresses: string[],
     episodes: Episode[]
 }
 

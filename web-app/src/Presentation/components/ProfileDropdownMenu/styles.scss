@@ -1,14 +1,6 @@
 @import '../../assets/sass/variables';
 @import '../../assets/sass/mixins';
 
-.UserDropdownMenu{
-    background-color: black;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    outline: 0;
-}
-
 .ProfileDropdownMenuTrigger{
     width: 20px;
     height: 20px;
@@ -28,7 +20,6 @@
 
 
 .ProfileDropdownMenuContent{
-    z-index: 999999999;
     padding: .2rem;
     border-radius: 4px;
     background-color: rgba($background-primary-color, 0.7);
@@ -46,6 +37,10 @@
         color: $font-primary-color;
         cursor: pointer;
 
+        &:hover{
+            text-decoration: underline;
+        }
+
         .Profile-icon{
             width: 16px;
             height: 16px;
@@ -61,6 +56,7 @@
         .Icon{
             width: 16px;
             height: 16px;
+            filter: invert(1);
         }
 
         .Option{

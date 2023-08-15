@@ -17,7 +17,7 @@
 }
 @media only screen and (max-width: 956px) {
   .ContentsPage > .Header .Logo-container {
-    margin-left: 64px;
+    margin-left: 48px;
   }
 }
 @media only screen and (max-width: 576px) {
@@ -28,6 +28,11 @@
 .ContentsPage > .Header .Logo-container .Logo {
   height: 24px;
   width: auto;
+}
+@media only screen and (max-width: 956px) {
+  .ContentsPage > .Header .Logo-container .Logo {
+    justify-self: center;
+  }
 }
 .ContentsPage > .Header .Content-navigation ul {
   display: flex;
@@ -51,9 +56,6 @@
   display: block;
   width: 24px;
   height: 24px;
-  position: absolute;
-  top: 8px;
-  left: 0;
   background-image: url("../../../assets/img/hamburger-menu.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -85,6 +87,11 @@
 }
 .ContentsPage > .Header .Extra-space {
   flex: 1 1 0;
+}
+@media only screen and (max-width: 956px) {
+  .ContentsPage > .Header .Extra-space {
+    display: none;
+  }
 }
 .ContentsPage > .Header .Other-options-container {
   display: flex;
