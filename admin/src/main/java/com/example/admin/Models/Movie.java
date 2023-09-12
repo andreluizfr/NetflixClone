@@ -4,11 +4,22 @@ import com.example.admin.Models.enums.Genre;
 
 import java.util.List;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity(name = "Movie")
 @Table(name = "Movie")
 public class Movie extends Media{
@@ -19,9 +30,14 @@ public class Movie extends Media{
     @Column(name = "sequence_number", nullable = false)
     private int sequenceNumber;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "actors_actresses", nullable = false)
     private List<String> actorsActresses;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "episode_id", referencedColumnName = "id")
+    private Episode episode;
+    
     public Movie() {super();}
 
     public Movie(
@@ -33,51 +49,31 @@ public class Movie extends Media{
         String descriptions,
         int ageRating,
         String thumbnailUrl,
-        String thumbnailBlurHash,
+        String posterUrl,
+        String trailerUrl,
 
         boolean isMovieSeries,
         int sequenceNumber,
-        List<String> actorsActresses
+        List<String> actorsActresses,
+        Episode episode
     ) {
-        super(title, isAnimation, genres, director, releaseYear, descriptions, ageRating, thumbnailUrl, thumbnailBlurHash);
+        super(title, isAnimation, genres, director, releaseYear, descriptions, ageRating, thumbnailUrl, posterUrl, trailerUrl);
 
         this.isMovieSeries = isMovieSeries;
         this.sequenceNumber = sequenceNumber; // receber 1 se nao for
         this.actorsActresses = actorsActresses;
+        this.episode = episode;
     }
 
     @Override
     public boolean equals(Object arg0) {
         Movie otherMovie = (Movie) arg0;
-        return this.id.equals(otherMovie.id);
+        return this.mediaId.equals(otherMovie.mediaId);
     }
 
     @Override
     public int hashCode() {
-    	if(this.id!=null)
-    		return this.id.hashCode();
-    	else return 1;
-    }
-
-
-    public void setIsMovieSeries(boolean isMovieSeries) {
-        this.isMovieSeries = isMovieSeries;
-    }
-    public boolean getIsMovieSeries() {
-        return this.isMovieSeries;
-    }
-    public void setSequenceNumber(int sequenceNumber) {
-        this.sequenceNumber = sequenceNumber;
-    }
-    public int getSequenceNumber() {
-        return this.sequenceNumber;
-    }
-    public void setActorsActresses(List<String> actorsActresses) {
-        this.actorsActresses = actorsActresses;
-    }
-    public List<String> getActorsActresses() {
-        return this.actorsActresses;
+        return this.mediaId.hashCode();
     }
 
 }
-

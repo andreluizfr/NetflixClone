@@ -64,6 +64,4 @@ public class RemoveMovieBean implements Serializable{
    public void setMessageState(String messageState) {
 	   this.messageState = messageState;
    }
-
-
 }

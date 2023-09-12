@@ -9,7 +9,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.example.NetflixClone.Models.User;
+import com.example.NetflixClone.User.Models.User;
 
 @Service
 public class TokenService {
@@ -42,7 +42,7 @@ public class TokenService {
     }
 
     private Date genExpirationDate() {
-        //return new Date((new Date()).getTime() + (24 * 60 * 60 * 1000));  //24hrs
-        return new Date((new Date()).getTime() + (30 * 60 * 1000));  //30min para testes
+        // return new Date((new Date()).getTime() + (24 * 60 * 60 * 1000)); //24hrs
+        return new Date((new Date()).getTime() + (30 * 60 * 1000)); // 30min para testes
     }
 }

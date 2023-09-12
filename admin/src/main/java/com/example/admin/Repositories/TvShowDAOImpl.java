@@ -11,13 +11,13 @@ import com.example.admin.JPAUtil;
 
 public class TvShowDAOImpl implements TvShowDAO {
 	
-	public void save(TvShow m) {
+	public void save(TvShow t) {
 		
 		EntityManager em = JPAUtil.getEntityManager();
 		
 		em.getTransaction().begin();
 		
-		em.persist(m);
+		em.persist(t);
 		
 		em.getTransaction().commit();
 		
@@ -52,24 +52,12 @@ public class TvShowDAOImpl implements TvShowDAO {
 	public void update(TvShow updatedTvShow) {
 		
 		EntityManager em = JPAUtil.getEntityManager();
-		TvShow tvShow = this.findById(updatedTvShow.getId());
+		TvShow t = this.findById(updatedTvShow.getMediaId());
 		
 		try {
 			em.getTransaction().begin();
 			
-			tvShow.setTitle(updatedTvShow.getTitle());
-			tvShow.setIsAnimation(updatedTvShow.getIsAnimation());
-			tvShow.setGenres(updatedTvShow.getGenres());
-			tvShow.setDirector(updatedTvShow.getDirector());
-			tvShow.setReleaseYear(updatedTvShow.getReleaseYear());
-			tvShow.setDescriptions(updatedTvShow.getDescriptions());
-			tvShow.setAgeRating(updatedTvShow.getAgeRating());
-			tvShow.setThumbnailUrl(updatedTvShow.getThumbnailUrl());
-			tvShow.setThumbnailBlurHash(updatedTvShow.getThumbnailBlurHash());
-			
-			tvShow.setNumberOfSeasons(updatedTvShow.getNumberOfSeasons());
-			tvShow.setSeasonNumber(updatedTvShow.getSeasonNumber());
-			tvShow.setActorsActresses(updatedTvShow.getActorsActresses());
+			em.persist(t);
 	
 			em.getTransaction().commit();
         

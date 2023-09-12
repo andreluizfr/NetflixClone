@@ -15,8 +15,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -87,6 +87,25 @@
 			<artifactId>jackson-datatype-jsr310</artifactId>
 			<version>2.13.4</version>
 		</dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.24</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-crypto</artifactId>
+      <version>6.1.0</version>
+    </dependency>
+
+    <dependency>
+			<groupId>com.mercadopago</groupId>
+			<artifactId>sdk-java</artifactId>
+			<version>2.1.11</version>
+		</dependency>
     
   </dependencies>
 
@@ -98,7 +117,7 @@
         <directory>src/resources/META-INF</directory>
       </resource>
       
-       <resource>
+      <resource>
         <directory>src/webapp/WEB-INF</directory>
       </resource>
      </resources>
@@ -118,8 +137,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
           <configuration>
-                <source>11</source>
-                <target>11</target>
+                <source>1.8</source>
+                <target>1.8</target>
             </configuration>
         </plugin>
         <plugin>

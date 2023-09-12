@@ -4,13 +4,25 @@ import com.example.admin.Models.enums.Genre;
 
 import java.util.List;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
 
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity(name = "Anime")
 @Table(name = "Anime")
-public class Anime extends Media{
+public class Anime extends Media {
 
     @Column(name = "number_of_seasons", nullable = false)
     private int numberOfSeasons;
@@ -21,56 +33,53 @@ public class Anime extends Media{
     @Column(name = "studio", nullable = false)
     private String studio;
 
-    public Anime(
-        String title,
-        boolean isAnimation,
-        List<Genre> genres,
-        String director,
-        int releaseYear,
-        String descriptions,
-        int ageRating,
-        String thumbnailUrl,
-        String thumbnailBlurHash,
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "voice_actors_actresses", nullable = false)
+    private List<String> voiceActorsActresses;
 
-        int numberOfSeasons,
-        int seasonNumber,
-        String studio
-    ) {
-        super(title, isAnimation, genres, director, releaseYear, descriptions, ageRating, thumbnailUrl, thumbnailBlurHash);
+    @OneToMany(mappedBy = "animeId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Episode> episodes;
+
+    public Anime() {
+        super();
+    }
+
+    public Anime(
+            String title,
+            boolean isAnimation,
+            List<Genre> genres,
+            String director,
+            int releaseYear,
+            String descriptions,
+            int ageRating,
+            String thumbnailUrl,
+            String posterUrl,
+            String trailerUrl,
+
+            int numberOfSeasons,
+            int seasonNumber,
+            String studio,
+            List<String> voiceActorsActresses,
+            List<Episode> episodes) {
+        super(title, isAnimation, genres, director, releaseYear, descriptions, ageRating, thumbnailUrl, posterUrl,
+                trailerUrl);
 
         this.numberOfSeasons = numberOfSeasons;
         this.seasonNumber = seasonNumber;
         this.studio = studio;
+        this.voiceActorsActresses = voiceActorsActresses;
+        this.episodes = episodes;
     }
 
     @Override
     public boolean equals(Object arg0) {
         Anime otherAnime = (Anime) arg0;
-        return this.id.equals(otherAnime.id);
+        return this.mediaId.equals(otherAnime.mediaId);
     }
 
     @Override
     public int hashCode() {
-        return this.id.hashCode();
-    }
-
-    public void setNumberOfSeasons(int numberOfSeasons) {
-        this.numberOfSeasons = numberOfSeasons;
-    }
-    public int getNumberOfSeasons() {
-        return this.numberOfSeasons;
-    }
-    public void setSeasonNumber(int seasonNumber) {
-        this.seasonNumber = seasonNumber;
-    }
-    public int getSeasonNumber() {
-        return this.seasonNumber;
-    }
-    public void setStudio(String studio) {
-        this.studio = studio;
-    }
-    public String getStudio() {
-        return this.studio;
+        return this.mediaId.hashCode();
     }
 
 }

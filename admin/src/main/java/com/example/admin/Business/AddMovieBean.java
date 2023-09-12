@@ -35,7 +35,7 @@ public class AddMovieBean implements Serializable {
    public AddMovieBean() {
       this.movieToAdd.setGenres(new ArrayList<>());
       this.movieToAdd.setAgeRating(0);
-      this.movieToAdd.setIsMovieSeries(false);
+      this.movieToAdd.setMovieSeries(false);
       this.movieToAdd.setSequenceNumber(1);
       this.movieToAdd.setActorsActresses(new ArrayList<>());
    }

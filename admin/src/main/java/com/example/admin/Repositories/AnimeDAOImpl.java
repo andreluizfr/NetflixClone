@@ -11,13 +11,13 @@ import com.example.admin.JPAUtil;
 
 public class AnimeDAOImpl implements AnimeDAO {
 	
-	public void save(Anime m) {
+	public void save(Anime a) {
 		
 		EntityManager em = JPAUtil.getEntityManager();
 		
 		em.getTransaction().begin();
 		
-		em.persist(m);
+		em.persist(a);
 		
 		em.getTransaction().commit();
 		
@@ -52,24 +52,12 @@ public class AnimeDAOImpl implements AnimeDAO {
 	public void update(Anime updatedAnime) {
 		
 		EntityManager em = JPAUtil.getEntityManager();
-		Anime anime = this.findById(updatedAnime.getId());
+		Anime a = this.findById(updatedAnime.getMediaId());
 		
 		try {
 			em.getTransaction().begin();
 			
-			anime.setTitle(updatedAnime.getTitle());
-			anime.setIsAnimation(updatedAnime.getIsAnimation());
-			anime.setGenres(updatedAnime.getGenres());
-			anime.setDirector(updatedAnime.getDirector());
-			anime.setReleaseYear(updatedAnime.getReleaseYear());
-			anime.setDescriptions(updatedAnime.getDescriptions());
-			anime.setAgeRating(updatedAnime.getAgeRating());
-			anime.setThumbnailUrl(updatedAnime.getThumbnailUrl());
-			anime.setThumbnailBlurHash(updatedAnime.getThumbnailBlurHash());
-			
-			anime.setNumberOfSeasons(updatedAnime.getNumberOfSeasons());
-			anime.setSeasonNumber(updatedAnime.getSeasonNumber());
-			anime.setStudio(updatedAnime.getStudio());
+			em.persist(a);
 	
 			em.getTransaction().commit();
         

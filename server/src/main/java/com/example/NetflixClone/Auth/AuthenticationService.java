@@ -6,13 +6,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.NetflixClone.Repositories.UserRepositoryDAO;
+import com.example.NetflixClone.User.DataProvider.UserRepository;
 
 @Service
 public class AuthenticationService implements UserDetailsService {
 
     @Autowired
-    UserRepositoryDAO userRepository;
+    UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

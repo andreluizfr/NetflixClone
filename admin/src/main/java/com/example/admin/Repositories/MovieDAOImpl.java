@@ -54,21 +54,22 @@ public class MovieDAOImpl implements MovieDAO {
 	public void update(Movie updatedMovie) {
 		
 		EntityManager em = JPAUtil.getEntityManager();
-		Movie movie = this.findById(updatedMovie.getId());
+		Movie movie = this.findById(updatedMovie.getMediaId());
 		
 		try {
 			em.getTransaction().begin();
 			
 			movie.setTitle(updatedMovie.getTitle());
-			movie.setIsAnimation(updatedMovie.getIsAnimation());
+			//movie.setIsAnimation(updatedMovie.getAnimation());
 			movie.setGenres(updatedMovie.getGenres());
 			movie.setDirector(updatedMovie.getDirector());
 			movie.setReleaseYear(updatedMovie.getReleaseYear());
 			movie.setDescriptions(updatedMovie.getDescriptions());
 			movie.setAgeRating(updatedMovie.getAgeRating());
 			movie.setThumbnailUrl(updatedMovie.getThumbnailUrl());
-			movie.setThumbnailBlurHash(updatedMovie.getThumbnailBlurHash());
-			movie.setIsMovieSeries(updatedMovie.getIsMovieSeries());
+
+
+			//movie.setIsMovieSeries(updatedMovie.getMovieSeries());
 			movie.setSequenceNumber(updatedMovie.getSequenceNumber());
 			movie.setActorsActresses(updatedMovie.getActorsActresses());
 	
