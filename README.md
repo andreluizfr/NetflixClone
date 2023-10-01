@@ -33,14 +33,10 @@
 <img src="/images/signup.PNG" width="100%" height="auto"/>
 
 ### Página de login mobile
-<img src="/images/login_mobile.PNG" width="50%" height="auto"/>
+<img src="/images/login-mobile.PNG" width="50%" height="auto"/>
 
 ### Página de seleção de perfil
 <img src="/images/who-is-watching.PNG" width="100%" height="auto"/>
-
-### Página do produto
-<img src="/images/product_page.png" width="100%" height="auto"/>
-<img src="/images/product_page-mobile.png" width="50%" height="auto"/>
 
 ### Página dos conteúdos
 <img src="/images/contentspage.PNG" width="100%" height="auto"/>
