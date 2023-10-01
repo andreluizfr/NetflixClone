@@ -9,8 +9,9 @@
 - Spring Security
 - Spring Data JPA
 - Hibernate
+- Java JWT
 - Lombok
-
+- Mercadopago SDK
 
 ### Frontend
 - HTML
@@ -22,7 +23,13 @@
 - React Redux / React Redux Toolkit
 - React Query
 - Radix UI
+- Framer motion
 - ZOD
+- React Hook Form
+- React Helmet
+- react-responsive, react-spinners, react-toastify, react-loading-skeleton
+- mercadopago/sdk-react
+
 
 ## Imagens
 
@@ -52,12 +59,12 @@ Abra pelo VsCode, instale a extensão do Spring e espere ser identificado o proj
 
 ### web-app
 
-#### rodar em desenvolvimento (porta 3000)
+#### rodar em desenvolvimento (porta 5173)
 ```npm install```
 
-```npm start```
+```npm run dev```
 
-#### rodar em produção (porta 3000)
+#### rodar em produção (porta 5173)
 ```npm install```
 
 ```npm run build```
