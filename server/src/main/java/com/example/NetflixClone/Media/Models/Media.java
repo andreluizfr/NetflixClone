@@ -88,7 +88,7 @@ public class Media {
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @UpdateTimestamp
     @Column(name="updated_at", nullable = false) 
@@ -115,7 +115,6 @@ public class Media {
         this.thumbnailUrl = thumbnailUrl;
         this.posterUrl = posterUrl;
         this.trailerUrl = trailerUrl;
-        this.createdAt = LocalDateTime.now();
     }
 
     @Override

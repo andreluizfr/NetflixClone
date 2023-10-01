@@ -44,6 +44,7 @@ export default function ContentsPage(): JSX.Element {
             setTimeout(()=>navigate("/signup/planform"), 2000);
         }
         
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user.data]);
 
 
@@ -116,7 +117,7 @@ export default function ContentsPage(): JSX.Element {
             </Helmet>
 
              <ToastContainer
-                autoClose={2000} //mesmo tempo do redirecionamento feito pelo serviço do login
+                autoClose={5000}
                 newestOnTop={true}
                 pauseOnFocusLoss={false}
                 draggable={false}

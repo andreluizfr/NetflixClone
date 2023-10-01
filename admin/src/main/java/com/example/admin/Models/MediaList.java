@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +28,7 @@ import jakarta.persistence.ManyToMany;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "MediaList")
 @Table(name = "MediaList")
 public class MediaList {
@@ -49,11 +51,7 @@ public class MediaList {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
-
-    public MediaList() {
-        this.createdAt = LocalDateTime.now();
-    }
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     public MediaList(String title, Set<Media> medias) {
         this.title = title;

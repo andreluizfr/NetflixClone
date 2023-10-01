@@ -33,6 +33,7 @@ UPDATE movie SET episode_id = '00000000-0000-0000-0000-000000000002' WHERE media
 
 
 
+
 -- animes
 -- action = 1, fantasy = 5
 INSERT INTO media (media_id, title, is_animation, genres, director, release_year, descriptions, age_rating, thumbnail_url, poster_url, trailer_url, created_at, updated_at)
@@ -150,6 +151,9 @@ VALUES ('acb9948a-1735-4bd5-a2e8-0e8adedae018', 'dbca60d0-2f7d-497d-8964-66fe2f6
 --adicionando anime visto ao perfil
 INSERT INTO profile_and_seen_medias (profile_id, media_id)
 VALUES ('acb9948a-1735-4bd5-a2e8-0e8adedae018', 4);
+
+
+
 
 
 
