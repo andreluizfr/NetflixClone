@@ -6,8 +6,7 @@ import brokenImage from '@Presentation/assets/img/broken-image.png';
 
 import LoadingSpinner from "@Presentation/components/ImprovedVideo/LoadingSpinner";
 
-interface ImprovedImageProps extends React.HTMLProps<HTMLImageElement> {
-}
+type ImprovedImageProps = React.HTMLProps<HTMLImageElement>
 
 export default function ImprovedPreviewImage(props: ImprovedImageProps): JSX.Element {
 

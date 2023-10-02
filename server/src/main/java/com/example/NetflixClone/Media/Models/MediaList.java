@@ -27,6 +27,7 @@ import jakarta.persistence.ManyToMany;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "MediaList")
 @Table(name = "MediaList")
 public class MediaList {
@@ -39,12 +40,16 @@ public class MediaList {
     String title;
 
     @ManyToMany
-    @JoinTable(name = "media_list_and_media", joinColumns = @JoinColumn(name = "media_list_id"), inverseJoinColumns = @JoinColumn(name = "media_id"))
+    @JoinTable(
+        name = "media_list_and_media",
+        joinColumns = @JoinColumn(name = "media_list_id"),
+        inverseJoinColumns = @JoinColumn(name = "media_id")
+    )
     private Set<Media> medias;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @UpdateTimestamp
     @Column(name="updated_at", nullable = false) 
