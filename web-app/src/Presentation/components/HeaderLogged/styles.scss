@@ -1,7 +1,7 @@
-@import '../../../assets/sass/variables';
-@import '../../../assets/sass/mixins';
+@import '../../assets/sass/variables';
+@import '../../assets/sass/mixins';
 
-.ContentsPage > .Header{
+.Header{
     position: fixed;
     top: 0;
     z-index: 999999;
@@ -122,6 +122,55 @@
             height: auto;
             filter: invert(1);
             cursor: pointer;
+        }
+
+        .Signup-button{
+            height: 32px;
+            padding: 4px 16px;
+            border-radius: 2px;
+            background-color: $button-primary-color;
+
+            a{
+                color: $font-primary-color;
+                font-size: $font-size-small;
+                font-weight: 300;
+                text-decoration: none;
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &:visited{
+                    color: $font-primary-color;
+                }
+            }
+
+            &:hover{
+                filter: grayscale(10%);
+            }
+        }
+
+        .Login-button{
+            height: 32px;
+            padding: 4px 16px;
+            border: 1px solid rgba($font-primary-color, 0.48);
+            border-radius: 2px;
+            background-color: $background-primary-color;
+
+            a{
+                color: $font-primary-color;
+                font-size: $font-size-small;
+                font-weight: 300;
+                text-decoration: none;
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &:visited{
+                    color: $font-primary-color;
+                }
+            }
+
+            &:hover{
+                filter: grayscale(10%);
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-.ContentsPage > .Header {
+.Header {
   position: fixed;
   top: 0;
   z-index: 999999;
@@ -12,46 +12,46 @@
   background-color: transparent;
   transition: background-color 300ms;
 }
-.ContentsPage > .Header .Logo-container {
+.Header .Logo-container {
   margin-left: 16px;
 }
 @media only screen and (max-width: 956px) {
-  .ContentsPage > .Header .Logo-container {
+  .Header .Logo-container {
     margin-left: 48px;
   }
 }
 @media only screen and (max-width: 576px) {
-  .ContentsPage > .Header .Logo-container {
+  .Header .Logo-container {
     margin-left: 32px;
   }
 }
-.ContentsPage > .Header .Logo-container .Logo {
+.Header .Logo-container .Logo {
   height: 24px;
   width: auto;
 }
 @media only screen and (max-width: 956px) {
-  .ContentsPage > .Header .Logo-container .Logo {
+  .Header .Logo-container .Logo {
     justify-self: center;
   }
 }
-.ContentsPage > .Header .Content-navigation ul {
+.Header .Content-navigation ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
   padding: 0;
 }
-.ContentsPage > .Header .Content-navigation ul li {
+.Header .Content-navigation ul li {
   list-style-type: none;
   font-size: 0.8rem;
   font-weight: 300;
   color: rgb(255, 255, 255);
   cursor: pointer;
 }
-.ContentsPage > .Header .Content-navigation ul li:hover {
+.Header .Content-navigation ul li:hover {
   text-decoration: underline;
 }
-.ContentsPage > .Header .Hamburguer-menu::before {
+.Header .Hamburguer-menu::before {
   content: "";
   display: block;
   width: 24px;
@@ -63,10 +63,10 @@
   filter: invert(1);
   transition: all 200ms;
 }
-.ContentsPage > .Header .Hamburguer-menu:hover::before {
+.Header .Hamburguer-menu:hover::before {
   transform: rotateZ(90deg);
 }
-.ContentsPage > .Header .Hamburguer-menu ul {
+.Header .Hamburguer-menu ul {
   position: absolute;
   top: 32px;
   left: 0;
@@ -81,35 +81,76 @@
   opacity: 0;
   transition: opacity 400ms;
 }
-.ContentsPage > .Header .Hamburguer-menu:hover ul {
+.Header .Hamburguer-menu:hover ul {
   visibility: visible;
   opacity: 1;
 }
-.ContentsPage > .Header .Extra-space {
+.Header .Extra-space {
   flex: 1 1 0;
 }
 @media only screen and (max-width: 956px) {
-  .ContentsPage > .Header .Extra-space {
+  .Header .Extra-space {
     display: none;
   }
 }
-.ContentsPage > .Header .Other-options-container {
+.Header .Other-options-container {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
   padding-right: 8px;
 }
-.ContentsPage > .Header .Other-options-container .Search-icon {
+.Header .Other-options-container .Search-icon {
   margin-right: 8px;
   width: 16px;
   height: auto;
   filter: invert(1);
   cursor: pointer;
 }
-.ContentsPage > .Header .Other-options-container .Notifications-icon {
+.Header .Other-options-container .Notifications-icon {
   width: 24px;
   height: auto;
   filter: invert(1);
   cursor: pointer;
+}
+.Header .Other-options-container .Signup-button {
+  height: 32px;
+  padding: 4px 16px;
+  border-radius: 2px;
+  background-color: rgb(229, 9, 20);
+}
+.Header .Other-options-container .Signup-button a {
+  color: rgb(255, 255, 255);
+  font-size: 0.8rem;
+  font-weight: 300;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.Header .Other-options-container .Signup-button a:visited {
+  color: rgb(255, 255, 255);
+}
+.Header .Other-options-container .Signup-button:hover {
+  filter: grayscale(10%);
+}
+.Header .Other-options-container .Login-button {
+  height: 32px;
+  padding: 4px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 2px;
+  background-color: rgb(0, 0, 0);
+}
+.Header .Other-options-container .Login-button a {
+  color: rgb(255, 255, 255);
+  font-size: 0.8rem;
+  font-weight: 300;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.Header .Other-options-container .Login-button a:visited {
+  color: rgb(255, 255, 255);
+}
+.Header .Other-options-container .Login-button:hover {
+  filter: grayscale(10%);
 }/*# sourceMappingURL=styles.css.map */

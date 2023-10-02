@@ -1,7 +1,7 @@
-@import '../../../assets/sass/variables';
-@import '../../../assets/sass/mixins';
+@import '../../assets/sass/variables';
+@import '../../assets/sass/mixins';
 
-.ContentsPage > footer{
+.Footer{
     width: 100%;
     @include flex-column-start-start;
     gap: 16px;

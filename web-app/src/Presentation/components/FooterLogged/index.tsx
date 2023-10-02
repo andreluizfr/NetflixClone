@@ -4,7 +4,7 @@ export default function Footer(): JSX.Element {
 
     //  ############# Renderização do conteúdo ##################
     return(
-        <footer>
+        <footer className='Footer'>
             <div className='Row-1'>
                 Dúvidas? Ligue <a href="#">0800 591 8942</a>
             </div>

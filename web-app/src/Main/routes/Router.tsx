@@ -11,6 +11,7 @@ const SignupInformationsPage = lazy(() => import('@Presentation/pages/SignupInfo
 const SignupPaymentPage = lazy(() => import('@Presentation/pages/SignupPayment'));
 const WhoIsWatchingPage = lazy(() => import('@Presentation/pages/WhoIsWatching'));
 const ContentsPage = lazy(() => import('@Presentation/pages/Contents'));
+const MediaPage = lazy(() => import('@Presentation/pages/Media'));
 
 import {
 	createBrowserRouter,
@@ -64,6 +65,10 @@ function Router() {
 					{
 						path: "/contents",
 						element: <AuthProvider><ContentsPage/></AuthProvider>,
+					},
+					{
+						path: "/media/:id",
+						element: <MediaPage/>
 					},
 					{
 						path: "/403",

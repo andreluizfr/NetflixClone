@@ -4,7 +4,7 @@ import ImprovedImage from '../../../components/ImprovedImage';
 import { Media } from '@Model/entities/Media';
 
 import { motion } from 'framer-motion';
-import { useRef, useState, memo} from 'react';
+import { useRef, useState } from 'react';
 
 interface props {
     title: string,

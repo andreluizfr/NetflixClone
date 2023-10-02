@@ -3,10 +3,10 @@ import logo from '../../assets/svg/logo.svg';
 
 import { useRef, useEffect, useState, memo } from 'react';
 
-import Header from './Header';
+import Header from '@Presentation/components/HeaderLogged';
 import Preview from './Preview';
 import Playlist from './Playlist';
-import Footer from './Footer';
+import Footer from '@Presentation/components/FooterLogged';
 
 import { GetCurrentPreviewMediaService } from '@Application/useCases/GetCurrentPreviewMedia/GetCurrentPreviewMediaService';
 import { GetMediaListsService } from '@Application/useCases/GetMediaLists/GetMediaListsService';
@@ -130,16 +130,18 @@ export default function ContentsPage(): JSX.Element {
             <Preview media={previewMedia} isInitialPreview={isInitialPreview}/>
             
             <main className='Contents-container'>
-                {/*<Playlist title={"Continuar assistindo como perfil1"} medias={medias}/>*/}
-                {mediaLists.map((mediaList, index)=>{
-                    return <Playlist 
-                                title={mediaList.title} 
-                                medias={mediaList.medias} 
-                                key={mediaList.title+index} 
-                                setPreviewMedia={setPreviewMedia}
-                                setIsInitialPreview={setIsInitialPreview}
-                            />
-                })}
+                <div className="MediaLists">
+                    {/*<Playlist title={"Continuar assistindo como perfil1"} medias={medias}/>*/}
+                    {mediaLists.map((mediaList, index)=>{
+                        return <Playlist 
+                                    title={mediaList.title} 
+                                    medias={mediaList.medias} 
+                                    key={mediaList.title+index} 
+                                    setPreviewMedia={setPreviewMedia}
+                                    setIsInitialPreview={setIsInitialPreview}
+                                />
+                    })}
+                </div>
             </main>
 
             <MemoizedFooter/>

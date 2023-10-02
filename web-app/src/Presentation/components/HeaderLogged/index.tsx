@@ -1,9 +1,12 @@
 import './styles.css';
-import logo from '../../../assets/svg/logo.svg';
-import searchIcon from '../../../assets/img/search-icon.png';
-import bellIcon from '../../../assets/img/bell-icon.png';
+import logo from '@Presentation/assets/svg/logo.svg';
+import searchIcon from '@Presentation/assets/img/search-icon.png';
+import bellIcon from '@Presentation/assets/img/bell-icon.png';
 
-import ProfileDropdownMenu from '../../../components/ProfileDropdownMenu';
+import ProfileDropdownMenu from '@Presentation/components/ProfileDropdownMenu';
+
+import { StoreState } from '@Infrastructure/stores/redux/config';
+import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
@@ -12,6 +15,8 @@ export default function Header({headerRef}: {headerRef: React.MutableRefObject<n
 
     //  ############# Renderização do conteúdo ##################
     const isLarge = useMediaQuery({ query: '(max-width: 956px)' });
+
+    const user = useSelector((state: StoreState) => state.user);
 
     return (
         <header className='Header' ref={headerRef}>
@@ -57,11 +62,27 @@ export default function Header({headerRef}: {headerRef: React.MutableRefObject<n
 
         <span className='Extra-space'/>
 
-        <nav className='Other-options-container'>
-            <img src={searchIcon} className='Search-icon' alt="search icon" />
-            <img src={bellIcon} className='Notifications-icon' alt='Notifications-icon'/>
-            <ProfileDropdownMenu/>
-        </nav>
+        {user.data?
+            <nav className='Other-options-container'>
+                <img src={searchIcon} className='Search-icon' alt="search icon" />
+                <img src={bellIcon} className='Notifications-icon' alt='Notifications-icon'/>
+                <ProfileDropdownMenu/>
+            </nav>
+            :
+            <nav className='Other-options-container'>
+                <button className='Signup-button'>
+                    <Link to="/signup">
+                        ASSINE A NETFLIX
+                    </Link>
+                </button>
+
+                <button className='Login-button'>
+                    <Link to="/login">
+                        Entrar
+                    </Link>
+                </button>
+            </nav>
+        }
     </header>
     )
 }
