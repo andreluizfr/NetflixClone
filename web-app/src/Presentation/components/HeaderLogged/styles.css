@@ -5,10 +5,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 32px;
   width: 100%;
   min-width: 480px;
-  padding: 8px;
+  padding: 20px;
   background-color: transparent;
   transition: background-color 300ms;
 }
@@ -102,7 +102,7 @@
 }
 .Header .Other-options-container .Search-icon {
   margin-right: 8px;
-  width: 16px;
+  width: 20px;
   height: auto;
   filter: invert(1);
   cursor: pointer;

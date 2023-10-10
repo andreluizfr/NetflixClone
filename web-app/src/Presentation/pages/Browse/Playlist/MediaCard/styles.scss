@@ -1,0 +1,301 @@
+@import '../../../../assets/sass/variables';
+@import '../../../../assets/sass/mixins';
+
+.MediaCard{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    z-index: 999;
+    background-color: $background-7-color;
+    border-radius: 4px;
+    transition: transform 100ms ease-in, z-index 100ms linear, background-color 100ms ease-in;
+    cursor: pointer;
+
+    &:hover{
+        z-index: 9999;
+        transform: scale(1.5);
+        overflow: visible;
+        box-shadow: 2px 2px 10px rgba(0,0,0,.3);
+        transition: transform 100ms ease-in 200ms, z-index 400ms linear;
+
+        .Thumbnail{
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+
+    &:not(:hover) {
+        .Hover-visible {
+            display: none !important;
+        }
+    }
+
+    .Thumbnail{
+        min-width: 244px;
+        min-height: 137px;
+        max-width: 244px;
+        max-height: 137px;
+        object-fit: cover;
+        border-radius: 4px;
+        
+        @include mq-small{
+            min-width: 156px;
+            min-height: 88px;
+            max-width: 156px;
+            max-height: 88px;
+        }
+    } 
+
+    .Mini-menu{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 12px;
+
+        .Toolbar{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+
+            .Circle-invert{
+                position: relative;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: $background-secondary-color;
+
+                .Play-button{
+                    position: absolute;
+                    margin: auto;
+                    inset: 0;
+
+                    width: 10px;
+                    height: auto;
+                }
+            }
+            
+
+            .Circle-1{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 22px;
+                height: 22px;
+                border: 1px solid $button-tertiary-color;
+                border-radius: 50%;
+                backdrop-filter: brightness(1.4);
+
+                &:hover{
+                    border: 1px solid $button-secondary-color;
+
+                    &::after{
+                        content: "Adicionar à minha lista";
+                        display: block;
+                        position: absolute;
+                        top: -32px;
+                        color: $font-secondary-color;
+                        font-size: $font-size-smallest;
+                        background-color: $background-quaternary-color;
+                        white-space: nowrap;
+                        padding: 4px 8px;
+                    }
+
+                    &::before{
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        top: -16px;
+                        width: 8px;
+                        height: 8px;
+                        background-color: $background-quaternary-color;
+                        transform: rotate(45deg);
+                    }
+                }
+
+                .Add-to-list-button{
+                    font-size: $font-size-medium;
+                    color: $font-primary-color;
+                    text-align: center;
+                    font-weight: 300;
+                }
+            }
+
+            .Circle-2{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 22px;
+                height: 22px;
+                border: 1px solid $button-tertiary-color;
+                border-radius: 50%;
+                backdrop-filter: brightness(1.4);
+
+                &:hover{
+                    border: 1px solid $button-secondary-color;
+
+                    &::after{
+                        content: "Gostei";
+                        display: block;
+                        position: absolute;
+                        top: -32px;
+                        color: $font-secondary-color;
+                        font-size: $font-size-smallest;
+                        background-color: $background-quaternary-color;
+                        white-space: nowrap;
+                        padding: 4px 8px;
+                    }
+
+                    &::before{
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        top: -16px;
+                        width: 8px;
+                        height: 8px;
+                        background-color: $background-quaternary-color;
+                        transform: rotate(45deg);
+                    }
+                }
+
+                .Like-button{
+                    width: 12px;
+                    height: auto;
+
+                    filter: invert(1);
+                }
+            }
+        }
+
+        .Circle-3{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 22px;
+            height: 22px;
+            border: 1px solid $button-tertiary-color;
+            border-radius: 50%;
+            backdrop-filter: brightness(1.4);
+
+            &:hover{
+                border: 1px solid $button-secondary-color;
+
+                &::after{
+                    content: "Episódios e informações";
+                    display: block;
+                    position: absolute;
+                    top: -32px;
+                    color: $font-secondary-color;
+                    font-size: $font-size-smallest;
+                    background-color: $background-quaternary-color;
+                    white-space: nowrap;
+                    padding: 4px 8px;
+                }
+
+                &::before{
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: -16px;
+                    width: 8px;
+                    height: 8px;
+                    background-color: $background-quaternary-color;
+                    transform: rotate(45deg);
+                }
+            }
+
+            .Play-button{
+                width: 12px;
+                height: auto;
+
+                filter: invert(1);
+                transform: rotate(90deg);
+            }
+        }
+    }
+
+    .Informations{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        gap: 6px;
+        padding: 2px 8px;
+
+        .Relevance{
+            color: $secondary-green;
+            font-size: $font-size-smaller;
+            font-weight: 500;
+        }
+
+        .Age-rating-10{
+            color: $font-primary-color;
+            font-size: $font-size-smaller;
+            background-color: $primary-blue;
+            padding: 3px 3px;
+            border-radius: 2px;
+        }
+        .Age-rating-12{
+            color: $font-primary-color;
+            font-size: $font-size-smaller;
+            background-color: $primary-yellow;
+            padding: 3px 3px;
+            border-radius: 2px;
+        }
+        .Age-rating-14{
+            color: $font-primary-color;
+            font-size: $font-size-smaller;
+            background-color: $primary-orange;
+            padding: 3px 3px;
+            border-radius: 2px;
+        }
+        .Age-rating-16{
+            color: $font-primary-color;
+            font-size: $font-size-smaller;
+            background-color: $button-primary-color;
+            padding: 3px 3px;
+            border-radius: 2px;
+        }
+        .Age-rating-18{
+            color: $font-primary-color;
+            font-size: $font-size-smaller;
+            background-color: $background-primary-color;
+            padding: 3px 3px;
+            border-radius: 2px;
+        }
+
+        .Year{
+            color: $font-primary-color;
+            font-size: $font-size-smaller;
+        }
+
+        .Number-episodes{
+            color: $font-quaternary-color;
+            font-size: $font-size-smaller;
+            font-weight: 300;
+        }
+
+        .Hd{
+            color: $font-primary-color;
+            font-size: $font-size-smallest;
+            font-weight: 100;
+            line-height: 0.8;
+
+            border: 1px solid rgba($font-primary-color, 0.32);
+            border-radius: 2px;
+            padding: 0px 3px;
+        }
+    }
+
+    .Genres{
+        width: 100%;
+        padding: 12px;
+        
+        color: $font-primary-color;
+        font-size: $font-size-smaller;
+        font-weight: 400;
+    }
+}

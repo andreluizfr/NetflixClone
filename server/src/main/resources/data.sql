@@ -164,3 +164,6 @@ VALUES ('acb9948a-1735-4bd5-a2e8-0e8adedae018', 4);
 -- preview media history
 INSERT INTO preview_media (id, media_id, created_at, updated_at)
 VALUES (1, 3, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
+
+INSERT INTO preview_media (id, media_id, created_at, updated_at)
+VALUES (2, 4, '2023-10-08 13:14:21.045328', '2023-10-08 13:14:21.045328');

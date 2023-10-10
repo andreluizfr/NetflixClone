@@ -4,41 +4,8 @@
 .WhoIsWatchingPage{
     min-height: 100vh; 
     width: 100%;
-    background-color: $background-primary-color;
-    @include flex-column-start-center;
-
-    .Header{
-        @include flex-row-space-between-center;
-        width: 100%;
-        padding: 16px;
-        border-bottom: 1px solid rgba(0,0,0,0.16);
-
-        a{
-            .Logo{
-                height: 32px;
-                width: auto;
-
-                @include mq-small{
-                    height: 24px;
-                }
-            }
-        }
-
-        .Login-link{
-            color: $font-quinary-color;
-            font-size: $font-size-normal;
-            font-weight: 500;
-            text-decoration: none;
-
-            &:visited{
-                color: $font-quinary-color;
-            }
-            &:hover{
-                text-decoration: underline;
-            }
-        }
-        
-    }
+    background-color: $background-8-color;
+    @include flex-column-center-center;
 
     .Who-is-watching-container{
         @include flex-column-center-center;
@@ -54,15 +21,19 @@
         }
 
         .Title{
-            font-size: $font-size-large;
+            font-size: 5vw;
             font-family: Arial, Helvetica, sans-serif;
             color: $font-primary-color;
             text-align: center;
+
+            @include mq-large{
+                font-size: $font-size-xl;
+            }
         }
 
         .Profiles{
             @include flex-row-center-center;
-            gap: 16px;
+            gap: 32px;
 
             @include mq-small{
                 @include flex-column-center-center;
@@ -70,43 +41,41 @@
 
             .Profile-container{
                 @include flex-column-center-center;
-                gap: 8px;
+                gap: 12px;
                 cursor: pointer;
 
                 .Icon{
-                    width: 76px;
-                    height: 76px;
+                    width: 10vw;
+                    height: 10vw;
                     object-fit: cover;
                     object-position: center center;
-                    border-radius: 3px;
+                    border-radius: 4px;
 
                     filter: brightness(0.8);
                     transition: 300ms all;
 
+                    &:hover{
+                        border: 4px solid white;
+                    }
+
                     @include mq-large{
-                        width: 64px;
-                        height: 64px;
-                    }
-
-                    @include mq-medium{
-                        width: 56px;
-                        height: 56px;
-                    }
-
-                    @include mq-small{
-                        width: 64px;
-                        height: 64px;
+                        width: 96px;
+                        height: 96px;
                     }
                 }
 
                 .Owner-name{
-                    font-size: $font-size-small;
-                    font-weight: 300;
+                    font-size: 1.5vw;
+                    font-weight: 400;
                     color: $font-tertiary-color;
                     transition: 300ms all;
 
                     &::first-letter{
                         text-transform: capitalize;
+                    }
+
+                    @include mq-large{
+                        font-size: $font-size-small;
                     }
                 }
 
@@ -127,36 +96,29 @@
                 cursor: pointer;
 
                 .Icon{
-                    width: 48px;
-                    height: 48px;
-                    margin: 14px;
+                    width: 5vw;
+                    height: 5vw;
+                    margin: 2.5vw;
                     filter: invert(0.6);
                     transition: 300ms all;
 
                     @include mq-large{
-                        width: 40px;
-                        height: 40px;
-                        margin: 12px;
-                    }
+                        margin: 24px;
 
-                    @include mq-medium{
-                        width: 32px;
-                        height: 32px;
-                        margin: 12px;
-                    }
-
-                    @include mq-small{
                         width: 48px;
                         height: 48px;
-                        margin: 8px;
                     }
                 }
 
                 .Description{
-                    font-size: $font-size-small;
-                    font-weight: 300;
+                    font-size: 1.5vw;
+                    font-weight: 400;
                     color: $font-tertiary-color;
                     transition: 300ms all;
+
+                    @include mq-large{
+                        font-size: $font-size-small;
+                    }
                 }
 
                 &:hover{
@@ -172,12 +134,12 @@
 
         .Manage-profiles-button{
             margin-top: 56px;
-            padding: 6px 16px;
+            padding: 1vw 2vw;
             border: 1px solid $font-tertiary-color;
             background-color: transparent;
     
-            font-size: $font-size-small;
-            font-weight: 300;
+            font-size: 1.5vw;
+            font-weight: 400;
             letter-spacing: 1px;
             color: $font-tertiary-color;
 
@@ -187,6 +149,11 @@
             &:hover{
                 border: 1px solid $font-primary-color;
                 color: $font-primary-color;
+            }
+
+            @include mq-large{
+                padding: 6px 12px;
+                font-size: $font-size-small;
             }
 
             @include mq-medium{

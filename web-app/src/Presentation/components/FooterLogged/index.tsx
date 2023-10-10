@@ -1,42 +1,50 @@
 import './styles.css';
+import facebookIcon from '@Presentation/assets/svg/social/facebook.svg';
+import instagramIcon from '@Presentation/assets/svg/social/instagram.svg';
+import twitterIcon from '@Presentation/assets/svg/social/twitter.svg';
+import youtubeIcon from '@Presentation/assets/svg/social/youtube.svg';
 
 export default function Footer(): JSX.Element {
 
     //  ############# Renderização do conteúdo ##################
     return(
         <footer className='Footer'>
-            <div className='Row-1'>
-                Dúvidas? Ligue <a href="#">0800 591 8942</a>
+            <div className='Social-links'>
+                <a className="Social-link" href="https://www.facebook.com/netflixbrasil" target="_blank" aria-label="facebook">
+                    <img src={facebookIcon} alt="facebook icon"/>
+                </a>
+                <a className="Social-link" href="https://www.instagram.com/NetflixBrasil" target="_blank" aria-label="instagram">
+                    <img src={instagramIcon} alt="instagram icon"/>
+                </a>
+                <a className="Social-link" href="https://twitter.com/NetflixBrasil" target="_blank" aria-label="twitter">
+                    <img src={twitterIcon} alt="twitter icon"/>
+                </a>
+                <a className="Social-link" href="https://www.youtube.com/user/NetflixBRA" target="_blank" aria-label="youtube">
+                    <img src={youtubeIcon} alt="youtube icon"/>
+                </a>
             </div>
 
-            <div className='Row-2'>
-                <a href="#">Perguntas frequentes</a>
-                <a href="#">Central de Ajuda</a>
-                <a href="#">Conta</a>
-                <a href="#">Media Center</a>
-                <a href="#">Relações com investidores</a>
-                <a href="#">Resgatar cartão pré-pago</a>
-                <a href="#">Comprar cartão pré-pago</a>
-                <a href="#">Formas de assistir</a>
-                <a href="#">Termos de Uso</a>
-                <a href="#">Privacidade</a>
-                <a href="#">Preferências de cookies</a>
-                <a href="#">Informações corporativas</a>
-                <a href="#">Entre em contato</a>
-                <a href="#">Teste de velocidade</a>
-                <a href="#">Avisos legais</a>
-                <a href="#">Só na Netflix</a>
-            </div>
+            <ul className='Member-footer-links'>
+                <li className='Member-footer-link-wrapper'><a href="#">Audiodescrição</a></li>
+                <li className='Member-footer-link-wrapper'><a href="#">Central de Ajuda</a></li>
+                <li className='Member-footer-link-wrapper'><a href="#">Cartão pré-pago</a></li>
+                <li className='Member-footer-link-wrapper'><a href="#">Imprensa</a></li>
+                <li className='Member-footer-link-wrapper'><a href="#">Relações com investidores</a></li>
+                <li className='Member-footer-link-wrapper'><a href="#">Carreiras</a></li>
+                <li className='Member-footer-link-wrapper'><a href="#">Termos de uso</a></li>
+                <li className='Member-footer-link-wrapper'><a href="#">Privacidade</a></li>
+                <li className='Member-footer-link-wrapper'><a href="#">Avisos legais</a></li>
+                <li className='Member-footer-link-wrapper'><a href="#">Preferências de cookies</a></li>
+                <li className='Member-footer-link-wrapper'><a href="#">Informações corporativas</a></li>
+                <li className='Member-footer-link-wrapper'><a href="#">Entre em contato</a></li>
+            </ul>
             
-            <div className='Row-3'>
-                <select className="Select-language" defaultValue={"pt"}>
-                    <option value="pt">Português</option>
-                    <option value="en">English</option>
-                </select>
+            <div className='Member-footer-service'>
+                <button className="Service-code">Código do serviço</button>
             </div>
 
-            <div className='Row-4'>
-                Netflix Brasil
+            <div className='Member-footer-copyright'>
+                © 1997-2023 Netflix, Inc.  
             </div>
         </footer>
     );

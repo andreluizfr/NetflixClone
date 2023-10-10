@@ -34,7 +34,7 @@ export default function SignupPaymentPickerPage(): JSX.Element{
 
     useEffect(()=>{
         if(user.data?.account?.active){
-            navigate("/contents");
+            navigate("/browse");
         }
         else if( !(signup.email && signup.password) && !user.data){ //página anterior, se não tem email e senha e nao tem usuario logado
             toast.error("Alguns dos seus dados estão faltando, você terá que reiniciar o processo.", {

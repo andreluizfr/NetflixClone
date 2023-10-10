@@ -13,13 +13,24 @@ export default function ImprovedEmbededVideo(props: ImprovedVideoProps): JSX.Ele
     const [error, setError] = useState(false);
     
     useEffect(()=>{
-        loadVideo();
+        const script = document.createElement('script');
+        script.src = 'https://www.youtube.com/player_api';
+
+        script.addEventListener('load', () => {
+            loadVideo();
+        });
+
+        document.body.appendChild(script);
     }, []);
 
     async function loadVideo(){
         const iframeEl = document.createElement('iframe') as HTMLIFrameElement;
         iframeEl.onerror = () => setError(true);
         iframeEl.src = props.src.replace("watch?v=", "embed/") + "?autoplay=1&mute=1&loop=1&controls=0";
+    }
+
+    function onYouTubeIframeAPIReady() {
+        console.log("aqui");
     }
 
     const width = window.innerWidth;

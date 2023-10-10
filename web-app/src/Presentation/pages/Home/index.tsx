@@ -20,7 +20,7 @@ export default function Home(): JSX.Element{
     
     useEffect(()=>{
         if(user.data){
-            navigate("/contents");
+            navigate("/browse");
         }
     }, []);
 

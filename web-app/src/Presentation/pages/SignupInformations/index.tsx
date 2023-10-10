@@ -34,7 +34,7 @@ export default function SignupInformationsPage(): JSX.Element{
     useEffect(()=>{
 
         if(user.data?.account?.active){
-            navigate("/contents");
+            navigate("/browse");
         }
         else if(user.data!==null && signup.plan!==null && signup.paymentType!==null){ 
             navigate("/signup/payment");

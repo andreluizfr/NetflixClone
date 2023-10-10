@@ -1,0 +1,204 @@
+@charset "UTF-8";
+.Preview {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0;
+}
+.Preview .Background-image {
+  width: 100%;
+  aspect-ratio: 16/6;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
+}
+.Preview .Background-video {
+  height: auto;
+  width: 100%;
+}
+.Preview .Preview-infos {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 8px;
+  padding-bottom: 18%;
+  padding-left: 3%;
+  position: absolute;
+  width: 60%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+@media only screen and (max-width: 956px) {
+  .Preview .Preview-infos {
+    padding-bottom: 14%;
+  }
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-infos {
+    padding-bottom: 12%;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos {
+    padding-bottom: 8%;
+  }
+}
+.Preview .Preview-infos .Title {
+  margin-top: 24px;
+  font-size: 3rem;
+  color: rgb(255, 255, 255);
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-infos .Title {
+    font-size: 2rem;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos .Title {
+    margin-top: 32px;
+    font-size: 1.6rem;
+  }
+}
+.Preview .Preview-infos .Description {
+  font-size: 1.2rem;
+  color: rgb(255, 255, 255);
+}
+@media only screen and (max-width: 956px) {
+  .Preview .Preview-infos .Description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-infos .Description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    font-size: 1rem;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos .Description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-size: 0.8rem;
+  }
+}
+.Preview .Preview-infos .Toolbar {
+  margin-top: 32px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-infos .Toolbar {
+    margin-top: 8px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos .Toolbar {
+    margin-top: 4px;
+  }
+}
+.Preview .Preview-infos .Toolbar .Button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 28px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-infos .Toolbar .Button {
+    padding: 10px 22px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos .Toolbar .Button {
+    padding: 6px 18px;
+    font-size: 1rem;
+  }
+}
+.Preview .Preview-infos .Toolbar .Button img {
+  width: 28px;
+  height: auto;
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-infos .Toolbar .Button img {
+    width: 24px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos .Toolbar .Button img {
+    width: 18px;
+  }
+}
+.Preview .Preview-infos .Toolbar .Button:nth-child(1) {
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+}
+.Preview .Preview-infos .Toolbar .Button:nth-child(1):hover {
+  filter: brightness(0.9);
+  transition: filter 150ms;
+}
+.Preview .Preview-infos .Toolbar .Button:nth-child(2) {
+  padding: 10px 26px;
+  color: rgb(255, 255, 255);
+  background-color: rgba(140, 140, 140, 0.85);
+}
+.Preview .Preview-infos .Toolbar .Button:nth-child(2):hover {
+  background-color: rgba(140, 140, 140, 0.5);
+  transition: background-color 150ms;
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-infos .Toolbar .Button:nth-child(2) {
+    padding: 8px 20px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos .Toolbar .Button:nth-child(2) {
+    padding: 4px 16px;
+    font-size: 1rem;
+  }
+}
+.Preview .Preview-infos .Toolbar .Button:nth-child(2) img {
+  width: 32px;
+  height: auto;
+}
+@media only screen and (max-width: 720px) {
+  .Preview .Preview-infos .Toolbar .Button:nth-child(2) img {
+    width: 26px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .Preview .Preview-infos .Toolbar .Button:nth-child(2) img {
+    width: 20px;
+  }
+}
+.Preview .Blured-border {
+  position: absolute;
+  bottom: -16px;
+  left: -16px;
+  width: calc(100% + 32px);
+  height: 72px;
+  background: linear-gradient(to top, rgb(21, 19, 21) 0%, rgb(21, 19, 21) 30%, rgba(21, 19, 21, 0.9) 40%, rgba(21, 19, 21, 0.9) 50%, rgba(21, 19, 21, 0.9) 60%, rgba(21, 19, 21, 0.8) 65%, rgba(21, 19, 21, 0.6) 70%, rgba(21, 19, 21, 0.7) 75%, rgba(21, 19, 21, 0.5) 80%, rgba(21, 19, 21, 0.4) 85%, rgba(21, 19, 21, 0.3) 90%, rgba(21, 19, 21, 0.2) 95%, rgba(21, 19, 21, 0.1) 100%); /* Gradiente de transparência para criar o efeito de blur */
+  filter: blur(8px); /* Ajuste o valor do blur conforme desejado */
+}/*# sourceMappingURL=styles.css.map */

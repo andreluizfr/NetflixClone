@@ -36,9 +36,9 @@
 .ProfileDropdownMenuContent .ProfileDropdownMenuItem:hover {
   text-decoration: underline;
 }
-.ProfileDropdownMenuContent .ProfileDropdownMenuItem .Profile-icon {
-  width: 16px;
-  height: 16px;
+.ProfileDropdownMenuContent .ProfileDropdownMenuItem > .Profile-icon {
+  width: 28px;
+  height: 28px;
 }
 .ProfileDropdownMenuContent .ProfileDropdownMenuItem .Profile-name {
   font-weight: 300;
@@ -47,8 +47,8 @@
   text-transform: capitalize;
 }
 .ProfileDropdownMenuContent .ProfileDropdownMenuItem .Icon {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   filter: invert(1);
 }
 .ProfileDropdownMenuContent .ProfileDropdownMenuItem .Option {

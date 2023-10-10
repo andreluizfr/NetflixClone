@@ -1,12 +1,11 @@
 import './styles.css';
-import logo from '../../assets/svg/logo.svg';
 import addButton from '@Presentation/assets/svg/add-button.svg';
 
 import { StoreState } from '@Infrastructure/stores/redux/config';
 import { removeUser, setProfile } from '@Infrastructure/stores/redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 
 import { motion } from 'framer-motion';
@@ -37,7 +36,7 @@ export default function WhoIsWatchingPage(): JSX.Element {
 
     function goToContents(profile: Profile){
         dispatch(setProfile(profile));
-        navigate("/contents");
+        navigate("/browse");
     }
 
 
@@ -59,12 +58,6 @@ export default function WhoIsWatchingPage(): JSX.Element {
                 hideProgressBar={false}
                 theme="dark"
             />
-
-            <header className='Header'>
-                <Link to="/">
-                    <img className='Logo' src={logo} alt="Netflix Logo"/>
-                </Link>
-            </header>
 
             <main className='Who-is-watching-container'>
                 

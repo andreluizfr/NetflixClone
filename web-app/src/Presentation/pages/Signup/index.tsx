@@ -22,7 +22,7 @@ export default function SignupPage(): JSX.Element {
 
     useEffect(()=>{
         if(user.data?.account?.active){
-            navigate("/contents");
+            navigate("/browse");
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

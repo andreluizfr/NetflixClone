@@ -27,7 +27,7 @@ export default function SignupPaymentPage(): JSX.Element{
     useEffect(()=>{
 
         if(user.data?.account?.active){
-            navigate("/contents");
+            navigate("/browse");
         }
         else if(!user.data || signup.paymentType===null || signup.plan===null){
             toast.error("Alguns dos seus dados estão faltando, você terá que reiniciar o processo.", {

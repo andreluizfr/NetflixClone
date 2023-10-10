@@ -27,7 +27,6 @@ import jakarta.persistence.ManyToMany;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity(name = "MediaList")
 @Table(name = "MediaList")
 public class MediaList {

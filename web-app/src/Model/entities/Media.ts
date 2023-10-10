@@ -1,3 +1,22 @@
+export function normalizeGenreList(list: string[]){
+    console.log(list);
+    return list.map((genre: string)=>{
+        switch(genre){
+            case "COMEDY": return "Comédia";
+            case "ACTION": return "Ação";
+            case "THRILLER": return "Suspense";
+            case "HORROR": return "Terror";
+            case "MYSTERY": return "Mistério";
+            case "FANTASY": return "Fantasia";
+            case "ROMANCE": return "Romanticos";
+            case "SCIENCE_FICTION": return "Ficção científica";
+            case "SLICE_OF_LICE": return "Dia-a-dia";
+            case "DOCUMENTARY": return "Documentário";
+            default: return "Desconhecido";
+        }
+    });
+}
+
 export enum Genre{
     COMEDY = 0,
     ACTION = 1,
@@ -15,7 +34,7 @@ export interface Media{
     id: number,
     title: string,
     isAnimation: boolean,
-    genres: Genre[],
+    genres: string[],
     director: string,
     releaseYear: number,
     descriptions: string,

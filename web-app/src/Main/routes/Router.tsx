@@ -10,8 +10,7 @@ const SignupPaymentPickerPage = lazy(() => import('@Presentation/pages/SignupPay
 const SignupInformationsPage = lazy(() => import('@Presentation/pages/SignupInformations'));
 const SignupPaymentPage = lazy(() => import('@Presentation/pages/SignupPayment'));
 const WhoIsWatchingPage = lazy(() => import('@Presentation/pages/WhoIsWatching'));
-const ContentsPage = lazy(() => import('@Presentation/pages/Contents'));
-const MediaPage = lazy(() => import('@Presentation/pages/Media'));
+const BrowsePage = lazy(() => import('@Presentation/pages/Browse'));
 
 import {
 	createBrowserRouter,
@@ -63,12 +62,8 @@ function Router() {
 						element: <AuthProvider><WhoIsWatchingPage/></AuthProvider>,
 					},
 					{
-						path: "/contents",
-						element: <AuthProvider><ContentsPage/></AuthProvider>,
-					},
-					{
-						path: "/media/:id",
-						element: <MediaPage/>
+						path: "/browse",
+						element: <AuthProvider><BrowsePage/></AuthProvider>,
 					},
 					{
 						path: "/403",

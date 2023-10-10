@@ -1,0 +1,100 @@
+@import '../../../assets/sass/variables';
+@import '../../../assets/sass/mixins';
+
+.Section{
+    position: relative;
+    margin-bottom: 12px;
+    padding: 24px;
+
+    @include mq-small{
+        margin-bottom: 0;
+        padding: 12px;
+    }
+
+    @include mq-medium{
+        margin-bottom: 12px;
+    }
+
+    & > .Title{
+        color: $font-primary-color;
+        font-size: $font-size-medium;
+        font-weight: 500;
+        margin-bottom: 16px;
+
+        @include mq-small{
+            font-size: $font-size-normal;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+    }
+
+    & > .Playlist-container{
+        position: relative;
+        width: 100%;
+
+        .Arrow{
+            position: absolute;
+            z-index: 99999;
+            width: 32px;
+            height: 100%;
+
+            background-image: url(../../../assets/svg/arrow-right.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            
+            filter: invert(0.5);
+            transition: scale 400ms;
+            cursor: pointer;
+            overflow: visible;
+
+            @include mq-small{
+                width: 24px;
+            }
+        }
+
+        .Left-arrow{
+            transform: rotateZ(180deg);
+            top: 0;
+            left: -48px;
+
+            @include mq-small{
+                left: -32px
+            }
+        }
+        .Right-arrow{
+            top: 0;
+            right: -48px;
+            visibility: hidden;
+
+            @include mq-small{
+                right: -32px;
+            }
+        }
+        &:hover .Left-arrow{
+            filter: invert(1);
+        }
+        &:hover .Right-arrow{
+            visibility: visible;
+            filter: invert(1);
+        }
+
+        & > .Playlist{
+            @include flex-row-start-center;
+            gap: 6px;
+            padding: 2px 0;
+            height: 137px;
+    
+            overflow: visible;
+            cursor: grab;
+    
+            &::-webkit-scrollbar{
+                display: none;
+            }
+
+            @include mq-small{
+                height: 88px;
+            }
+        }
+    }
+}

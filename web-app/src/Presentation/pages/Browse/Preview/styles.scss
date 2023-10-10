@@ -1,0 +1,202 @@
+@import '../../../assets/sass/variables';
+@import '../../../assets/sass/mixins';
+
+
+.Preview{
+    position: relative;
+    @include flex-column-center-start;
+    width: 100%;
+    padding: 0;
+
+    .Background-image{
+        width: 100%;
+        aspect-ratio: 16/6;
+        object-fit: cover;
+        object-position: top;
+    }
+
+    .Background-video{
+        height: auto;
+        width: 100%;
+    }
+
+    .Preview-infos{
+        @include flex-column-end-start;
+        gap: 8px;
+        padding-bottom: 18%;
+        padding-left: 3%;
+        position: absolute;
+        width: 60%;
+        height: 100%;
+        top: 0;
+        left: 0;
+
+        @include mq-large{
+            padding-bottom: 14%;
+        }
+        @include mq-medium{
+            padding-bottom: 12%;
+        }
+        @include mq-small{
+            padding-bottom: 8%;
+        }
+
+        .Title{
+            margin-top: 24px;
+            font-size: $font-size-xxl;
+            color: $font-primary-color;
+
+            @include mq-medium{
+                font-size: $font-size-xl;
+            }
+
+            @include mq-small{
+                margin-top: 32px;
+                font-size: $font-size-large;
+            }
+        }
+
+        .Description{
+            font-size: $font-size-medium;
+            color: $font-primary-color;
+
+            @include mq-large{
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 4;
+                overflow: hidden;
+            }
+
+            @include mq-medium{
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3;
+                overflow: hidden;
+                font-size: $font-size-normal;
+            }
+
+            @include mq-small{
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+                font-size: $font-size-small;
+            }
+        }
+
+        .Toolbar{
+            margin-top: 32px;
+            @include flex-row-start-center;
+            gap: 8px;
+
+            @include mq-medium{
+                margin-top: 8px;
+            }
+
+            @include mq-small{
+                margin-top: 4px;
+            }
+            
+            .Button{
+                @include flex-row-center-center;
+                gap: 12px;
+                padding: 12px 28px;
+                border: none;
+                outline: none;
+                border-radius: 4px;
+                font-size: $font-size-medium2;
+                font-weight: 600;
+                white-space: nowrap;
+                cursor: pointer;
+
+                @include mq-medium{
+                    padding: 10px 22px;
+                }
+
+                @include mq-small{
+                    padding: 6px 18px;
+                    font-size: $font-size-normal;
+                }
+
+                img{
+                    width: 28px;
+                    height: auto;
+
+                    @include mq-medium{
+                        width: 24px;
+                    }
+    
+                    @include mq-small{
+                        width: 18px;
+                    }
+                }
+            }
+            .Button:nth-child(1){
+                color: $font-secondary-color;
+                background-color: $button-secondary-color;
+
+                &:hover{
+                    filter: brightness(0.9);
+                    transition: filter 150ms;
+                }
+            }
+            .Button:nth-child(2){
+                padding: 10px 26px;
+                color: $font-primary-color;
+                background-color: rgba($button-tertiary-color, 0.85);
+
+                &:hover{
+                    background-color: rgba($button-tertiary-color, 0.50);
+                    transition: background-color 150ms;
+                }
+
+                @include mq-medium{
+                    padding: 8px 20px;
+                }
+
+                @include mq-small{
+                    padding: 4px 16px;
+                    font-size: $font-size-normal;
+                }
+
+                img{
+                    width: 32px;
+                    height: auto;
+
+                    @include mq-medium{
+                        width: 26px;
+                    }
+    
+                    @include mq-small{
+                        width: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    .Blured-border{
+        position: absolute;
+        bottom: -16px;
+        left: -16px;
+        width: calc(100% + 32px);
+        height: 72px;
+        background: linear-gradient(to top, 
+                    rgba(21,19,21, 1) 0%,
+                    rgba(21,19,21, 1) 30%,
+                    rgba(21,19,21, 0.9) 40%,
+                    rgba(21,19,21, 0.9) 50%,
+                    rgba(21,19,21, 0.9) 60%,
+                    rgba(21,19,21, 0.8) 65%,
+                    rgba(21,19,21, 0.6) 70%,
+                    rgba(21,19,21, 0.7) 75%,
+                    rgba(21,19,21, 0.5) 80%,
+                    rgba(21,19,21, 0.4) 85%,
+                    rgba(21,19,21, 0.3) 90%,
+                    rgba(21,19,21, 0.2) 95%,
+                    rgba(21,19,21, 0.1) 100%
+        ); /* Gradiente de transparência para criar o efeito de blur */
+        filter: blur(8px); /* Ajuste o valor do blur conforme desejado */
+        //backdrop-filter: blur(8px);
+    }
+}

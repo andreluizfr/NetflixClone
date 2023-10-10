@@ -68,3 +68,106 @@ InitialContentsConfiguration {
 
 	created_at
 }
+
+<div className="Row-1">
+                            <span className='Relevance'>100% relevante</span>
+                            <span>{media.releaseYear}</span>
+                            {(isMovie(media) && (media as Movie).movieSeries) &&
+                                <span>Filme {(media as Movie).sequenceNumber}</span>
+                            }
+                            {isTvShow(media) &&
+                                <span>{(media as TvShow).numberOfSeasons} Temporadas</span>
+                            }
+                            {isAnime(media) &&
+                                <span>{(media as Anime).numberOfSeasons} Temporadas</span>
+                            }
+                        </div>
+
+                        <div className="Row-2">
+                            <p className='Description'>
+                                {media.descriptions}
+                            </p>
+                        </div>
+
+                        <div className="Row-3">
+                            {isMovie(media) &&
+                                <i className='ActorsActresses'>{(media as Movie).actorsActresses.join(", ")}</i>
+                            }
+                            {isTvShow(media) &&
+                                <i className='ActorsActresses'>{(media as TvShow).actorsActresses.join(", ")}</i>
+                            }
+                            {isAnime(media) &&
+                                <i className='ActorsActresses'>{(media as Anime).voiceActorsActresses.join(", ")}</i>
+                            }
+                            <i className='Genres'>{media.genres.join(", ")}</i>
+                        </div>
+                        </>
+
+
+
+.Row-1{
+            @include flex-row-center-center;
+            gap: 8px;
+
+            color: $font-quaternary-color;
+            font-size: $font-size-smaller;
+            font-weight: 300;
+
+            .Relevance{
+                color: $primary-green;
+            }
+        }
+
+        .Row-2{
+            
+            .Description{
+                color: $font-quaternary-color;
+                font-size: $font-size-small;
+                font-weight: 300;
+                
+                @include mq-large{
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 4;
+                    overflow: hidden;
+                }
+
+                @include mq-medium{
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 3;
+                    overflow: hidden;
+                }
+
+                @include mq-small{
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
+                    overflow: hidden;
+                }
+            }
+        }
+
+        .Row-3{
+
+            .ActorsActresses{
+                display: block;
+                color: $font-quaternary-color;
+                text-align: left;
+                font-size: $font-size-smaller;
+                font-weight: 300;
+                font-family: Arial, Helvetica, sans-serif;
+
+                @include mq-small{
+                    display: none;
+                }
+            }
+
+            .Genres{
+                color: $font-quaternary-color;
+                text-align: left;
+                font-size: $font-size-smaller;
+                font-weight: 300;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+        }

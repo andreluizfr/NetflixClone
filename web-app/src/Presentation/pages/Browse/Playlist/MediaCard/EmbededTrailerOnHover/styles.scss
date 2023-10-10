@@ -1,0 +1,18 @@
+@import '../../../../../assets/sass/variables';
+@import '../../../../../assets/sass/mixins';
+
+.EmbededTrailerOnHover{
+    min-width: 244px;
+    min-height: 137px;
+    max-width: 244px;
+    max-height: 137px;
+    object-fit: cover;
+    border-radius: 4px;
+    
+    @include mq-small{
+        min-width: 156px;
+        min-height: 88px;
+        max-width: 156px;
+        max-height: 88px;
+    }
+}

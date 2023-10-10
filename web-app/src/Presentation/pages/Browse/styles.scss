@@ -1,0 +1,30 @@
+@import '../../assets/sass/variables';
+@import '../../assets/sass/mixins';
+
+.BrowsePage{
+    position: relative;
+    @include flex-column-start-center;
+    min-height: 100vh; 
+    min-width: 480px;
+    width: 100%;
+    background: $background-6-color;
+
+    .Contents-container{
+        flex: 1;
+        width: 100%;
+        position: relative;
+        top: -128px;
+
+        @include mq-small{
+            position: static;
+        }
+
+        .MediaLists{
+            padding: 0px 40px;
+
+            @include mq-small{
+                padding: 0px 24px;
+            }
+        }
+    }
+}
