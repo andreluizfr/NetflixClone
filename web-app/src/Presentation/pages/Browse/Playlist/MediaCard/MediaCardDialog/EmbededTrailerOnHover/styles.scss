@@ -2,18 +2,17 @@
 @import '../../../../../assets/sass/mixins';
 
 .EmbededTrailerOnHover{
-    min-width: 244px;
-    min-height: 137px;
-    max-width: 244px;
-    max-height: 137px;
+    min-width: 856px;
+    min-height: 481px;
+    max-width: 856px;
+    max-height: 481px;
     object-fit: cover;
     border-radius: 4px;
     
     @include mq-small{
-        min-width: 156px;
-        min-height: 88px;
-        max-width: 156px;
-        max-height: 88px;
+        min-width: 546px;
+        min-height: 307px;
+        max-width: 546px;
+        max-height: 307px;
     }
-
 }

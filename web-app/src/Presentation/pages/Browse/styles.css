@@ -22,6 +22,8 @@
 }
 .BrowsePage .Contents-container .MediaLists {
   padding: 0px 40px;
+  position: relative;
+  z-index: 99;
 }
 @media only screen and (max-width: 576px) {
   .BrowsePage .Contents-container .MediaLists {

@@ -73,9 +73,9 @@ export default function BrowsePage(): JSX.Element {
     
     useTransform(scrollYProgress, value=>{
         //value in %
-        if(headerRef?.current && (value*100) >= 8)
+        if(headerRef?.current && (value*100) >= 5)
             (headerRef.current as HTMLElement).style.background = "linear-gradient(to bottom, rgb(4, 4, 4) 0%, rgb(21, 19, 21))";
-        else if(headerRef?.current && (value*100) < 8)
+        else if(headerRef?.current && (value*100) < 5)
             (headerRef.current as HTMLElement).style.background = "transparent";
 	});
     

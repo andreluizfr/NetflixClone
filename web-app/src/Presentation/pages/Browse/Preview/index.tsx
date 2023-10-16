@@ -1,6 +1,6 @@
 import './styles.css';
-import playButton from '../../../assets/svg/play-button.svg';
-import infoCircle from '../../../assets/svg/info-circle-2.svg';
+import playButton from '@Presentation/assets/svg/play-button.svg';
+import infoCircle from '@Presentation/assets/svg/info-circle-2.svg';
 
 import { GetCurrentPreviewMediaService } from '@Application/useCases/GetCurrentPreviewMedia/GetCurrentPreviewMediaService';
 

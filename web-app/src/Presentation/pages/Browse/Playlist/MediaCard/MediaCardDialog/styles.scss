@@ -1,0 +1,313 @@
+@import '../../../../../assets/sass/variables';
+@import '../../../../../assets/sass/mixins';
+
+.MediaCardDialog {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    background-color: $background-7-color;
+    border-radius: 4px;
+    width: 100%;
+    cursor: pointer;
+
+    .Preview-menu{
+        @include flex-row-space-between-center;
+        position: absolute;
+        width: 100%;
+        top: 300px;
+        left: 0;
+        padding: 64px;
+        z-index: 9999999;
+
+        .Toolbar{
+            @include flex-row-center-center;
+            gap: 8px;
+
+            .Button{
+                @include flex-row-center-center;
+                gap: 12px;
+                padding: 8px 28px;
+                border: none;
+                outline: none;
+                border-radius: 4px;
+                font-size: $font-size-medium2;
+                font-weight: 600;
+                white-space: nowrap;
+                color: $font-secondary-color;
+                background-color: $button-secondary-color;
+                cursor: pointer;
+
+                &:hover{
+                    filter: brightness(0.9);
+                    transition: filter 150ms;
+                }
+
+                img{
+                    width: 28px;
+                    height: auto;
+
+                    @include mq-medium{
+                        width: 24px;
+                    }
+
+                    @include mq-small{
+                        width: 18px;
+                    }
+                }
+            }
+        }
+
+        .Circle-1{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 42px;
+            height: 42px;
+            border: 2px solid $button-tertiary-color;
+            border-radius: 50%;
+            background-color: rgba($background-primary-color, 0.12);
+
+            &:hover{
+                border: 2px solid $button-secondary-color;
+                background-color: rgba($font-primary-color, 0.06);
+                transition: all 100ms;
+
+                &::after{
+                    content: "Adicionar à minha lista";
+                    display: block;
+                    position: absolute;
+                    top: -32px;
+                    color: $font-secondary-color;
+                    font-size: $font-size-large;
+                    font-weight: 500;
+                    background-color: $background-quaternary-color;
+                    white-space: nowrap;
+                    padding: 10px 16px;
+                    border-radius: 8px;
+                }
+
+                &::before{
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: -16px;
+                    width: 8px;
+                    height: 8px;
+                    background-color: $background-quaternary-color;
+                    transform: rotate(45deg);
+                }
+            }
+
+            .Add-to-list-button{
+                font-size: $font-size-xxl;
+                font-weight: 100;
+                color: $font-primary-color;
+                text-align: center;
+            }
+        }
+
+        .Circle-2{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 42px;
+            height: 42px;
+            border: 2px solid $button-tertiary-color;
+            border-radius: 50%;
+            background-color: rgba($background-primary-color, 0.12);
+
+            &:hover{
+                border: 2px solid $button-secondary-color;
+                background-color: rgba($font-primary-color, 0.06);
+                transition: all 100ms;
+
+                &::after{
+                    content: "Gostei";
+                    display: block;
+                    position: absolute;
+                    top: -32px;
+                    color: $font-secondary-color;
+                    font-size: $font-size-large;
+                    font-weight: 500;
+                    background-color: $background-quaternary-color;
+                    white-space: nowrap;
+                    padding: 10px 16px;
+                    border-radius: 8px;
+                }
+
+                &::before{
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: -16px;
+                    width: 8px;
+                    height: 8px;
+                    background-color: $background-quaternary-color;
+                    transform: rotate(45deg);
+                }
+            }
+
+            .Like-button{
+                width: 28px;
+                height: auto;
+
+                filter: invert(1);
+            }
+        }
+
+        .Circle-3{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 42px;
+            height: 42px;
+            border: 2px solid $button-tertiary-color;
+            border-radius: 50%;
+            background-color: rgba($background-primary-color, 0.12);
+
+            &:hover{
+                border: 2px solid $button-secondary-color;
+                background-color: rgba($font-primary-color, 0.06);
+                transition: all 100ms;
+
+                .Sound-button{
+                    filter: invert(1);
+                }
+            }
+
+            .Sound-button{
+                width: 28px;
+                height: auto;
+
+                filter: invert(0.8);
+                transform: rotate(90deg);
+            }
+        }
+    }
+
+    .Blured-border{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 488px;
+        background: linear-gradient(0deg, rgb(25, 24, 26), transparent 50%);
+    }
+
+    .Informations{
+        @include flex-row-space-between-start;
+        z-index: 9999999;
+        padding: 0 48px 24px 48px;
+        cursor: default;
+
+        .Column-1{
+            @include flex-column-start-start;
+            gap: 8px;
+            width: 65%;
+
+            .Row-1{
+                @include flex-row-start-center;
+                width: 100%;
+                gap: 8px;
+
+                .Relevance{
+                    color: $secondary-green;
+                    font-size: $font-size-normal;
+                    font-weight: 500;
+                }
+
+                .Year{
+                    color: $font-primary-color;
+                    font-size: $font-size-normal;
+                    font-weight: 500;
+                }
+        
+                .Number-episodes{
+                    color: $font-quaternary-color;
+                    font-size: $font-size-normal;
+                    font-weight: 300;
+                }
+
+                .Duration{
+                    color: $font-quaternary-color;
+                    font-size: $font-size-normal;
+                    font-weight: 400;
+                }
+        
+                .Hd{
+                    color: $font-quaternary-color;
+                    font-size: $font-size-small;
+                    font-weight: 100;
+                    line-height: 0.8;
+        
+                    border: 1px solid rgba($font-primary-color, 0.32);
+                    border-radius: 3px;
+                    padding: 1px 6px;
+                }
+            }
+
+            .Row-2{
+                .Age-rating {
+                    color: $font-primary-color;
+                    font-size: $font-size-normal;
+                    padding: 3px 3px;
+                    border-radius: 2px;
+                }
+                .Age-rating-10{
+                    background-color: $primary-blue;
+                }
+                .Age-rating-12{
+                    background-color: $primary-yellow;
+                }
+                .Age-rating-14{
+                    background-color: $primary-orange;
+                }
+                .Age-rating-16{
+                    background-color: $button-primary-color;
+                }
+                .Age-rating-18{
+                    background-color: $background-primary-color;
+                }
+            }
+
+            .Row-3{
+                margin: 24px 0;
+
+                .Synopsis{
+                    color: $font-primary-color;
+                    font-size: $font-size-normal;
+                    line-height: 1.6;
+                }
+            }
+        }
+
+        .Column-2{
+            @include flex-column-end-start;
+            width: 30%;
+            margin-left: 5%;
+
+            .Label-tags{
+                display: inline-block;
+                margin: 8px 0;
+                color: $font-tertiary-color;
+                font-size: calc($font-size-small + 2px);
+                font-weight: 300;
+
+                .Cast{
+                    color: $font-primary-color;
+                    font-size: calc($font-size-small + 2px);
+                    font-weight: 300;
+                }
+    
+                .Genres{
+                    color: $font-primary-color;
+                    font-size: calc($font-size-small + 2px);
+                    font-weight: 300;
+                }
+            }   
+        }
+    }
+}

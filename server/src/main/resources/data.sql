@@ -41,6 +41,40 @@ VALUES (4, 'Demon Slayer', TRUE, '[1, 5]', 'Koyoharu Gotouge', 2019, 'A históri
 INSERT INTO anime (media_id, number_of_seasons, season_number, studio, voice_actors_actresses)
 VALUES (4, 2, 1, 'Ufotable', '["Takahiro Sakurai", "Natsuki Hanae", "Akari Kitō", "Kana Hanazawa"]');
 
+--retirar depois de teste
+INSERT INTO media (media_id, title, is_animation, genres, director, release_year, descriptions, age_rating, thumbnail_url, poster_url, trailer_url, created_at, updated_at)
+VALUES (5, 'Demon Slayer', TRUE, '[1, 5]', 'Koyoharu Gotouge', 2019, 'A história conta sobre um jovem que ganha a vida vendendo carvão até descobrir que sua família foi massacrada por um demônio, restando apenas sua irmã, Nezuko, que foi infectada e está se tornando um monstro. O protagonista, então, decide virar um caçador de demônios e buscar vingança.', 16, 'https://animerant.com.br/wp-content/uploads/2023/02/demon-slayer-ordem-3.jpg', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEP35guHXTOFmNq4Xpug0dNOlU5_lrSDSqXU5YisCpj5iSoDKgYpyo_jJ9b0Gej6Q_uFTSGbXGs8KlQZCcllq5atDR3-7_ycWq8CvSdt7-UDAhb6rIa8CI3IfS3jfSBLhJMvzrKaE-iSYb5FP4vcKCi3m3cfAr5ZzTezTtNFJF8Tru2B1HxRCLrnQ3LQ/s2233/demon-slayer-hinokami-chronicles-capa.jpg', 'https://www.youtube.com/watch?v=VQGCKyvzIM4','2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
+INSERT INTO anime (media_id, number_of_seasons, season_number, studio, voice_actors_actresses)
+VALUES (5, 2, 1, 'Ufotable', '["Takahiro Sakurai", "Natsuki Hanae", "Akari Kitō", "Kana Hanazawa"]');
+INSERT INTO media (media_id, title, is_animation, genres, director, release_year, descriptions, age_rating, thumbnail_url, poster_url, trailer_url, created_at, updated_at)
+VALUES (6, 'Demon Slayer', TRUE, '[1, 5]', 'Koyoharu Gotouge', 2019, 'A história conta sobre um jovem que ganha a vida vendendo carvão até descobrir que sua família foi massacrada por um demônio, restando apenas sua irmã, Nezuko, que foi infectada e está se tornando um monstro. O protagonista, então, decide virar um caçador de demônios e buscar vingança.', 16, 'https://animerant.com.br/wp-content/uploads/2023/02/demon-slayer-ordem-3.jpg', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEP35guHXTOFmNq4Xpug0dNOlU5_lrSDSqXU5YisCpj5iSoDKgYpyo_jJ9b0Gej6Q_uFTSGbXGs8KlQZCcllq5atDR3-7_ycWq8CvSdt7-UDAhb6rIa8CI3IfS3jfSBLhJMvzrKaE-iSYb5FP4vcKCi3m3cfAr5ZzTezTtNFJF8Tru2B1HxRCLrnQ3LQ/s2233/demon-slayer-hinokami-chronicles-capa.jpg', 'https://www.youtube.com/watch?v=VQGCKyvzIM4','2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
+INSERT INTO anime (media_id, number_of_seasons, season_number, studio, voice_actors_actresses)
+VALUES (6, 2, 1, 'Ufotable', '["Takahiro Sakurai", "Natsuki Hanae", "Akari Kitō", "Kana Hanazawa"]');
+INSERT INTO media (media_id, title, is_animation, genres, director, release_year, descriptions, age_rating, thumbnail_url, poster_url, trailer_url, created_at, updated_at)
+VALUES (7, 'Demon Slayer', TRUE, '[1, 5]', 'Koyoharu Gotouge', 2019, 'A história conta sobre um jovem que ganha a vida vendendo carvão até descobrir que sua família foi massacrada por um demônio, restando apenas sua irmã, Nezuko, que foi infectada e está se tornando um monstro. O protagonista, então, decide virar um caçador de demônios e buscar vingança.', 16, 'https://animerant.com.br/wp-content/uploads/2023/02/demon-slayer-ordem-3.jpg', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEP35guHXTOFmNq4Xpug0dNOlU5_lrSDSqXU5YisCpj5iSoDKgYpyo_jJ9b0Gej6Q_uFTSGbXGs8KlQZCcllq5atDR3-7_ycWq8CvSdt7-UDAhb6rIa8CI3IfS3jfSBLhJMvzrKaE-iSYb5FP4vcKCi3m3cfAr5ZzTezTtNFJF8Tru2B1HxRCLrnQ3LQ/s2233/demon-slayer-hinokami-chronicles-capa.jpg', 'https://www.youtube.com/watch?v=VQGCKyvzIM4','2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
+INSERT INTO anime (media_id, number_of_seasons, season_number, studio, voice_actors_actresses)
+VALUES (7, 2, 1, 'Ufotable', '["Takahiro Sakurai", "Natsuki Hanae", "Akari Kitō", "Kana Hanazawa"]');
+INSERT INTO media (media_id, title, is_animation, genres, director, release_year, descriptions, age_rating, thumbnail_url, poster_url, trailer_url, created_at, updated_at)
+VALUES (8, 'Demon Slayer', TRUE, '[1, 5]', 'Koyoharu Gotouge', 2019, 'A história conta sobre um jovem que ganha a vida vendendo carvão até descobrir que sua família foi massacrada por um demônio, restando apenas sua irmã, Nezuko, que foi infectada e está se tornando um monstro. O protagonista, então, decide virar um caçador de demônios e buscar vingança.', 16, 'https://animerant.com.br/wp-content/uploads/2023/02/demon-slayer-ordem-3.jpg', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEP35guHXTOFmNq4Xpug0dNOlU5_lrSDSqXU5YisCpj5iSoDKgYpyo_jJ9b0Gej6Q_uFTSGbXGs8KlQZCcllq5atDR3-7_ycWq8CvSdt7-UDAhb6rIa8CI3IfS3jfSBLhJMvzrKaE-iSYb5FP4vcKCi3m3cfAr5ZzTezTtNFJF8Tru2B1HxRCLrnQ3LQ/s2233/demon-slayer-hinokami-chronicles-capa.jpg', 'https://www.youtube.com/watch?v=VQGCKyvzIM4','2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
+INSERT INTO anime (media_id, number_of_seasons, season_number, studio, voice_actors_actresses)
+VALUES (8, 2, 1, 'Ufotable', '["Takahiro Sakurai", "Natsuki Hanae", "Akari Kitō", "Kana Hanazawa"]');
+INSERT INTO media (media_id, title, is_animation, genres, director, release_year, descriptions, age_rating, thumbnail_url, poster_url, trailer_url, created_at, updated_at)
+VALUES (9, 'Demon Slayer', TRUE, '[1, 5]', 'Koyoharu Gotouge', 2019, 'A história conta sobre um jovem que ganha a vida vendendo carvão até descobrir que sua família foi massacrada por um demônio, restando apenas sua irmã, Nezuko, que foi infectada e está se tornando um monstro. O protagonista, então, decide virar um caçador de demônios e buscar vingança.', 16, 'https://animerant.com.br/wp-content/uploads/2023/02/demon-slayer-ordem-3.jpg', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEP35guHXTOFmNq4Xpug0dNOlU5_lrSDSqXU5YisCpj5iSoDKgYpyo_jJ9b0Gej6Q_uFTSGbXGs8KlQZCcllq5atDR3-7_ycWq8CvSdt7-UDAhb6rIa8CI3IfS3jfSBLhJMvzrKaE-iSYb5FP4vcKCi3m3cfAr5ZzTezTtNFJF8Tru2B1HxRCLrnQ3LQ/s2233/demon-slayer-hinokami-chronicles-capa.jpg', 'https://www.youtube.com/watch?v=VQGCKyvzIM4','2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
+INSERT INTO anime (media_id, number_of_seasons, season_number, studio, voice_actors_actresses)
+VALUES (9, 2, 1, 'Ufotable', '["Takahiro Sakurai", "Natsuki Hanae", "Akari Kitō", "Kana Hanazawa"]');
+INSERT INTO media (media_id, title, is_animation, genres, director, release_year, descriptions, age_rating, thumbnail_url, poster_url, trailer_url, created_at, updated_at)
+VALUES (10, 'Demon Slayer', TRUE, '[1, 5]', 'Koyoharu Gotouge', 2019, 'A história conta sobre um jovem que ganha a vida vendendo carvão até descobrir que sua família foi massacrada por um demônio, restando apenas sua irmã, Nezuko, que foi infectada e está se tornando um monstro. O protagonista, então, decide virar um caçador de demônios e buscar vingança.', 16, 'https://animerant.com.br/wp-content/uploads/2023/02/demon-slayer-ordem-3.jpg', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEP35guHXTOFmNq4Xpug0dNOlU5_lrSDSqXU5YisCpj5iSoDKgYpyo_jJ9b0Gej6Q_uFTSGbXGs8KlQZCcllq5atDR3-7_ycWq8CvSdt7-UDAhb6rIa8CI3IfS3jfSBLhJMvzrKaE-iSYb5FP4vcKCi3m3cfAr5ZzTezTtNFJF8Tru2B1HxRCLrnQ3LQ/s2233/demon-slayer-hinokami-chronicles-capa.jpg', 'https://www.youtube.com/watch?v=VQGCKyvzIM4','2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
+INSERT INTO anime (media_id, number_of_seasons, season_number, studio, voice_actors_actresses)
+VALUES (10, 2, 1, 'Ufotable', '["Takahiro Sakurai", "Natsuki Hanae", "Akari Kitō", "Kana Hanazawa"]');
+INSERT INTO media (media_id, title, is_animation, genres, director, release_year, descriptions, age_rating, thumbnail_url, poster_url, trailer_url, created_at, updated_at)
+VALUES (11, 'Demon Slayer', TRUE, '[1, 5]', 'Koyoharu Gotouge', 2019, 'A história conta sobre um jovem que ganha a vida vendendo carvão até descobrir que sua família foi massacrada por um demônio, restando apenas sua irmã, Nezuko, que foi infectada e está se tornando um monstro. O protagonista, então, decide virar um caçador de demônios e buscar vingança.', 16, 'https://animerant.com.br/wp-content/uploads/2023/02/demon-slayer-ordem-3.jpg', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEP35guHXTOFmNq4Xpug0dNOlU5_lrSDSqXU5YisCpj5iSoDKgYpyo_jJ9b0Gej6Q_uFTSGbXGs8KlQZCcllq5atDR3-7_ycWq8CvSdt7-UDAhb6rIa8CI3IfS3jfSBLhJMvzrKaE-iSYb5FP4vcKCi3m3cfAr5ZzTezTtNFJF8Tru2B1HxRCLrnQ3LQ/s2233/demon-slayer-hinokami-chronicles-capa.jpg', 'https://www.youtube.com/watch?v=VQGCKyvzIM4','2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
+INSERT INTO anime (media_id, number_of_seasons, season_number, studio, voice_actors_actresses)
+VALUES (11, 2, 1, 'Ufotable', '["Takahiro Sakurai", "Natsuki Hanae", "Akari Kitō", "Kana Hanazawa"]');
+INSERT INTO media (media_id, title, is_animation, genres, director, release_year, descriptions, age_rating, thumbnail_url, poster_url, trailer_url, created_at, updated_at)
+VALUES (12, 'Demon Slayer', TRUE, '[1, 5]', 'Koyoharu Gotouge', 2019, 'A história conta sobre um jovem que ganha a vida vendendo carvão até descobrir que sua família foi massacrada por um demônio, restando apenas sua irmã, Nezuko, que foi infectada e está se tornando um monstro. O protagonista, então, decide virar um caçador de demônios e buscar vingança.', 16, 'https://animerant.com.br/wp-content/uploads/2023/02/demon-slayer-ordem-3.jpg', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEP35guHXTOFmNq4Xpug0dNOlU5_lrSDSqXU5YisCpj5iSoDKgYpyo_jJ9b0Gej6Q_uFTSGbXGs8KlQZCcllq5atDR3-7_ycWq8CvSdt7-UDAhb6rIa8CI3IfS3jfSBLhJMvzrKaE-iSYb5FP4vcKCi3m3cfAr5ZzTezTtNFJF8Tru2B1HxRCLrnQ3LQ/s2233/demon-slayer-hinokami-chronicles-capa.jpg', 'https://www.youtube.com/watch?v=VQGCKyvzIM4','2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
+INSERT INTO anime (media_id, number_of_seasons, season_number, studio, voice_actors_actresses)
+VALUES (12, 2, 1, 'Ufotable', '["Takahiro Sakurai", "Natsuki Hanae", "Akari Kitō", "Kana Hanazawa"]');
+
 -- episodios para anime
 INSERT INTO episode (id, anime_id, title, thumbnail_url, episode_url, duration, ordem, created_at, updated_at)
 VALUES ('11111111-1111-1111-1111-111111111111', 4, 'Crueldade', 'https://occ-0-3936-3851.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABbIG3xyrM5-FAxBYRTHz0HckVeMGheZteiWRjFXN82hawuGEkvTGogYVmTeiIHS7bYEfSzP-YRMABt-BEwSfLSH7zBJWy2KnKSWHZrkpgV01QC4l-PAQX4Rk.jpg?r=0ec', 'https://www.youtube.com/watch?v=VQGCKyvzIM4', 24, 1, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
@@ -86,6 +120,15 @@ INSERT INTO media_list_and_media (media_list_id, media_id)
 VALUES('5ced3b53-8d57-447d-aa69-fd0a55ab85d8', 3);
 INSERT INTO media_list_and_media (media_list_id, media_id)
 VALUES('5ced3b53-8d57-447d-aa69-fd0a55ab85d8', 4);
+INSERT INTO media_list_and_media (media_list_id, media_id)
+VALUES('5ced3b53-8d57-447d-aa69-fd0a55ab85d8', 5);
+INSERT INTO media_list_and_media (media_list_id, media_id)
+VALUES('5ced3b53-8d57-447d-aa69-fd0a55ab85d8', 6);
+INSERT INTO media_list_and_media (media_list_id, media_id)
+VALUES('5ced3b53-8d57-447d-aa69-fd0a55ab85d8', 7);
+INSERT INTO media_list_and_media (media_list_id, media_id)
+VALUES('5ced3b53-8d57-447d-aa69-fd0a55ab85d8', 8);
+
 
 -- lista 2
 INSERT INTO media_list_and_media (media_list_id, media_id)
@@ -96,6 +139,22 @@ INSERT INTO media_list_and_media (media_list_id, media_id)
 VALUES('0316dfc4-912d-4cda-9018-419bb3045cd1', 3);
 INSERT INTO media_list_and_media (media_list_id, media_id)
 VALUES('0316dfc4-912d-4cda-9018-419bb3045cd1', 4);
+INSERT INTO media_list_and_media (media_list_id, media_id)
+VALUES('0316dfc4-912d-4cda-9018-419bb3045cd1', 5);
+INSERT INTO media_list_and_media (media_list_id, media_id)
+VALUES('0316dfc4-912d-4cda-9018-419bb3045cd1', 6);
+INSERT INTO media_list_and_media (media_list_id, media_id)
+VALUES('0316dfc4-912d-4cda-9018-419bb3045cd1', 7);
+INSERT INTO media_list_and_media (media_list_id, media_id)
+VALUES('0316dfc4-912d-4cda-9018-419bb3045cd1', 8);
+INSERT INTO media_list_and_media (media_list_id, media_id)
+VALUES('0316dfc4-912d-4cda-9018-419bb3045cd1', 9);
+INSERT INTO media_list_and_media (media_list_id, media_id)
+VALUES('0316dfc4-912d-4cda-9018-419bb3045cd1', 10);
+INSERT INTO media_list_and_media (media_list_id, media_id)
+VALUES('0316dfc4-912d-4cda-9018-419bb3045cd1', 11);
+INSERT INTO media_list_and_media (media_list_id, media_id)
+VALUES('0316dfc4-912d-4cda-9018-419bb3045cd1', 12);
 
 -- lista 3
 INSERT INTO media_list_and_media (media_list_id, media_id)

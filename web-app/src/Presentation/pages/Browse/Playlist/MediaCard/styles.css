@@ -4,6 +4,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  position: relative;
   z-index: 999;
   background-color: rgb(25, 24, 26);
   border-radius: 4px;
@@ -16,6 +17,7 @@
   overflow: visible;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
   transition: transform 100ms ease-in 200ms, z-index 400ms linear;
+  cursor: pointer;
 }
 .MediaCard:hover .Thumbnail {
   border-bottom-left-radius: 0;
@@ -185,7 +187,7 @@
   background-color: #E3E3E3;
   transform: rotate(45deg);
 }
-.MediaCard .Mini-menu .Circle-3 .Play-button {
+.MediaCard .Mini-menu .Circle-3 .More-infos-button {
   width: 12px;
   height: auto;
   filter: invert(1);
@@ -263,4 +265,48 @@
   color: rgb(255, 255, 255);
   font-size: 0.7rem;
   font-weight: 400;
+}
+
+.DialogOverlay {
+  background-color: rgba(0, 0, 0, 0.48);
+  position: fixed;
+  inset: 0;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999998;
+}
+
+.DialogContent {
+  box-shadow: hsla(206, 22%, 7%, 0.35) 0px 10px 38px -10px, hsla(206, 22%, 7%, 0.2) 0px 10px 20px -15px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 860px;
+  z-index: 9999999;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.DialogContent:focus {
+  outline: none;
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }/*# sourceMappingURL=styles.css.map */

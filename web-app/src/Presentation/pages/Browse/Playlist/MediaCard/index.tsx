@@ -1,6 +1,7 @@
 import './styles.css';
 
 import EmbededTrailerOnHover from './EmbededTrailerOnHover';
+import MediaCardDialog from './MediaCardDialog';
 
 import arrowRightButton from '@Presentation/assets/svg/arrow-right.svg';
 import playButton from '@Presentation/assets/svg/play-button.svg';
@@ -13,7 +14,9 @@ import { Anime, isAnime } from '@Model/entities/Anime';
 
 import ImprovedImage from '@Presentation/components/ImprovedImage';
 
-import { useState } from 'react';
+import { memo, useMemo, useState } from 'react';
+
+import * as Dialog from '@radix-ui/react-dialog';
 
 interface props {
     media: Media | Movie | TvShow | Anime;
@@ -22,6 +25,11 @@ interface props {
 export default function MediaCard ({media}: props) : JSX.Element {
 
     const [isHovered, setIsHovered] = useState(false);
+    const [showMediaCardDialog, setShowMediaCardDialog] = useState(false);
+
+    const mediaParam = useMemo(() => media, [media]);
+
+    const MemoizedMediaCardDialog = memo(MediaCardDialog);
 
     return(
         //só aparecer depois do tempo da conclusão da transição por parte do css 
@@ -51,9 +59,19 @@ export default function MediaCard ({media}: props) : JSX.Element {
                     </span>
                 </div>
 
-                <div className='Circle-3'>
-                    <img className='Play-button' id='Play-button' src={arrowRightButton}/>
-                </div>
+                <Dialog.Root>
+                    <Dialog.Trigger asChild>
+                        <div className='Circle-3'>
+                            <img className='More-infos-button' src={arrowRightButton}/>
+                        </div>
+                    </Dialog.Trigger>
+                    <Dialog.Portal>
+                        <Dialog.Overlay className="DialogOverlay" />
+                        <Dialog.Content className="DialogContent">
+                            <MemoizedMediaCardDialog media={mediaParam} setShowMediaCardDialog={setShowMediaCardDialog}/>
+                        </Dialog.Content>
+                    </Dialog.Portal>
+                </Dialog.Root>
             </div>
 
             <div className='Informations Hover-visible'>
@@ -105,7 +123,10 @@ export default function MediaCard ({media}: props) : JSX.Element {
             <div className='Genres Hover-visible'>
                 {normalizeGenreList(media.genres).join("  ⚬  ")}
             </div>
-
+            
+            {showMediaCardDialog &&
+                <MemoizedMediaCardDialog media={mediaParam} setShowMediaCardDialog={setShowMediaCardDialog}/>
+            }
         </article>
     );
 }

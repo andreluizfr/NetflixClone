@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState } from 'react';
 
 import LoadingPage from "@Presentation/pages/Loading";
 const HomePage = lazy(() => import('@Presentation/pages/Home'));
@@ -20,63 +20,78 @@ import {
 import { AuthProvider } from '@Main/providers/AuthProvider';
 
 function Router() {
+
+	const [fontsLoaded, setFontsLoaded] = useState(false);
+
+	window.onload = function() {
+		if (document.fonts.check('16px Netflix Sans')) {
+			setFontsLoaded(true);
+		} else {
+			setTimeout(function() {
+				setFontsLoaded(true);
+			}, 2000);
+		}
+	}
 	
-	return (
-		<Suspense fallback={<LoadingPage/>}>
-			<RouterProvider router={
-				createBrowserRouter([
-					{
-						path: "/",
-						element: <HomePage/>,
-					},
-					{
-						path: "/login",
-						element: <LoginPage/>,
-					},
-					{
-						path: "/signup",
-						element: <SignupPage/>,
-					},
-					{
-						path: "/signup/planform",
-						element: <SignupPlanPage/>,
-					},
-					{
-						path: "/signup/registration",
-						element: <SignupRegistrationPage/>,
-					},
-					{
-						path: "/signup/paymentPicker",
-						element: <SignupPaymentPickerPage/>,
-					},
-					{
-						path: "/signup/informations",
-						element: <SignupInformationsPage/>,
-					},
-					{
-						path: "/signup/payment",
-						element: <SignupPaymentPage/>,
-					},
-					{
-						path: "/whoIsWatching",
-						element: <AuthProvider><WhoIsWatchingPage/></AuthProvider>,
-					},
-					{
-						path: "/browse",
-						element: <AuthProvider><BrowsePage/></AuthProvider>,
-					},
-					{
-						path: "/403",
-						element: <>Você não tem permissão pra acessar essa página</>,
-					},
-					{
-						path: "*",
-						element: <>Página não encontrada</>,
-					}
-				])
-			}/> 
-		</Suspense>
-	);
+	if (fontsLoaded)
+		return (
+			<Suspense fallback={<LoadingPage/>}>
+				<RouterProvider router={
+					createBrowserRouter([
+						{
+							path: "/",
+							element: <HomePage/>,
+						},
+						{
+							path: "/login",
+							element: <LoginPage/>,
+						},
+						{
+							path: "/signup",
+							element: <SignupPage/>,
+						},
+						{
+							path: "/signup/planform",
+							element: <SignupPlanPage/>,
+						},
+						{
+							path: "/signup/registration",
+							element: <SignupRegistrationPage/>,
+						},
+						{
+							path: "/signup/paymentPicker",
+							element: <SignupPaymentPickerPage/>,
+						},
+						{
+							path: "/signup/informations",
+							element: <SignupInformationsPage/>,
+						},
+						{
+							path: "/signup/payment",
+							element: <SignupPaymentPage/>,
+						},
+						{
+							path: "/whoIsWatching",
+							element: <AuthProvider><WhoIsWatchingPage/></AuthProvider>,
+						},
+						{
+							path: "/browse",
+							element: <AuthProvider><BrowsePage/></AuthProvider>,
+						},
+						{
+							path: "/403",
+							element: <>Você não tem permissão pra acessar essa página</>,
+						},
+						{
+							path: "*",
+							element: <>Página não encontrada</>,
+						}
+					])
+				}/> 
+			</Suspense>
+		);
+
+	else return <LoadingPage/>
 }
 
 export default Router;

@@ -21,6 +21,8 @@
 
         .MediaLists{
             padding: 0px 40px;
+            position: relative;
+            z-index: 99;
 
             @include mq-small{
                 padding: 0px 24px;
