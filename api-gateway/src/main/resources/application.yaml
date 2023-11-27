@@ -1,0 +1,25 @@
+zuul:
+  prefix: /api
+  routes:
+    content-manager-service:
+      path: /cms/**
+      service-id: content-manager-service
+      stripPrefix: false
+
+    user-service:
+      path: /user/**
+      service-id: user-service
+      stripPrefix: false
+    
+    media-service:
+      path: /media/**
+      service-id: media-service
+      stripPrefix: false
+    
+    payment-service:
+      path: /payment/**
+      service-id: payment-service
+      stripPrefix: false
+    
+   
+  

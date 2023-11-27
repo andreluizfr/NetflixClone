@@ -34,19 +34,19 @@
 ## Imagens
 
 ### Página Inicial
-<img src="/images/homepage.PNG" width="100%" height="auto"/>
+<img src="/web-app/images/homepage.PNG" width="100%" height="auto"/>
 
 ### Página de uma das etapas de Registro
-<img src="/images/signup.PNG" width="100%" height="auto"/>
+<img src="/web-app/images/signup.PNG" width="100%" height="auto"/>
 
 ### Página de login mobile
-<img src="/images/login-mobile.PNG" width="50%" height="auto"/>
+<img src="/web-app/images/login-mobile.PNG" width="50%" height="auto"/>
 
 ### Página de seleção de perfil
-<img src="/images/who-is-watching.PNG" width="100%" height="auto"/>
+<img src="/web-app/images/who-is-watching.PNG" width="100%" height="auto"/>
 
 ### Página dos conteúdos
-<img src="/images/contentspage.PNG" width="100%" height="auto"/>
+<img src="/web-app/images/contentspage.PNG" width="100%" height="auto"/>
 
 ## Como iniciar a aplicação
 

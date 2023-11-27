@@ -1,0 +1,7 @@
+#IDE
+.vscode
+
+#docker compose volumes
+.m2
+.pgdata
+.kafkadata

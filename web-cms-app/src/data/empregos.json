@@ -1,0 +1,16 @@
+{
+    "jobs": {
+        "companies_added": [
+            {
+                "name": "accenture",
+                "link": "accenture.com"
+            }
+        ],
+        "companies_to_add": [
+            {
+                "name": "avantia",
+                "link": "avantia.com"
+            }
+        ]
+    }
+}

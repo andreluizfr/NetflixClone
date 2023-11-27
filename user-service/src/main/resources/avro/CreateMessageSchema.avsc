@@ -1,0 +1,23 @@
+{
+    "type": "record",
+    "namespace": "com.example.UserService.Schemas",
+    "name": "CreateMessageSchema",
+    "version": "1",
+    "fields": [
+        { 
+            "name": "user_email",
+            "type": "string",
+            "doc": "User e-mail" 
+        },
+        { 
+            "name": "message_type",
+            "type": "int",
+            "doc": "Type of message" 
+        },
+        { 
+            "name": "delivery_method",
+            "type": "int",
+            "doc": "Delivery method (notification, e-mail, sms...)"
+        }
+    ]
+}
