@@ -1,10 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import Router from "@Main/routes/Router";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
-)
+import { ReduxProvider } from '@Infrastructure/store/redux/provider';
+import { ReactQueryProvider } from '@Main/providers/ReactQueryProvider';
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+	<ReduxProvider>
+		<ReactQueryProvider>
+			<React.StrictMode>
+				<Router />
+			</React.StrictMode>
+		</ReactQueryProvider>
+	</ReduxProvider>,
+);

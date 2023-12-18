@@ -3,7 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import SearchContainer from './components/SearchContainer';
+import SearchContainer from './Presentation/components/SearchContainer';
 import Container from '@mui/material/Container';
 
 interface TabPanelProps {

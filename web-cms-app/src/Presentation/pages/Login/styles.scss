@@ -1,0 +1,259 @@
+@import '../../assets/sass/variables';
+@import '../../assets/sass/mixins';
+
+.LoginPage{
+    min-height: 100vh; 
+    width: 100%;
+
+    background-image: url('../../assets/img/home_background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    @include mq-medium{
+        background: rgb(0,0,0);
+    }
+
+    .Background-filter{
+        width: 100%;
+        height: 100%;
+        @include flex-column-start-center;
+        gap: 4px;
+        background-color: rgba(0,0,0,0.5);
+
+        .Header{
+            @include flex-row-start-center;
+            width: 100%;
+            height: 96px;
+            padding-left: 24px;
+
+            a{
+                .Logo{
+                    height: 48px;
+                    width: auto;
+                }
+            }
+            
+        }
+
+        .Login-background {
+            flex: 1;
+            
+            .Login-form{
+                width: 440px;
+                @include flex-column-start-start;
+                gap: 16px;
+                padding: 60px 68px;
+                background-color: rgba(0,0,0,0.7);
+
+                @include mq-medium{
+                    width: 100%;
+                    padding: 0 22px;
+                }
+
+                & > .Title{
+                    margin: 0 0 8px 0;
+                    font-size: $font-size-xl;
+                    color: $font-primary-color;
+                    font-weight: 600;
+                }
+
+                .Login-button{
+                    width: 100%;
+                    height: 48px;
+                    border-radius: 4px;
+                    background-color: $button-primary-color;
+
+                    color: $font-primary-color;
+                    font-size: $font-size-normal;
+                    font-weight: 600;
+
+                    cursor: pointer;
+                }
+
+                .Remember-me-and-need-help-container{
+                    width: 100%;
+                    @include flex-row-space-between-center;
+
+                    .Remember-me-checkbox{
+                        @include flex-row-center-center;
+
+                        label{
+                            input{
+                                position: relative;
+                                inset: 0;
+                                zoom: 1.4;
+                            }
+                            input::before{
+                                content: "";
+                                display: block;
+                                position: absolute;
+                                inset: 0;
+                                width: 12px;
+                                height: 12px;
+                                border-radius: 2px;
+
+                                background-color: #737373;;
+                            }
+                            input::after{
+                                content: "";
+                                display: none;
+                                position: absolute;
+                                inset: 0;
+                                width: 12px;
+                                height: 12px;
+                                background-image: url("../../assets/svg/check.svg");
+                                background-position: center;
+                                background-size: 80%;
+                                background-repeat: no-repeat;
+                            }
+                        }
+
+                        label input:focus::before{
+                            background-color: $background-secondary-color;
+                        }
+
+                        label input:checked::after{
+                            display: block;
+                        }
+
+                        span{
+                            margin-left: 2px;
+                            color: $font-quaternary-color;
+                            font-size: $font-size-small;
+                        }
+                    }
+
+                    .Need-help{
+                        color: $font-quaternary-color;
+                        font-size: $font-size-small;
+                        cursor: pointer;
+                    }
+                }
+
+                .Aditional-infos-container{
+                    color: $font-tertiary-color;
+
+                    .New-members{
+                        margin: 8px 0 8px 0;
+                        font-size: $font-size-normal;
+
+                        strong{
+                            color: $font-primary-color;
+                        }
+                    }
+                    .Recaptcha-notice{
+                        margin: 8px 0 0 0;
+                        font-size: $font-size-small;
+                        line-height: 15px;
+
+                        a{
+                            color: #0071eb;
+                            text-decoration: none;
+
+                            &:visited{
+                                color: #0071eb;
+                                text-decoration: none;
+                            }
+                            &:hover{
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+
+        footer{
+            width: 100%;
+            @include flex-column-start-start;
+            gap: 16px;
+            padding: 24px 32px;
+            margin-top: 76px;
+            background-color: rgba(0,0,0,0.7);
+
+            @include mq-medium{
+                border-top: 1px solid $font-tertiary-color;
+            }
+
+            .Row-1{
+                margin-bottom: 12px;
+                font-size: $font-size-normal;
+                color: $font-primary-color;
+
+                a{
+                    color: $font-tertiary-color;
+                    text-decoration: none;
+                    cursor: pointer;
+
+                    &:visited{
+                        color: $font-tertiary-color;
+                        text-decoration: none;
+                    }
+                    &:hover{
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .Row-2{
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat( auto-fit, minmax(100px, 1fr) );
+                column-gap: 36px;
+                row-gap: 14px;
+
+                & > a {
+                    color: $font-tertiary-color;
+                    font-size: $font-size-small;
+                    text-decoration: none;
+
+                    &:visited{
+                        color: $font-tertiary-color;
+                        text-decoration: none;
+                    }
+                    &:hover{
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .Row-3{
+                margin-bottom: 24px;
+
+                .Select-language{
+                    padding: 13px 4px 13px 44px;
+                    border: 1px solid rgba(255,255,255,0.24);
+                    border-radius: 2px;
+
+                    background-color: $background-primary-color;
+                    background-image: url('../../assets/svg/globe.svg');
+                    background-position: 10% 50%;
+                    background-repeat: no-repeat;
+                    background-size: 12%;
+
+                    color: $font-primary-color;
+                    font-size: $font-size-small;
+
+                    option{
+                        background-color: $background-primary-color;
+    
+                        font-size: $font-size-small;
+                        color: $font-primary-color;
+                    }
+
+                    &:focus{
+                        outline-offset: 1px;
+                        outline: 2px solid $button-secondary-color;
+                    }
+
+                    &::-ms-expand {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+    
+}

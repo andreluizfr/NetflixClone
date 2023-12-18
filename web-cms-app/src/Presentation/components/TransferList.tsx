@@ -8,7 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 
-import allJobs from '../data/empregos.json';
+import allJobs from '../../data/empregos.json';
 
 interface Company{
 	name: string;
