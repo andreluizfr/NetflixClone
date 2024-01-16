@@ -1,0 +1,62 @@
+{"properties": [
+  {
+    "name": "api.security.token.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'api.security.token.secret'"
+  },
+  {
+    "name": "spring.webmvc.cors.allowed-origins",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.webmvc.cors.allowed-origins'"
+  },
+  {
+    "name": "api.security.token.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'api.security.token.secret'"
+  },
+  {
+    "name": "spring.data.redis.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.data.redis.password'"
+  },
+  {
+    "name": "spring.data.redis.port",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.data.redis.port'"
+  },
+  {
+    "name": "spring.data.redis.host",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.data.redis.host'"
+  },
+  {
+    "name": "api.security.token.jwtSecret",
+    "type": "java.lang.String",
+    "description": "A description for 'api.security.token.jwtSecret'"
+  },
+  {
+    "name": "server.servlet.encoding.force",
+    "type": "java.lang.String",
+    "description": "A description for 'server.servlet.encoding.force'"
+  },
+  {
+    "name": "server.servlet.encoding.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'server.servlet.encoding.enabled'"
+  },
+  {
+    "name": "server.servlet.encoding.charset",
+    "type": "java.lang.String",
+    "description": "A description for 'server.servlet.encoding.charset'"
+  },
+  {
+    "name": "spring.sql.init.encoding",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.sql.init.encoding'"
+  },
+  {
+    "name": "spring.sql.init.mode",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.sql.init.mode'"
+  }
+]}

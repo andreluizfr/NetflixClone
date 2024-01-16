@@ -13,8 +13,8 @@ import secureBadge from '../../assets/svg/secureBadge.svg';
 import { useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
-import { savePaymentType } from '@Infrastructure/stores/redux/features/signupDataSlice';
-import { StoreState } from '@Infrastructure/stores/redux/config';
+import { savePaymentType } from '@Infrastructure/store/redux/features/signupDataSlice';
+import { StoreState } from '@Infrastructure/store/redux/config';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { PaymentType } from '@Model/types/PaymentType';

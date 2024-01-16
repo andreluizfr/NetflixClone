@@ -2,7 +2,7 @@ import './styles.css';
 import playButton from '@Presentation/assets/svg/play-button.svg';
 import infoCircle from '@Presentation/assets/svg/info-circle-2.svg';
 
-import { GetCurrentPreviewMediaService } from '@Application/useCases/GetCurrentPreviewMedia/GetCurrentPreviewMediaService';
+import { GetCurrentPreviewMediaService } from '@Services/GetCurrentPreviewMedia/GetCurrentPreviewMediaService';
 
 import ImprovedEmbededVideo from '@Presentation/components/ImprovedEmbededVideo';
 import LoadingSpinner from '@Presentation/components/ImprovedVideo/LoadingSpinner';

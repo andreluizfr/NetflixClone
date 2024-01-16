@@ -10,9 +10,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { makePersistentStorage } from '@Main/factories/infrastructure/makePersistentStorage';
 
-import { removeUser, setProfile } from '@Infrastructure/stores/redux/features/userSlice';
+import { removeUser, setProfile } from '@Infrastructure/store/redux/features/userSlice';
 import { useEffect } from 'react';
-import { StoreState } from '@Infrastructure/stores/redux/config';
+import { StoreState } from '@Infrastructure/store/redux/config';
 import { Profile } from '@Model/entities/Profile';
 
 

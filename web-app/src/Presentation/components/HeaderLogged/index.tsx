@@ -5,7 +5,7 @@ import bellIcon from '@Presentation/assets/img/bell-icon.png';
 
 import ProfileDropdownMenu from '@Presentation/components/ProfileDropdownMenu';
 
-import { StoreState } from '@Infrastructure/stores/redux/config';
+import { StoreState } from '@Infrastructure/store/redux/config';
 import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';

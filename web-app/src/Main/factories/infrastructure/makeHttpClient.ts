@@ -1,7 +1,7 @@
-import { IHttpClient } from "@Application/interfaces/httpClient/IHttpClient";
+import { IHttpClient } from "@Infrastructure/httpClient/IHttpClient";
 
-import { AxiosHttpClientImpl } from "@Infrastructure/httpClients/axios/httpClientImpl";
-import { axiosInstance } from "@Infrastructure/httpClients/axios/AxiosInstance";
+import { AxiosHttpClientImpl } from "@Infrastructure/httpClient/axios/httpClientImpl";
+import { axiosInstance } from "@Infrastructure/httpClient/axios/AxiosInstance";
 
 //Factory method pattern
 export function makeHttpClient<T>(): IHttpClient<T> {

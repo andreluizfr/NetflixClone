@@ -7,8 +7,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Helmet } from 'react-helmet-async';
 
-import { saveEmail } from '@Infrastructure/stores/redux/features/signupDataSlice';
-import { StoreState } from '@Infrastructure/stores/redux/config';
+import { saveEmail } from '@Infrastructure/store/redux/features/signupDataSlice';
+import { StoreState } from '@Infrastructure/store/redux/config';
 import { useDispatch, useSelector } from 'react-redux';
 
 

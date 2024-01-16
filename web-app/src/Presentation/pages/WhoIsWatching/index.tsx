@@ -1,8 +1,8 @@
 import './styles.css';
 import addButton from '@Presentation/assets/svg/add-button.svg';
 
-import { StoreState } from '@Infrastructure/stores/redux/config';
-import { removeUser, setProfile } from '@Infrastructure/stores/redux/features/userSlice';
+import { StoreState } from '@Infrastructure/store/redux/config';
+import { removeUser, setProfile } from '@Infrastructure/store/redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useNavigate } from "react-router-dom";

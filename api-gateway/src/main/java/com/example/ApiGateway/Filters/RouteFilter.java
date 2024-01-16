@@ -2,7 +2,7 @@ package com.example.ApiGateway.Filters;
 
 import com.netflix.zuul.ZuulFilter;
 
-public class RouteFilter extends ZuulFilter{
+public class RouteFilter extends ZuulFilter {
 
     @Override
 	public String filterType() {

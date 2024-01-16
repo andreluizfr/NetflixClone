@@ -1,0 +1,40 @@
+{
+    "neutral_900": "rgb(0,0,0)",
+    "neutral_850": "rgb(12, 12, 13)",
+    "neutral_800": "rgb(14,14,14)",
+    "neutral_700": "rgb(21,19,21)",
+    "neutral_600": "rgb(25,24,26)",
+    "neutral_500": "rgb(33,33,33)",
+    "neutral_450": "rgb(96,96,96)",
+    "neutral_400": "rgb(140,140,140)",
+    "neutral_300": "rgb(179,179,179)",
+    "neutral_200": "rgb(227,227,227)",
+    "neutral_100": "rgb(255,255,255)",
+
+    "slate_500": "#8796A5",
+
+    "red_primary": "rgb(229,9,20)",
+
+    "orange_primary": "rgb(255,165,0)",
+
+    "blue_primary": "rgb(46,178,255)",
+    "blue_600": "rgb(0,113,235)",
+    "blue_700": "#003892",
+    "blue_800": "#001e3c",
+
+    "yellow_primary": "rgb(247,217,23)",
+
+    "green_primary": "rgb(115, 204, 133)",
+    "green_500": "rgb(70,211,105)",
+
+    "font_size_smallest": "9.6px",
+    "font_size_smaller": "11.2px",
+    "font_size_small": "12.8px",
+    "font_size_normal": "16px",
+    "font_size_medium": "19.2px",
+    "font_size_medium2": "22.4px",
+    "font_size_large": "25.6px",
+    "font_size_xl": "32px",
+    "font_size_xxl": "48px",
+    "font_size_xxxl": "64px"
+}

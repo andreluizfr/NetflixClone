@@ -1,7 +1,7 @@
 package com.example.ApiGateway.Authentication;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 public class ModifiedHeaderRequestWrapper extends HttpServletRequestWrapper{
     

@@ -1,25 +1,99 @@
+spring:
+  application:
+    name: api-gateway
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/netflixClone
+    username: postgres
+    password: admin
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+    hibernate: 
+      ddl-auto: validate
+    
+    show-sql: true
+    
+server:
+  port: 5050
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      enabled: true 
+      show-details: always
+
+api:
+  security:
+    token:
+      jwtExpirationTime: 1800000
+      jwtSecret: my-secret-key
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: true
+
 zuul:
-  prefix: /api
   routes:
     content-manager-service:
       path: /cms/**
-      service-id: content-manager-service
+      url: http://localhost:5151/api
       stripPrefix: false
 
-    user-service:
+    user-service1:
       path: /user/**
-      service-id: user-service
+      url: http://localhost:5252/api
+      stripPrefix: false
+
+    user-service2:
+      path: /account/**
+      url: http://localhost:5252/api
+      stripPrefix: false
+
+    user-service3:
+      path: /profile/**
+      url: http://localhost:5252/api
       stripPrefix: false
     
-    media-service:
-      path: /media/**
-      service-id: media-service
+    media-service1:
+      path: /api/media/**
+      service-id: MEDIA-API
+      stripPrefix: false
+
+    media-service2:
+      path: /movie/**
+      url: http://localhost:5353/api
+      stripPrefix: false
+
+    media-service3:
+      path: /tvShow/**
+      url: http://localhost:5353/api
       stripPrefix: false
     
+    media-service4:
+      path: /anime/**
+      url: http://localhost:5353/api
+      stripPrefix: false
+
+    media-service5:
+      path: /previewMedia/**
+      url: http://localhost:5353/api
+      stripPrefix: false
+    
+    media-service6:
+      path: /mediaList/**
+      url: http://localhost:5353/api
+      stripPrefix: false
+
     payment-service:
       path: /payment/**
-      service-id: payment-service
+      url: http://localhost:5454/api
       stripPrefix: false
-    
-   
-  

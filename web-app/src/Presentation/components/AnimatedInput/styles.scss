@@ -58,7 +58,7 @@
 
     .Input:focus + .Title{
         font-size: $font-size-smaller;
-        font-weight: 500;
+        font-weight: 400;
         top: 6px;
     }
 
@@ -73,7 +73,7 @@
 
     .Input:valid + .Title{
         font-size: $font-size-smaller;
-        font-weight: 500;
+        font-weight: 400;
         top: 6px;
     }
 
@@ -86,7 +86,7 @@
     
     .Input:invalid[wasBlured="true"] + .Title{
         font-size: $font-size-smaller;
-        font-weight: 500;
+        font-weight: 400;
         top: 6px;
     }
 

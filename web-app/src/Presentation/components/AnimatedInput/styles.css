@@ -46,7 +46,7 @@
 }
 .Animated-input .Input:focus + .Title {
   font-size: 0.7rem;
-  font-weight: 500;
+  font-weight: 400;
   top: 6px;
 }
 .Animated-input .Input:valid {
@@ -55,7 +55,7 @@
 }
 .Animated-input .Input:valid + .Title {
   font-size: 0.7rem;
-  font-weight: 500;
+  font-weight: 400;
   top: 6px;
 }
 .Animated-input .Input:invalid[wasBlured=true] {
@@ -63,7 +63,7 @@
 }
 .Animated-input .Input:invalid[wasBlured=true] + .Title {
   font-size: 0.7rem;
-  font-weight: 500;
+  font-weight: 400;
   top: 6px;
 }
 .Animated-input .Input:invalid[wasBlured=true] ~ .Warning {

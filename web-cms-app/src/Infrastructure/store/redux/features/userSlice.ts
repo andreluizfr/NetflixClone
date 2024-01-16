@@ -13,6 +13,8 @@ export interface UserState {
     selectedProfile: Profile | null;
 }
 
+const persistentStorage = makePersistentStorage();
+
 const userSlice = createSlice({
     name: 'user',
     initialState: {
@@ -20,22 +22,19 @@ const userSlice = createSlice({
         selectedProfile: null
     } as UserState,
     reducers: {
-        saveUser(state: UserState, action: ReduxAction<User>) {
+        saveUser(state: UserState, action: ReduxAction<User | null>) {
             state.data = action.payload;
 
-            const persistentStorage = makePersistentStorage();
             persistentStorage.set("user", action.payload);
         },
         removeUser(state: UserState){
             state.data = null;
 
-            const persistentStorage = makePersistentStorage();
             persistentStorage.remove("user");
             persistentStorage.remove("x-access-token");
         },
-        setProfile(state: UserState, action: ReduxAction<Profile | undefined> ){
-            const persistentStorage = makePersistentStorage();
-
+        setProfile(state: UserState, action: ReduxAction<Profile> ){
+            
             if(action.payload === undefined){
                 const selectedProfile = persistentStorage.get<Profile>("selectedProfile");
                 state.selectedProfile = selectedProfile;

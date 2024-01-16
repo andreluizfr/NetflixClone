@@ -1,9 +1,13 @@
 package com.example.ApiGateway.Authentication.Controller;
 
+import java.util.Enumeration;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ApiGateway.Authentication.Business.AuthBusiness;
 import com.example.ApiGateway.Authentication.Controller.Models.LoginDTO;
+import com.example.ApiGateway.Authentication.Exceptions.AuthenticationException;
 import com.example.ApiGateway.Util.ResponseHandler;
 
 @RestController
@@ -21,10 +26,40 @@ public class AuthController {
     AuthBusiness authBusiness;
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody LoginDTO data) {
+    public ResponseEntity<Object> login(@RequestBody LoginDTO data, HttpServletRequest request) {
+
+        String requestBody;
+		try {
+			requestBody = request.getInputStream().toString();
+		} catch (Exception e) {
+			requestBody = "";
+		}
+
+		StringBuilder requestHeaders = new StringBuilder("");
+        Enumeration<String> headersEnumeration = request.getHeaderNames();
+        if(headersEnumeration != null){
+            Iterator<String> iterator = headersEnumeration.asIterator();
+            if(iterator.hasNext()){
+                String nextHeader = iterator.next();
+                requestHeaders.append(nextHeader);
+            }
+        }
+
+        System.out.println(
+				"\n" +
+				"In WebController" + "\n" +
+				"Request Method : " + request.getMethod() + "\n" +
+				"Request URL : " + request.getRequestURL().toString() + "\n" +
+				"Request Query: " + request.getQueryString() + "\n" +
+				"Request Headers: " + requestHeaders.toString() + "\n" +
+				"Request Body: " + requestBody +
+				"\n"
+		);
 
         try {
             String accessToken = authBusiness.login(data);
+
+            System.out.println(data.getEmail() + " " + data.getPassword());
 
             return ResponseHandler.generateResponse("Login realizado com sucesso, você será redirecionado em breve.",
                     HttpStatus.OK,
@@ -39,7 +74,7 @@ public class AuthController {
 
         } catch (AuthenticationException e) {
 
-            System.out.println("Error: " + e.getMessage());
+            System.out.println(e.getMessage());
 
             return ResponseHandler.generateResponse("Error: E-mail ou senha errada",
                     HttpStatus.FORBIDDEN, null);
@@ -50,9 +85,7 @@ public class AuthController {
 
             return ResponseHandler.generateResponse(e.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR, null);
-
         }
 
     }
-
 }

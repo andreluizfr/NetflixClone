@@ -1,25 +1,30 @@
 package com.example.ApiGateway.Authentication.Models;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.example.ApiGateway.Authentication.CustomPermission;
 import com.example.ApiGateway.Authentication.Models.Enums.UserRole;
+import com.example.ApiGateway.Authentication.Models.Enums.UserRoleConverter;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,10 +36,10 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Entity(name = "User")
 @Table(name = "user_info")
-public class User implements UserDetails {
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(name = "enabled_flag", nullable = false)
@@ -49,13 +54,18 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role_id", nullable = false)
+    @Convert(converter = UserRoleConverter.class)
+    @Column(name = "role_id", nullable = false, columnDefinition = "SMALLINT")
     private UserRole role;
+
+    @Transient
+    Set<String> permissionsByRole = new HashSet<>();
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Version
     @UpdateTimestamp
     @Column(name="updated_at", nullable = false) 
     private LocalDateTime updatedAt;
@@ -102,49 +112,20 @@ public class User implements UserDetails {
         this.password = new BCryptPasswordEncoder().encode(this.password);
     }
 
-    @Override
     @Transient
-    public Collection<CustomPermission> getAuthorities() {
-        List<CustomPermission> existingPermissions;
+    public List<String> getAuthorities() {
+        List<String> roleAuthorities = new ArrayList<>();
 
-        if (this.role == UserRole.ADMIN)
-            existingPermissions = List.of(new CustomPermission("ROLE_ADMIN"));
-        if(this.role == UserRole.STAFF)
-            existingPermissions = List.of(new CustomPermission("ROLE_STAFF"));
+        if (UserRole.ADMIN.equals(this.role))
+            roleAuthorities = List.of(new String("ROLE_ADMIN"));
+        else if(UserRole.STAFF.equals(this.role))
+            roleAuthorities = List.of(new String("ROLE_STAFF"));
         else
-            existingPermissions = List.of(new CustomPermission("ROLE_USER"));
+            roleAuthorities = List.of(new String("ROLE_USER"));
         
-
-        return existingPermissions;
-    }
-
-    @Transient
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
-
-    @Transient
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Transient
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Transient
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Transient
-    @Override
-    public boolean isEnabled() {
-        return this.enabled && !this.deleted;
+        return Stream.concat(
+                    roleAuthorities.stream(),
+                    this.getPermissionsByRole().stream()
+                ).collect(Collectors.toList());
     }
 }

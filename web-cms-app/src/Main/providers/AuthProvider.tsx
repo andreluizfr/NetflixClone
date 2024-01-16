@@ -1,17 +1,34 @@
-import { FetchUserService } from "@Application/useCases/FetchUser/FetchUserService";
-import Loading from "@Presentation/pages/Loading";
+import { FetchUserService } from "@Services/FetchUserService";
+import Loading from "@Presentation/pages/LoadingPage";
 
-import React from "react";
+import React, { useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
 
 interface AuthProviderProps extends React.HTMLAttributes<HTMLDivElement>{
 
 }
 
 export function AuthProvider({children}:AuthProviderProps): JSX.Element {
+    
+    const navigate = useNavigate();
 
-    const fetchUserResult = FetchUserService();
+    try {
+        const fetchUserResult = FetchUserService();
 
-    if(fetchUserResult.isLoading || fetchUserResult.isFetching) return <Loading/>;
+        if(fetchUserResult.isLoading || fetchUserResult.isFetching) return <Loading/>;
 
-    return <>{children}</>
+        return <>{children}</>
+
+    } catch (error: unknown) {
+
+        useEffect(()=>{
+            navigate('/login');
+        }, []);
+        
+        return <div>
+                    <p className="text-white">Você não tem permissão pra acessar essa página</p>
+                    <p className="text-white">{(error as Error).message}</p>
+                </div>
+    }
 }

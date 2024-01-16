@@ -1,4 +1,4 @@
-import { FetchUserService } from "@Application/useCases/FetchUser/FetchUserService";
+import { FetchUserService } from "@Services/FetchUser/FetchUserService";
 import Loading from "@Presentation/pages/Loading";
 
 import React from "react";

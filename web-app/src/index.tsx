@@ -1,7 +1,7 @@
 import Router from "@Main/routes/Router";
 import { HelmetProvider } from '@Main/providers/HelmetProvider.tsx';
 
-import { ReduxProvider } from '@Infrastructure/stores/redux/provider';
+import { ReduxProvider } from '@Infrastructure/store/redux/provider';
 import { ReactQueryProvider } from '@Main/providers/ReactQueryProvider';
 
 import React from 'react';

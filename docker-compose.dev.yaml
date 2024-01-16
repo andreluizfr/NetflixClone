@@ -25,7 +25,7 @@ services:
       resources:
         limits:
           cpus: '0.16'
-          memory: 256M
+          memory: 324M
         reservations:
           cpus: '0.04'
           memory: 128M
@@ -51,7 +51,7 @@ services:
       resources:
         limits:
           cpus: '0.16'
-          memory: 256M
+          memory: 324M
         reservations:
           cpus: '0.04'
           memory: 128M
@@ -86,10 +86,10 @@ services:
       resources:
         limits:
           cpus: '0.2'
-          memory: 324M
+          memory: 480M
         reservations:
           cpus: '0.08'
-          memory: 128M
+          memory: 240M
 
   media-service:
     container_name: media-service-container
@@ -121,10 +121,10 @@ services:
       resources:
         limits:
           cpus: '0.2'
-          memory: 324M
+          memory: 480M
         reservations:
           cpus: '0.04'
-          memory: 128M
+          memory: 240M
   
   messaging-service:
     container_name: messaging-service-container
@@ -149,7 +149,7 @@ services:
       resources:
         limits:
           cpus: '0.16'
-          memory: 256M
+          memory: 324M
         reservations:
           cpus: '0.04'
           memory: 128M
@@ -173,10 +173,10 @@ services:
       resources:
         limits:
           cpus: '0.12'
-          memory: 128M
+          memory: 256M
         reservations:
           cpus: '0.02'
-          memory: 64M
+          memory: 128M
 
   recommendation-service:
     container_name: recommendation-service-container
@@ -196,11 +196,11 @@ services:
         window: 120s
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.12'
+          memory: 256M
         reservations:
           cpus: '0.02'
-          memory: 64M
+          memory: 128M
 
   web-app:
     container_name: web-app-container
@@ -283,7 +283,7 @@ services:
       resources:
         limits:
           cpus: '0.04'
-          memory: 64M
+          memory: 128M
         reservations:
           cpus: '0.01'
           memory: 32M
@@ -291,7 +291,7 @@ services:
   #kafka on kraft mode
   kafka:
     image: 'bitnami/kafka:3.3.1'
-    container_name: kafka
+    container_name: kafka-container
     ports:
       - 9092:9092
     environment:
@@ -340,25 +340,54 @@ services:
           cpus: '0.02'
           memory: 128M
 
-  schema-registry:
-    image: bitnami/schema-registry:7.5
-    container_name: schema-registry-container
-    depends_on:
-      kafka:
-        condition: service_healthy
-    environment:
-      - SCHEMA_REGISTRY_KAFKA_BROKERS=PLAINTEXT://kafka:9092
-      - SCHEMA_REGISTRY_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
-      - SCHEMA_REGISTRY_HOST_NAME=schemaregistry
-      - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
+  eureka:
+    container_name: eureka-container
+    hostname: eureka
+    image: springcloud/eureka
     ports:
-      - 8081:8081
-    restart: always
+      - 8761:8761
+    environment:
+      - SPRING_PROFILE_ACTIVE=peer1
+      - EUREKA_INSTANCE_HOSTNAME=eureka
+      - EUREKA_INSTANCE_NON_SECURE_PORT=8761
+      - EUREKA_CLIENT_REGISTER-WITH-EUREKA=false
+      - EUREKA_CLIENT_FETCH-REGISTRY=false
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8761/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 100
     deploy:
       resources:
         limits:
-          cpus: '0.12'
-          memory: 128M
+          cpus: '0.24'
+          memory: 324M
         reservations:
-          cpus: '0.04'
-          memory: 64M
+          cpus: '0.02'
+          memory: 128M
+
+  dynamodb:
+    container_name: dynamodb-container
+    image: amazon/dynamodb-local:latest
+    ports:
+      - 8000:8000
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    environment:
+      - AWS_ACCESS_KEY_ID="dev"
+      - AWS_SECRET_ACCESS_KEY="dev123"
+      - AWS_DEFAULT_REGION="us-east-1"
+  
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin
+    ports:
+      - 8001:8001
+    environment:
+      DYNAMO_ENDPOINT: "http://dynamodb:8000"
+      AWS_ACCESS_KEY_ID: "dev"
+      AWS_SECRET_ACCESS_KEY: "dev123"
+      AWS_REGION: "us-east-1"
+    depends_on:
+      - dynamodb

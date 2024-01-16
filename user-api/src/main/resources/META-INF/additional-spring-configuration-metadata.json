@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "api.security.token.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'api.security.token.secret'"
+  },
+  {
+    "name": "spring.webmvc.cors.allowed-origins",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.webmvc.cors.allowed-origins'"
+  },
+  {
+    "name": "api.security.token.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'api.security.token.secret'"
+  },
+  {
+    "name": "kafka.bootstrap.servers",
+    "type": "java.lang.String",
+    "description": "A description for 'kafka.bootstrap.servers'"
+  },
+  {
+    "name": "spring.jakarta.validation.exclude.name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jakarta.validation.exclude.name'"
+  },
+  {
+    "name": "api.security.token.jwtSecret",
+    "type": "java.lang.String",
+    "description": "A description for 'api.security.token.jwtSecret'"
+  }
+]}

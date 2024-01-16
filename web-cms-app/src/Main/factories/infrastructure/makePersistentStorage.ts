@@ -1,6 +1,6 @@
-import { IPersistentStorage } from "@Infrastructure/persistentStorages/IPersistentStorage";
+import { IPersistentStorage } from "@Infrastructure/persistentStorage/IPersistentStorage";
 
-import { LocalStorageImpl } from "@Infrastructure/persistentStorages/localStorage/persistentStorageImpl";
+import { LocalStorageImpl } from "@Infrastructure/persistentStorage/localStorage/persistentStorageImpl";
 
 //Factory method pattern
 export function makePersistentStorage(): IPersistentStorage {

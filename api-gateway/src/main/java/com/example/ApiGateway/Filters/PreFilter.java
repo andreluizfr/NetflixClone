@@ -1,41 +1,91 @@
 package com.example.ApiGateway.Filters;
 
-import com.netflix.zuul.ZuulFilter;
-import com.netflix.zuul.context.RequestContext;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class PreFilter extends ZuulFilter{
-    
-    @Override
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.example.ApiGateway.Authentication.Business.TokenService;
+import com.example.ApiGateway.Authentication.DataProvider.UserRepository;
+import com.example.ApiGateway.Authentication.Models.User;
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+
+public class PreFilter extends ZuulFilter {
+
+	@Autowired
+	TokenService tokenService;
+
+	@Autowired
+	UserRepository userRepository;
+
+	@Override
 	public String filterType() {
 		return "pre";
 	}
 
 	@Override
 	public int filterOrder() {
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public boolean shouldFilter() {
 		return true;
 	}
-    /*
-    @Override
-    boolean needsBodyBuffered(HttpResponseMessage input) {
-        return true;
-    }
-     */
+
 	@Override
 	public Object run() {
+
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest request = ctx.getRequest();
 
+		addEmailHeaderToRequestContext(ctx, this.recoverToken(request));
+
+		String requestBody;
+		try {
+			requestBody = request.getInputStream().toString();
+		} catch (IOException | RuntimeException e) {
+			requestBody = "";
+		}
+
 		System.out.println(
-				"Request Method : " + request.getMethod() + " Request URL : " + request.getRequestURL().toString());
+				"\n" +
+				"In zuul after PreFilter" + "\n" +
+				"Request Method : " + request.getMethod() + "\n" +
+				"Request URL : " + request.getRequestURL().toString() + "\n" +
+				"Request Query: " + request.getQueryString() + "\n" +
+				"Request Headers: " + ctx.getZuulRequestHeaders().keySet().toString() + "\n" +
+				"Request Body: " + requestBody +
+				"\n"
+		);
 
 		return null;
 	}
 
+	private String recoverToken(HttpServletRequest request) {
+
+		String authHeader = request.getHeader("Authorization");
+
+		if (authHeader == null)
+			return null;
+
+		return authHeader.replace("Bearer ", "");
+	}
+
+	private void addEmailHeaderToRequestContext(RequestContext ctx, String token) {
+		try {
+
+			String email = tokenService.validateToken(token);
+			User user = (User) userRepository.findByEmail(email);
+
+			ctx.addZuulRequestHeader("X-Logged-In-User", user.getEmail());
+
+		} catch (JWTVerificationException e) {
+
+			ctx.addZuulRequestHeader("X-Logged-In-User", "");
+		}
+	}
 }

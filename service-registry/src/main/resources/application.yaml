@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: service-registry
+    
+server:
+  port: 8761
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      enabled: true 
+      show-details: always

@@ -8,7 +8,7 @@ import Preview from './Preview';
 import Playlist from './Playlist';
 import Footer from '@Presentation/components/FooterLogged';
 
-import { GetMediaListsService } from '@Application/useCases/GetMediaLists/GetMediaListsService';
+import { GetMediaListsService } from '@Services/GetMediaLists/GetMediaListsService';
 
 import { MediaList } from '@Model/entities/MediaList';
 
@@ -16,8 +16,8 @@ import { Helmet } from 'react-helmet-async';
 
 import { motion, useScroll, useTransform  } from 'framer-motion';
 
-import { StoreState } from '@Infrastructure/stores/redux/config';
-import { removeUser } from '@Infrastructure/stores/redux/features/userSlice';
+import { StoreState } from '@Infrastructure/store/redux/config';
+import { removeUser } from '@Infrastructure/store/redux/features/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 

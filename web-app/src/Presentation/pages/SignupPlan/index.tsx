@@ -6,8 +6,8 @@ import planGridBoolean from '../../assets/svg/planGrid-boolean.svg';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { savePlan, saveStep } from '@Infrastructure/stores/redux/features/signupDataSlice';
-import { StoreState } from '@Infrastructure/stores/redux/config';
+import { savePlan, saveStep } from '@Infrastructure/store/redux/features/signupDataSlice';
+import { StoreState } from '@Infrastructure/store/redux/config';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { motion } from 'framer-motion';

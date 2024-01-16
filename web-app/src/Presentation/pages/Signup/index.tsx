@@ -10,8 +10,8 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 
-import { StoreState } from '@Infrastructure/stores/redux/config';
-import { saveStep } from '@Infrastructure/stores/redux/features/signupDataSlice';
+import { StoreState } from '@Infrastructure/store/redux/config';
+import { saveStep } from '@Infrastructure/store/redux/features/signupDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function SignupPage(): JSX.Element {

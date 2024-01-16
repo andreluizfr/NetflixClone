@@ -2,7 +2,7 @@ import './styles.css';
 import AnimatedInput from '@Presentation/components/AnimatedInput';
 import logo from '@Presentation/assets/svg/logo.svg';
 
-import { LoginService } from '@Application/useCases/Login/LoginService';
+import { LoginService } from '@Services/Login/LoginService';
 
 import { useEffect, useState } from 'react';
 

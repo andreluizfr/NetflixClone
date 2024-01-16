@@ -1,4 +1,11 @@
 package com.example.ApiGateway.Authentication.Controller.Models;
 
-public record LoginDTO(String email, String password) {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class LoginDTO {
+    String email;
+    String password;
 }

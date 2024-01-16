@@ -1,9 +1,9 @@
 import './styles.css';
 import logo from '@Presentation/assets/svg/logo.svg';
 
-import { CreatePlanPaymentService } from '@Application/useCases/CreatePlanPayment/CreatePlanPaymentService';
+import { CreatePlanPaymentService } from '@Services/CreatePlanPayment/CreatePlanPaymentService';
 
-import { StoreState } from '@Infrastructure/stores/redux/config';
+import { StoreState } from '@Infrastructure/store/redux/config';
 
 import { Link, useNavigate } from "react-router-dom";
 

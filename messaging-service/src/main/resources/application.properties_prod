@@ -1,0 +1,25 @@
+spring.application.name=messaging-service
+server.port=5454
+
+spring.datasource.url=jdbc:postgresql://postgres:5432/netflixClone
+spring.datasource.username=postgres
+spring.datasource.password=password
+spring.sql.init.mode=always
+spring.sql.init.encoding=UTF-8
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.show-sql=false
+spring.jpa.open-in-view=true
+
+#Para emojis
+server.servlet.encoding.charset=UTF-8
+server.servlet.encoding.enabled=true
+server.servlet.encoding.force=true
+
+#kafka.bootstrap.servers=kafka:9092
+spring.kafka.bootstrap-servers=kafka:9092
+spring.kafka.properties.schema.registry.url=schema-registry:8081
+spring.kafka.consumer.key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+logging.level.org.apache.kafka=ERROR
+logging.level.io.confluent.kafka.serializers.KafkaAvroDeserializerConfig: ERROR

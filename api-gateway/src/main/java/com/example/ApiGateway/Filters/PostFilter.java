@@ -1,6 +1,7 @@
 package com.example.ApiGateway.Filters;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class PostFilter extends ZuulFilter {
 
-    @Override
+	@Override
 	public String filterType() {
 		return "post";
 	}
@@ -26,12 +27,23 @@ public class PostFilter extends ZuulFilter {
 
 	@Override
 	public Object run() {
-		System.out.println("Using Post Filter");
 
-        RequestContext context = RequestContext.getCurrentContext();
+		RequestContext ctx = RequestContext.getCurrentContext();
+		HttpServletResponse response = ctx.getResponse();
 
-        HttpServletResponse servletResponse = context.getResponse();
-        servletResponse.addHeader("X-Foo", UUID.randomUUID().toString());
+		response.addHeader("X-Foo", UUID.randomUUID().toString());
+
+		ctx.getZuulResponseHeaders().removeIf(ssp -> ssp.first().toLowerCase().startsWith("access-control-allow")); //remover o que está vindo do microserviço, porque será reescrito no bean do cors
+
+		System.out.println(
+				"\n" +
+				"In zuul after PosFilter" + "\n" +
+				"Response Status : " + response.getStatus() + "\n" +
+				"Response URL : " + ctx.getRequest().getRequestURL().toString() + "\n" +
+				"Response Headers: " + ctx.getZuulResponseHeaders().stream().map(ssp -> ssp.first()).collect(Collectors.toList()) + "\n" +
+				"Response Body: " + ctx.getResponseBody() +
+				"\n"
+		);
 
 		return null;
 	}

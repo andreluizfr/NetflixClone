@@ -3,8 +3,8 @@ import logo from '../../assets/svg/logo.svg';
 import devices from '../../assets/img/devices.png';
 import AnimatedInput from '../../components/AnimatedInput';
 
-import { StoreState } from '@Infrastructure/stores/redux/config';
-import { saveEmail, savePassword, saveStep } from '@Infrastructure/stores/redux/features/signupDataSlice';
+import { StoreState } from '@Infrastructure/store/redux/config';
+import { saveEmail, savePassword, saveStep } from '@Infrastructure/store/redux/features/signupDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link, useNavigate } from "react-router-dom";

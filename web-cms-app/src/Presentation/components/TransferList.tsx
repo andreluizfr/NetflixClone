@@ -8,8 +8,6 @@ import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 
-import allJobs from '../../data/empregos.json';
-
 interface Company{
 	name: string;
 	link: string;
@@ -24,6 +22,13 @@ function intersection(a: readonly Company[], b: readonly Company[]) {
 }
 
 export default function TransferList() {
+	let allJobs: {jobs: {companies_added: readonly Company[], companies_to_add: readonly Company[]}} = {
+		jobs: {
+			companies_added: [{name: "haha", link: "haha"}],
+			companies_to_add: [{name: "hoho", link: "hoho"}]
+		}
+	};
+
 	const [checked, setChecked] = React.useState<readonly Company[]>([]);
 	const [left, setLeft] = React.useState<readonly Company[]>(allJobs.jobs.companies_added);
 	const [right, setRight] = React.useState<readonly Company[]>(allJobs.jobs.companies_to_add);

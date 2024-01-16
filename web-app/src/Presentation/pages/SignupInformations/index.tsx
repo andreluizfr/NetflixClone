@@ -2,8 +2,8 @@ import './styles.css';
 import logo from '@Presentation/assets/svg/logo.svg';
 import devices from '@Presentation/assets/img/devices.png';
 
-import { CreateUserService } from '@Application/useCases/CreateUser/CreateUserService';
-import { StoreState } from '@Infrastructure/stores/redux/config';
+import { CreateUserService } from '@Services/CreateUser/CreateUserService';
+import { StoreState } from '@Infrastructure/store/redux/config';
 import { useSelector } from 'react-redux';
 
 import { Link, useNavigate } from "react-router-dom";

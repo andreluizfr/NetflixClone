@@ -28,6 +28,29 @@ services:
           cpus: '0.02'
           memory: 128M
 
+  schema-registry:
+    image: bitnami/schema-registry:7.5
+    container_name: schema-registry-container
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      - SCHEMA_REGISTRY_KAFKA_BROKERS=PLAINTEXT://kafka:9092
+      - SCHEMA_REGISTRY_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - SCHEMA_REGISTRY_HOST_NAME=schemaregistry
+      - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
+    ports:
+      - 8081:8081
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.12'
+          memory: 128M
+        reservations:
+          cpus: '0.04'
+          memory: 64M
+
   kafka-without-kraft-mode:
     image: confluentinc/confluent-local:7.4.1
     hostname: kafka
