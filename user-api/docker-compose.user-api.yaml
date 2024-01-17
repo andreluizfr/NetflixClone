@@ -1,0 +1,67 @@
+version: "3"
+
+services:
+  user-api:
+    container_name: user-api-container
+    build: ./
+    ports:
+      - 5151:5151
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    environment:
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - EUREKA_URL=${EUREKA_URL}
+      - KAFKA_URL=${KAFKA_URL}
+    volumes:
+      - .m2:/root/.m2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5151/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 1000
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  
+  postgres:
+    container_name: postgres-container
+    hostname: postgres
+    image: postgres:15.0
+    restart: always
+    tty: true
+    volumes:
+      - .pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=netflixClone
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d netflixClone"]
+      interval: 10s
+      timeout: 5s
+      retries: 100
+
+  redis:
+    container_name: redis-container
+    hostname: redis
+    image: redis:7.2
+    command: redis-server --requirepass netflixredis6379
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 100

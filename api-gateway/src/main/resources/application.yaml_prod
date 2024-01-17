@@ -1,0 +1,117 @@
+server:
+    port: 5050
+    servlet:
+        encoding:
+            charset: UTF-8
+            enabled: true
+            force: true
+
+management:
+  endpoints:
+    web:
+        exposure:
+            include: '*'
+  endpoint:
+    health:
+          enabled: true 
+          show-details: always
+
+spring:
+    application:
+        name: api-gateway
+    profiles:
+        active: prod
+    datasource:
+        url: jdbc:postgresql://postgres:5432/netflixClone
+        username: postgres
+        password: password
+        initialization-mode: always
+    sql:
+        init:
+            mode: always
+            encoding: UTF-8
+    jpa:
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: validate
+        show-sql: true
+        open-in-view: true
+    cache:
+        type: redis
+    redis:
+        host: localhost
+        port: 6379
+        password: netflixredis6379
+    kafka:
+        bootstrap-servers: ${KAFKA_URL}
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: ${EUREKA_URL}
+        registerWithEureka: false
+        fetchRegistry: true
+
+logging:
+    level:
+        .: ERROR
+
+api:
+    security:
+        token:
+            jwtExpirationTime: 1800000
+            jwtSecret: ${JWT_SECRET_KEY}
+
+zuul:
+    routes:
+        user-api-1:
+            path: /api/user/**
+            service-id: USER-API
+            stripPrefix: false
+
+        user-api-2:
+            path: /api/account/**
+            service-id: USER-API
+            stripPrefix: false
+
+        user-api-3:
+            path: /api/profile/**
+            service-id: USER-API
+            stripPrefix: false
+        
+        media-api-1:
+            path: /api/media/**
+            service-id: MEDIA-API
+            stripPrefix: false
+
+        media-api-2:
+            path: /api/movie/**
+            service-id: MEDIA-API
+            stripPrefix: false
+
+        media-api-3:
+            path: /api/tvShow/**
+            service-id: MEDIA-API
+            stripPrefix: false
+        
+        media-api-4:
+            path: /api/anime/**
+            service-id: MEDIA-API
+            stripPrefix: false
+
+        media-api-5:
+            path: /api/previewMedia/**
+            service-id: MEDIA-API
+            stripPrefix: false
+        
+        media-api-6:
+            path: /api/mediaList/**
+            service-id: MEDIA-API
+            stripPrefix: false
+
+        payment-api:
+            path: /api/payment/**
+            service-id: PAYMENT-API
+            stripPrefix: false

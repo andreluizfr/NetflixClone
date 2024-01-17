@@ -6,24 +6,28 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.envers.Audited;
-import org.hibernate.type.SqlTypes;
 
 import com.example.UserAPI.Account.Models.Enums.Plan;
+import com.example.UserAPI.Account.Models.Enums.PlanConverter;
 import com.example.UserAPI.Profile.Models.Profile;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.Version;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -33,27 +37,31 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Audited
+//@Audited
 @Entity(name = "Account")
 @Table(name = "account")
+@TypeDefs({
+    @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+})
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(generator = "uuid-hibernate-generator")
+    @GenericGenerator(name = "uuid-hibernate-generator", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id")
     private UUID id;
 
     @Column(name = "active_flag", nullable = false)
     private boolean isActive = false;
 
-    @Column(name = "current_plan", nullable = true)
+    @Convert(converter = PlanConverter.class)
+    @Column(name = "current_plan", nullable = true, columnDefinition = "SMALLINT")
     private Plan currentPlan;
 
-    @JdbcTypeCode(SqlTypes.SMALLINT)
-    @Column(name = "plan_expire_day", nullable = true)
+    @Column(name = "plan_expire_day", nullable = true, columnDefinition = "SMALLINT")
     private short planExpireDay;
 
-    @JdbcTypeCode(SqlTypes.JSON)
+    @Type(type = "jsonb")
     @Column(name = "payment_history", nullable = false)
     private List<UUID> paymentHistory = new ArrayList<UUID>();
 

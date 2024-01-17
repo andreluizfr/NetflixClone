@@ -1,40 +1,35 @@
 package com.example.UserAPI.Authorization;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.UserAPI.Authorization.DataProvider.RoleRepository;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.UserAPI.Authorization.Models.CustomPermission;
-import com.example.UserAPI.Authorization.Models.Permission;
-import com.example.UserAPI.Authorization.Models.Role;
 import com.example.UserAPI.User.DataProvider.UserRepository;
 import com.example.UserAPI.User.Models.User;
+import com.example.UserAPI.Util.TokenUtils;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class AuthenticationFromApiGatewayFilter extends OncePerRequestFilter {
 
     @Autowired
-    UserRepository userRepository;
+    TokenUtils tokenUtils;
 
-    @Autowired 
-    RoleRepository roleRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -42,31 +37,30 @@ public class AuthenticationFromApiGatewayFilter extends OncePerRequestFilter {
 
         String email = request.getHeader("X-Logged-In-User");
         
-        if(email != null) {
-            UserDetails userDetailed = userRepository.findByEmail(email);
+        if(email != null && email.length() > 0) {
 
-            if(userDetailed != null){
-                User user = (User) userDetailed;
-                Optional<Role> optionalRole = roleRepository.findById(user.getRole());
+            Optional<User> optionalUser  = userRepository.findOneByEmail(email);
 
-                Set<Permission> permissionsByRole = new HashSet<>();
-                if(optionalRole.isPresent()){
-                    permissionsByRole = new HashSet<>(optionalRole.get().getPermissions());
+            if(optionalUser.isPresent()){
+                try {
+                    User user = optionalUser.get();
+
+                    var token = tokenUtils.recoverToken(request);
+
+                    List<String> permissions = tokenUtils.getPermissionsFromToken(token);
+
+                    List<CustomPermission> authorities = permissions
+                        .stream()
+                        .map(permission -> new CustomPermission(permission))
+                        .collect(Collectors.toList());
+
+                    var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
+
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                } catch (JWTVerificationException e) {
+                    e.printStackTrace();
                 }
-
-                List<CustomPermission> permissionsNamesByRole = permissionsByRole
-                    .stream()
-                    .map(permission -> new CustomPermission(permission.getName()))
-                    .collect(Collectors.toList());
-
-                user.setPermissionsNamesByRole(permissionsNamesByRole);
-
-                var authentication = new UsernamePasswordAuthenticationToken(userDetailed, null, user.getAuthorities());
-
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                
-            } else {
-                throw new UsernameNotFoundException("User not found in BD");
             }
         }
 

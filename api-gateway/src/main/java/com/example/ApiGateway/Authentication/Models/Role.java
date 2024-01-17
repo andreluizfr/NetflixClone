@@ -1,14 +1,18 @@
 package com.example.ApiGateway.Authentication.Models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.example.ApiGateway.Authentication.Models.Enums.UserRole;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -25,18 +29,22 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity(name = "Role")
 @Table(name = "role")
-public class Role {
+@IdClass(RoleIdPK.class)
+public class Role implements Serializable {
 
     @Id
-    @Column(name = "id", nullable = false, columnDefinition = "SMALLINT")
-    private Short id; //userRole
+    private UserRole role;
 
     @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "role_and_permission", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))
-    private List<Permission> permissions;
+    @JoinTable(
+        name = "role_and_permission",
+        joinColumns = @JoinColumn(name = "role_id"),
+        inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private Set<Permission> permissions;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -44,6 +52,6 @@ public class Role {
 
     @Version
     @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
+    @Column(name="updated_at", nullable = false) 
     private LocalDateTime updatedAt;
 }

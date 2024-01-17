@@ -21,13 +21,11 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Object> unkownError(IllegalArgumentException e) {
-        e.printStackTrace();
         return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST, null);
     }
 
     @ExceptionHandler(DateTimeParseException.class)
     public ResponseEntity<Object> unkownError(DateTimeParseException e) {
-        e.printStackTrace();
         return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST, null);
     }
 
@@ -44,14 +42,12 @@ public class ControllerExceptionHandler {
                 return ResponseHandler.generateResponse("Erro de violação de chave única",
                         HttpStatus.UNPROCESSABLE_ENTITY, null);
         }
-        e.printStackTrace();
 
         return ResponseHandler.generateResponse("Erro de violação de integridade de dados", HttpStatus.UNPROCESSABLE_ENTITY, null);
     }
 
     @ExceptionHandler(OptimisticLockingFailureException.class)
     public ResponseEntity<Object> concurrenceError(OptimisticLockingFailureException e) {
-        e.printStackTrace();
         return ResponseHandler.generateResponse("Erro de concorrência ao tentar atualizar entidade do sistema.", HttpStatus.CONFLICT, null);
     }
 }

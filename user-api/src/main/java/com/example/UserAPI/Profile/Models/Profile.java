@@ -6,18 +6,21 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.envers.Audited;
-import org.hibernate.type.SqlTypes;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Version;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,13 +30,17 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Audited
+//@Audited
 @Entity(name = "Profile")
 @Table(name = "profile")
+@TypeDefs({
+    @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+})
 public class Profile {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(generator = "uuid-hibernate-generator")
+    @GenericGenerator(name = "uuid-hibernate-generator", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
     @Column(name = "owner_name", nullable = false)
@@ -42,11 +49,11 @@ public class Profile {
     @Column(name = "icon_cod", nullable = false)
     private int iconCod;
 
-    @JdbcTypeCode(SqlTypes.JSON)
+    @Type(type = "jsonb")
     @Column(name = "seen_medias_ids", nullable = false)
     private Set<UUID> seenMedias = new HashSet<>();
 
-    @JdbcTypeCode(SqlTypes.JSON)
+    @Type(type = "jsonb")
     @Column(name = "preferences", nullable = false)
     private ProfilePreferences preferences = new ProfilePreferences();
 

@@ -30,7 +30,7 @@ import javax.persistence.ManyToMany;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "MediaList")
-@Table(name = "MediaList")
+@Table(name = "mediaList")
 public class MediaList implements Serializable {
 
     @Id

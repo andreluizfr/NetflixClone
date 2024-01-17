@@ -64,7 +64,7 @@ public class TokenService {
 
     private void buildPermissionsByRole(User user) {
 
-        Optional<Role> optionalRole = roleRepository.findById(user.getRole().getRoleValue());
+        Optional<Role> optionalRole = roleRepository.findById(user.getRole());
 
         Set<Permission> permissionsByRole = new HashSet<>();
         if (optionalRole.isPresent()) {

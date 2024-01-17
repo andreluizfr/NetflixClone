@@ -26,7 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "PreviewMedia")
-@Table(name = "PreviewMedia")
+@Table(name = "previewMedia")
 public class PreviewMedia implements Serializable {
 
     @Id

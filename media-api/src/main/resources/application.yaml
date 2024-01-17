@@ -1,0 +1,82 @@
+server:
+    port: 5252
+    servlet:
+        encoding:
+            charset: UTF-8
+            enabled: true
+            force: true
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+    endpoint:
+        health:
+            enabled: true 
+            show-details: always
+
+spring:
+    application:
+        name: media-api
+    profiles:
+        active: dev
+    datasource:
+        url: jdbc:postgresql://localhost:5432/netflixClone
+        username: postgres
+        password: password
+        initialization-mode: always
+    sql:
+        init:
+            mode: always
+            encoding: UTF-8
+    jpa:
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+                envers:
+                    audit_table_suffix: _aud
+                    audit_strategy: org.hibernate.envers.strategy.ValidityAuditStrategy
+                    audit_strategy_validity_end_rev_field_name: end_revision
+                    audit_strategy_validity_store_revend_timestamp: true
+        hibernate:
+            ddl-auto: validate
+        show-sql: true
+        open-in-view: true
+        #defer-datasource-initialization: true #se quiser que a criação da tabela seja feita antes de data.sql for rodado
+    cache:
+        type: redis
+    redis:
+        host: localhost
+        port: 6379
+        password: netflixredis6379
+    kafka:
+        bootstrap-servers: localhost:9092
+    flyway:
+        locations: classpath:db/migration
+        baselineOnMigrate: true
+        table: flyway_history_media_api
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka
+        register-with-eureka: true
+    instance:
+        hostname: localhost
+        preferIpAddress: true
+        lease-renewal-interval-in-seconds: 15
+
+logging:
+    level:
+        org.apache.kafka: ERROR
+        org.hibernate.envers.boot: ERROR
+        com.netflix.discovery.DiscoveryClient: ERROR
+    
+api:
+    security:
+        token:
+            jwtSecret: my-secret-key
+
+
+

@@ -4,5 +4,14 @@ import java.util.UUID;
 
 import com.example.UserAPI.Account.Models.Enums.Plan;
 
-public record UpdateAccountPlanDTO(UUID accountId, Plan plan) {
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Data
+public class UpdateAccountPlanDTO {
+    private UUID accountId;
+    private Plan plan;
 }

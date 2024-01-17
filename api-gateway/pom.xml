@@ -33,11 +33,6 @@
 	<dependencies>
 
 		<!-- REQUEST MANAGEMENT -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 
 		<!-- ROUTING/FILTERING SERVICE --> <!-- Installed together ribbon, hystrix, archaius, spring boot starter actuator -->
 		<dependency>
@@ -78,12 +73,6 @@
 		</dependency-->
 
 		<!-- SECURITY/AUTHENTICATION/AUTHORIZATION -->
-
-		<!--dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency-->
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
@@ -96,46 +85,34 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.6.0</version>
 		</dependency>
-		<!--dependency>
-			<groupId>org.hibernate.orm</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>6.1.5.Final</version>
-		</dependency>
 		<dependency>
-			<groupId>org.hibernate.orm</groupId>
-			<artifactId>hibernate-envers</artifactId>
-			<version>6.1.5.Final</version>
+			<groupId>com.vladmihalcea</groupId>
+			<artifactId>hibernate-types-52</artifactId>
+			<version>2.1.1</version>
 		</dependency>
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>7.0.2.Final</version>
-		</dependency-->
 		
-
 		<!-- MESSAGING -->
-		<!-- Installed slf4j -->
-		<!--dependency>
+		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
-			<version>3.0.10</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka-test</artifactId>
-			<version>3.0.10</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>kafka-streams</artifactId>
-			<version>3.4.1</version>
-		</dependency-->
-
+		</dependency>
 
 		<!-- OTHERS -->
 		<dependency>
@@ -167,6 +144,10 @@
 			<id>spring-maven-release</id>
 			<name>Spring Maven Release Repository</name>
 			<url>https://repo1.maven.org/maven2</url>
+		</repository>
+		<repository>
+			<id>confluent</id>
+			<url>https://packages.confluent.io/maven/</url>
 		</repository>
 	</repositories>
 

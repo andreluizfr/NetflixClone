@@ -10,7 +10,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.example.UserAPI.User.Models.User;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 public class AuditListener implements RevisionListener { 
 
@@ -25,7 +25,7 @@ public class AuditListener implements RevisionListener {
 
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
             User user = (User) authentication.getPrincipal();
-            revEntity.setUsername(user.getUsername());
+            revEntity.setUsername(user.getEmail());
         }
 
         if (attributes != null) {

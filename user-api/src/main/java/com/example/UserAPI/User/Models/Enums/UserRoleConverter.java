@@ -1,6 +1,6 @@
 package com.example.UserAPI.User.Models.Enums;
 
-import jakarta.persistence.AttributeConverter;
+import javax.persistence.AttributeConverter;
 
 public class UserRoleConverter implements AttributeConverter<UserRole, Short> {
 

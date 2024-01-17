@@ -25,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "Episode")
-@Table(name = "Episode")
+@Table(name = "episode")
 public class Episode implements Serializable {
 
     @Id

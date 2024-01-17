@@ -85,7 +85,8 @@ CREATE TABLE public.permission (
     updated_at timestamp(6) without time zone NOT NULL,
 
     CONSTRAINT permission_pkey PRIMARY KEY (id),
-    CONSTRAINT permission_name_description_unique UNIQUE (name, description)
+    CONSTRAINT permission_name_unique UNIQUE (name),
+    CONSTRAINT permission_description_unique UNIQUE (description)
 );
 ALTER TABLE IF EXISTS public.permission
     OWNER to postgres;

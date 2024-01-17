@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 import com.example.UserAPI.Account.DataProvider.IAccountDataProvider;
 import com.example.UserAPI.Account.Models.Account;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 @Component
 public class AccountDataProvider implements IAccountDataProvider {

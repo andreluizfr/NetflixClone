@@ -18,7 +18,6 @@ import com.example.UserAPI.User.Controller.Models.CreateUserDTO;
 import com.example.UserAPI.User.DataProvider.UserRepository;
 import com.example.UserAPI.User.Models.User;
 import com.example.UserAPI.User.Models.Enums.UserRole;
-import com.example.UserAPI.Util.KafkaUtil;
 
 @Service
 public class UserBusiness {
@@ -29,25 +28,23 @@ public class UserBusiness {
     @Autowired
     AccountRepository accountRepository;
 
-    // @Autowired
-    // KafkaTemplate<String, String> kafkaTemplate;
-
-    KafkaUtil<String> kafkaUtil = new KafkaUtil<>();
+    @Autowired
+    KafkaTemplate<String, String> kafkaTemplate;
 
     @Transactional
     public User createUser(CreateUserDTO data)
             throws IllegalAccessException, DataIntegrityViolationException, DateTimeParseException {
 
-        if (data.email() == null || data.password() == null || data.birthDate() == null)
+        if (data.getEmail() == null || data.getPassword() == null || data.getBirthDate() == null)
             throw new IllegalArgumentException("E-mail, password or birthDate not found");
 
         Account account = new Account();
         Account newAccount = accountRepository.save(account);
 
         User user = new User();
-        user.setEmail(data.email());
-        user.setPassword(data.password());
-        user.setBirthDate(data.birthDate());
+        user.setEmail(data.getEmail());
+        user.setPassword(data.getPassword());
+        user.setBirthDate(data.getBirthDate());
         user.setAccount(newAccount);
         user.setRole(UserRole.USER);
 
@@ -61,8 +58,6 @@ public class UserBusiness {
     private void sendNewUserEmail(User user) {
 
         String message = user.getEmail();
-
-        KafkaTemplate<String, String> kafkaTemplate = this.kafkaUtil.createKafkaTemplate();
 
         kafkaTemplate.send("user-created", message);
     }

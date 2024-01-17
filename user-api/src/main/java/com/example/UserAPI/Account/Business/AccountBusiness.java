@@ -46,18 +46,18 @@ public class AccountBusiness {
     public Account updateAccountPlan(UpdateAccountPlanDTO data)
             throws IllegalArgumentException, FailToFindAccountException {
 
-        if (data.accountId() == null | data.plan() == null)
+        if (data.getAccountId() == null | data.getPlan() == null)
             throw new IllegalArgumentException("Error: accountId or plan are null");
 
-        Optional<Account> optionalAccount = accountRepository.findById(data.accountId());
+        Optional<Account> optionalAccount = accountRepository.findById(data.getAccountId());
 
         Account account;
         if (optionalAccount.isPresent()) {
 
             account = optionalAccount.get();
-            account.setCurrentPlan(data.plan());
+            account.setCurrentPlan(data.getPlan());
 
-            switch (data.plan()) {
+            switch (data.getPlan()) {
                 case BASIC_WITH_ADS:
                     account.setLimitOfProfiles((short) 2);
                     break;
@@ -70,7 +70,7 @@ public class AccountBusiness {
             }
 
         } else
-            throw new FailToFindAccountException("Conta " + data.accountId() + " não foi encontrada.");
+            throw new FailToFindAccountException("Conta " + data.getAccountId() + " não foi encontrada.");
 
         Account updatedAccount = accountRepository.save(account);
 
