@@ -16,7 +16,7 @@ public class UserActivityRoutine {
     IUserActivityDataProvider userActivityDataProvider;
 
     //@Scheduled(fixedDelay = 60*1000, initialDelay = 1000) //pra teste
-    @Scheduled(cron="0 0 0 1 * ?")
+    @Scheduled(cron="0 0 0 1 * ?") //primeiro dia de todo mês
     public void deleteUserActivityPartitions() {;
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime firstDayOfLastMonth = now.minusMonths(1).withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0).withNano(0);

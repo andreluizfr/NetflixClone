@@ -12,11 +12,11 @@ spring:
     cache:
         type: redis
     redis:
-        host: redis
+        host: localhost
         port: 6379
         password: netflixredis6379
     kafka:
-        bootstrap-servers: ${KAFKA_URL}
+        bootstrap-servers: localhost:9092
 
 logging:
     level:
@@ -32,6 +32,5 @@ email:
 mongo:
     username: mongo
     password: password
-    server: ${MONGO_SERVER}
+    server: localhost:27017
     database: netflixClone
-

@@ -1,4 +1,8 @@
-package com.example.MessagingService.Email.Models;
+package com.example.MessagingService.Models;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter

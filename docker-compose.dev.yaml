@@ -1,234 +1,6 @@
 version: "3"
 
 services:
-
-  api-gateway:
-    container_name: api-gateway-container
-    build: ./api-gateway
-    ports:
-      - 5050:5050
-    environment:
-      - JAVA_OPTS="-Ddebug -Xmx128m"
-    volumes:
-      - .m2:/root/.m2
-    depends_on:
-      user-service:
-        condition: service_healthy
-      media-service:
-        condition: service_healthy
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      resources:
-        limits:
-          cpus: '0.16'
-          memory: 324M
-        reservations:
-          cpus: '0.04'
-          memory: 128M
-
-  content-manager-service:
-    container_name: content-manager-service-container
-    build: ./content-manager-service
-    ports:
-      - 5151:5151
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      kafka:
-        condition: service_healthy
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      resources:
-        limits:
-          cpus: '0.16'
-          memory: 324M
-        reservations:
-          cpus: '0.04'
-          memory: 128M
-
-  user-service:
-    container_name: user-service-container
-    build: ./user-service
-    ports:
-      - 5252:5252
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      kafka:
-        condition: service_healthy
-    environment:
-      - JAVA_OPTS="-Ddebug -Xmx128m"
-    volumes:
-      - .m2:/root/.m2
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5252/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 1000
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      resources:
-        limits:
-          cpus: '0.2'
-          memory: 480M
-        reservations:
-          cpus: '0.08'
-          memory: 240M
-
-  media-service:
-    container_name: media-service-container
-    build: ./media-service
-    ports:
-      - 5353:5353
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      kafka:
-        condition: service_healthy
-    environment:
-      - JAVA_OPTS="-Ddebug -Xmx128m"
-    volumes:
-      - .m2:/root/.m2
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5353/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 1000
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      resources:
-        limits:
-          cpus: '0.2'
-          memory: 480M
-        reservations:
-          cpus: '0.04'
-          memory: 240M
-  
-  messaging-service:
-    container_name: messaging-service-container
-    build: ./messaging-service
-    ports:
-      - 5454:5454
-    depends_on:
-      postgres:
-        condition: service_healthy
-      kafka:
-        condition: service_healthy
-    environment:
-      - JAVA_OPTS="-Ddebug -Xmx64m"
-    volumes:
-      - .m2:/root/.m2
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      resources:
-        limits:
-          cpus: '0.16'
-          memory: 324M
-        reservations:
-          cpus: '0.04'
-          memory: 128M
-
-  payment-service:
-    container_name: payment-service-container
-    build: ./payment-service
-    ports:
-      - 5555:5555
-    depends_on:
-      postgres:
-        condition: service_healthy
-      kafka:
-        condition: service_healthy
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      resources:
-        limits:
-          cpus: '0.12'
-          memory: 256M
-        reservations:
-          cpus: '0.02'
-          memory: 128M
-
-  recommendation-service:
-    container_name: recommendation-service-container
-    build: ./recommendation-service
-    ports:
-      - 5656:5656
-    depends_on:
-      postgres:
-        condition: service_healthy
-      kafka:
-        condition: service_healthy
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      resources:
-        limits:
-          cpus: '0.12'
-          memory: 256M
-        reservations:
-          cpus: '0.02'
-          memory: 128M
-  
-  postgres:
-    container_name: postgres-container
-    image: postgres:15.0
-    restart: always
-    tty: true
-    volumes:
-      - .pgdata:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=netflixClone
-    ports:
-      - 5433:5432
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d netflixClone"]
-      interval: 10s
-      timeout: 5s
-      retries: 100
-    deploy:
-      resources:
-        limits:
-          cpus: '0.08'
-          memory: 128M
-        reservations:
-          cpus: '0.01'
-          memory: 32M
-
   redis:
     container_name: redis-container
     hostname: redis
@@ -244,12 +16,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.04'
+          cpus: '0.08'
           memory: 128M
         reservations:
-          cpus: '0.01'
+          cpus: '0.02'
           memory: 32M
-
   kafka:
     image: 'bitnami/kafka:3.3.1'
     container_name: kafka-container
@@ -280,6 +51,19 @@ services:
         max_attempts: 5
         window: 240s
 
+    # kafka-without-kraft-mode:
+    #   image: confluentinc/confluent-local:7.4.1
+    #   hostname: kafka
+    #   container_name: kafka-container
+    #   ports:
+    #     - 8082:8082
+    #     - 9092:9092
+    #     - 9101:9101
+    #   environment:
+    #     KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092'
+    #     KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka:29093'
+    #     KAFKA_LISTENERS: 'PLAINTEXT://kafka:29092,CONTROLLER://kafka:29093,PLAINTEXT_HOST://0.0.0.0:9092'
+
   kafka-ui:
     container_name: kafka-ui
     image: 'provectuslabs/kafka-ui:latest'
@@ -292,121 +76,60 @@ services:
       kafka:
         condition: service_healthy
     restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '0.12'
-          memory: 256M
-        reservations:
-          cpus: '0.02'
-          memory: 128M
 
-  schema-registry:
-    image: bitnami/schema-registry:7.5
-    container_name: schema-registry-container
-    depends_on:
-      kafka:
-        condition: service_healthy
-    environment:
-      - SCHEMA_REGISTRY_KAFKA_BROKERS=PLAINTEXT://kafka:9092
-      - SCHEMA_REGISTRY_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
-      - SCHEMA_REGISTRY_HOST_NAME=schemaregistry
-      - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
+  mongo:
+    hostname: mongo
+    container_name: mongo-container
+    image: mongo
     ports:
-      - 8081:8081
+      - 27017:27017
     restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '0.12'
-          memory: 128M
-        reservations:
-          cpus: '0.04'
-          memory: 64M
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: password
 
-  kafka-without-kraft-mode:
-    image: confluentinc/confluent-local:7.4.1
-    hostname: kafka
-    container_name: kafka-container
-    ports:
-      - 8082:8082
-      - 9092:9092
-      - 9101:9101
-    environment:
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092'
-      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka:29093'
-      KAFKA_LISTENERS: 'PLAINTEXT://kafka:29092,CONTROLLER://kafka:29093,PLAINTEXT_HOST://0.0.0.0:9092'
-  
-  kafka-connect:
-    image: confluentinc/cp-kafka-connect:7.2.1
-    ports:
-      - 8083:8083
-    depends_on:
-      - kafka
-      - schema-registry
-    environment:
-      CONNECT_BOOTSTRAP_SERVERS: kafka0:29092
-      CONNECT_GROUP_ID: compose-connect-group
-      CONNECT_CONFIG_STORAGE_TOPIC: _connect_configs
-      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
-      CONNECT_OFFSET_STORAGE_TOPIC: _connect_offset
-      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
-      CONNECT_STATUS_STORAGE_TOPIC: _connect_status
-      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
-      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
-      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry0:8085
-      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.storage.StringConverter
-      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry0:8085
-      CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-      CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-      CONNECT_REST_ADVERTISED_HOST_NAME: kafka-connect0
-      CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components,/usr/share/filestream-connectors,/tmp/kfk"
-    volumes:
-      - /tmp/kfk:/tmp/kfk:ro
-      - /tmp/kfk/test.txt:/tmp/kfk/test.txt
-
-  elastic-search:
-    container_name: elastic-search-container
-    hostname: elastic-search
-    depends_on:
-      setup:
-        condition: service_healthy
-    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
-    labels:
-      co.elastic.logs/module: elasticsearch
-    volumes:
-      - certs:/usr/share/elasticsearch/config/certs
-      - esdata:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
-    environment:
-      - node.name=es01
-      - cluster.name=${CLUSTER_NAME}
-      - discovery.type=single-node
-      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-      - bootstrap.memory_lock=true
-      - xpack.security.enabled=true
-      - xpack.security.http.ssl.enabled=true
-      - xpack.security.http.ssl.key=certs/es01/es01.key
-      - xpack.security.http.ssl.certificate=certs/es01/es01.crt
-      - xpack.security.http.ssl.certificate_authorities=certs/ca/ca.crt
-      - xpack.security.transport.ssl.enabled=true
-      - xpack.security.transport.ssl.key=certs/es01/es01.key
-      - xpack.security.transport.ssl.certificate=certs/es01/es01.crt
-      - xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt
-      - xpack.security.transport.ssl.verification_mode=certificate
-      - xpack.license.self_generated.type=${LICENSE}
-    mem_limit: ${ES_MEM_LIMIT}
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q 'missing authentication credentials'",
-        ]
-      interval: 10s
-      timeout: 10s
-      retries: 120
+  # elastic-search:
+  #   container_name: elastic-search-container
+  #   hostname: elastic-search
+  #   depends_on:
+  #     setup:
+  #       condition: service_healthy
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+  #   labels:
+  #     co.elastic.logs/module: elasticsearch
+  #   volumes:
+  #     - certs:/usr/share/elasticsearch/config/certs
+  #     - esdata:/usr/share/elasticsearch/data
+  #   ports:
+  #     - 9200:9200
+  #   environment:
+  #     - node.name=es01
+  #     - cluster.name=${CLUSTER_NAME}
+  #     - discovery.type=single-node
+  #     - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+  #     - bootstrap.memory_lock=true
+  #     - xpack.security.enabled=true
+  #     - xpack.security.http.ssl.enabled=true
+  #     - xpack.security.http.ssl.key=certs/es01/es01.key
+  #     - xpack.security.http.ssl.certificate=certs/es01/es01.crt
+  #     - xpack.security.http.ssl.certificate_authorities=certs/ca/ca.crt
+  #     - xpack.security.transport.ssl.enabled=true
+  #     - xpack.security.transport.ssl.key=certs/es01/es01.key
+  #     - xpack.security.transport.ssl.certificate=certs/es01/es01.crt
+  #     - xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt
+  #     - xpack.security.transport.ssl.verification_mode=certificate
+  #     - xpack.license.self_generated.type=${LICENSE}
+  #   mem_limit: ${ES_MEM_LIMIT}
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   healthcheck:
+  #     test:
+  #       [
+  #         "CMD-SHELL",
+  #         "curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q 'missing authentication credentials'",
+  #       ]
+  #     interval: 10s
+  #     timeout: 10s
+  #     retries: 120

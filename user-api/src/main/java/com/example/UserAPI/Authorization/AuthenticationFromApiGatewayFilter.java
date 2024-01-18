@@ -39,7 +39,7 @@ public class AuthenticationFromApiGatewayFilter extends OncePerRequestFilter {
         
         if(email != null && email.length() > 0) {
 
-            Optional<User> optionalUser  = userRepository.findOneByEmail(email);
+            Optional<User> optionalUser  = userRepository.findByEmail(email);
 
             if(optionalUser.isPresent()){
                 try {

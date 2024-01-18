@@ -13,4 +13,5 @@ public interface IUserActivityDataProvider {
     public void delete(UserActivity userActivity);
     public void reattach(UserActivity userActivity);
     public void detach(UserActivity userActivity);
+    public void saveOrUpdate(UserActivity userActivity);
 }

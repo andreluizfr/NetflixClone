@@ -18,9 +18,9 @@ spring:
     profiles:
         active: prod
     datasource:
-        url: jdbc:postgresql://postgres:5432/netflixClone
+        url: ${POSTGRES_URL}
         username: postgres
-        password: admin
+        password: password
         initialization-mode: always
     sql:
         init:

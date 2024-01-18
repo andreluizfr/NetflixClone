@@ -6,6 +6,7 @@ public class PlanConverter implements AttributeConverter<Plan, Short> {
 
     @Override
     public Short convertToDatabaseColumn(final Plan plan) {
+        if(plan == null) return null;
         return plan.getValue();
     }
 

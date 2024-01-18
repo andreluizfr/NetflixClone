@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import lombok.Getter;
@@ -35,7 +36,9 @@ import lombok.AllArgsConstructor;
 public class UserActivity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_activity_id_seq_gen")
+    @SequenceGenerator(name = "user_activity_id_seq_gen", sequenceName = "user_activity_id_seq", allocationSize = 1) 
+    @Column(name = "id")
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)

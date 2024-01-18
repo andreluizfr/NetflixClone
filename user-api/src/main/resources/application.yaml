@@ -20,12 +20,13 @@ spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/netflixClone
         username: postgres
-        password: password
+        password: admin
         initialization-mode: always
     sql:
         init:
             mode: always
             encoding: UTF-8
+            data-locations: import_active_users.sql,import_inactive_users.sql
     jpa:
         properties:
             hibernate:

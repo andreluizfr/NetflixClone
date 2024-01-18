@@ -5,19 +5,27 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.example.UserAPI.Account.DataProvider.AccountRepository;
 import com.example.UserAPI.User.Exceptions.FailToFindUserException;
 import com.example.UserAPI.Account.Models.Account;
+import com.example.UserAPI.Profile.Models.Profile;
 import com.example.UserAPI.User.Controller.Models.CreateUserDTO;
 import com.example.UserAPI.User.DataProvider.UserRepository;
 import com.example.UserAPI.User.Models.User;
 import com.example.UserAPI.User.Models.Enums.UserRole;
+import com.example.UserAPI.UserActivity.Models.UserActivityDTO;
+import com.google.gson.Gson;
 
 @Service
 public class UserBusiness {
@@ -30,6 +38,9 @@ public class UserBusiness {
 
     @Autowired
     KafkaTemplate<String, String> kafkaTemplate;
+
+    @Autowired
+    Gson gson;
 
     @Transactional
     public User createUser(CreateUserDTO data)
@@ -50,25 +61,39 @@ public class UserBusiness {
 
         User newUser = userRepository.save(user);
 
-        this.sendNewUserEmail(newUser);
+        this.sendUserCreatedTopic(newUser);
+        this.sendSaveUserActivityTopic(newUser, "CREATE_USER", null);
 
         return newUser;
     }
 
-    private void sendNewUserEmail(User user) {
-
-        String message = user.getEmail();
-
-        kafkaTemplate.send("user-created", message);
+    private void sendUserCreatedTopic(User user) {
+        kafkaTemplate.send("user-created", gson.toJson(user));
     }
 
+    private void sendSaveUserActivityTopic(User user, String permission, Profile profile) {
+
+        UserActivityDTO userActivityDTO = new UserActivityDTO();
+        userActivityDTO.setUser(user);
+        userActivityDTO.setPermissionName(permission);
+        userActivityDTO.setProfile(profile);
+
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        String ip = request.getRemoteAddr();
+        userActivityDTO.setIp(ip);
+
+        kafkaTemplate.send("save-user-activity", gson.toJson(userActivityDTO));
+    }
+
+    @Transactional
     public User fetchUser(String email)
             throws FailToFindUserException, IllegalArgumentException {
 
         if (email == null)
             throw new IllegalArgumentException("O e-mail está nulo.");
 
-        Optional<User> optionalUser = userRepository.findOneByEmail(email);
+        Optional<User> optionalUser = userRepository.findByEmail(email);
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -79,6 +104,8 @@ public class UserBusiness {
         throw new FailToFindUserException("O e-mail " + email + " não pertence a nenhum usuário registrado.");
     }
 
+    @Transactional
+    @Cacheable(cacheNames = "smallTimeCache")
     public List<User> getAllUsers() {
 
         List<User> users = userRepository.findAll();
@@ -86,6 +113,7 @@ public class UserBusiness {
         return users;
     }
 
+    @Transactional
     public User getUser(UUID id)
             throws IllegalArgumentException, FailToFindUserException {
 
@@ -98,5 +126,25 @@ public class UserBusiness {
             return optionalUser.get();
 
         throw new FailToFindUserException("O id " + id + " não pertence a nenhum usuário registrado.");
+    }
+
+    @Transactional
+    public boolean checkEmail(String email)
+            throws IllegalArgumentException, FailToFindUserException {
+
+        if (email == null)
+            throw new IllegalArgumentException("Email is null.");
+
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isPresent()){
+
+            User user = optionalUser.get();
+
+            if(user.getEnabled() && !user.getDeleted())
+                return true;
+        }
+
+        return false;
     }
 }

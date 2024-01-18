@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.envers.Audited;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -125,8 +124,8 @@ public class User implements UserDetails{
                 "}";
     }
 
-    public void setPassword() {
-        this.password = new BCryptPasswordEncoder().encode(this.password);
+    public void setPassword(String password) {
+        this.password = new BCryptPasswordEncoder().encode(password);
     }
 
     @Override

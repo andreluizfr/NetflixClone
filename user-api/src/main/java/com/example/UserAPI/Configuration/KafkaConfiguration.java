@@ -35,4 +35,9 @@ public class KafkaConfiguration {
     NewTopic userCreatedTopic() {
         return new NewTopic("user-created", 1, (short) 1);
     }
+
+    @Bean
+    NewTopic saveUserActivityTopic() {
+        return new NewTopic("save-user-activity", 1, (short) 1);
+    }
 }

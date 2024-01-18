@@ -1,4 +1,4 @@
-package com.example.MessagingService.Email.Controller;
+package com.example.MessagingService.Controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -10,6 +10,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.ApiGateway.Authentication.Business.TokenService;
 import com.example.ApiGateway.Authentication.DataProvider.UserRepository;
 import com.example.ApiGateway.Authentication.Models.User;
+import com.google.gson.Gson;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
@@ -36,6 +37,9 @@ public class PreFilter extends ZuulFilter {
 		return true;
 	}
 
+	@Autowired
+	Gson gson;
+
 	@Override
 	public Object run() {
 
@@ -46,10 +50,13 @@ public class PreFilter extends ZuulFilter {
 
 		String requestBody;
 		try {
-			requestBody = request.getInputStream().toString();
+			requestBody = new String(request.getInputStream().readAllBytes());
 		} catch (IOException | RuntimeException e) {
 			requestBody = "";
 		}
+
+		ctx.addZuulRequestHeader("Content-Type", "application/json");
+		ctx.addZuulRequestHeader("Content-Length", String.valueOf(request.getContentLength()));
 
 		System.out.println(
 				"\n" +
@@ -57,7 +64,8 @@ public class PreFilter extends ZuulFilter {
 				"Request Method : " + request.getMethod() + "\n" +
 				"Request URL : " + request.getRequestURL().toString() + "\n" +
 				"Request Query: " + request.getQueryString() + "\n" +
-				"Request Headers: " + ctx.getZuulRequestHeaders().keySet().toString() + "\n" +
+				"Request Headers Key Set: " + ctx.getZuulRequestHeaders().keySet().toString() + "\n" +
+				"Request Headers Values: " + ctx.getZuulRequestHeaders().values().toString() + "\n" +
 				"Request Body: " + requestBody +
 				"\n"
 		);

@@ -16,6 +16,7 @@ ARG TARGET=/user-api/target
 ENV JWT_SECRET_KEY=${JWT_SECRET_KEY}
 ENV EUREKA_URL=${EUREKA_URL}
 ENV KAFKA_URL=${KAFKA_URL}
+ENV POSTGRES_URL=${POSTGRES_URL}
 COPY --from=build ${TARGET}/user-api-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 5151
 CMD ["java","-Xmx512m","-jar","app.jar"]

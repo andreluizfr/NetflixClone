@@ -24,7 +24,7 @@ spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/netflixClone
         username: postgres
-        password: password
+        password: admin
         initialization-mode: always
     sql:
         init:
