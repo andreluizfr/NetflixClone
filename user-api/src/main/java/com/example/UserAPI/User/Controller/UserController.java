@@ -74,15 +74,15 @@ public class UserController {
                 HttpStatus.OK, users);
     }
 
-    // @HystrixCommand(
-    //     commandKey= "/user/create",
-    //     fallbackMethod = "fallbackResponse",
-    //     commandProperties = {
-    //         @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
-    //         @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
-    //         @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
-    //         @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass  10s with circuit open to the fallbackMethod
-    // })
+    @HystrixCommand(
+        commandKey= "/user/create",
+        fallbackMethod = "fallbackResponse",
+        commandProperties = {
+            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass  10s with circuit open to the fallbackMethod
+    })
     @PostMapping("/create")
     public ResponseEntity<Object> createUser(@RequestBody CreateUserDTO data)
             throws IllegalAccessException, DataIntegrityViolationException, DateTimeParseException {
