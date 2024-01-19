@@ -40,7 +40,8 @@ public class PostFilter extends ZuulFilter {
 				"In zuul after PosFilter" + "\n" +
 				"Response Status : " + response.getStatus() + "\n" +
 				"Response URL : " + ctx.getRequest().getRequestURL().toString() + "\n" +
-				"Response Headers: " + ctx.getZuulResponseHeaders().stream().map(ssp -> ssp.first()).collect(Collectors.toList()) + "\n" +
+				"Response Headers Key Set: " + ctx.getZuulResponseHeaders().stream().map(ssp -> ssp.first()).collect(Collectors.toList()) + "\n" +
+				"Response Headers Values Set: " + ctx.getZuulResponseHeaders().stream().map(ssp -> ssp.second()).collect(Collectors.toList()) + "\n" +
 				"Response Body: " + ctx.getResponseBody() +
 				"\n"
 		);

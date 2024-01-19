@@ -65,7 +65,7 @@ public class PreFilter extends ZuulFilter {
 				"Request URL : " + request.getRequestURL().toString() + "\n" +
 				"Request Query: " + request.getQueryString() + "\n" +
 				"Request Headers Key Set: " + ctx.getZuulRequestHeaders().keySet().toString() + "\n" +
-				"Request Headers Values: " + ctx.getZuulRequestHeaders().values().toString() + "\n" +
+				"Request Headers Values Set: " + ctx.getZuulRequestHeaders().values().toString() + "\n" +
 				"Request Body: " + requestBody +
 				"\n"
 		);
