@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import MercadoPago from "../types/MercadoPago";
+import { MercadoPago } from "@Model/types/MercadoPago";
 
 const useMercadopago = (publicKey: string | undefined, options?: { locale: string }) => {
     const [mercadopago, setMercadopago] = useState<MercadoPago>();

@@ -29,9 +29,9 @@ export default function ImprovedEmbededVideo(props: ImprovedVideoProps): JSX.Ele
         iframeEl.src = props.src.replace("watch?v=", "embed/") + "?autoplay=1&mute=1&loop=1&controls=0";
     }
 
-    function onYouTubeIframeAPIReady() {
-        console.log("aqui");
-    }
+    // function onYouTubeIframeAPIReady() {
+    //     console.log("aqui");
+    // }
 
     const width = window.innerWidth;
 

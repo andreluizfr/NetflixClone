@@ -6,16 +6,16 @@ import { ClipLoader } from 'react-spinners';
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useMediaQuery } from 'react-responsive';
-import { useParams, useSearchParams } from 'react-router-dom';
-import { GetTrackService } from '@Services/GetTrack/GetTrackService';
-import { GetMediaService } from '@Services/GetMedia/GetMediaService';
+//import { useParams, useSearchParams } from 'react-router-dom';
+//import { GetTrackService } from '@Services/GetTrack/GetTrackService';
+//import { GetMediaService } from '@Services/GetMedia/GetMediaService';
 
 export default function TrackPage () {
 
     //const { mediaId } = useParams();
 
-    const [searchParams] = useSearchParams();
-    const trackId = searchParams.get("trackId");
+    //const [searchParams] = useSearchParams();
+    //const trackId = searchParams.get("trackId");
 
     //const getMediaServiceResult = GetMediaService(mediaId);
     //const getTrackServiceResult = GetTrackService(trackId);
@@ -40,27 +40,27 @@ export default function TrackPage () {
     const bitrateListMenu = useRef<HTMLElement>(null);
     const trackSwitchMenu = useRef<HTMLElement>(null);
 
-    let menuHandlersList = {
-        bitrate: null,
-        caption: null,
-        track: null
-    } as {
-        bitrate: null | Function,
-        caption: null | Function,
-        track: null | Function
-    };
+    // let menuHandlersList = {
+    //     bitrate: null,
+    //     caption: null,
+    //     track: null
+    // } as {
+    //     bitrate: null | Function,
+    //     caption: null | Function,
+    //     track: null | Function
+    // };
     let seeking = false;
     let videoControllerVisibleTimeout: NodeJS.Timeout;
-    let liveThresholdSecs = 1;
-    let textTrackList = {} as  {
-        [key: string]: any,
-    };
-    let forceQuality = false;
+    // let liveThresholdSecs = 1;
+    // let textTrackList = {} as  {
+    //     [key: string]: any,
+    // };
+    // let forceQuality = false;
     const video = useRef<HTMLVideoElement>(null);
     const videoContainer = useRef<HTMLDivElement>(null);
-    let nativeTextTracks = useRef<HTMLDivElement>(null);
-    let idSuffix: number;
-    let seekbarBufferInterval: number; 
+    // let nativeTextTracks = useRef<HTMLDivElement>(null);
+    // let idSuffix: number;
+    // let seekbarBufferInterval: number; 
 
     // Maximum percentage of player height that the thumbnail will fill (between 0 and 1)
     var maxPercentageThumbnailScreen = 0.15; 
