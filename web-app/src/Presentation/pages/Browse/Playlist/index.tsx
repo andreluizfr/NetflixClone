@@ -9,10 +9,11 @@ import { useEffect, useRef, useState } from 'react';
 
 interface props {
     title: string,
-    medias: Media[]
+    medias: Media[],
+    playlistIndex: number
 }
 
-export default function Playlist({title, medias}: props) {
+export default function Playlist({title, medias, playlistIndex}: props) {
 
     //  ############# Manipulação de dados na view ##################
     const playlistContainerRef = useRef(null);
@@ -67,7 +68,7 @@ export default function Playlist({title, medias}: props) {
                     ref={playlistContainerRef}
                 >
                     {   
-                        copyMedias?.map(media => <MediaCard media={media} />)
+                        copyMedias?.map((media, index) => <MediaCard media={media} key={playlistIndex+"/media-card-"+index} />)
                     }
                 </motion.div>
                 

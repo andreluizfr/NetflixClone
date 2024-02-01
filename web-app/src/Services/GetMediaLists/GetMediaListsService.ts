@@ -52,7 +52,7 @@ export async function GetMediaListsHttpRequest (): Promise<IHttpResponse<MediaLi
     const httpClient = makeHttpClient<MediaList[]>();
 
     const httpResponse = httpClient.get(
-        "/mediaList/getAll",
+        "/mediaList",
         {headers: { Authorization: `Bearer ${accessToken}` }}
     );
 

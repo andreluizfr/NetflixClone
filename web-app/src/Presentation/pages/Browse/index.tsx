@@ -119,7 +119,8 @@ export default function BrowsePage(): JSX.Element {
                         return <Playlist 
                                     title={mediaList.title} 
                                     medias={mediaList.medias} 
-                                    key={mediaList.title+index} 
+                                    key={mediaList.title+index}
+                                    playlistIndex={index}
                                 />
                     })}
                 </div>

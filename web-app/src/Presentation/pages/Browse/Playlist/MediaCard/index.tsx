@@ -14,7 +14,7 @@ import { Anime, isAnime } from '@Model/entities/Anime';
 
 import ImprovedImage from '@Presentation/components/ImprovedImage';
 
-import { memo, useMemo, useState } from 'react';
+import { memo, useState } from 'react';
 
 import * as Dialog from '@radix-ui/react-dialog';
 
@@ -26,8 +26,6 @@ export default function MediaCard ({media}: props) : JSX.Element {
 
     const [isHovered, setIsHovered] = useState(false);
     const [showMediaCardDialog, setShowMediaCardDialog] = useState(false);
-
-    const mediaParam = useMemo(() => media, [media]);
 
     const MemoizedMediaCardDialog = memo(MediaCardDialog);
 
@@ -68,7 +66,7 @@ export default function MediaCard ({media}: props) : JSX.Element {
                     <Dialog.Portal>
                         <Dialog.Overlay className="DialogOverlay" />
                         <Dialog.Content className="DialogContent">
-                            <MemoizedMediaCardDialog media={mediaParam} setShowMediaCardDialog={setShowMediaCardDialog}/>
+                            <MemoizedMediaCardDialog media={media} setShowMediaCardDialog={setShowMediaCardDialog}/>
                         </Dialog.Content>
                     </Dialog.Portal>
                 </Dialog.Root>
@@ -112,10 +110,10 @@ export default function MediaCard ({media}: props) : JSX.Element {
                     <div className='Year'>{(media as Movie).releaseYear}</div>
                 }
                 {isTvShow(media) &&
-                    <div className='Number-episodes'>{(media as TvShow).episodes.length} episódios</div>
+                    <div className='Number-episodes'>{(media as TvShow).tracks?.length} episódios</div>
                 }
                 {isAnime(media) &&
-                    <div className='Number-episodes'>{(media as Anime).episodes.length} episódios</div>
+                    <div className='Number-episodes'>{(media as Anime).tracks?.length} episódios</div>
                 }
                 <div className='Hd'>HD</div>
             </div>
@@ -125,7 +123,7 @@ export default function MediaCard ({media}: props) : JSX.Element {
             </div>
             
             {showMediaCardDialog &&
-                <MemoizedMediaCardDialog media={mediaParam} setShowMediaCardDialog={setShowMediaCardDialog}/>
+                <MemoizedMediaCardDialog media={media} setShowMediaCardDialog={setShowMediaCardDialog}/>
             }
         </article>
     );

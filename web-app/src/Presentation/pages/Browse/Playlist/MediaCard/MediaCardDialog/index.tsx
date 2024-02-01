@@ -10,7 +10,7 @@ import { Media, normalizeGenreList } from '@Model/entities/Media';
 import { Movie, isMovie } from '@Model/entities/Movie';
 import { TvShow, isTvShow } from '@Model/entities/TvShow';
 import { Anime, isAnime } from '@Model/entities/Anime';
-import { formatDuration } from '@Model/entities/Episode';
+import { formatDuration } from '@Model/entities/Track';
 
 interface props {
     media: Media;
@@ -57,14 +57,14 @@ export default function MediaCardDialog({media, setShowMediaCardDialog} : props)
                             <div className='Year'>{(media as Movie).releaseYear}</div>
                         }
                         {isTvShow(media) &&
-                            <div className='Number-episodes'>{(media as TvShow).episodes.length} episódios</div>
+                            <div className='Number-episodes'>{(media as TvShow).tracks?.length} episódios</div>
                         }
                         {isAnime(media) &&
-                            <div className='Number-episodes'>{(media as Anime).episodes.length} episódios</div>
+                            <div className='Number-episodes'>{(media as Anime).tracks?.length} episódios</div>
                         }
 
                         {isMovie(media) &&
-                            <div className='Duration'>{formatDuration((media as Movie).episode.duration)}</div>
+                            <div className='Duration'>{formatDuration((media as Movie).track?.duration)}</div>
                         }
 
                         <div className='Hd'>HD</div>

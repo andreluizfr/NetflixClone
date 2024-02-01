@@ -1,5 +1,4 @@
 export function normalizeGenreList(list: string[]){
-    console.log(list);
     return list.map((genre: string)=>{
         switch(genre){
             case "COMEDY": return "Comédia";

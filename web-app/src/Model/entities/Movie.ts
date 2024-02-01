@@ -1,14 +1,14 @@
-import { Episode } from "./Episode";
+import { Track } from "./Track";
 import { Media } from "./Media";
 
 export interface Movie extends Media{
-    movieSeries: boolean,
+    isMovieSeries: boolean,
     sequenceNumber: number,
     actorsActresses: string[],
-    episode: Episode
+    track: Track
 }
 
 export function isMovie (o: object): boolean {
-    if (o && ('movieSeries' in o) && ('sequenceNumber' in o) && ('actorsActresses' in o)) return true;
+    if (o && ('isMovieSeries' in o) && ('sequenceNumber' in o) && ('actorsActresses' in o)) return true;
     else return false;
 }
