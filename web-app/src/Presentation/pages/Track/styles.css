@@ -154,12 +154,6 @@ video {
   min-width: 150px;
 }
 
-@font-face {
-  font-family: "icomoon";
-  src: url("icomoon.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
 .icon-play,
 .icon-pause,
 .icon-caption,
@@ -178,7 +172,7 @@ video {
 
 .icon-fullscreen-enter:before {
   content: "";
-  background-image: url("videoBar/fullscreen-enter.svg");
+  background-image: url("../../../../public/videoBar/fullscreen-enter.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
@@ -188,7 +182,7 @@ video {
 
 .icon-fullscreen-exit:before {
   content: "";
-  background-image: url("videoBar/fullscreen-exit.svg");
+  background-image: url("../../../../public/videoBar/fullscreen-exit.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
@@ -198,7 +192,7 @@ video {
 
 .icon-play:before {
   content: "";
-  background-image: url("videoBar/play.svg");
+  background-image: url("../../../../public/videoBar/play.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
@@ -208,7 +202,7 @@ video {
 
 .icon-pause:before {
   content: "";
-  background-image: url("videoBar/pause.svg");
+  background-image: url("../../../../public/videoBar/pause.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
@@ -218,7 +212,7 @@ video {
 
 .icon-mute-on:before {
   content: "";
-  background-image: url("videoBar/volume-on.svg");
+  background-image: url("../../../../public/videoBar/volume-on.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
@@ -228,7 +222,7 @@ video {
 
 .icon-mute-off:before {
   content: "";
-  background-image: url("videoBar/volume-off.svg");
+  background-image: url("../../../../public/videoBar/volume-off.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
@@ -238,7 +232,7 @@ video {
 
 .icon-caption:before {
   content: "";
-  background-image: url("videoBar/caption.svg");
+  background-image: url("../../../../public/videoBar/caption.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
@@ -286,8 +280,6 @@ input[type=range] {
   border: none;
   margin: 12px 5px;
   background: rgb(156, 155, 155);
-  box-shadow: inset 0 1px 0 0 #0d0e0f, inset 0 -1px 0 0 #3a3d42;
-  -webkit-box-shadow: inset 0 1px 0 0 #0d0e0f, inset 0 -1px 0 0 #3a3d42;
   outline: none; /* no focus outline */
   opacity: 0;
   cursor: pointer;
