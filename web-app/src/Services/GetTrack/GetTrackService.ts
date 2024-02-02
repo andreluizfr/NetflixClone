@@ -11,11 +11,12 @@ import { useQuery } from "@tanstack/react-query";
 import { AnyAction } from "@reduxjs/toolkit";
 import { Dispatch, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Track } from "@Model/entities/Track";
 
 
 export const GetTrackService = (trackId: string | null) => {
 
-    const queryResult = useQuery<IHttpResponse<string>, IHttpError>(
+    const queryResult = useQuery<IHttpResponse<Track>, IHttpError>(
         ['getTrack'],
         async () => GetTrackHttpRequest(trackId),
         {
@@ -54,7 +55,7 @@ export async function GetTrackHttpRequest (trackId: string | null){
             message: 'Erro: Id do título não identificado.'
         } as IHttpError;
 
-    const httpClient = makeHttpClient<string>();
+    const httpClient = makeHttpClient<Track>();
 
     const httpResponse = httpClient.get(
         '/track/'+trackId,
@@ -64,7 +65,7 @@ export async function GetTrackHttpRequest (trackId: string | null){
     return httpResponse;
 }
 
-function HandleFetchUserQuerySuccess(data: IHttpResponse<string>) {
+function HandleFetchUserQuerySuccess(data: IHttpResponse<Track>) {
 
     console.log(data);
 }

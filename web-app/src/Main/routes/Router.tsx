@@ -37,63 +37,67 @@ function Router() {
 	if (fontsLoaded)
 		return (
 			<Suspense fallback={<LoadingPage/>}>
-				<RouterProvider router={
-					createBrowserRouter([
-						{
-							path: "/",
-							element: <HomePage/>,
-						},
-						{
-							path: "/login",
-							element: <LoginPage/>,
-						},
-						{
-							path: "/signup",
-							element: <SignupPage/>,
-						},
-						{
-							path: "/signup/planform",
-							element: <SignupPlanPage/>,
-						},
-						{
-							path: "/signup/registration",
-							element: <SignupRegistrationPage/>,
-						},
-						{
-							path: "/signup/paymentPicker",
-							element: <SignupPaymentPickerPage/>,
-						},
-						{
-							path: "/signup/informations",
-							element: <SignupInformationsPage/>,
-						},
-						{
-							path: "/signup/payment",
-							element: <SignupPaymentPage/>,
-						},
-						{
-							path: "/whoIsWatching",
-							element: <AuthProvider><WhoIsWatchingPage/></AuthProvider>,
-						},
-						{
-							path: "/browse",
-							element: <AuthProvider><BrowsePage/></AuthProvider>,
-						},
-						{
-							path: "/watch",
-							//element: <AuthProvider><TrackPage/></AuthProvider>,
-							element: <TrackPage/>,
-						},
-						{
-							path: "/403",
-							element: <>Você não tem permissão pra acessar essa página</>,
-						},
-						{
-							path: "*",
-							element: <>Página não encontrada</>,
-						}
-					])
-				}/> 
+				<RouterProvider 
+					router={
+						createBrowserRouter([
+							{
+								path: "/",
+								element: <HomePage/>,
+							},
+							{
+								path: "/login",
+								element: <LoginPage/>,
+							},
+							{
+								path: "/signup",
+								element: <SignupPage/>,
+							},
+							{
+								path: "/signup/planform",
+								element: <SignupPlanPage/>,
+							},
+							{
+								path: "/signup/registration",
+								element: <SignupRegistrationPage/>,
+							},
+							{
+								path: "/signup/paymentPicker",
+								element: <SignupPaymentPickerPage/>,
+							},
+							{
+								path: "/signup/informations",
+								element: <SignupInformationsPage/>,
+							},
+							{
+								path: "/signup/payment",
+								element: <SignupPaymentPage/>,
+							},
+							{
+								path: "/whoIsWatching",
+								element: <AuthProvider><WhoIsWatchingPage/></AuthProvider>,
+							},
+							{
+								path: "/browse",
+								element: <AuthProvider><BrowsePage/></AuthProvider>,
+							},
+							{
+								path: "/watch",
+								//element: <AuthProvider><TrackPage/></AuthProvider>,
+								element: <TrackPage/>,
+								errorElement: <>Parece que estamos tendo alguns problemas nessa página</>
+							},
+							{
+								path: "/403",
+								element: <>Você não tem permissão pra acessar essa página</>,
+							},
+							{
+								path: "*",
+								element: <>Página não encontrada</>,
+							}
+						])
+					}
+					fallbackElement={<>Ocorreu um erro</>}
+				/> 
 			</Suspense>
 		);
 

@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
-export const GetMediaService = (mediaId: string | undefined) => {
+export const GetMediaService = (mediaId: string | null) => {
 
     const queryResult = useQuery<IHttpResponse<Media>, IHttpError>(
         ['getMedia'],
@@ -36,9 +36,9 @@ export const GetMediaService = (mediaId: string | undefined) => {
     return queryResult; //para fazer o devido uso com relação a camada de view do react
 }
 
-export async function GetMediaHttpRequest (mediaId: string | undefined): Promise<IHttpResponse<Media>>{
+export async function GetMediaHttpRequest (mediaId: string | null): Promise<IHttpResponse<Media>>{
 
-    if(mediaId === undefined)
+    if(mediaId === null)
         throw {
             httpStatusCode: null,
             message: 'Erro: Id do título não identificado.'

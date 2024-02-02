@@ -1,23 +1,3 @@
-.TrackPage {
-  width: 100vw;
-  min-height: 100svh;
-}
-
-.hide {
-  display: none;
-}
-
-.disable {
-  pointer-events: none;
-}
-
-.unselectable {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
 :-webkit-full-screen {
   width: 100%;
   top: 0;
@@ -31,46 +11,13 @@
   margin: auto;
 }
 
-.time-display,
-.duration-display {
-  padding: 11px;
-  color: white;
-  font-weight: normal;
-  font-size: 20px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+.TrackPage {
+  width: 100vw;
+  min-height: 100svh;
 }
 
-.time-display {
-  float: left;
-  min-width: 72px;
-}
-
-.duration-display {
-  float: right;
-}
-
-.live-icon {
-  cursor: pointer;
-}
-
-.live-icon.live {
-  color: red !important;
-  pointer-events: none;
-  cursor: default;
-}
-
-.btn-play-pause {
-  float: left;
-  cursor: pointer;
-}
-
-.control-icon-layout {
-  float: right;
-  cursor: pointer;
-}
-
-.btn-fullscreen {
-  margin-right: 10px;
+.hide {
+  display: none !important;
 }
 
 .videoContainer {
@@ -99,7 +46,23 @@ video {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+@media only screen and (max-width: 720px) {
+  .video-controller, .video-controller-fullscreen {
+    gap: 18px;
+    padding: 16px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .video-controller, .video-controller-fullscreen {
+    gap: 12px;
+    padding: 12px;
+  }
 }
 
 .menu,
@@ -154,6 +117,45 @@ video {
   min-width: 150px;
 }
 
+.btn-play-pause {
+  cursor: pointer;
+}
+
+.icon-fullscreen-enter {
+  cursor: pointer;
+}
+
+.icon-fullscreen-exit {
+  cursor: pointer;
+}
+
+.btn-caption {
+  cursor: pointer;
+}
+
+.time-display,
+.duration-display {
+  padding: 10px;
+  color: white;
+  font-weight: normal;
+  font-size: 20px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+@media only screen and (max-width: 720px) {
+  .time-display,
+  .duration-display {
+    padding: 6px;
+    font-size: 18px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .time-display,
+  .duration-display {
+    padding: 4px;
+    font-size: 16px;
+  }
+}
+
 .icon-play,
 .icon-pause,
 .icon-caption,
@@ -172,72 +174,156 @@ video {
 
 .icon-fullscreen-enter:before {
   content: "";
-  background-image: url("../../../../public/videoBar/fullscreen-enter.svg");
+  background-image: url("../../../../../public/videoBar/fullscreen-enter.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
   height: 52px;
   display: block;
+}
+@media only screen and (max-width: 720px) {
+  .icon-fullscreen-enter:before {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .icon-fullscreen-enter:before {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .icon-fullscreen-exit:before {
   content: "";
-  background-image: url("../../../../public/videoBar/fullscreen-exit.svg");
+  background-image: url("../../../../../public/videoBar/fullscreen-exit.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
   height: 52px;
   display: block;
+}
+@media only screen and (max-width: 720px) {
+  .icon-fullscreen-exit:before {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .icon-fullscreen-exit:before {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .icon-play:before {
   content: "";
-  background-image: url("../../../../public/videoBar/play.svg");
+  background-image: url("../../../../../public/videoBar/play.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
   height: 52px;
   display: block;
+}
+@media only screen and (max-width: 720px) {
+  .icon-play:before {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .icon-play:before {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .icon-pause:before {
   content: "";
-  background-image: url("../../../../public/videoBar/pause.svg");
+  background-image: url("../../../../../public/videoBar/pause.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
   height: 52px;
   display: block;
+}
+@media only screen and (max-width: 720px) {
+  .icon-pause:before {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .icon-pause:before {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .icon-mute-on:before {
   content: "";
-  background-image: url("../../../../public/videoBar/volume-on.svg");
+  background-image: url("../../../../../public/videoBar/volume-on.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
   height: 52px;
   display: block;
+}
+@media only screen and (max-width: 720px) {
+  .icon-mute-on:before {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .icon-mute-on:before {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .icon-mute-off:before {
   content: "";
-  background-image: url("../../../../public/videoBar/volume-off.svg");
+  background-image: url("../../../../../public/videoBar/volume-off.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
   height: 52px;
   display: block;
 }
+@media only screen and (max-width: 720px) {
+  .icon-mute-off:before {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .icon-mute-off:before {
+    width: 32px;
+    height: 32px;
+  }
+}
 
 .icon-caption:before {
   content: "";
-  background-image: url("../../../../public/videoBar/caption.svg");
+  background-image: url("../../../../../public/videoBar/caption.svg");
   background-size: contain;
   background-position: center;
   width: 52px;
   height: 52px;
   display: block;
+}
+@media only screen and (max-width: 720px) {
+  .icon-caption:before {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .icon-caption:before {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .icon-bitrate:before {
@@ -255,32 +341,53 @@ video {
   overflow-x: hidden;
   width: 100%;
   height: 100%;
+  cursor: pointer;
 }
 
 .btn-mute {
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  transform: rotate(-90deg);
+  width: 52px;
+  height: 52px;
+  overflow: visible;
+}
+@media only screen and (max-width: 720px) {
+  .btn-mute {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .btn-mute {
+    width: 32px;
+    height: 32px;
+  }
 }
 
-.btn-mute:hover input[type=range] {
+.btn-mute:hover .volumebar {
   opacity: 1;
 }
 
+#iconMute {
+  transform: rotate(90deg);
+}
+
 .volumebar {
-  position: absolute;
-  top: -84px;
-  left: -40px;
   width: 120px;
-  transform: rotate(-90deg);
 }
 
 input[type=range] {
   -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   height: 12px;
   border: none;
-  margin: 12px 5px;
+  margin: 12px 8px;
   background: rgb(156, 155, 155);
-  outline: none; /* no focus outline */
+  outline: none;
   opacity: 0;
   cursor: pointer;
 }
@@ -414,4 +521,53 @@ input[type=range]::-ms-thumb {
 
 #loading.icon-not-loading {
   display: none;
+}
+
+.middle-play-btn {
+  display: block;
+  width: 76px;
+  height: 76px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  cursor: pointer;
+}
+.middle-play-btn:hover {
+  border: 2px solid rgb(255, 255, 255);
+  transition: border 200ms;
+}
+
+.middle-play-btn::before {
+  content: "";
+  background-image: url("../../../../../public/videoBar/play.svg");
+  background-size: contain;
+  background-position: center;
+  width: 48px;
+  height: 48px;
+  display: block;
+  position: fixed;
+  inset: 0;
+  margin: auto;
+}
+@media only screen and (max-width: 720px) {
+  .middle-play-btn::before {
+    width: 42px;
+    height: 42px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .middle-play-btn::before {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.icon-middle-play-btn-on {
+  visibility: visible;
+}
+
+.icon-middle-play-btn-off {
+  visibility: hidden;
 }/*# sourceMappingURL=styles.css.map */
