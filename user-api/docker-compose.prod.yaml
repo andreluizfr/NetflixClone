@@ -1,11 +1,18 @@
 version: "3"
 
 services:
-  api-gateway:
-    container_name: api-gateway-container
+  user-api:
+    container_name: user-api-container
     build: ./
     ports:
-      - 5050:5050
+      - 5151:5151
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
     environment:
       - JWT_SECRET_KEY="my-secret-key"
       - EUREKA_URL="http://host.docker.internal:8761/eureka"
@@ -14,7 +21,7 @@ services:
     volumes:
       - .m2:/root/.m2
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5050/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:5151/health"]
       interval: 10s
       timeout: 5s
       retries: 1000

@@ -22,7 +22,7 @@ spring:
     profiles:
         active: prod
     datasource:
-        url: jdbc:postgresql://host.docker.internal:5432/netflixClone
+        url: ${POSTGRES_URL}
         username: postgres
         password: password
         initialization-mode: always
