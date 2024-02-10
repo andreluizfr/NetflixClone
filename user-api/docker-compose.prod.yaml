@@ -6,13 +6,6 @@ services:
     build: ./
     ports:
       - 5151:5151
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      kafka:
-        condition: service_healthy
     environment:
       - JWT_SECRET_KEY="my-secret-key"
       - EUREKA_URL="http://host.docker.internal:8761/eureka"
