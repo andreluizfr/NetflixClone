@@ -17,6 +17,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.ApiGateway.Authentication.DataProvider.RoleRepository;
 import com.example.ApiGateway.Authentication.Models.Permission;
 import com.example.ApiGateway.Authentication.Models.Role;
+import com.example.ApiGateway.Authentication.Models.RoleIdPK;
 import com.example.ApiGateway.Authentication.Models.User;
 
 @Service
@@ -64,7 +65,9 @@ public class TokenService {
 
     private void buildPermissionsByRole(User user) {
 
-        Optional<Role> optionalRole = roleRepository.findById(user.getRole());
+        RoleIdPK roleIdPK = new RoleIdPK();
+        roleIdPK.setRole(user.getRole());
+        Optional<Role> optionalRole = roleRepository.findById(roleIdPK);
 
         Set<Permission> permissionsByRole = new HashSet<>();
         if (optionalRole.isPresent()) {

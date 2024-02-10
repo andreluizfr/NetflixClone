@@ -54,6 +54,13 @@ eureka:
         registerWithEureka: false
         fetchRegistry: true
 
+#(ribbon.ReadTimeout + ribbon.connectTimeout) * (1+ribbon.maxAutoRetries(default 0) * (ribbon.MaxAutoRetriesNextServer (default 1) + 1)
+ribbon:
+    ReadTimeout: 10000
+    ConnectTimeout: 3000 
+    MaxAutoRetries: 3  #Defaults 0
+    MaxAutoRetriesNextServer: 3 #Defaults to 1
+
 logging:
     level:
         .: ERROR
@@ -65,6 +72,40 @@ api:
             jwtSecret: ${JWT_SECRET_KEY}
 
 zuul:
+    ratelimit:
+        enabled: true
+        repository: REDIS
+        deny-request:
+            response-status-code: 429 #default value is 429 (MANY_REQUESTS)
+        default-policy-list:
+            - limit: 10
+              quota: 1800
+              refresh-interval: 60
+        policy-list:
+            USER-API:
+                - limit: 10
+                  quota: 1800
+                  refresh-interval: 60
+                  type:
+                    - origin
+            MEDIA-API:
+                - limit: 10
+                  quota: 1800
+                  refresh-interval: 60
+                  type:
+                    - origin
+            PAYMENT-API:
+                - limit: 10
+                  quota: 1800
+                  refresh-interval: 60
+                  type:
+                    - origin
+    host:
+        connect-timeout-millis: 10000 #Defaults to 2000
+        socket-timeout-millis: 30000 #Defaults to 10000.
+        max-per-route-connections: 100 #Default: 20
+        max-total-connections: 10000 #Default: 200.
+        
     routes:
         user-api-1:
             path: /api/user/**

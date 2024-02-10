@@ -7,6 +7,7 @@ import org.apache.http.HttpStatus;
 
 import com.example.ApiGateway.Util.ResponseHandler;
 import com.netflix.client.ClientException;
+import com.netflix.hystrix.exception.HystrixRuntimeException;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 //import com.netflix.zuul.exception.ZuulException;
@@ -38,11 +39,12 @@ public class ErrorFilter extends ZuulFilter {
 		ctx.set(SEND_ERROR_FILTER_RAN); //will block the SendErrorFilter from running
 
         Throwable throwable = ctx.getThrowable();
-        if (throwable.getCause().getCause().getCause() instanceof ClientException) {
+		//ribbon didnt find server or hystrix didnt find server
+        if (throwable.getCause().getCause().getCause() instanceof ClientException || throwable.getCause().getCause().getCause() instanceof HystrixRuntimeException) {
 
             ctx.getResponse().setStatus(HttpStatus.SC_SERVICE_UNAVAILABLE);
 
-			String updatedResponse = ResponseHandler.generateBody("Sem servidor disponível.", null);
+			String updatedResponse = ResponseHandler.generateBody("Sem servidor disponível. From Api-gateway", null);
 
 			try {
 				OutputStream outStream = ctx.getResponse().getOutputStream();
@@ -57,7 +59,7 @@ public class ErrorFilter extends ZuulFilter {
 
             ctx.getResponse().setStatus(HttpStatus.SC_INTERNAL_SERVER_ERROR);
 
-			String updatedResponse = ResponseHandler.generateBody("Erro desconhecido.", null);
+			String updatedResponse = ResponseHandler.generateBody("Erro desconhecido. From Api-gateway", null);
 			
 			try {
 				OutputStream outStream = ctx.getResponse().getOutputStream();

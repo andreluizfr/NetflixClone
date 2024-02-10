@@ -12,8 +12,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import com.example.ApiGateway.Filters.ErrorFilter;
-import com.example.ApiGateway.Filters.PostFilter;
-import com.example.ApiGateway.Filters.PreFilter;
+import com.example.ApiGateway.Filters.LogRequestPreFilter;
+import com.example.ApiGateway.Filters.LogResponsePostFilter;
+import com.example.ApiGateway.Filters.AddHeadersPostFilter;
+import com.example.ApiGateway.Filters.AddHeadersPreFilter;
 import com.example.ApiGateway.Filters.RouteFilter;
 
 @SpringBootApplication
@@ -29,7 +31,7 @@ public class ApiGatewayApplication {
 	CorsFilter corsFilter() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		final CorsConfiguration config = new CorsConfiguration();
-		
+
 		config.setAllowCredentials(true);
 		config.setAllowedOrigins(Arrays.asList("*"));
 		config.setAllowedHeaders(Arrays.asList("*"));
@@ -37,6 +39,16 @@ public class ApiGatewayApplication {
 		source.registerCorsConfiguration("/**", config);
 
 		return new CorsFilter(source);
+	}
+
+	@Bean
+	LogRequestPreFilter logRequestPreFilter() {
+		return new LogRequestPreFilter();
+	}
+
+	@Bean
+	AddHeadersPreFilter addHeadersPreFilter() {
+		return new AddHeadersPreFilter();
 	}
 
 	@Bean
@@ -50,13 +62,13 @@ public class ApiGatewayApplication {
 	}
 
 	@Bean
-	PreFilter preFilter() {
-		return new PreFilter();
+	AddHeadersPostFilter addHeadersPrePostFilter() {
+		return new AddHeadersPostFilter();
 	}
 
 	@Bean
-	PostFilter postFilter() {
-		return new PostFilter();
+	LogResponsePostFilter logResponsePostFilter() {
+		return new LogResponsePostFilter();
 	}
 
 }

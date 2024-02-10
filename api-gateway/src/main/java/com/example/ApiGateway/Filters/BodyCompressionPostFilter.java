@@ -1,14 +1,11 @@
 package com.example.ApiGateway.Filters;
 
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
 import javax.servlet.http.HttpServletResponse;
 
-public class BodyCompression extends ZuulFilter {
+public class BodyCompressionPostFilter extends ZuulFilter {
 
 	@Override
 	public String filterType() {
@@ -22,14 +19,15 @@ public class BodyCompression extends ZuulFilter {
 
 	@Override
 	public boolean shouldFilter() {
-		return true;
+		//return true;
+		return false;
 	}
 
 	@Override
 	public Object run() {
 
-		RequestContext ctx = RequestContext.getCurrentContext();
-		HttpServletResponse response = ctx.getResponse();
+		//RequestContext ctx = RequestContext.getCurrentContext();
+		//HttpServletResponse response = ctx.getResponse();
 
         //adicionar compressão e 
 

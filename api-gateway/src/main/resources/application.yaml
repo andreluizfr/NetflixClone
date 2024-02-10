@@ -54,6 +54,13 @@ eureka:
         registerWithEureka: false
         fetchRegistry: true
 
+#(ribbon.ReadTimeout + ribbon.connectTimeout) * (1+ribbon.maxAutoRetries(default 0) * (ribbon.MaxAutoRetriesNextServer (default 1) + 1)
+ribbon:
+    ReadTimeout: 999999999
+    ConnectTimeout: 99999999
+    MaxAutoRetries: 1  #Defaults 0
+    MaxAutoRetriesNextServer: 1 #Defaults to 1
+
 logging:
     level:
         org.apache.kafka: ERROR
@@ -67,6 +74,39 @@ api:
             jwtSecret: my-secret-key
 
 zuul:
+    sensitiveHeaders: Cookie,Set-Cookie
+    ratelimit:
+        enabled: true
+        repository: REDIS
+        deny-request:
+            response-status-code: 429 #default value is 429 (MANY_REQUESTS)
+        default-policy-list:
+            - limit: 10
+              quota: 1800 #time to reset block
+              refresh-interval: 60
+        policy-list:
+            USER-API:
+                - limit: 10
+                  quota: 1800
+                  refresh-interval: 60
+                  type:
+                    - origin
+            MEDIA-API:
+                - limit: 10
+                  quota: 1800
+                  refresh-interval: 60
+                  type:
+                    - origin
+            PAYMENT-API:
+                - limit: 10
+                  quota: 1800
+                  refresh-interval: 60
+                  type:
+                    - origin
+    host:
+        max-per-route-connections: 100 #Default: 20
+        max-total-connections: 10000 #Default: 200.
+
     routes:
         user-api-1:
             path: /api/user/**

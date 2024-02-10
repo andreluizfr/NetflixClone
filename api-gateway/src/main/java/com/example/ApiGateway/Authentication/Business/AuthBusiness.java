@@ -24,7 +24,8 @@ public class AuthBusiness {
 
         User user = userRepository.findByEmail(data.getEmail());
 
-        if (user != null) {
+        if (user != null && user.getDeleted() == false && user.getEnabled() == true
+                && user.matchesPassword(data.getPassword())) {
             String accessToken = tokenService.generateToken(user);
 
             return accessToken;

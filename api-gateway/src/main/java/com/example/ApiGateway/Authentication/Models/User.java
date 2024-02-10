@@ -112,6 +112,10 @@ public class User {
         this.password = new BCryptPasswordEncoder().encode(this.password);
     }
 
+    public boolean matchesPassword(String password) {
+        return new BCryptPasswordEncoder().matches(password, this.password);
+    }
+
     @Transient
     public List<String> getAuthorities() {
         List<String> roleAuthorities = new ArrayList<>();

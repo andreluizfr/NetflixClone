@@ -16,7 +16,6 @@ ALTER TABLE IF EXISTS public.account
     OWNER to postgres;
 
 ----------------------------- USER INFO ------------------------------------
-
 CREATE TABLE IF NOT EXISTS public.user_info (
     id uuid NOT NULL,
     enabled_flag boolean NOT NULL,
@@ -42,7 +41,6 @@ ALTER TABLE IF EXISTS public.user_info
     OWNER to postgres;
 
 ----------------------------- PROFILE ------------------------------------
-
 CREATE TABLE IF NOT EXISTS public.profile (
     id uuid NOT NULL,
     account_id uuid,
@@ -63,7 +61,6 @@ ALTER TABLE IF EXISTS public.profile
     OWNER to postgres;
 
 ----------------------------- PERMISSION ------------------------------------
-
 CREATE TABLE IF NOT EXISTS public.permission (
     id bigint NOT NULL,
     name character varying(255) NOT NULL,
@@ -83,7 +80,6 @@ CREATE INDEX IF NOT EXISTS ix_permission_created_at
     TABLESPACE pg_default;
 
 ----------------------------- ROLE ------------------------------------
-
 CREATE TABLE IF NOT EXISTS public.role (
     id smallint NOT NULL,
     name character varying(255) NOT NULL,
@@ -98,7 +94,6 @@ ALTER TABLE IF EXISTS public.role
     OWNER to postgres;
 
 ----------------------------- ROLE / PERMISSION (many to many relation table) ------------------------------------
-
 CREATE TABLE IF NOT EXISTS public.role_and_permission (
     role_id smallint NOT NULL,
     permission_id bigint NOT NULL,
