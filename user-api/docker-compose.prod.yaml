@@ -10,7 +10,7 @@ services:
       - JWT_SECRET_KEY="my-secret-key"
       - EUREKA_URL="http://host.docker.internal:8761/eureka"
       - KAFKA_URL="http://host.docker.internal:9092"
-      - POSTGRES_URL="jdbc:postgresql://host.docker.internal:9092/netflixClone"
+      - POSTGRES_URL="jdbc:postgresql://host.docker.internal:5432/netflixClone"
     volumes:
       - .m2:/root/.m2
     healthcheck:
