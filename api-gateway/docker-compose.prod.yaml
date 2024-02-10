@@ -7,10 +7,9 @@ services:
     ports:
       - 5050:5050
     environment:
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
-      - EUREKA_URL=${EUREKA_URL}
-      - KAFKA_URL=${KAFKA_URL}
-      - POSTGRES_URL=${POSTGRES_URL}
+      - JWT_SECRET_KEY="my-secret-key"
+      - EUREKA_URL="http://host.docker.internal:8761/eureka"
+      - KAFKA_URL="http://host.docker.internal:9092"
     volumes:
       - .m2:/root/.m2
     healthcheck:
