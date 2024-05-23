@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ import lombok.AllArgsConstructor;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Audited
+@Audited
 @Entity(name = "Permission")
 @Table(name = "permission", indexes = {
     @Index(columnList = "created_at", name = "ix_permission_created_at")
@@ -42,10 +43,12 @@ public class Permission implements Serializable {
     @Column(name = "description", nullable = false, unique = true)
     private String description;
 
+    @NotAudited
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @NotAudited
     @Version
     @UpdateTimestamp
     @Column(name="updated_at", nullable = false) 

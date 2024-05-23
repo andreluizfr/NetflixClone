@@ -4,10 +4,14 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +27,6 @@ import com.example.UserAPI.User.Controller.Models.CreateUserDTO;
 import com.example.UserAPI.User.Models.User;
 import com.example.UserAPI.Util.ResponseHandler;
 import com.google.gson.Gson;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 @RestController
 @RequestMapping("/api/user")
@@ -36,15 +38,6 @@ public class UserController {
     @Autowired
     Gson gson;
 
-    @HystrixCommand(
-        commandKey= "/user?id",
-        fallbackMethod = "fallbackResponse",
-        commandProperties = {
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass  10s with circuit open to the fallbackMethod
-    })
     @GetMapping(value = "/get", params = "id")
     public ResponseEntity<Object> getUser(@RequestParam(name = "id", required = true) UUID id)
             throws IllegalArgumentException, FailToFindUserException {
@@ -56,15 +49,6 @@ public class UserController {
                 user);
     }
 
-    @HystrixCommand(
-        commandKey= "/user/getAll",
-        fallbackMethod = "fallbackResponse",
-        commandProperties = {
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass  10s with circuit open to the fallbackMethod
-    })
     @GetMapping("/getAll")
     public ResponseEntity<Object> getAllUser() {
 
@@ -74,53 +58,42 @@ public class UserController {
                 HttpStatus.OK, users);
     }
 
-    @HystrixCommand(
-        commandKey= "/user/create",
-        fallbackMethod = "fallbackResponse",
-        commandProperties = {
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass  10s with circuit open to the fallbackMethod
-    })
     @PostMapping("/create")
-    public ResponseEntity<Object> createUser(@RequestBody CreateUserDTO data)
+    public ResponseEntity<Object> createUser(@RequestBody CreateUserDTO data, HttpServletRequest request)
             throws IllegalAccessException, DataIntegrityViolationException, DateTimeParseException {
 
-        User newUser = userBusiness.createUser(data);
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null) {
+            ip = request.getHeader("X_FORWARDED_FOR");
+            if (ip == null) {
+                ip = request.getRemoteAddr();
+            }
+        }
+
+        User newUser = userBusiness.createUser(data, ip);
 
         return ResponseHandler.generateResponse("Conta criada com sucesso.", HttpStatus.CREATED,
                 newUser);
     }
 
-    @HystrixCommand(
-        commandKey= "/user/fetch",
-        fallbackMethod = "fallbackResponse",
-        commandProperties = {
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass  10s with circuit open to the fallbackMethod
-    })
     @GetMapping("/fetch")
-    public ResponseEntity<Object> fetchUser(@RequestHeader("X-Logged-In-User") String userEmail)
+    public ResponseEntity<Object> fetchUser()
             throws FailToFindUserException, IllegalArgumentException {
 
-        User user = userBusiness.fetchUser(userEmail);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User userAuthenticated = authentication != null ? (User) authentication.getPrincipal() : null;
 
-        return ResponseHandler.generateResponse("Dados de usuário buscados com sucesso.", HttpStatus.OK,
-                user);
+        if (userAuthenticated != null) {
+            User user = userBusiness.fetchUser(userAuthenticated.getEmail());
+
+            return ResponseHandler.generateResponse("Dados de usuário buscados com sucesso.", HttpStatus.OK,
+                    user);
+        } else {
+            return ResponseHandler.generateResponse("Usuário não autenticado.", HttpStatus.FORBIDDEN,
+                    null);
+        }
     }
 
-    @HystrixCommand(
-        commandKey= "/user/checkEmail",
-        fallbackMethod = "fallbackResponse",
-        commandProperties = {
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass  10s with circuit open to the fallbackMethod
-    })
     @GetMapping("/checkEmail")
     public ResponseEntity<Object> checkEmail(@RequestHeader("X-Logged-In-User") String email)
             throws FailToFindUserException, IllegalArgumentException {
@@ -131,34 +104,8 @@ public class UserController {
                 check);
     }
 
-    public ResponseEntity<Object> fallbackResponse() {
-        return ResponseHandler.generateResponse("Serviço está enfrentando alguns problemas.", 
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                null);
-    }
-
-    public ResponseEntity<Object> fallbackResponse(UUID id) {
-        return ResponseHandler.generateResponse("Serviço está enfrentando alguns problemas.", 
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                null);
-    }
-
-    public ResponseEntity<Object> fallbackResponse(CreateUserDTO data) {
-        return ResponseHandler.generateResponse("Serviço está enfrentando alguns problemas.", 
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                null);
-    }
-
-    public ResponseEntity<Object> fallbackResponse(String userEmail) {
-        return ResponseHandler.generateResponse("Serviço está enfrentando alguns problemas.", 
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                null);
-    }
-
-
     @ExceptionHandler(FailToFindUserException.class)
     public ResponseEntity<Object> unkownError(FailToFindUserException e) {
-        System.out.println(e.getMessage());
         return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
     }
 }

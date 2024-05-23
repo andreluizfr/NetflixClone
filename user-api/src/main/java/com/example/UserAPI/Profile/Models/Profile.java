@@ -12,6 +12,7 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
@@ -30,7 +31,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@Audited
+@Audited
 @Entity(name = "Profile")
 @Table(name = "profile")
 @TypeDefs({
@@ -57,10 +58,12 @@ public class Profile {
     @Column(name = "preferences", nullable = false)
     private ProfilePreferences preferences = new ProfilePreferences();
 
+    @NotAudited
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @NotAudited
     @Version
     @UpdateTimestamp
     @Column(name="updated_at", nullable = false) 

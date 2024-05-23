@@ -1,5 +1,10 @@
 package com.example.UserAPI.Profile.Models;
 
-public class ProfilePreferences {
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+public class ProfilePreferences {
+    private String testText;
 }

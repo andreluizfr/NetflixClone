@@ -25,27 +25,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
-            .cors(cors -> {
-                cors.configurationSource(request -> {
-                    CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(Arrays.asList("http://api-gateway:5050"));
-                    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                    config.setAllowedHeaders(
-                            Arrays.asList("Content-Type", "Accept", "Authorization", "Access-control-allow-methods",
-                                    "Access-Control-Allow-Origin", "Access-control-allow-headers", "X-Logged-In-User"));
-                    return config;
-                });
-            })
-            .authorizeRequests(authorize -> authorize
-                .antMatchers("/actuator/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/user/create").permitAll()
-                .anyRequest().permitAll()
-            )
-            .addFilterBefore(authenticationFromApiGatewayFilter, UsernamePasswordAuthenticationFilter.class)
-            .exceptionHandling(exception -> exception
-                .accessDeniedHandler(new CustomAccessDeniedHandler())
-                .authenticationEntryPoint(new CustomUnauthenticatedHandler())
-            );
+                .cors(cors -> {
+                    cors.configurationSource(request -> {
+                        CorsConfiguration config = new CorsConfiguration();
+                        config.setAllowedOrigins(Arrays.asList("*"));
+                        config.setAllowedMethods(Arrays.asList("*"));
+                        config.setAllowedHeaders(Arrays.asList("*"));
+                        return config;
+                    });
+                })
+                .authorizeRequests(authorize -> authorize
+                        .antMatchers("/actuator/**").permitAll()
+                        .antMatchers(HttpMethod.POST, "/api/user/create").permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(authenticationFromApiGatewayFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(exception -> exception
+                        .accessDeniedHandler(new CustomAccessDeniedHandler())
+                        .authenticationEntryPoint(new CustomUnauthenticatedHandler()));
     }
 
     @Override

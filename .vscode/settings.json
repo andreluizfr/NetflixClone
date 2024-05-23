@@ -9,5 +9,6 @@
         "WebContent/WEB-INF/lib/**/*.jar"
     ],
     "java.debug.settings.onBuildFailureProceed": true,
-    "maven.view": "flat"
+    "maven.view": "flat",
+    "boot-java.validation.java.boot2": "OFF"
 }

@@ -145,3 +145,11 @@ CREATE INDEX IF NOT EXISTS ix_user_activity_created_at
     ON public.user_activity USING btree
     (created_at ASC NULLS LAST)
     TABLESPACE pg_default;
+
+
+----------------------------- REV INFO ------------------------------------
+CREATE TABLE IF NOT EXISTS public.revinfo (
+    rev INTEGER NOT NULL,
+    revtstmp bigint,
+    CONSTRAINT revinfo_pkey PRIMARY KEY (rev)
+)

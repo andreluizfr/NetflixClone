@@ -70,3 +70,34 @@ Abra pelo VsCode, instale a extensão do Spring e espere ser identificado o proj
 ```npm run build```
 
 ```serve -s build```
+
+
+## Como iniciar a aplicação em uma instância EC2
+
+### Configurando o docker
+```sudo yum update -y```
+```sudo yum install docker```
+```sudo service docker start```
+```sudo usermod -a -G docker ec2-user```
+```sudo chmod 666 /var/run/docker.sock```
+
+### Configurando docker-compose
+```sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose```
+```sudo chmod +x /usr/local/bin/docker-compose```
+```docker-compose version```
+
+### Configurando git
+```sudo yum install git```
+```git version```
+```git clone https://github.com/andreluizfr/NetflixClone```
+
+### Iniciando com o docker-compose
+```docker-compose -f "NetflixClone/infra-services/docker-compose.prod.yaml" up -d --build --remove-orphans```
+
+```docker-compose -f "NetflixClone/user-api/docker-compose.prod.yaml" up -d --build --remove-orphans```
+```docker logs -f user-api-container```
+```docker-compose -f "NetflixClone/user-api/docker-compose.prod.yaml" down```
+
+```docker-compose -f "NetflixClone/api-gateway/docker-compose.prod.yaml" up -d --build --remove-orphans```
+```docker logs -f api-gateway-container```
+```docker-compose -f "NetflixClone/api-gateway/docker-compose.prod.yaml" down```

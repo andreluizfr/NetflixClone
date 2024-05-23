@@ -19,6 +19,6 @@ public enum Plan {
         if (number.equals(Short.valueOf((short) 1))) return Plan.BASIC_WITH_ADS;
         if (number.equals(Short.valueOf((short) 2))) return Plan.BASIC;
         if (number.equals(Short.valueOf((short) 3))) return Plan.PREMIUM;
-        throw new RuntimeException("Undefined Plan");
+        return null;
     }
 }

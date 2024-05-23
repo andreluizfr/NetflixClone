@@ -12,6 +12,7 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import com.example.UserAPI.Account.Models.Enums.Plan;
 import com.example.UserAPI.Account.Models.Enums.PlanConverter;
@@ -37,7 +38,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Audited
+@Audited
 @Entity(name = "Account")
 @Table(name = "account")
 @TypeDefs({
@@ -72,10 +73,12 @@ public class Account {
     @Column(name = "limit_of_profiles", nullable = true)
     private short limitOfProfiles;
 
+    @NotAudited
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @NotAudited
     @Version
     @UpdateTimestamp
     @Column(name="updated_at", nullable = false) 

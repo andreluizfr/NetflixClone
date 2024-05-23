@@ -33,7 +33,7 @@ import lombok.AllArgsConstructor;
 @Table(name = "user_activity", indexes = {
     @Index(columnList = "created_at", name = "ix_user_activity_created_at")
 })
-public class UserActivity{
+public class UserActivity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_activity_id_seq_gen")

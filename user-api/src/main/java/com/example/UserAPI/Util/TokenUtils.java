@@ -14,21 +14,32 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 public class TokenUtils {
 
-    @Value("${api.security.token.jwtSecret}")
-    private String jwtSecret;
+	@Value("${api.security.token.jwtSecret}")
+	private String jwtSecret;
 
-    public List<String> getPermissionsFromToken(String token) throws JWTVerificationException {
+	public String getEmailFromToken(String token) throws JWTVerificationException {
 
-        Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
+		Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
 
-        return List.of(JWT.require(algorithm)
-                .withIssuer("auth-api")
-                .build()
-                .verify(token)
-                .getClaim("permissions").asArray(String.class));
-    }
+		return JWT.require(algorithm)
+				.withIssuer("auth-api")
+				.build()
+				.verify(token)
+				.getSubject();
+	}
 
-    public String recoverToken(HttpServletRequest request) {
+	public List<String> getPermissionsFromToken(String token) throws JWTVerificationException {
+
+		Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
+
+		return List.of(JWT.require(algorithm)
+				.withIssuer("auth-api")
+				.build()
+				.verify(token)
+				.getClaim("permissions").asArray(String.class));
+	}
+
+	public String recoverToken(HttpServletRequest request) {
 
 		String authHeader = request.getHeader("Authorization");
 

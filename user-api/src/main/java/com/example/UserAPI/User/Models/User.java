@@ -11,6 +11,8 @@ import java.util.stream.Stream;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -39,7 +41,7 @@ import lombok.AllArgsConstructor;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Audited
+@Audited
 @Entity(name = "User")
 @Table(name = "user_info")
 public class User implements UserDetails{
@@ -75,10 +77,12 @@ public class User implements UserDetails{
     @Transient
     List<CustomPermission> permissionsNamesByRole = new ArrayList<>();
 
+    @NotAudited
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @NotAudited
     @Version
     @UpdateTimestamp
     @Column(name="updated_at", nullable = false) 

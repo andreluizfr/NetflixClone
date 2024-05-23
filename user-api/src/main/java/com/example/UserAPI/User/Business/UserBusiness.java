@@ -5,16 +5,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.example.UserAPI.Account.DataProvider.AccountRepository;
 import com.example.UserAPI.User.Exceptions.FailToFindUserException;
@@ -27,6 +23,7 @@ import com.example.UserAPI.User.Models.Enums.UserRole;
 import com.example.UserAPI.UserActivity.Models.UserActivityDTO;
 import com.google.gson.Gson;
 
+@Transactional
 @Service
 public class UserBusiness {
 
@@ -42,8 +39,7 @@ public class UserBusiness {
     @Autowired
     Gson gson;
 
-    @Transactional
-    public User createUser(CreateUserDTO data)
+    public User createUser(CreateUserDTO data, String ip)
             throws IllegalAccessException, DataIntegrityViolationException, DateTimeParseException {
 
         if (data.getEmail() == null || data.getPassword() == null || data.getBirthDate() == null)
@@ -62,7 +58,7 @@ public class UserBusiness {
         User newUser = userRepository.save(user);
 
         this.sendUserCreatedTopic(newUser);
-        this.sendSaveUserActivityTopic(newUser, "CREATE_USER", null);
+        this.sendSaveUserActivityTopic(newUser, "CREATE_USER", null, ip);
 
         return newUser;
     }
@@ -71,22 +67,17 @@ public class UserBusiness {
         kafkaTemplate.send("user-created", gson.toJson(user));
     }
 
-    private void sendSaveUserActivityTopic(User user, String permission, Profile profile) {
+    private void sendSaveUserActivityTopic(User user, String permission, Profile profile, String ip) {
 
         UserActivityDTO userActivityDTO = new UserActivityDTO();
         userActivityDTO.setUser(user);
         userActivityDTO.setPermissionName(permission);
         userActivityDTO.setProfile(profile);
-
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        String ip = request.getRemoteAddr();
         userActivityDTO.setIp(ip);
 
         kafkaTemplate.send("save-user-activity", gson.toJson(userActivityDTO));
     }
 
-    @Transactional
     public User fetchUser(String email)
             throws FailToFindUserException, IllegalArgumentException {
 
@@ -104,31 +95,30 @@ public class UserBusiness {
         throw new FailToFindUserException("O e-mail " + email + " não pertence a nenhum usuário registrado.");
     }
 
-    @Transactional
-    @Cacheable(cacheNames = "smallTimeCache")
+    @SuppressWarnings("unchecked")
     public List<User> getAllUsers() {
-
-        List<User> users = userRepository.findAll();
-
-        return users;
+        return gson.fromJson(getAllUsersCached(), List.class);
     }
 
-    @Transactional
+    @Cacheable(cacheNames = "smallTimeCache")
+    public String getAllUsersCached() {
+        List<User> users = userRepository.findAll();
+
+        Gson gson = new Gson();
+        return gson.toJson(users);
+    }
+
     public User getUser(UUID id)
             throws IllegalArgumentException, FailToFindUserException {
 
         if (id == null)
             throw new IllegalArgumentException("Id is null.");
 
-        Optional<User> optionalUser = userRepository.findById(id);
-
-        if (optionalUser.isPresent())
-            return optionalUser.get();
-
-        throw new FailToFindUserException("O id " + id + " não pertence a nenhum usuário registrado.");
+        return userRepository
+            .findById(id)
+            .orElseThrow(() -> new FailToFindUserException("O id " + id + " não pertence a nenhum usuário registrado."));
     }
 
-    @Transactional
     public boolean checkEmail(String email)
             throws IllegalArgumentException, FailToFindUserException {
 

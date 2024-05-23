@@ -35,18 +35,18 @@ public class AuthenticationFromApiGatewayFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String email = request.getHeader("X-Logged-In-User");
-        
-        if(email != null && email.length() > 0) {
+        try {
+            String token = tokenUtils.recoverToken(request);
+            String email = tokenUtils.getEmailFromToken(token);
 
-            Optional<User> optionalUser  = userRepository.findByEmail(email);
+            if(email != null && email.length() > 0) {
 
-            if(optionalUser.isPresent()){
-                try {
+                Optional<User> optionalUser  = userRepository.findByEmail(email);
+
+                if(optionalUser.isPresent()){
+                    
                     User user = optionalUser.get();
-
-                    var token = tokenUtils.recoverToken(request);
-
+                    
                     List<String> permissions = tokenUtils.getPermissionsFromToken(token);
 
                     List<CustomPermission> authorities = permissions
@@ -57,11 +57,10 @@ public class AuthenticationFromApiGatewayFilter extends OncePerRequestFilter {
                     var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
 
                     SecurityContextHolder.getContext().setAuthentication(authentication);
-
-                } catch (JWTVerificationException e) {
-                    e.printStackTrace();
                 }
-            }
+            } 
+        } catch (JWTVerificationException e) {
+            System.out.println(e.getMessage());
         }
 
         filterChain.doFilter(request, response);
