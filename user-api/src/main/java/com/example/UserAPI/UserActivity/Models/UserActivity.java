@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import com.example.UserAPI.Profile.Models.Profile;
 import com.example.UserAPI.User.Models.User;
@@ -29,6 +31,7 @@ import lombok.AllArgsConstructor;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Audited
 @Entity(name = "UserActivity")
 @Table(name = "user_activity", indexes = {
     @Index(columnList = "created_at", name = "ix_user_activity_created_at")
@@ -55,10 +58,12 @@ public class UserActivity {
     @Column(name = "permission_name", nullable = false)
     private String permissionName;
 
+    @NotAudited
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @NotAudited
     @Version
     @UpdateTimestamp
     @Column(name="updated_at", nullable = false) 

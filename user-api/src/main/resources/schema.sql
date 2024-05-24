@@ -15,6 +15,17 @@ CREATE TABLE IF NOT EXISTS public.account (
 ALTER TABLE IF EXISTS public.account
     OWNER to postgres;
 
+CREATE TABLE IF NOT EXISTS public.account_aud (
+    rev integer NOT NULL,
+    revtype smallint,
+    id uuid NOT NULL,
+    active_flag boolean NOT NULL,
+    current_plan smallint,
+    plan_expire_day smallint,
+    payment_history jsonb NOT NULL,
+    limit_of_profiles smallint
+);
+
 ----------------------------- USER INFO ------------------------------------
 CREATE TABLE IF NOT EXISTS public.user_info (
     id uuid NOT NULL,
@@ -40,6 +51,19 @@ CREATE TABLE IF NOT EXISTS public.user_info (
 ALTER TABLE IF EXISTS public.user_info
     OWNER to postgres;
 
+CREATE TABLE IF NOT EXISTS public.user_info_aud (
+    rev integer NOT NULL,
+    revtype smallint,
+    id uuid NOT NULL,
+    enabled_flag boolean NOT NULL,
+    deleted_flag boolean NOT NULL,
+    email character varying(255)  NOT NULL,
+    password character varying(255)  NOT NULL,
+    birth_date character varying(255)  NOT NULL,
+    role_id smallint NOT NULL,
+    account_id uuid
+);
+
 ----------------------------- PROFILE ------------------------------------
 CREATE TABLE IF NOT EXISTS public.profile (
     id uuid NOT NULL,
@@ -60,6 +84,17 @@ CREATE TABLE IF NOT EXISTS public.profile (
 ALTER TABLE IF EXISTS public.profile
     OWNER to postgres;
 
+CREATE TABLE IF NOT EXISTS public.profile_aud (
+    rev integer NOT NULL,
+    revtype smallint,
+    id uuid NOT NULL,
+    account_id uuid,
+    owner_name character varying(255) NOT NULL,
+    icon_cod integer NOT NULL,
+    seen_medias_ids jsonb NOT NULL,
+    preferences jsonb NOT NULL
+);
+
 ----------------------------- PERMISSION ------------------------------------
 CREATE TABLE IF NOT EXISTS public.permission (
     id bigint NOT NULL,
@@ -79,6 +114,14 @@ CREATE INDEX IF NOT EXISTS ix_permission_created_at
     (created_at ASC NULLS LAST)
     TABLESPACE pg_default;
 
+CREATE TABLE IF NOT EXISTS public.permission_aud (
+    rev integer NOT NULL,
+    revtype smallint,
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    description character varying(255) NOT NULL
+);
+
 ----------------------------- ROLE ------------------------------------
 CREATE TABLE IF NOT EXISTS public.role (
     id smallint NOT NULL,
@@ -92,6 +135,13 @@ CREATE TABLE IF NOT EXISTS public.role (
 );
 ALTER TABLE IF EXISTS public.role
     OWNER to postgres;
+
+CREATE TABLE IF NOT EXISTS public.role_aud (
+    rev integer NOT NULL,
+    revtype smallint,
+    id smallint NOT NULL,
+    name character varying(255) NOT NULL
+);
 
 ----------------------------- ROLE / PERMISSION (many to many relation table) ------------------------------------
 CREATE TABLE IF NOT EXISTS public.role_and_permission (
@@ -110,6 +160,13 @@ CREATE TABLE IF NOT EXISTS public.role_and_permission (
 );
 ALTER TABLE IF EXISTS public.role_and_permissio
     OWNER to postgres;
+
+CREATE TABLE IF NOT EXISTS public.role_aud (
+    rev integer NOT NULL,
+    revtype smallint,
+    role_id smallint NOT NULL,
+    permission_id bigint NOT NULL
+);
     
 ----------------------------- USER ACTIVITY ------------------------------------
 CREATE SEQUENCE IF NOT EXISTS user_activity_id_seq
@@ -146,6 +203,15 @@ CREATE INDEX IF NOT EXISTS ix_user_activity_created_at
     (created_at ASC NULLS LAST)
     TABLESPACE pg_default;
 
+CREATE TABLE IF NOT EXISTS public.user_activity_aud (
+    rev integer NOT NULL,
+    revtype smallint,
+    id bigint NOT NULL,
+    user_id uuid NOT NULL,
+    profile_id uuid,
+    ip character varying(255) NOT NULL,
+    permission_name character varying(255) NOT NULL
+);
 
 ----------------------------- REV INFO ------------------------------------
 CREATE TABLE IF NOT EXISTS public.revinfo (
