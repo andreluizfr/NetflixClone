@@ -1,11 +1,14 @@
-package com.example.ApiGateway.Filters;
+package com.example.ApiGateway.Configuration.Filters;
 
 import java.util.Date;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.ApiGateway.Authentication.Business.TokenService;
@@ -14,7 +17,10 @@ import com.google.gson.Gson;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
-public class AddHeadersPreFilter extends ZuulFilter {
+@Component
+public class AddHeadersInRequestFilter extends ZuulFilter {
+
+	private static final Logger logger = LogManager.getLogger(AddHeadersInRequestFilter.class);
 
 	@Autowired
 	TokenService tokenService;
@@ -24,7 +30,7 @@ public class AddHeadersPreFilter extends ZuulFilter {
 
 	@Override
 	public String filterType() {
-		return "pre";
+		return "route";
 	}
 
 	@Override
@@ -69,14 +75,14 @@ public class AddHeadersPreFilter extends ZuulFilter {
 			tokenService.validateToken(token);
 			ctx.addZuulRequestHeader("Authorization", "Bearer " + token);
 		} catch (JWTVerificationException e) {
-			System.out.println("failed in validate token");
+			logger.info("Failed in validating token.");
 		}
 
 		ctx.addZuulRequestHeader("Content-Type", "application/json");
 		ctx.addZuulRequestHeader("Content-Length", String.valueOf(ctx.getRequest().getContentLength()));
-		if(oldHeadersKeySet.contains("Accept-Encoding")){
+		if (oldHeadersKeySet.contains("Accept-Encoding")) {
 			ctx.addZuulRequestHeader("Accept-Encoding", "gzip");
-		}	
+		}
 		ctx.addZuulRequestHeader("X-Start-Date", String.valueOf(new Date()));
 	}
 }

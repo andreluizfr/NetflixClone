@@ -1,25 +1,21 @@
-package com.example.ApiGateway.Filters;
+package com.example.ApiGateway.Configuration.Filters;
 
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 
-import com.example.ApiGateway.Authentication.Business.TokenService;
-import com.example.ApiGateway.Authentication.DataProvider.UserRepository;
-import com.google.gson.Gson;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
+@Component
 public class LogRequestPreFilter extends ZuulFilter {
 
-	@Autowired
-	TokenService tokenService;
-
-	@Autowired
-	UserRepository userRepository;
-
+	private static final Logger logger = LogManager.getLogger(LogRequestPreFilter.class);
+	
 	@Override
 	public String filterType() {
 		return "pre";
@@ -35,9 +31,6 @@ public class LogRequestPreFilter extends ZuulFilter {
 		return true;
 	}
 
-	@Autowired
-	Gson gson;
-
 	@Override
 	public Object run() {
 
@@ -50,8 +43,8 @@ public class LogRequestPreFilter extends ZuulFilter {
 		} catch (IOException | RuntimeException e) {
 			requestBody = "";
 		}
-		
-		System.out.println(
+
+		logger.info(
 				"\n" +
 				"In zuul after PreFilter" + "\n" +
 				"Request Method : " + request.getMethod() + "\n" +
@@ -60,8 +53,7 @@ public class LogRequestPreFilter extends ZuulFilter {
 				"Request Headers Key Set: " + ctx.getZuulRequestHeaders().keySet().toString() + "\n" +
 				"Request Headers Values Set: " + ctx.getZuulRequestHeaders().values().toString() + "\n" +
 				"Request Body: " + requestBody +
-				"\n"
-		);
+				"\n");
 
 		return null;
 	}

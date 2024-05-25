@@ -61,10 +61,6 @@ ribbon:
     MaxAutoRetries: 3  #Defaults 0
     MaxAutoRetriesNextServer: 3 #Defaults to 1
 
-logging:
-    level:
-        .: ERROR
-
 api:
     security:
         token:

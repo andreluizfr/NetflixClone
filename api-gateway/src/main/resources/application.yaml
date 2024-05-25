@@ -60,13 +60,7 @@ ribbon:
     ConnectTimeout: 99999999
     MaxAutoRetries: 1  #Defaults 0
     MaxAutoRetriesNextServer: 1 #Defaults to 1
-
-logging:
-    level:
-        org.apache.kafka: ERROR
-        org.hibernate.envers.boot: ERROR
-        com.netflix.discovery.DiscoveryClient: ERROR
-
+        
 api:
     security:
         token:

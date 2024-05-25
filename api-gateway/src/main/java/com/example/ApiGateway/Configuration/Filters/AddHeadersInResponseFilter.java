@@ -1,4 +1,4 @@
-package com.example.ApiGateway.Filters;
+package com.example.ApiGateway.Configuration.Filters;
 
 import java.util.Date;
 import java.util.UUID;
@@ -6,7 +6,8 @@ import java.util.UUID;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
-public class AddHeadersPostFilter extends ZuulFilter {
+@Component
+public class AddHeadersInResponseFilter extends ZuulFilter {
 
 	@Override
 	public String filterType() {
@@ -38,7 +39,7 @@ public class AddHeadersPostFilter extends ZuulFilter {
 		ctx.addZuulResponseHeader("X-Foo", UUID.randomUUID().toString());
 		ctx.addZuulResponseHeader("X-Start-Date", ctx.getZuulRequestHeaders().get("X-Start-Date".toLowerCase()));
 		ctx.addZuulResponseHeader("X-End-Date", String.valueOf(new Date()));
-		//remover o que está vindo do microserviço, porque será reescrito no bean do cors
+		//remover o que está vindo do microsserviço, porque será reescrito no bean do cors
 		ctx.getZuulResponseHeaders().removeIf(ssp -> ssp.first().toLowerCase().startsWith("access-control-allow")); 
 	}
 

@@ -2,10 +2,15 @@ package com.example.ApiGateway.Filters;
 
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
 public class LogResponsePostFilter extends ZuulFilter {
+
+	private static final Logger logger = LogManager.getLogger(LogResponsePostFilter.class);
 
 	@Override
 	public String filterType() {
@@ -27,7 +32,7 @@ public class LogResponsePostFilter extends ZuulFilter {
 
 		RequestContext ctx = RequestContext.getCurrentContext();
 
-		System.out.println(
+		logger.info(
 				"\n" +
 				"In zuul after PosFilter" + "\n" +
 				"Response Status : " + ctx.getResponseStatusCode() + "\n" +
