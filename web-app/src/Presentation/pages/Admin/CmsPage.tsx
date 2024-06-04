@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SearchContainer from '@/Presentation/components/SearchContainer';
 import Container from '@mui/material/Container';
+import useDashVideo from '@Presentation/hooks/useDashVideo';
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -42,6 +43,8 @@ function Cms() {
 		setValue(newValue);
 	};
 
+	useDashVideo();
+
 	return (
 		<div className='px-[5px] w-full min-h-screen flex justify-center items-center'>
 			<div className='flex gap-2'>
@@ -75,6 +78,54 @@ function Cms() {
 					</TabPanel>
 
 				</Box>
+
+				<div className="dash-video-player ">
+					<div className="videoContainer" id="videoContainer">
+
+						<video preload="auto" autoPlay controls></video>
+						
+						<div id="videoController" className="video-controller unselectable">
+
+							<div id="playPauseBtn" className="btn-play-pause" title="Play/Pause">
+								<span id="iconPlayPause" className="icon-play"></span>
+							</div>
+
+							<span id="videoTime" className="time-display">00:00:00</span>
+
+							<div id="fullscreenBtn" className="btn-fullscreen control-icon-layout" title="Fullscreen">
+								<span className="icon-fullscreen-enter"></span>
+							</div>
+
+							<div id="bitrateListBtn" className="control-icon-layout" title="Bitrate List">
+								<span className="icon-bitrate"></span>
+							</div>
+
+							<input type="range" id="volumebar" className="volumebar" value="1" min="0" max="1" step=".01"/>
+
+							<div id="muteBtn" className="btn-mute control-icon-layout" title="Mute">
+								<span id="iconMute" className="icon-mute-off"></span>
+							</div>
+
+							<div id="trackSwitchBtn" className="control-icon-layout" title="A/V Tracks">
+								<span className="icon-tracks"></span>
+							</div>
+
+							<div id="captionBtn" className="btn-caption control-icon-layout" title="Closed Caption">
+								<span className="icon-caption"></span>
+							</div>
+
+							<span id="videoDuration" className="duration-display">00:00:00</span>
+
+							<div className="seekContainer">
+								<div id="seekbar" className="seekbar seekbar-complete">
+									<div id="seekbar-buffer" className="seekbar seekbar-buffer"></div>
+									<div id="seekbar-play" className="seekbar seekbar-play"></div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
 
 			</div>
 		</div>

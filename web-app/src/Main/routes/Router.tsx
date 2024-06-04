@@ -1,17 +1,17 @@
 import { lazy, Suspense, useState } from 'react';
 
-import LoadingPage from "@Presentation/pages/Loading";
-const HomePage = lazy(() => import('@Presentation/pages/Home'));
-const LoginPage = lazy(() => import('@Presentation/pages/Login'));
-const SignupPage = lazy(() => import('@Presentation/pages/Signup'));
-const SignupPlanPage = lazy(() => import('@Presentation/pages/SignupPlan'));
-const SignupRegistrationPage = lazy(() => import('@Presentation/pages/SignupRegistration'));
-const SignupPaymentPickerPage = lazy(() => import('@Presentation/pages/SignupPaymentPicker'));
-const SignupInformationsPage = lazy(() => import('@Presentation/pages/SignupInformations'));
-const SignupPaymentPage = lazy(() => import('@Presentation/pages/SignupPayment'));
-const WhoIsWatchingPage = lazy(() => import('@Presentation/pages/WhoIsWatching'));
-const BrowsePage = lazy(() => import('@Presentation/pages/Browse'));
-const TrackPage = lazy(() => import('@Presentation/pages/Track'));
+import LoadingPage from "@Presentation/pages/Client/Loading";
+const HomePage = lazy(() => import('@Presentation/pages/Client/Home'));
+const LoginPage = lazy(() => import('@Presentation/pages/Client/Login'));
+const SignupPage = lazy(() => import('@Presentation/pages/Client/Signup'));
+const SignupPlanPage = lazy(() => import('@Presentation/pages/Client/SignupPlan'));
+const SignupRegistrationPage = lazy(() => import('@Presentation/pages/Client/SignupRegistration'));
+const SignupPaymentPickerPage = lazy(() => import('@Presentation/pages/Client/SignupPaymentPicker'));
+const SignupInformationsPage = lazy(() => import('@Presentation/pages/Client/SignupInformations'));
+const SignupPaymentPage = lazy(() => import('@Presentation/pages/Client/SignupPayment'));
+const WhoIsWatchingPage = lazy(() => import('@Presentation/pages/Client/WhoIsWatching'));
+const BrowsePage = lazy(() => import('@Presentation/pages/Client/Browse'));
+const TrackPage = lazy(() => import('@Presentation/pages/Client/Track'));
 
 import {
 	createBrowserRouter,

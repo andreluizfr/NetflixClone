@@ -535,7 +535,7 @@ export default function TrackPage ({track, media}: props) {
             <div className="dash-video-player">
                 <div className="videoContainer" ref={videoContainer} id="videoContainer">
 
-                    <video preload="auto" autoPlay width="100vw" height="auto" ref={video} onClick={()=>togglePlayPauseVideoState()}></video>
+                    <video preload="auto" width="100vw" height="auto" ref={video} onClick={()=>togglePlayPauseVideoState()}></video>
                     
                     <div id="videoController" ref={videoController} className="video-controller hide">
 
