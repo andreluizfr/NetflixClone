@@ -1,20 +1,30 @@
 package com.example.MediaAPI.Media.Controller;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.MediaAPI.Media.Business.MediaBusiness;
 import com.example.MediaAPI.Media.Exceptions.MediaNotFoundException;
 import com.example.MediaAPI.Media.Exceptions.PreviewMediaNotFoundException;
 import com.example.MediaAPI.Media.Models.Anime;
+import com.example.MediaAPI.Media.Models.EpisodeTrack;
 import com.example.MediaAPI.Media.Models.Media;
 import com.example.MediaAPI.Media.Models.MediaList;
 import com.example.MediaAPI.Media.Models.Movie;
@@ -35,27 +45,6 @@ public class MediaController {
     @Autowired
     Gson gson;
 
-    public ResponseEntity<Object> fallbackResponse() {
-        return ResponseHandler.generateResponse("Serviço está enfrentando alguns problemas.", 
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                null);
-    }
-
-    public ResponseEntity<Object> fallbackResponse(Long id) {
-        return ResponseHandler.generateResponse("Serviço está enfrentando alguns problemas.", 
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                null);
-    }
-
-    @HystrixCommand(
-        commandKey= "/media",
-        fallbackMethod = "fallbackResponse",
-        commandProperties = {
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass  10s with circuit open to the fallbackMethod
-    })
     @GetMapping("/media")
     public ResponseEntity<Object> getAllMedias() {
         List<Media> mediasList = mediaBusiness.getAllMedias();
@@ -65,96 +54,48 @@ public class MediaController {
                 mediasList);
     }
 
-
-    @HystrixCommand(
-        commandKey= "/media?id",
-        fallbackMethod = "fallbackResponse",
-        commandProperties = {
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass 10s with circuit open to the fallbackMethod
-    })
     @GetMapping(value = "/media", params = "id")
-    public ResponseEntity<Object> getMedia(@RequestParam(name = "id", required = true) Long id) 
-            throws MediaNotFoundException{
-        
+    public ResponseEntity<Object> getMedia(@RequestParam(name = "id", required = true) Long id) throws MediaNotFoundException {
+
         Media media = gson.fromJson(mediaBusiness.getMedia(id), Media.class);
 
-        return ResponseHandler.generateResponse("Mídia buscada com sucesso.", 
+        return ResponseHandler.generateResponse("Mídia buscada com sucesso.",
                 HttpStatus.OK,
                 media);
     }
 
-    @HystrixCommand(
-        commandKey= "/movie",
-        fallbackMethod = "fallbackResponse",
-        commandProperties = {
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass 10s with circuit open to the fallbackMethod
-    })
     @GetMapping("/movie")
     public ResponseEntity<Object> getAllMovies() {
 
         List<Movie> moviesList = mediaBusiness.getAllMovies();
 
-        return ResponseHandler.generateResponse("Filmes buscados com sucesso.", 
+        return ResponseHandler.generateResponse("Filmes buscados com sucesso.",
                 HttpStatus.OK,
                 moviesList);
     }
 
-    @HystrixCommand(
-        commandKey= "/tvShow",
-        fallbackMethod = "fallbackResponse",
-        commandProperties = {
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass 10s with circuit open to the fallbackMethod
-    })
     @GetMapping("/tvShow")
     public ResponseEntity<Object> getAllTvShows() {
 
         List<TvShow> tvShowsList = mediaBusiness.getAllTvShows();
 
-        return ResponseHandler.generateResponse("Séries buscadas com sucesso.", 
+        return ResponseHandler.generateResponse("Séries buscadas com sucesso.",
                 HttpStatus.OK,
                 tvShowsList);
     }
 
-    @HystrixCommand(
-        commandKey= "/anime",
-        fallbackMethod = "fallbackResponse",
-        commandProperties = {
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass 10s with circuit open to the fallbackMethod
-    })
     @GetMapping("/anime")
     public ResponseEntity<Object> getAllAnimes() {
 
         List<Anime> animesList = mediaBusiness.getAllAnimes();
 
-        return ResponseHandler.generateResponse("Animes buscados com sucesso.", 
+        return ResponseHandler.generateResponse("Animes buscados com sucesso.",
                 HttpStatus.OK,
                 animesList);
     }
 
-    @HystrixCommand(
-        commandKey= "/previewMedia/getCurrent",
-        fallbackMethod = "fallbackResponse",
-        commandProperties = {
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass 10s with circuit open to the fallbackMethod
-    })
     @GetMapping("/previewMedia/getCurrent")
-    public ResponseEntity<Object> getCurrentPreviewMedia() 
-            throws PreviewMediaNotFoundException {
+    public ResponseEntity<Object> getCurrentPreviewMedia() throws PreviewMediaNotFoundException {
 
         PreviewMedia previewMedia = mediaBusiness.getCurrentPreviewMedia();
 
@@ -163,34 +104,64 @@ public class MediaController {
                 previewMedia);
     }
 
-    @HystrixCommand(
-        commandKey= "/mediaList",
-        fallbackMethod = "fallbackResponse",
-        commandProperties = {
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), //the method that in 10s
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), //received at least 5 requests
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //and got 60% error rate
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000") //will pass 10s with circuit open to the fallbackMethod
-    })
     @GetMapping("/mediaList")
     public ResponseEntity<Object> getAllMediaLists() {
 
         List<MediaList> mediaLists = mediaBusiness.getAllMediaLists();
 
-        return ResponseHandler.generateResponse("Lista buscada com sucesso.", 
+        return ResponseHandler.generateResponse("Lista buscada com sucesso.",
                 HttpStatus.OK,
                 mediaLists);
     }
 
+    @HystrixCommand(commandKey = "/uploadEpisodeTrack", fallbackMethod = "fallbackResponse", commandProperties = {
+            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"), // the method that in 30s
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "100"), // received at least 100 requests
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "30"), // and got 30% error rate
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "60000") // will pass 60s with circuit open to thefallbackMethod
+    })
+    @PostMapping("/track/uploadEpisodeTrack")
+    public ResponseEntity<Object> uploadTvShowEpisodeTrack(@RequestParam("file") MultipartFile file,
+            @RequestParam("media") Media media, @RequestParam("episodeTrack") EpisodeTrack episodeTrack) throws MediaNotFoundException, IOException {
+
+        mediaBusiness.uploadEpisodeTrack(file, media, episodeTrack);
+
+        return ResponseHandler.generateResponse("Arquivo salvo com sucesso.",
+                HttpStatus.OK,
+                null);
+    }
+
+    @GetMapping("/track/signedCookie")
+    public ResponseEntity<Object> getMediaSignedCookie(HttpServletResponse response) 
+            throws MalformedURLException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+
+        mediaBusiness.getMediaSignedCookie(response);
+
+        return ResponseHandler.generateResponse("Cookie de acesso gerado com sucesso.",
+                HttpStatus.OK,
+                null);
+    }
+
+    public ResponseEntity<Object> fallbackResponse(MultipartFile file, Media media, EpisodeTrack episodeTrack) {
+        return ResponseHandler.generateResponse(
+                "Serviço está enfrentando alguns problemas. From Media-api Fallback Response",
+                HttpStatus.GATEWAY_TIMEOUT,
+                null);
+    }
+
     @ExceptionHandler(MediaNotFoundException.class)
     public ResponseEntity<Object> unkownError(MediaNotFoundException e) {
-        System.out.println(e.getMessage());
         return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
     }
 
     @ExceptionHandler(PreviewMediaNotFoundException.class)
     public ResponseEntity<Object> unkownError(PreviewMediaNotFoundException e) {
-        System.out.println(e.getMessage());
         return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
     }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<Object> unkownError(MaxUploadSizeExceededException e) {
+        return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BANDWIDTH_LIMIT_EXCEEDED, null);
+    }
+
 }

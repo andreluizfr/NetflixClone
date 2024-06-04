@@ -5,3 +5,5 @@
 .m2
 .pgdata
 .kafkadata
+
+logs

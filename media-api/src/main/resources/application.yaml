@@ -5,6 +5,8 @@ server:
             charset: UTF-8
             enabled: true
             force: true
+    tomcat:
+        max-swallow-size: -1
 
 management:
     endpoints:
@@ -21,6 +23,14 @@ spring:
         name: media-api
     profiles:
         active: dev
+    devtools:
+        restart:
+            enabled: false
+    servlet:
+        multipart:
+            max-file-size: 500MB
+            max-request-size: 500MB
+            resolve-lazily: true
     datasource:
         url: jdbc:postgresql://localhost:5432/netflixClone
         username: postgres
@@ -30,6 +40,7 @@ spring:
         init:
             mode: always
             encoding: UTF-8
+            data-locations: import_active_users.sql,import_inactive_users.sql
     jpa:
         properties:
             hibernate:
@@ -66,17 +77,45 @@ eureka:
         hostname: localhost
         preferIpAddress: true
         lease-renewal-interval-in-seconds: 15
-
-logging:
-    level:
-        org.apache.kafka: ERROR
-        org.hibernate.envers.boot: ERROR
-        com.netflix.discovery.DiscoveryClient: ERROR
     
 api:
     security:
         token:
             jwtSecret: my-secret-key
 
+aws: 
+    accessKeyId: AKIAYIZZFBRHPWNL3X7B
+    secretAccessKey: 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
+    sessionToken:
 
-
+    bucketName: netflix-clone-2
+    mediaStreamingDir: /streamingTracks
+    cloudFrontDomain: d1hlsc6afcywvp.cloudfront.net
+    cloudfrontPrivateKey: "-----BEGIN RSA PRIVATE KEY-----
+        MIIEowIBAAKCAQEAlBNOtbrurtfcHnVJCXEoKMiw3LA7rKBbU+Ik6lUWGO+ITYFb
+        evHWjbG6TNwnNwuP2wTOmZMflxTQ70mHLEKB7Jm8RUGse/b0Z4tkb2sUoDYXzJ9b
+        ysvYHQeGu5SCX7H9TskVXbM/shVj6laUlWwUw3qnbNxlXE8x5MiEKaLK9DzUhTvh
+        SBgb/yp+YmkMIU7ulhPMUnm9+tjlhfpvf+CUsEEryvxi5dp1/SloERWnkRIJeAri
+        AyuLXKDFNV46s9Q1fJUu1+JQ+cd+gp5rMeu9LQA5s/eqEyXeELoJKpUoByJUt1M+
+        BFtL2DfSMXw+d2sTOYaMhbwZHmJR8ncpcTmc4QIDAQABAoIBABhCZYXOf2YzxUNU
+        McgTOuIbpyYw1UX965h9l1Cw6fLh43HXPJaS4nTKZlxLQT16bnISgoqUmPtWlLhv
+        Um8E4mZR9Y9fKBQTLI1+P9ElOPbaheGnRhGefeSbpA49UXK+JWLv/MkiIdBaQslU
+        r/kfAPPZt25VWWHbM7BozYZIvnlu8hIHQi8nK8MawmsyDOmeCw6Dj77tQbjpZQwV
+        3z9I2W8WzdlvGo8ZKN5KXSkCnO5/AENd/9OVwwMKCe/xOH9dhR08z/oM3bjOJXlb
+        NCKoDBMmRHet8+ytrle8sGQlf2ocLam7weAhcHSgUTdKyKPL3utR4bbE5Hvh+kUa
+        6TgvjVUCgYEAxGXzmPMXIwY/ivpO0LtSwfghXmMhMwvSoF9ACKmNQgEBuxiM8mJV
+        4HG7sRaw5pkeW2yP98OX8ZOxGL+NHmM3r5jGqN2HTkBKl6yVJ8ESIx4Gf3FxmtRr
+        5cj2G0fCHK/GkCJ8JrqIbgiXrkRfYgjg6XoDGnV3dupWQUjafKOYxAsCgYEAwQMw
+        DZ8NEBfgivnwBxhguiJtNq34CRT0oJ/mK0xMGvcm6E+DQMaSDl6A02/92YYm4EXX
+        TRxGdH/hdsRHmUjo52OIxzD1kKUIr2/y9W45EyCihRFfqIPnXbKUjPH3mxMthK9R
+        y5cXNbGpG+aIOgxwNH8khtCqOMCEkBmrNhyNqkMCgYEAkFFShYvr7oLC4r84d02P
+        bJWG/7LcTIRdjBcyGKtu75eJzBAoUlxMOpeYknLYHztZAVlvGWOTHaOnuUXYzwGd
+        g91B7giLSscXiQj6ubG4QDHqGHAmSN3bQ4k+v6ElVKsdwAB3NoZPhnut6hK3/HQF
+        wcs0yJaU6L8eDu8YDgqxUS0CgYB2JfJjVCoV4NfVmrtgTH7hUbOS1hlPzeEU9exa
+        MsEffIz3hbytiR/c5eJsC1DTt7fSb04k6JsEM0ebgPjnDudqxNX0QLcBDNTtN1T9
+        AbS0TbTOSd1JdTzKcUdXo8JSzgF+CCfEvT864f7Hkm1vQy/oIrAESnT4enhrERtp
+        6z6YqwKBgGLd9LIpC5CAx1A+aGxb/ptmn1fCFAJf0xgVJgAb27PCz75AOXZ4inVl
+        n5JX0EqOZMFcWKNW0c8QLMT2gfIzttYkL8U1hvRhGutD6BSlbpuooCPOXlxZ0nxo
+        Kz5v29RvEKfnrL4V/0jdfwlKD6VzC3/zy6FqUf1tDYVHvIZWFMcb
+        -----END RSA PRIVATE KEY-----"
+    cloudfrontKeyPairId: KIQFUYBPQ1P19

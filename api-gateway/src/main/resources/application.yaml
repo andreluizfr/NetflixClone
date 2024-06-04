@@ -5,6 +5,8 @@ server:
             charset: UTF-8
             enabled: true
             force: true
+    tomcat:
+        max-swallow-size: -1
 
 management:
   endpoints:
@@ -21,6 +23,11 @@ spring:
         name: api-gateway
     profiles:
         active: dev
+    servlet:
+        multipart:
+            max-file-size: 500MB
+            max-request-size: 500MB
+            resolve-lazily: true
     datasource:
         url: jdbc:postgresql://localhost:5432/netflixClone
         username: postgres
@@ -68,7 +75,7 @@ api:
             jwtSecret: my-secret-key
 
 zuul:
-    sensitiveHeaders: Cookie,Set-Cookie
+    sensitiveHeaders: 
     ratelimit:
         enabled: true
         repository: REDIS
@@ -144,6 +151,11 @@ zuul:
         
         media-api-6:
             path: /api/mediaList/**
+            service-id: MEDIA-API
+            stripPrefix: false
+
+        media-api-7:
+            path: /api/track/**
             service-id: MEDIA-API
             stripPrefix: false
 

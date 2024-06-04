@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  media-api:
+    container_name: media-api-container
+    build: ./
+    ports:
+      - 5252:5252
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - EUREKA_URL=${EUREKA_URL}
+      - KAFKA_URL=${KAFKA_URL}
+      - POSTGRES_URL=${POSTGRES_URL}
+    volumes:
+      - .m2:/root/.m2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5252/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 1000
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

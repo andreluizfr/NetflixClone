@@ -5,15 +5,12 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
@@ -31,18 +28,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .cors(cors -> {
                 cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(Arrays.asList("http://api-gateway:5050"));
-                    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                    config.setAllowedHeaders(
-                            Arrays.asList("Content-Type", "Accept", "Authorization", "Access-control-allow-methods",
-                                    "Access-Control-Allow-Origin", "Access-control-allow-headers", "X-Logged-In-User"));
+                    config.setAllowedOrigins(Arrays.asList("*"));
+                    config.setAllowedMethods(Arrays.asList("*"));
+                    config.setAllowedHeaders(Arrays.asList("*"));
                     return config;
                 });
             })
             .authorizeRequests(authorize -> authorize
                 .antMatchers("/actuator/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/media").permitAll()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
             )
             .addFilterBefore(authenticationFromApiGatewayFilter, UsernamePasswordAuthenticationFilter.class)
             .exceptionHandling(exception -> exception
@@ -60,10 +54,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

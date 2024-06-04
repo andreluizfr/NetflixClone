@@ -43,6 +43,11 @@
 			</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>  <!-- before adding this dependency java.util.date was lost -->
+			<groupId>com.codenameone</groupId>
+			<artifactId>java-runtime</artifactId>
+			<version>7.0.30</version>
+		</dependency>
 
 		<!-- ROUTING/FILTERING SERVICE --> <!-- Installed together ribbon, hystrix, archaius, spring boot starter actuator -->
 		<dependency>

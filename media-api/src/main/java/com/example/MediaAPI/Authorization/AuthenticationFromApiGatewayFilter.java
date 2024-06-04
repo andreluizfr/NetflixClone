@@ -2,6 +2,7 @@ package com.example.MediaAPI.Authorization;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.example.MediaAPI.Authorization.Models.CheckEmailResponse;
+import com.example.MediaAPI.Authorization.DataProvider.UserRepository;
 import com.example.MediaAPI.Authorization.Models.User;
 import com.example.MediaAPI.Authorization.Models.UserClient;
 import com.example.MediaAPI.Util.TokenUtils;
@@ -32,38 +33,41 @@ public class AuthenticationFromApiGatewayFilter extends OncePerRequestFilter {
     @Autowired
     UserClient userClient;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String email = request.getHeader("X-Logged-In-User");
-        
-        if(email != null && email.length() > 0) {
-            try{
-                CheckEmailResponse checkEmailResponse = userClient.checkEmail(email);
+        try {
+            String token = tokenUtils.recoverToken(request);
+            String email = tokenUtils.getEmailFromToken(token);
 
-                User user = new User();
-                user.setEmail(email);
-                user.setId(checkEmailResponse.getData());
+            if (email != null && email.length() > 0) {
 
-                var token = tokenUtils.recoverToken(request);
+                Optional<User> optionalUser = userRepository.findByEmail(email);
 
-                List<String> permissions = tokenUtils.getPermissionsFromToken(token);
+                if (optionalUser.isPresent()) {
 
-                List<CustomPermission> authorities = permissions
-                    .stream()
-                    .map(permission -> new CustomPermission(permission))
-                    .collect(Collectors.toList());
+                    User user = optionalUser.get();
 
-                var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
+                    List<String> permissions = tokenUtils.getPermissionsFromToken(token);
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                    List<CustomPermission> authorities = permissions
+                            .stream()
+                            .map(permission -> new CustomPermission(permission))
+                            .collect(Collectors.toList());
 
-            } catch (FeignException e) {
-                e.printStackTrace();
-            } catch (JWTVerificationException e) {
-                e.printStackTrace();
+                    var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
+
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }
+        } catch (FeignException e) {
+            e.printStackTrace();
+        } catch (JWTVerificationException e) {
+            System.out.println(e.getMessage());
         }
 
         filterChain.doFilter(request, response);

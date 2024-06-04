@@ -1,13 +1,15 @@
-package com.example.ApiGateway.Filters;
+package com.example.ApiGateway.Configuration.Filters;
 
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
+@Component
 public class LogResponsePostFilter extends ZuulFilter {
 
 	private static final Logger logger = LogManager.getLogger(LogResponsePostFilter.class);

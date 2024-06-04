@@ -12,18 +12,18 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
 @Component
-public class LogRequestPreFilter extends ZuulFilter {
+public class LogRequestPostRouterFilter extends ZuulFilter {
 
-	private static final Logger logger = LogManager.getLogger(LogRequestPreFilter.class);
-	
+	private static final Logger logger = LogManager.getLogger(LogRequestPostRouterFilter.class);
+
 	@Override
 	public String filterType() {
-		return "pre";
+		return "route";
 	}
 
 	@Override
 	public int filterOrder() {
-		return 999;
+		return 2;
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class LogRequestPreFilter extends ZuulFilter {
 
 		String requestBody;
 		try {
-			if(request.getRequestURL().toString().endsWith("uploadEpisodeTrack")) {
+			if (request.getRequestURL().toString().endsWith("uploadEpisodeTrack")) {
 				requestBody = "hidden";
 			} else {
 				requestBody = new String(request.getInputStream().readAllBytes());
@@ -50,14 +50,14 @@ public class LogRequestPreFilter extends ZuulFilter {
 
 		logger.info(
 				"\n" +
-				"In zuul after PreFilter" + "\n" +
-				"Request Method : " + request.getMethod() + "\n" +
-				"Request URL : " + request.getRequestURL().toString() + "\n" +
-				"Request Query: " + request.getQueryString() + "\n" +
-				"Request Headers Key Set: " + ctx.getZuulRequestHeaders().keySet().toString() + "\n" +
-				"Request Headers Values Set: " + ctx.getZuulRequestHeaders().values().toString() + "\n" +
-				"Request Body: " + requestBody +
-				"\n");
+						"In zuul after RouterFilter" + "\n" +
+						"Request Method : " + request.getMethod() + "\n" +
+						"Request URL : " + request.getRequestURL().toString() + "\n" +
+						"Request Query: " + request.getQueryString() + "\n" +
+						"Request Headers Key Set: " + ctx.getZuulRequestHeaders().keySet().toString() + "\n" +
+						"Request Headers Values Set: " + ctx.getZuulRequestHeaders().values().toString() + "\n" +
+						"Request Body: " + requestBody +
+						"\n");
 
 		return null;
 	}

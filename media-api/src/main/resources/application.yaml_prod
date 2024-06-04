@@ -62,15 +62,13 @@ eureka:
         hostname: localhost
         preferIpAddress: true
         lease-renewal-interval-in-seconds: 15
-
-logging:
-    level:
-        .: ERROR
     
 api:
     security:
         token:
             jwtSecret: ${JWT_SECRET_KEY}
 
-
-
+aws: 
+    accessKeyId: ${ACCESS_KEY_ID}
+    secretAccessKey: ${SECRET_ACCESS_KEY}
+    sessionToken: ${SESSION_TOKEN}

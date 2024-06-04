@@ -17,13 +17,13 @@ VALUES (3, 'Resgate 2', FALSE, '[1, 2]', 'Sam Hargrave', 2023, 'Depois de escapa
 INSERT INTO movie (media_id, movie_series_flag, sequence_number, actors_actresses)
 VALUES (3, TRUE, 2, '[]');
 
--- episodios para os filmes
-INSERT INTO episode (id, media_id, thumbnail_url, episode_url, duration, created_at, updated_at)
-VALUES ('00000000-0000-0000-0000-000000000000', 1, '', 'https://www.youtube.com/watch?v=us7zUFtoc9Q', 100, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
-INSERT INTO episode (id, media_id, thumbnail_url, episode_url, duration, created_at, updated_at)
-VALUES ('00000000-0000-0000-0000-000000000001', 2, '', 'https://www.youtube.com/watch?v=FDcsfr7bsE8', 100, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
-INSERT INTO episode (id, media_id, thumbnail_url, episode_url, duration, created_at, updated_at)
-VALUES ('00000000-0000-0000-0000-000000000002', 3, '', 'https://www.youtube.com/watch?v=7ZzP1vgk5nA', 100, '2023-08-02 13:14:21.045328','2023-08-02 13:14:21.045328');
+-- tracks para os filmes
+INSERT INTO track (id, media_id, thumbnail_path, track_path, duration, created_at, updated_at)
+VALUES ('00000000-0000-0000-0000-000000000000', 1, '', '/track_1', 100, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
+INSERT INTO track (id, media_id, thumbnail_url, track_path, duration, created_at, updated_at)
+VALUES ('00000000-0000-0000-0000-000000000001', 2, '', '/track_2', 100, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
+INSERT INTO track (id, media_id, thumbnail_url, track_path, duration, created_at, updated_at)
+VALUES ('00000000-0000-0000-0000-000000000002', 3, '', '/track_3', 100, '2023-08-02 13:14:21.045328','2023-08-02 13:14:21.045328');
 
 
 

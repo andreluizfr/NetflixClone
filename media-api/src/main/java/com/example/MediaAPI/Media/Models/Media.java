@@ -5,7 +5,6 @@ import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,19 +12,16 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 import org.hibernate.annotations.UpdateTimestamp;
-//import org.hibernate.envers.Audited;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import lombok.Getter;
@@ -38,15 +34,20 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "Media")
-@Table(name = "media")
+@Table(name = "media", indexes = {
+    @Index(columnList = "created_at", name = "ix_media_created_at")
+})
 @TypeDefs({
     @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 })
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Media implements Serializable {
 
+    private static final long serialVersionUID = 6539695099267757690L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="media_media_id_seq_gen")
+    @SequenceGenerator(name = "media_media_id_seq_gen", sequenceName = "media_media_id_seq", allocationSize = 1) 
     @Column(name = "media_id")
     protected Long mediaId;
 
@@ -80,10 +81,6 @@ public class Media implements Serializable {
 
     @Column(name = "trailer_url", columnDefinition = "TEXT", nullable = false)
     protected String trailerUrl;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "media_id")
-    protected List<Episode> episodes = new ArrayList<Episode>();
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

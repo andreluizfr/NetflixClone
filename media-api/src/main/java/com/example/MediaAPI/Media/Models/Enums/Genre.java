@@ -5,7 +5,7 @@ public enum Genre {
   MYSTERY(4), FANTASY(5), ROMANCE(6), SCIENCE_FICTION(7),
   SLICE_OF_LICE(8), DOCUMENTARY(9);
 
-  public int genreValue;
+  private int genreValue;
 
   Genre(int value) {
     this.genreValue = value;

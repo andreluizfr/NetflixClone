@@ -1,13 +1,27 @@
 package com.example.MediaAPI.Media.Business;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
-import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.MediaAPI.Media.Business.ObjectStorageService.Impl.AmazonStorageService;
 import com.example.MediaAPI.Media.DataProvider.AnimeRepository;
+import com.example.MediaAPI.Media.DataProvider.EpisodeTrackRepository;
 import com.example.MediaAPI.Media.DataProvider.MediaListRepository;
 import com.example.MediaAPI.Media.DataProvider.MediaRepository;
 import com.example.MediaAPI.Media.DataProvider.MovieRepository;
@@ -16,6 +30,7 @@ import com.example.MediaAPI.Media.DataProvider.TvShowRepository;
 import com.example.MediaAPI.Media.Exceptions.MediaNotFoundException;
 import com.example.MediaAPI.Media.Exceptions.PreviewMediaNotFoundException;
 import com.example.MediaAPI.Media.Models.Anime;
+import com.example.MediaAPI.Media.Models.EpisodeTrack;
 import com.example.MediaAPI.Media.Models.Media;
 import com.example.MediaAPI.Media.Models.MediaList;
 import com.example.MediaAPI.Media.Models.Movie;
@@ -23,6 +38,7 @@ import com.example.MediaAPI.Media.Models.PreviewMedia;
 import com.example.MediaAPI.Media.Models.TvShow;
 import com.google.gson.Gson;
 
+@Transactional
 @Service
 public class MediaBusiness {
 
@@ -45,7 +61,18 @@ public class MediaBusiness {
     PreviewMediaRepository previewMediaRepository;
 
     @Autowired
+    EpisodeTrackRepository episodeTrackRepository;
+
+    @Autowired
+    VideoProcessingPipelineBusiness videoProcessingPipelineBusiness;
+
+    @Autowired
+    AmazonStorageService amazonStorageService;
+
+    @Autowired
     Gson gson;
+
+    private static final Logger logger = LogManager.getLogger(MediaBusiness.class);
 
     @Cacheable(cacheNames = "largeTimeCache")
     public List<Media> getAllMedias() {
@@ -56,56 +83,98 @@ public class MediaBusiness {
     }
 
     @Cacheable(cacheNames = "largeTimeCache")
-    public String getMedia(Long id) 
-            throws MediaNotFoundException{
+    public String getMedia(Long id) throws MediaNotFoundException {
 
-        Optional<Media> optionalMedia = mediaRepository.findById(id);
-
-        if(optionalMedia.isPresent()){
-            return gson.toJson(optionalMedia.get());
-        }
-
-        throw new MediaNotFoundException("Nenhuma mídia com esse id foi encontrada.");
+        Media media = mediaRepository
+                .findById(id)
+                .orElseThrow(() -> new MediaNotFoundException("Nenhuma mídia com esse id foi encontrada."));
+        
+        return gson.toJson(media);
     }
 
     @Cacheable(cacheNames = "largeTimeCache")
     public List<Movie> getAllMovies() {
-        List<Movie> moviesList = movieRepository.findAll();
 
-        return moviesList;
+        return movieRepository.findAll();
     }
 
     @Cacheable(cacheNames = "largeTimeCache")
     public List<TvShow> getAllTvShows() {
-        List<TvShow> tvShowsList = tvShowRepository.findAll();
-
-        return tvShowsList;
+ 
+        return tvShowRepository.findAll();
     }
 
     @Cacheable(cacheNames = "largeTimeCache")
     public List<Anime> getAllAnimes() {
-        List<Anime> animesList = animeRepository.findAll();
 
-        return animesList;
+        return animeRepository.findAll();
     }
 
     @Cacheable(cacheNames = "mediumTimeCache")
-    public PreviewMedia getCurrentPreviewMedia() 
-            throws PreviewMediaNotFoundException {
+    public PreviewMedia getCurrentPreviewMedia() throws PreviewMediaNotFoundException {
 
-        Optional<PreviewMedia> previewMedia = previewMediaRepository.findTopByOrderByCreatedAtDesc();
-
-        if (previewMedia.isPresent())
-            return previewMedia.get();
-        else
-            throw new PreviewMediaNotFoundException("Nenhuma preview encontrada.");
+        return previewMediaRepository
+                .findTopByOrderByCreatedAtDesc()
+                .orElseThrow(() -> new PreviewMediaNotFoundException("Nenhuma preview encontrada."));
     }
 
     @Cacheable(cacheNames = "largeTimeCache")
     public List<MediaList> getAllMediaLists() {
 
-        List<MediaList> mediasLists = MediaListRepository.findAll();
+        return MediaListRepository.findAll();
+    }
 
-        return mediasLists;
+    public Path resolveMediaUploadDirectory(String trackId) {
+        return Paths.get(System.getProperty("user.dir"))
+                .resolve("src")
+                .resolve("main")
+                .resolve("resources")
+                .resolve("tmp")
+                .resolve("streamingTracks")
+                .resolve(trackId);
+    }
+
+    public void uploadEpisodeTrack(MultipartFile file, Media media, EpisodeTrack episodeTrack) throws IOException, MediaNotFoundException {
+
+        EpisodeTrack episodeTrackToCreate = new EpisodeTrack();
+        episodeTrackToCreate.setDuration(episodeTrack.getDuration());
+        episodeTrackToCreate.setOrder(episodeTrack.getOrder());
+        episodeTrackToCreate.setSeason(episodeTrack.getSeason());
+        episodeTrackToCreate.setTitle(episodeTrack.getTitle());
+        EpisodeTrack episodeTrackCreated = episodeTrackRepository.save(episodeTrack);
+
+        if (media instanceof TvShow) {
+            TvShow outdatedTvShow = tvShowRepository.findById(media.getMediaId())
+                    .orElseThrow(() -> new MediaNotFoundException(
+                            "O id " + media.getMediaId() + " não pertence a nenhuma série registrada no sistema."));
+            outdatedTvShow.getEpisodeTracks().add(episodeTrackCreated);
+            tvShowRepository.save(outdatedTvShow);
+        } else if (media instanceof Anime) {
+            Anime outdatedAnime = animeRepository.findById(media.getMediaId())
+                    .orElseThrow(() -> new MediaNotFoundException(
+                            "O id " + media.getMediaId() + " não pertence a nenhuma série registrada no sistema."));
+            outdatedAnime.getEpisodeTracks().add(episodeTrackCreated);
+            animeRepository.save(outdatedAnime);
+        } else {
+            throw new IllegalArgumentException("Media incompatível.");
+        }
+
+        Path episodeDirectory = this.resolveMediaUploadDirectory(episodeTrackCreated.getId().toString());
+
+        Files.createDirectories(episodeDirectory);
+        logger.info("Diretório criado: " + episodeDirectory.toAbsolutePath().toString());
+
+        Path filePath = episodeDirectory.resolve(file.getName());
+        file.transferTo(filePath);
+
+        videoProcessingPipelineBusiness.addToQueue(episodeTrackCreated, episodeDirectory.toString(), file.getName());
+    }
+
+    public void updateEpisodeTrack(EpisodeTrack episodeTrack) {
+        episodeTrackRepository.save(episodeTrack);
+    }
+
+    public void getMediaSignedCookie(HttpServletResponse response) throws MalformedURLException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        amazonStorageService.addMediaAccessCookieToResponse(response);
     }
 }

@@ -35,3 +35,9 @@ build/
 
 #docker
 .env
+
+#video encoding
+src/main/resources/tmp
+
+#logging
+logs

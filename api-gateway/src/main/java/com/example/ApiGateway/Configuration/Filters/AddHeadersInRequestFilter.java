@@ -1,7 +1,8 @@
 package com.example.ApiGateway.Configuration.Filters;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -69,7 +70,11 @@ public class AddHeadersInRequestFilter extends ZuulFilter {
 
 	private void addHeadersToRequestContext(RequestContext ctx, String token) {
 
-		Set<String> oldHeadersKeySet = ctx.getZuulRequestHeaders().keySet();
+		Map<String, String> oldHeadersKeySet = ctx.getZuulRequestHeaders()
+				.entrySet()
+				.stream()
+				.map(entry -> Map.entry(entry.getKey().toLowerCase(), entry.getValue()))
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
 		try {
 			tokenService.validateToken(token);
@@ -78,11 +83,9 @@ public class AddHeadersInRequestFilter extends ZuulFilter {
 			logger.info("Failed in validating token.");
 		}
 
-		ctx.addZuulRequestHeader("Content-Type", "application/json");
+		ctx.addZuulRequestHeader("Content-Type", oldHeadersKeySet.get("content-type"));
 		ctx.addZuulRequestHeader("Content-Length", String.valueOf(ctx.getRequest().getContentLength()));
-		if (oldHeadersKeySet.contains("Accept-Encoding")) {
-			ctx.addZuulRequestHeader("Accept-Encoding", "gzip");
-		}
+		ctx.addZuulRequestHeader("Accept-Encoding", "gzip");
 		ctx.addZuulRequestHeader("X-Start-Date", String.valueOf(new Date()));
 	}
 }

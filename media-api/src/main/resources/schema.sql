@@ -1,28 +1,19 @@
-DROP TABLE IF EXISTS public.anime;
-DROP TABLE IF EXISTS public.tv_show;
-DROP TABLE IF EXISTS public.episode;
-DROP TABLE IF EXISTS public.movie;
-DROP TABLE IF EXISTS public.preview_media;
-DROP TABLE IF EXISTS public.media_list_and_media;
-DROP TABLE IF EXISTS public.media_list;
-DROP TABLE IF EXISTS public.media;
-
-DROP SEQUENCE IF EXISTS media_media_id_seq;
-DROP SEQUENCE IF EXISTS preview_media_id_seq;
-
-DROP INDEX IF EXISTS ix_media_created_at;
-DROP INDEX IF EXISTS ix_episode_created_at;
-
------------------------------ MEDIA ------------------------------------
-
-CREATE SEQUENCE media_media_id_seq
+CREATE SEQUENCE IF NOT EXISTS hibernate_sequence
     INCREMENT 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
     START 1
     CACHE 1;
 
-CREATE TABLE public.media (
+----------------------------- MEDIA ------------------------------------
+CREATE SEQUENCE IF NOT EXISTS media_media_id_seq
+    INCREMENT 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    START 1
+    CACHE 1;
+
+CREATE TABLE IF NOT EXISTS public.media (
     media_id bigint NOT NULL DEFAULT nextval('media_media_id_seq'),
     title character varying(255) NOT NULL,
     is_animation boolean NOT NULL,
@@ -41,14 +32,13 @@ CREATE TABLE public.media (
 );
 ALTER TABLE IF EXISTS public.media
     OWNER to postgres;
-CREATE INDEX ix_media_created_at
+CREATE INDEX IF NOT EXISTS ix_media_created_at
     ON public.media USING btree
     (created_at ASC NULLS LAST)
     TABLESPACE pg_default;
 
 ----------------------------- MOVIE ------------------------------------
-
-CREATE TABLE public.movie (
+CREATE TABLE IF NOT EXISTS public.movie (
     media_id bigint NOT NULL,
     movie_series_flag boolean NOT NULL,
     sequence_number integer NOT NULL,
@@ -65,7 +55,7 @@ ALTER TABLE IF EXISTS public.movie
 
 ----------------------------- ANIME ------------------------------------
 
-CREATE TABLE public.anime (
+CREATE TABLE IF NOT EXISTS public.anime (
     media_id bigint NOT NULL,
     number_of_seasons integer NOT NULL,
     season_number integer NOT NULL,
@@ -82,8 +72,7 @@ ALTER TABLE IF EXISTS public.anime
     OWNER to postgres;
 
 ----------------------------- TV SHOW ------------------------------------
-
-CREATE TABLE public.tv_show (
+CREATE TABLE IF NOT EXISTS public.tv_show (
     media_id bigint NOT NULL,
     number_of_seasons integer NOT NULL,
     season_number integer NOT NULL,
@@ -98,41 +87,40 @@ CREATE TABLE public.tv_show (
 ALTER TABLE IF EXISTS public.tv_show
     OWNER to postgres;
 
------------------------------ EPISODE ------------------------------------
-CREATE TABLE public.episode (
+----------------------------- TRACK ------------------------------------
+CREATE TABLE IF NOT EXISTS public.episode_track (
     id uuid NOT NULL,
     media_id bigint,
+    processing_status smallint NOT NULL,
     title character varying(255),
-    thumbnail_url text NOT NULL,
-    episode_url text NOT NULL,
-    duration integer NOT NULL,
-    order_ integer,
+    duration integer,
+    n_order integer,
+    season integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
 
-    CONSTRAINT episode_pkey PRIMARY KEY (id),
-    CONSTRAINT episode_media_id_fk FOREIGN KEY (media_id)
+    CONSTRAINT episode_track_pkey PRIMARY KEY (id),
+    CONSTRAINT episode_track_media_id_fk FOREIGN KEY (media_id)
         REFERENCES public.media (media_id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT episode_episode_url_unique UNIQUE (episode_url)
+        ON DELETE NO ACTION
 );
-ALTER TABLE IF EXISTS public.episode
+ALTER TABLE IF EXISTS public.track
     OWNER to postgres;
-CREATE INDEX ix_episode_created_at
-    ON public.episode USING btree
+CREATE INDEX IF NOT EXISTS ix_episode_track_created_at
+    ON public.track USING btree
     (created_at ASC NULLS LAST)
     TABLESPACE pg_default;
 
 ----------------------------- PREVIEW MEDIA ------------------------------------
-CREATE SEQUENCE preview_media_id_seq
+CREATE SEQUENCE IF NOT EXISTS preview_media_id_seq
     INCREMENT 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
     START 1
     CACHE 1;
 
-CREATE TABLE public.preview_media (   
+CREATE TABLE IF NOT EXISTS public.preview_media (   
     id bigint NOT NULL DEFAULT nextval('preview_media_id_seq'),
     media_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
@@ -146,10 +134,13 @@ CREATE TABLE public.preview_media (
 );
 ALTER TABLE IF EXISTS public.preview_media
     OWNER to postgres;
+CREATE INDEX IF NOT EXISTS ix_preview_media_created_at
+    ON public.preview_media USING btree
+    (created_at ASC NULLS LAST)
+    TABLESPACE pg_default;
 
 ----------------------------- MEDIA LIST ------------------------------------
-
-CREATE TABLE public.media_list (
+CREATE TABLE IF NOT EXISTS public.media_list (
     id uuid NOT NULL,
     title character varying(255) NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -161,8 +152,7 @@ ALTER TABLE IF EXISTS public.media_list
     OWNER to postgres;
 
 ----------------------------- MEDIA LIST / MEDIA (relation table) ------------------------------------
-
-CREATE TABLE public.media_list_and_media (
+CREATE TABLE IF NOT EXISTS public.media_list_and_media (
     media_list_id uuid NOT NULL,
     media_id bigint NOT NULL,
 

@@ -4,8 +4,8 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.MediaAPI.Media.Models.Episode;
+import com.example.MediaAPI.Media.Models.EpisodeTrack;
 
-public interface EpisodeRepository extends JpaRepository<Episode, UUID> {
+public interface EpisodeTrackRepository extends JpaRepository<EpisodeTrack, UUID> {
 
 }

@@ -2,13 +2,14 @@ package com.example.MediaAPI.Media.Models;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
-//import org.hibernate.envers.Audited;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +34,8 @@ import javax.persistence.ManyToMany;
 @Table(name = "mediaList")
 public class MediaList implements Serializable {
 
+    private static final long serialVersionUID = 6529685098267757690L;
+
     @Id
     @GeneratedValue(generator = "uuid-hibernate-generator")
     @GenericGenerator(name = "uuid-hibernate-generator", strategy = "org.hibernate.id.UUIDGenerator")
@@ -41,13 +44,14 @@ public class MediaList implements Serializable {
     @Column(name = "title", nullable = false)
     String title;
 
-    @ManyToMany
+    @ManyToMany()
+    @Fetch(FetchMode.JOIN)
     @JoinTable(
         name = "media_list_and_media",
         joinColumns = @JoinColumn(name = "media_list_id"),
         inverseJoinColumns = @JoinColumn(name = "media_id")
     )
-    private Set<Media> medias;
+    private List<Media> medias;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -58,7 +62,7 @@ public class MediaList implements Serializable {
     @Column(name="updated_at", nullable = false) 
     private LocalDateTime updatedAt;
 
-    public MediaList(String title, Set<Media> medias) {
+    public MediaList(String title, List<Media> medias) {
         this.title = title;
         this.medias = medias;
     }

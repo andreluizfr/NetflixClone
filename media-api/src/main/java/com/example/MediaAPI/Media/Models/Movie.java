@@ -29,12 +29,10 @@ public class Movie extends Media {
 
     @Column(name = "movie_series_flag", nullable = false)
     private Boolean isMovieSeries;
-    /* 
-    @Type(type = "org.hibernate.type.ShortType")
-    @Column(name = "sequence_number", nullable = false, columnDefinition = "SMALLINT")
-    private Short sequenceNumber;
-    */
-
+    
+    @Column(name = "sequence_number", nullable = false)
+    private Integer sequenceNumber;
+    
     @Type(type = "jsonb")
     @Column(name = "actors_actresses", nullable = false)
     private List<String> actorsActresses;
