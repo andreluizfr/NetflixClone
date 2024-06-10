@@ -1,7 +1,7 @@
-import './styles.css';
-import logo from '../../assets/svg/logo.svg';
-import devices from '../../assets/img/devices.png';
-import AnimatedInput from '../../components/AnimatedInput';
+import './styles.scss';
+import logo from '@Presentation/assets/svg/logo.svg';
+import devices from '@Presentation/assets/img/devices.png';
+import AnimatedInput from '@Presentation/components/AnimatedInput';
 
 import { StoreState } from '@Infrastructure/store/redux/config';
 import { saveEmail, savePassword, saveStep } from '@Infrastructure/store/redux/features/signupDataSlice';

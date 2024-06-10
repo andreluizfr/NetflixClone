@@ -1,5 +1,5 @@
-@import '../../../assets/sass/variables';
-@import '../../../assets/sass/mixins';
+@import '../../../../assets/sass/variables';
+@import '../../../../assets/sass/mixins';
 
 .Section{
     position: relative;
@@ -70,7 +70,7 @@
             width: 32px;
             height: 100%;
 
-            background-image: url(../../../assets/svg/arrow-right.svg);
+            background-image: url(../../../../assets/svg/arrow-right.svg);
             background-position: center;
             background-repeat: no-repeat;
             background-size: contain;

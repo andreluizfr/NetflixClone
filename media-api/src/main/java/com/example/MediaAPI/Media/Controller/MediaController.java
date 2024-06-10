@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -112,6 +113,16 @@ public class MediaController {
         return ResponseHandler.generateResponse("Lista buscada com sucesso.",
                 HttpStatus.OK,
                 mediaLists);
+    }
+
+    @GetMapping(value = "/track/episodeTrack", params = "id")
+    public ResponseEntity<Object> getEpisodeTrack(@RequestParam(name = "id", required = true) UUID id) {
+
+        EpisodeTrack episodeTrack = gson.fromJson(mediaBusiness.getEpisodeTrack(id), EpisodeTrack.class);
+
+        return ResponseHandler.generateResponse("Episódio buscado com sucesso.",
+                HttpStatus.OK,
+                episodeTrack);
     }
 
     @HystrixCommand(commandKey = "/uploadEpisodeTrack", fallbackMethod = "fallbackResponse", commandProperties = {

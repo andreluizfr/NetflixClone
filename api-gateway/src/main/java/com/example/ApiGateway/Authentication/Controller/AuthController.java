@@ -28,13 +28,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody LoginDTO data, HttpServletRequest request) {
 
-        String requestBody;
-		try {
-			requestBody = request.getInputStream().toString();
-		} catch (Exception e) {
-			requestBody = "";
-		}
-
 		StringBuilder requestHeaders = new StringBuilder("");
         Enumeration<String> headersEnumeration = request.getHeaderNames();
         if(headersEnumeration != null){
@@ -44,17 +37,6 @@ public class AuthController {
                 requestHeaders.append(nextHeader);
             }
         }
-
-        System.out.println(
-				"\n" +
-				"In WebController" + "\n" +
-				"Request Method : " + request.getMethod() + "\n" +
-				"Request URL : " + request.getRequestURL().toString() + "\n" +
-				"Request Query: " + request.getQueryString() + "\n" +
-				"Request Headers: " + requestHeaders.toString() + "\n" +
-				"Request Body: " + requestBody +
-				"\n"
-		);
 
         try {
             String accessToken = authBusiness.login(data);

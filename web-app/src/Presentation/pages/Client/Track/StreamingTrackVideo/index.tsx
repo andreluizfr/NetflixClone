@@ -1,4 +1,4 @@
-import './styles.css';
+import './styles.scss';
 
 import dashjs from "dashjs";
 import { ClipLoader } from 'react-spinners';
@@ -6,17 +6,15 @@ import { ClipLoader } from 'react-spinners';
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useMediaQuery } from 'react-responsive';
-import { Track } from '@Model/entities/Track';
+import { TrackMetadata } from '@Model/entities/Track';
 import { Media } from '@Model/entities/Media';
 
 interface props {
-    track: Track;
+    trackMetadata: TrackMetadata;
     media: Media;
 }
 
-export default function TrackPage ({track, media}: props) {
-
-    console.log("media=", media,",track=", track);
+export default function StreamingTrackVideo ({trackMetadata, media}: props) {
 
     const videoController = useRef<HTMLDivElement>(null);
     const playPauseBtn = useRef<HTMLDivElement>(null);
@@ -98,7 +96,7 @@ export default function TrackPage ({track, media}: props) {
                 bufferToKeep: 20, //quantidade mínima de dados do bufer a ser mantida durante a reprodução
                 bufferTimeAtTopQuality: 30, //define por quanto tempo, em segundos, o buffer deve ser mantido quando a qualidade do vídeo está no nível mais alto
                 bufferTimeAtTopQualityLongForm: 60,
-                stableBufferTime: 10, //tempo em segundos, que o buffer deve ser mantido para garantir estabilidade na reprodução
+                stableBufferTime: 30, //tempo em segundos, que o buffer deve ser mantido para garantir estabilidade na reprodução
             }
         }
     });
@@ -114,13 +112,12 @@ export default function TrackPage ({track, media}: props) {
     });
 
     useEffect(()=>{
-        //if(video.current && getTrackServiceResult.data?.data){
         if(video.current){
-            if(import.meta.env.DEV) {
-                player.initialize(video.current, "tracks/1/manifest.mpd", false, 0);
-            }
-            else {
-                player.initialize(video.current, "https://netflix-clone-2.s3.sa-east-1.amazonaws.com/tracks/id-teste-1/manifest.mpd", false, 0);
+            video.current.poster = media.posterUrl;
+            if(import.meta.env.DEV) { //lembrar de trocar pra streamingTracks/
+                player.initialize(video.current, "tracks/" + "1" + "/MANIFEST_UPDATED.MPD", false, 0);
+            } else {
+                player.initialize(video.current, "https://d1hlsc6afcywvp.cloudfront.net/streamingTracks/" + trackMetadata.id + "/MANIFEST_UPDATED.MPD", false, 0);
             }
             addPlayerEventsListeners();
         }
@@ -528,7 +525,7 @@ export default function TrackPage ({track, media}: props) {
 
     return (
         <motion.div
-            className="TrackPage"
+            className="StreamingTrackVideo"
             initial={{width: 0, height: 0, opacity: 0}}
             animate={{width: "100vw", height: "100svh", opacity: 1}}
         >

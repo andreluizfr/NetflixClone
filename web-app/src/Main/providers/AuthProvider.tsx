@@ -1,5 +1,5 @@
 import { FetchUserService } from "@Services/FetchUser/FetchUserService";
-import Loading from "@Presentation/pages/Loading";
+import Loading from "@Presentation/pages/Client/Loading";
 
 import React from "react";
 

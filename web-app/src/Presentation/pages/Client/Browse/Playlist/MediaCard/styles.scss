@@ -1,5 +1,5 @@
-@import '../../../../assets/sass/variables';
-@import '../../../../assets/sass/mixins';
+@import '../../../../../assets/sass/variables';
+@import '../../../../../assets/sass/mixins';
 
 .MediaCard{
     display: flex;
@@ -22,18 +22,19 @@
         cursor: pointer;
 
         .Thumbnail{
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
+            display: none;
         }
-    }
+        .StreamingPreviewVideoOnHover {
+            display: block;
+        }
 
-    &:not(:hover) {
         .Hover-visible {
-            display: none !important;
+            display: flex !important;
         }
     }
 
     .Thumbnail{
+        display: block;
         min-width: 244px;
         min-height: 137px;
         max-width: 244px;
@@ -49,8 +50,18 @@
         }
     } 
 
+    .StreamingPreviewVideoOnHover {
+        display: none;
+        width: 100%;
+        height: auto;
+        min-width: 244px;
+        min-height: 137px;
+        max-width: 244px;
+        max-height: 137px;
+    }
+
     .Mini-menu{
-        display: flex;
+        display: none;
         justify-content: space-between;
         align-items: center;
         width: 100%;
@@ -220,7 +231,7 @@
     }
 
     .Informations{
-        display: flex;
+        display: none;
         justify-content: flex-start;
         align-items: center;
         width: 100%;
@@ -293,6 +304,7 @@
     }
 
     .Genres{
+        display: none;
         width: 100%;
         padding: 12px;
         

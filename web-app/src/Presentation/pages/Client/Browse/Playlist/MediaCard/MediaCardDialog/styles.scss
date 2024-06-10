@@ -1,5 +1,6 @@
-@import '../../../../../assets/sass/variables';
-@import '../../../../../assets/sass/mixins';
+@import '../../../../../../assets/sass/variables';
+@import '../../../../../../assets/sass/mixins';
+
 
 .MediaCardDialog {
     position: relative;
@@ -11,6 +12,13 @@
     border-radius: 4px;
     width: 100%;
     cursor: pointer;
+
+    .StreamingPreviewVideoOnHover {
+        width: 100%;
+        height: auto;
+        min-width: 244px;
+        min-height: 137px;
+    }
 
     .Preview-menu{
         @include flex-row-space-between-center;

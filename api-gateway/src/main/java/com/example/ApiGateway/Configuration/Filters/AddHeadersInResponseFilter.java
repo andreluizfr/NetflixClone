@@ -43,12 +43,13 @@ public class AddHeadersInResponseFilter extends ZuulFilter {
 
 	private void addHeadersToResponseContext(RequestContext ctx) {
 
+		//remover o que está vindo do microsserviço, porque será reescrito no bean do cors
+		ctx.getZuulResponseHeaders().removeIf(ssp -> ssp.first().toLowerCase().startsWith("access-control-allow"));
+
 		ctx.addZuulResponseHeader("X-Foo", UUID.randomUUID().toString());
 		ctx.addZuulResponseHeader("X-Start-Date", ctx.getZuulRequestHeaders().get("X-Start-Date".toLowerCase()));
 		ctx.addZuulResponseHeader("X-End-Date", String.valueOf(new Date()));
-		//remover o que está vindo do microsserviço, porque será reescrito no bean do cors
-		ctx.getZuulResponseHeaders().removeIf(ssp -> ssp.first().toLowerCase().startsWith("access-control-allow"));
-		ctx.getRequest().getCookies(); 
+
 	}
 
 }

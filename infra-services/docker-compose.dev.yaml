@@ -2,7 +2,7 @@ version: "3"
 
 services:
   #In case of deserialization error
-  #docker exec -it redis redis-cli -a redis-password FLUSHALL
+  #docker exec -it redis redis-cli -a netflixredis6379 FLUSHALL
   redis:
     container_name: redis-container
     hostname: redis

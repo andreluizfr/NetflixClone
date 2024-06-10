@@ -12,7 +12,8 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Base64;
 import java.util.List;
 import java.util.ListIterator;
@@ -63,7 +64,7 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 @Service
 @Qualifier("AmazonStorageService")
 public class AmazonStorageService implements IObjectStorageService {
-    
+
     private static final Logger logger = LogManager.getLogger(LocalStorageService.class);
 
     private final S3Client client = S3Client.builder().region(Region.SA_EAST_1).build();
@@ -71,19 +72,19 @@ public class AmazonStorageService implements IObjectStorageService {
     CloudFrontUtilities cloudFrontUtilities = CloudFrontUtilities.create();
 
     @Value("${aws.bucketName}")
-    private  String bucketName;
+    private String bucketName;
 
     @Value("${aws.mediaStreamingDir}")
     private String mediaStreamingDir;
 
     @Value("${aws.cloudFrontDomain}")
-	private String cloudFrontDomain;
+    private String cloudFrontDomain;
 
     @Value("${aws.cloudfrontPrivateKey}")
     private String cloudfrontPrivateKey;
 
-	@Value("${aws.cloudfrontKeyPairId}")
-	private String cloudfrontKeyPairId;
+    @Value("${aws.cloudfrontKeyPairId}")
+    private String cloudfrontKeyPairId;
 
     @Override
     public void listBuckets() {
@@ -101,7 +102,7 @@ public class AmazonStorageService implements IObjectStorageService {
 
         ListIterator<S3Object> listIterator = objects.listIterator();
 
-        while(listIterator.hasNext()) {
+        while (listIterator.hasNext()) {
             S3Object s3Object = listIterator.next();
             logger.info("\n");
             logger.info("Key: " + s3Object.key());
@@ -112,7 +113,7 @@ public class AmazonStorageService implements IObjectStorageService {
 
     @Override
     public void deleteBucket() {
-       
+
         this.deleteObjectsInBucket();
 
         DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder()
@@ -141,7 +142,7 @@ public class AmazonStorageService implements IObjectStorageService {
                     client.deleteObject(request);
                 }
             } while (listObjectsV2Response.isTruncated());
-            
+
             DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest
                     .builder()
                     .bucket(bucketName)
@@ -168,7 +169,7 @@ public class AmazonStorageService implements IObjectStorageService {
                     .build();
 
             GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(10))  // The URL will expire in 10 minutes.
+                    .signatureDuration(Duration.ofMinutes(10)) // The URL will expire in 10 minutes.
                     .getObjectRequest(objectRequest)
                     .build();
 
@@ -190,10 +191,9 @@ public class AmazonStorageService implements IObjectStorageService {
                     .build();
 
             PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(10))  // The URL expires in 10 minutes.
+                    .signatureDuration(Duration.ofMinutes(10)) // The URL expires in 10 minutes.
                     .putObjectRequest(objectRequest)
                     .build();
-
 
             PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
             String myURL = presignedRequest.url().toString();
@@ -204,10 +204,12 @@ public class AmazonStorageService implements IObjectStorageService {
         }
     }
 
-    public CannedSignerRequest createRequestForCannedPolicy() throws MalformedURLException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-        String cloudFrontUrl = new URL("https", cloudFrontDomain, bucketName).toString();
-        Instant expirationDate = Instant.now().plus(1, ChronoUnit.DAYS);
-        
+    public CannedSignerRequest createRequestForCannedPolicy()
+            throws MalformedURLException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        String cloudFrontUrl = new URL("https", cloudFrontDomain, "").toString();
+        LocalDateTime now = LocalDateTime.now().plusDays(1);
+        Instant expirationDate = now.toInstant(ZoneId.of("Europe/London").getRules().getOffset(now));
+
         PrivateKey privateKey = decodeCloudfrontPrivateKey();
 
         return CannedSignerRequest.builder()
@@ -218,20 +220,21 @@ public class AmazonStorageService implements IObjectStorageService {
                 .build();
     }
 
-    private PrivateKey decodeCloudfrontPrivateKey() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+    private PrivateKey decodeCloudfrontPrivateKey()
+            throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
 
         StringBuilder pkcs8Lines = new StringBuilder();
         BufferedReader rdr = new BufferedReader(new StringReader(cloudfrontPrivateKey));
         String line;
         while ((line = rdr.readLine()) != null) {
             pkcs8Lines.append(line);
-        }   
+        }
 
         String pkcs8Pem = pkcs8Lines.toString();
         pkcs8Pem = pkcs8Pem.replace("-----BEGIN RSA PRIVATE KEY-----", "");
         pkcs8Pem = pkcs8Pem.replace("-----END RSA PRIVATE KEY-----", "");
-        pkcs8Pem = pkcs8Pem.replaceAll("\\s+","");
-        byte [] pkcs8EncodedBytes =  Base64.getDecoder().decode(pkcs8Pem);
+        pkcs8Pem = pkcs8Pem.replaceAll("\\s+", "");
+        byte[] pkcs8EncodedBytes = Base64.getDecoder().decode(pkcs8Pem);
 
         ASN1EncodableVector v = new ASN1EncodableVector();
         v.add(new ASN1Integer(0));
@@ -242,7 +245,7 @@ public class AmazonStorageService implements IObjectStorageService {
         v.add(new DEROctetString(pkcs8EncodedBytes));
         ASN1Sequence seq = new DERSequence(v);
         byte[] bytePrivateKey = seq.getEncoded("DER");
-        
+
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(bytePrivateKey);
         KeyFactory kf = KeyFactory.getInstance("RSA");
 
@@ -251,31 +254,32 @@ public class AmazonStorageService implements IObjectStorageService {
         return privateKey;
     }
 
-    public void addMediaAccessCookieToResponse(HttpServletResponse response) throws MalformedURLException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+    public void addMediaAccessCookieToResponse(HttpServletResponse response)
+            throws MalformedURLException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
 
         CannedSignerRequest cannedSignerRequest = this.createRequestForCannedPolicy();
         CookiesForCannedPolicy cookiesForCannedPolicy = cloudFrontUtilities
                 .getCookiesForCannedPolicy(cannedSignerRequest);
 
-		Cookie expireCookie = new Cookie("CloudFront-Expires", cookiesForCannedPolicy.expiresHeaderValue());
-		expireCookie.setDomain(cloudFrontDomain);
-		expireCookie.setPath(mediaStreamingDir);
-		expireCookie.setSecure(true);
-		expireCookie.setHttpOnly(true);
-		response.addCookie(expireCookie);
+        Cookie expireCookie = new Cookie(cookiesForCannedPolicy.expiresHeaderValue().split("=")[0],
+                cookiesForCannedPolicy.expiresHeaderValue().split("=")[1]);
+        expireCookie.setPath("/");
+        expireCookie.setSecure(true);
+        expireCookie.setHttpOnly(true);
+        response.addCookie(expireCookie);
 
-		Cookie signatureCookie = new Cookie("CloudFront-Signature", cookiesForCannedPolicy.signatureHeaderValue());
-		signatureCookie.setDomain(cloudFrontDomain);
-		signatureCookie.setPath(mediaStreamingDir);
-		signatureCookie.setSecure(true);
-		signatureCookie.setHttpOnly(true);
-		response.addCookie(signatureCookie);
+        Cookie signatureCookie = new Cookie(cookiesForCannedPolicy.signatureHeaderValue().split("=")[0],
+                cookiesForCannedPolicy.signatureHeaderValue().split("=")[1]);
+        signatureCookie.setPath("/");
+        signatureCookie.setSecure(true);
+        signatureCookie.setHttpOnly(true);
+        response.addCookie(signatureCookie);
 
-		Cookie keyPairIdCookie = new Cookie("CloudFront-Key-Pair-Id", cookiesForCannedPolicy.keyPairIdHeaderValue());
-		keyPairIdCookie.setDomain(cloudFrontDomain);
-		keyPairIdCookie.setPath(mediaStreamingDir);
-		keyPairIdCookie.setSecure(true);
-		keyPairIdCookie.setHttpOnly(true);
-		response.addCookie(keyPairIdCookie);
-	}
+        Cookie keyPairIdCookie = new Cookie(cookiesForCannedPolicy.keyPairIdHeaderValue().split("=")[0],
+                cookiesForCannedPolicy.keyPairIdHeaderValue().split("=")[1]);
+        keyPairIdCookie.setPath("/");
+        keyPairIdCookie.setSecure(true);
+        keyPairIdCookie.setHttpOnly(true);
+        response.addCookie(keyPairIdCookie);
+    }
 }

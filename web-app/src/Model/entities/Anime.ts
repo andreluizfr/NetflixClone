@@ -1,4 +1,4 @@
-import { Track } from "./Track";
+import { EpisodeTrack } from "./Track";
 import { Media } from "./Media";
 
 export interface Anime extends Media{
@@ -6,7 +6,7 @@ export interface Anime extends Media{
     seasonNumber: number,
     studio: string,
     voiceActorsActresses: string[],
-    tracks: Track[]
+    episodeTracks: EpisodeTrack[]
 }
 
 export function isAnime (o: object): boolean {

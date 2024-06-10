@@ -1,6 +1,6 @@
-import './styles.css';
+import './styles.scss';
 
-import EmbededTrailerOnHover from './EmbededTrailerOnHover';
+import StreamingPreviewVideoOnHover from '../StreamingPreviewVideoOnHover';
 
 import arrowRightButton from '@Presentation/assets/svg/arrow-right.svg';
 import playButton from '@Presentation/assets/svg/play-button.svg';
@@ -10,17 +10,17 @@ import { Media, normalizeGenreList } from '@Model/entities/Media';
 import { Movie, isMovie } from '@Model/entities/Movie';
 import { TvShow, isTvShow } from '@Model/entities/TvShow';
 import { Anime, isAnime } from '@Model/entities/Anime';
-import { formatDuration } from '@Model/entities/Track';
+import { TrackMetadata, formatDuration } from '@Model/entities/Track';
 
 interface props {
     media: Media;
-    setShowMediaCardDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function MediaCardDialog({media, setShowMediaCardDialog} : props) : JSX.Element {
+export default function MediaCardDialog({media} : props) : JSX.Element {
+    
     return (
         <article className="MediaCardDialog">
-            <EmbededTrailerOnHover src={media.trailerUrl} loadingImage={media.thumbnailUrl}/>
+            <StreamingPreviewVideoOnHover media={media} trackMetadata={{id: "00000000-0000-0000-0000-000000000000"} as unknown as TrackMetadata}/>
 
             <div className='Preview-menu'>
                 <div className='Toolbar'>
@@ -38,7 +38,7 @@ export default function MediaCardDialog({media, setShowMediaCardDialog} : props)
                     </span>
                 </div>
 
-                <div className='Circle-3' onClick={()=>setShowMediaCardDialog(true)}>
+                <div className='Circle-3'>
                     <img className='Sound-button' src={arrowRightButton}/>
                 </div>
             </div>
@@ -57,14 +57,14 @@ export default function MediaCardDialog({media, setShowMediaCardDialog} : props)
                             <div className='Year'>{(media as Movie).releaseYear}</div>
                         }
                         {isTvShow(media) &&
-                            <div className='Number-episodes'>{(media as TvShow).tracks?.length} episódios</div>
+                            <div className='Number-episodes'>{(media as TvShow).episodeTracks?.length} episódios</div>
                         }
                         {isAnime(media) &&
-                            <div className='Number-episodes'>{(media as Anime).tracks?.length} episódios</div>
+                            <div className='Number-episodes'>{(media as Anime).episodeTracks?.length} episódios</div>
                         }
 
                         {isMovie(media) &&
-                            <div className='Duration'>{formatDuration((media as Movie).track?.duration)}</div>
+                            <div className='Duration'>{formatDuration((media as Movie).episodeTrack?.duration)}</div>
                         }
 
                         <div className='Hd'>HD</div>

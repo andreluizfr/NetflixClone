@@ -1,8 +1,8 @@
-import './styles.css';
-import logo from '../../assets/svg/logo.svg';
-import devices from '../../assets/img/devices.png';
-import checkmark from '../../assets/img/checkmark.png';
-import checkmarkGroup from '../../assets/svg/checkmark-group.svg';
+import './styles.scss';
+import logo from '@Presentation/assets/svg/logo.svg';
+import devices from '@Presentation/assets/img/devices.png';
+import checkmark from '@Presentation/assets/img/checkmark.png';
+import checkmarkGroup from '@Presentation/assets/svg/checkmark-group.svg';
 
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from 'react';

@@ -82,28 +82,10 @@ zuul:
         deny-request:
             response-status-code: 429 #default value is 429 (MANY_REQUESTS)
         default-policy-list:
-            - limit: 10
-              quota: 1800 #time to reset block
+            - limit: 1000
+              quota: 60 #time to reset block
               refresh-interval: 60
-        policy-list:
-            USER-API:
-                - limit: 10
-                  quota: 1800
-                  refresh-interval: 60
-                  type:
-                    - origin
-            MEDIA-API:
-                - limit: 10
-                  quota: 1800
-                  refresh-interval: 60
-                  type:
-                    - origin
-            PAYMENT-API:
-                - limit: 10
-                  quota: 1800
-                  refresh-interval: 60
-                  type:
-                    - origin
+
     host:
         max-per-route-connections: 100 #Default: 20
         max-total-connections: 10000 #Default: 200.

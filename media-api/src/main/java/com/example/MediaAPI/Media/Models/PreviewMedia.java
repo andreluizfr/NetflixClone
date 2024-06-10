@@ -35,6 +35,8 @@ import lombok.Setter;
 })
 public class PreviewMedia implements Serializable {
 
+    private static final long serialVersionUID = 2539650966267757690L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="preview_media_id_seq_gen")
     @SequenceGenerator(name = "preview_media_id_seq_gen", sequenceName = "preview_media_id_seq", allocationSize = 1) 

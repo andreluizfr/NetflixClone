@@ -1,5 +1,5 @@
-@import '../../assets/sass/variables';
-@import '../../assets/sass/mixins';
+@import '../../../assets/sass/variables';
+@import '../../../assets/sass/mixins';
 
 .SignupPaymentPickerPage{
     @include flex-column-center-center;
@@ -223,7 +223,7 @@
                 border-radius: 2px;
 
                 background-color: $background-secondary-color;
-                background-image: url('../../assets/svg/globe2.svg');
+                background-image: url('../../../assets/svg/globe2.svg');
                 background-position: 10% 50%;
                 background-repeat: no-repeat;
                 background-size: 12%;

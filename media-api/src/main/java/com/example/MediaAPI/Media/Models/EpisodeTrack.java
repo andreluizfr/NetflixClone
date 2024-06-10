@@ -1,7 +1,5 @@
 package com.example.MediaAPI.Media.Models;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -17,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity(name = "EpisodeTrack")
 @Table(name = "episode_track")
-public class EpisodeTrack extends TrackMetadata implements Serializable {
+public class EpisodeTrack extends TrackMetadata {
 
     @Column(name = "title", nullable = true)
     private String title;

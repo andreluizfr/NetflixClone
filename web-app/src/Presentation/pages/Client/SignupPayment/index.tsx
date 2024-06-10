@@ -1,4 +1,4 @@
-import './styles.css';
+import './styles.scss';
 import logo from '@Presentation/assets/svg/logo.svg';
 
 import { CreatePlanPaymentService } from '@Services/CreatePlanPayment/CreatePlanPaymentService';

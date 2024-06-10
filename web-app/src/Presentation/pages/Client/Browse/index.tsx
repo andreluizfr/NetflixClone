@@ -1,5 +1,5 @@
-import './styles.css';
-import logo from '../../assets/svg/logo.svg';
+import './styles.scss';
+import logo from '../../../assets/svg/logo.svg';
 
 import { useRef, useEffect, useState, memo } from 'react';
 
@@ -91,7 +91,7 @@ export default function BrowsePage(): JSX.Element {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
                 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
                 <meta property="og:title" content="Netflix browse" />
-                <meta property="og:url" content="http://localhost:5173/browse" />
+                <meta property="og:url" content="http://localhost:8080/browse" />
                 <meta property="og:image" content={logo} />
                 <meta property="og:image:alt" content="Netflix logo" />
                 <meta property="og:description" content="Watch the best Movies, Tv Series and Animes" />

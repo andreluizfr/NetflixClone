@@ -1,4 +1,4 @@
-import './styles.css';
+import './styles.scss';
 
 import DotLoader from "react-spinners/DotLoader";
 
@@ -7,7 +7,6 @@ export default function Loading() : JSX.Element {
     //  ############# Renderização do conteúdo ##################
     return(
         <div className='LoadingPage'>
-
             <DotLoader
                 className='Loader'
                 color="rgb(229,9,20)"
@@ -15,7 +14,6 @@ export default function Loading() : JSX.Element {
                 aria-label="Loading Spinner"
                 data-testid="loader"
             />
-
         </div>
     );
 

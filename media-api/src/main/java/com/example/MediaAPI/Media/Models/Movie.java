@@ -8,8 +8,12 @@ import org.hibernate.annotations.TypeDefs;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,5 +40,9 @@ public class Movie extends Media {
     @Type(type = "jsonb")
     @Column(name = "actors_actresses", nullable = false)
     private List<String> actorsActresses;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "media_id")
+    protected EpisodeTrack episodeTrack;
 
 }

@@ -1,5 +1,5 @@
-import './styles.css';
-import logo from '../../assets/svg/logo.svg';
+import './styles.scss';
+import logo from '@Presentation/assets/svg/logo.svg';
 
 import { useEffect } from 'react';
 
@@ -46,7 +46,7 @@ export default function Home(): JSX.Element{
         <div className='HomePage'>
             <Helmet>
                 <meta property="og:title" content="Netflix" />
-                <meta property="og:url" content="http://localhost:5173/" />
+                <meta property="og:url" content="http://localhost:8080/" />
                 <meta property="og:image" content={logo} />
                 <meta property="og:image:alt" content="Netflix logo" />
                 <meta property="og:description" content="Streaming site for Watching Movies, Tv Series and Animes" />

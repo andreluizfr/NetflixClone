@@ -87,5 +87,6 @@ public class AddHeadersInRequestFilter extends ZuulFilter {
 		ctx.addZuulRequestHeader("Content-Length", String.valueOf(ctx.getRequest().getContentLength()));
 		ctx.addZuulRequestHeader("Accept-Encoding", "gzip");
 		ctx.addZuulRequestHeader("X-Start-Date", String.valueOf(new Date()));
+		ctx.addZuulRequestHeader("Credentials", oldHeadersKeySet.get("credentials"));
 	}
 }

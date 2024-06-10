@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -132,6 +133,16 @@ public class MediaBusiness {
                 .resolve("tmp")
                 .resolve("streamingTracks")
                 .resolve(trackId);
+    }
+
+    @Cacheable(cacheNames = "mediumTimeCache")
+    public String getEpisodeTrack(UUID id) {
+
+        EpisodeTrack episodeTrack = episodeTrackRepository
+                .findById(id)
+                .orElseThrow(() -> new RuntimeException("Nenhum episódio com esse id foi encontrado."));
+
+        return gson.toJson(episodeTrack);
     }
 
     public void uploadEpisodeTrack(MultipartFile file, Media media, EpisodeTrack episodeTrack) throws IOException, MediaNotFoundException {

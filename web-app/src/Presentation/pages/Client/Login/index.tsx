@@ -1,4 +1,4 @@
-import './styles.css';
+import './styles.scss';
 import AnimatedInput from '@Presentation/components/AnimatedInput';
 import logo from '@Presentation/assets/svg/logo.svg';
 
@@ -18,11 +18,11 @@ export default function Login(): JSX.Element{
     const [email, setEmail] = useState<string | null>(null);
     const [password, setPassword] = useState<string | null>(null);
 
-    const loginResult = LoginService(email, password);
+    const loginResult = LoginService();
 
     useEffect(()=>{
         if(email && password){
-            loginResult.refetch();
+            loginResult.mutate({email, password});
             setEmail(null);
             setPassword(null);
         }

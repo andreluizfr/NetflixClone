@@ -1,7 +1,7 @@
-import './styles.css';
-import logo from '../../assets/svg/logo.svg';
-import checkmarkGroup from '../../assets/svg/checkmark-group.svg';
-import planGridBoolean from '../../assets/svg/planGrid-boolean.svg';
+import './styles.scss';
+import logo from '@Presentation/assets/svg/logo.svg';
+import checkmarkGroup from '@Presentation/assets/svg/checkmark-group.svg';
+import planGridBoolean from '@Presentation/assets/svg/planGrid-boolean.svg';
 
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,13 +10,9 @@ import { savePlan, saveStep } from '@Infrastructure/store/redux/features/signupD
 import { StoreState } from '@Infrastructure/store/redux/config';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { motion } from 'framer-motion';
+import { Plan } from '@Model/entities/Account';
 
-enum Plan{
-    DefaultWithAds,
-    Default,
-    Premium
-}
+import { motion } from 'framer-motion';
 
 export default function SignupPlanPage(): JSX.Element{
 
@@ -36,7 +32,7 @@ export default function SignupPlanPage(): JSX.Element{
     const user = useSelector((state: StoreState) => state.user);
 
     useEffect(()=>{
-        changePlan(Plan.DefaultWithAds);
+        changePlan(Plan.BASIC_WITH_ADS);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -135,19 +131,19 @@ export default function SignupPlanPage(): JSX.Element{
 
                         <div className='Plans-container'>
                             <span>
-                                <span className='Plan' onClick={()=>changePlan(Plan.DefaultWithAds)}>
+                                <span className='Plan' onClick={()=>changePlan(Plan.BASIC_WITH_ADS)}>
                                     Padrão com anúncios
                                 </span>
                             </span>
 
                             <span>
-                                <span className='Plan' onClick={()=>changePlan(Plan.Default)}>
+                                <span className='Plan' onClick={()=>changePlan(Plan.BASIC)}>
                                     Padrão
                                 </span>
                             </span>
 
                             <span>
-                                <span className='Plan' onClick={()=>changePlan(Plan.Premium)}>
+                                <span className='Plan' onClick={()=>changePlan(Plan.PREMIUM)}>
                                     Premium
                                 </span>
                             </span>

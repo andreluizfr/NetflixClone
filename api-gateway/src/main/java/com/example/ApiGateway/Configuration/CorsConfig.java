@@ -20,6 +20,7 @@ public class CorsConfig {
 		config.setAllowedOrigins(Arrays.asList("*"));
 		config.setAllowedHeaders(Arrays.asList("*"));
 		config.setAllowedMethods(Arrays.asList("*"));
+		config.setExposedHeaders(Arrays.asList("Set-Cookie"));
 		source.registerCorsConfiguration("/**", config);
 
 		return new CorsFilter(source);

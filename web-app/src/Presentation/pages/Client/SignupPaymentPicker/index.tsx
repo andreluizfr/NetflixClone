@@ -1,14 +1,14 @@
-import './styles.css';
-import logo from '../../assets/svg/logo.svg';
-import lock from '../../assets/img/lock.png';
-import netflixGift from '../../assets/img/Netflix-gift.png';
-import visa from '../../assets/img/visa.png';
-import mastercard from '../../assets/img/mastercard.png';
-import amex from '../../assets/img/amex.png';
-import elo from '../../assets/img/elo.png';
-import hipercard from '../../assets/img/hipercard.png';
-import arrowRight from '../../assets/svg/arrow-right.svg';
-import secureBadge from '../../assets/svg/secureBadge.svg';
+import './styles.scss';
+import logo from '@Presentation/assets/svg/logo.svg';
+import lock from '@Presentation/assets/img/lock.png';
+import netflixGift from '@Presentation/assets/img/Netflix-gift.png';
+import visa from '@Presentation/assets/img/visa.png';
+import mastercard from '@Presentation/assets/img/mastercard.png';
+import amex from '@Presentation/assets/img/amex.png';
+import elo from '@Presentation/assets/img/elo.png';
+import hipercard from '@Presentation/assets/img/hipercard.png';
+import arrowRight from '@Presentation/assets/svg/arrow-right.svg';
+import secureBadge from '@Presentation/assets/svg/secureBadge.svg';
 
 import { useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";

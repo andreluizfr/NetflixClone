@@ -1,6 +1,6 @@
-import './styles.css';
+import './styles.scss';
 
-import EmbededTrailerOnHover from './EmbededTrailerOnHover';
+import StreamingPreviewVideoOnHover from './StreamingPreviewVideoOnHover';
 import MediaCardDialog from './MediaCardDialog';
 
 import arrowRightButton from '@Presentation/assets/svg/arrow-right.svg';
@@ -14,9 +14,10 @@ import { Anime, isAnime } from '@Model/entities/Anime';
 
 import ImprovedImage from '@Presentation/components/ImprovedImage';
 
-import { memo, useState } from 'react';
+import { memo } from 'react';
 
 import * as Dialog from '@radix-ui/react-dialog';
+import { TrackMetadata } from '@Model/entities/Track';
 
 interface props {
     media: Media | Movie | TvShow | Anime;
@@ -24,25 +25,20 @@ interface props {
 
 export default function MediaCard ({media}: props) : JSX.Element {
 
-    const [isHovered, setIsHovered] = useState(false);
-    const [showMediaCardDialog, setShowMediaCardDialog] = useState(false);
-
     const MemoizedMediaCardDialog = memo(MediaCardDialog);
 
     return(
         //só aparecer depois do tempo da conclusão da transição por parte do css 
-        <article className='MediaCard' onMouseOver={()=>setIsHovered(true)} onMouseOut={()=>setIsHovered(false)}>
+        <article className='MediaCard'>
 
-            {
-                isHovered?
-                    <EmbededTrailerOnHover src={media.trailerUrl} loadingImage={media.thumbnailUrl}/>
-                    :
-                    <ImprovedImage
-                        src={media.thumbnailUrl} 
-                        className='Thumbnail'
-                        key={"media-"+media.id+"-"+Math.floor(Math.random() * 1000000)}
-                    />
-            }
+            <div className='StreamingPreviewVideoOnHover'>
+                <StreamingPreviewVideoOnHover media={media} trackMetadata={{id: "00000000-0000-0000-0000-000000000000"} as unknown as TrackMetadata}/>
+            </div>
+            <ImprovedImage
+                src={media.thumbnailUrl} 
+                className='Thumbnail'
+                key={"media-"+media.id+"-"+Math.floor(Math.random() * 1000000)}
+            />
 
             <div className='Mini-menu Hover-visible'>
                 <div className='Toolbar'>
@@ -66,7 +62,7 @@ export default function MediaCard ({media}: props) : JSX.Element {
                     <Dialog.Portal>
                         <Dialog.Overlay className="DialogOverlay" />
                         <Dialog.Content className="DialogContent">
-                            <MemoizedMediaCardDialog media={media} setShowMediaCardDialog={setShowMediaCardDialog}/>
+                            <MemoizedMediaCardDialog media={media}/>
                         </Dialog.Content>
                     </Dialog.Portal>
                 </Dialog.Root>
@@ -110,10 +106,10 @@ export default function MediaCard ({media}: props) : JSX.Element {
                     <div className='Year'>{(media as Movie).releaseYear}</div>
                 }
                 {isTvShow(media) &&
-                    <div className='Number-episodes'>{(media as TvShow).tracks?.length} episódios</div>
+                    <div className='Number-episodes'>{(media as TvShow).episodeTracks?.length} episódios</div>
                 }
                 {isAnime(media) &&
-                    <div className='Number-episodes'>{(media as Anime).tracks?.length} episódios</div>
+                    <div className='Number-episodes'>{(media as Anime).episodeTracks?.length} episódios</div>
                 }
                 <div className='Hd'>HD</div>
             </div>
@@ -121,10 +117,6 @@ export default function MediaCard ({media}: props) : JSX.Element {
             <div className='Genres Hover-visible'>
                 {normalizeGenreList(media.genres).join("  ⚬  ")}
             </div>
-            
-            {showMediaCardDialog &&
-                <MemoizedMediaCardDialog media={media} setShowMediaCardDialog={setShowMediaCardDialog}/>
-            }
         </article>
     );
 }

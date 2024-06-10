@@ -1,4 +1,4 @@
-import "./styles.css";
+import "./styles.scss";
 
 import brokenVideo from '@Presentation/assets/img/broken-video.png';
 

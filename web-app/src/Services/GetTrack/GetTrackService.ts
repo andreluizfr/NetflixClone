@@ -11,16 +11,15 @@ import { useQuery } from "@tanstack/react-query";
 import { AnyAction } from "@reduxjs/toolkit";
 import { Dispatch, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Track } from "@Model/entities/Track";
+import { TrackMetadata } from "@Model/entities/Track";
 
 
 export const GetTrackService = (trackId: string | null) => {
 
-    const queryResult = useQuery<IHttpResponse<Track>, IHttpError>(
+    const queryResult = useQuery<IHttpResponse<TrackMetadata>, IHttpError>(
         ['getTrack'],
         async () => GetTrackHttpRequest(trackId),
         {
-            enabled: true,
             staleTime: 3 * 60 * 60 * 1000, //colocar o tempo que dura o signed cookie
             cacheTime: 0,
         }
@@ -55,17 +54,14 @@ export async function GetTrackHttpRequest (trackId: string | null){
             message: 'Erro: Id do título não identificado.'
         } as IHttpError;
 
-    const httpClient = makeHttpClient<Track>();
+    const httpClient = makeHttpClient<TrackMetadata>();
 
-    const httpResponse = httpClient.get(
-        '/track/'+trackId,
-        {headers: { Authorization: `Bearer ${accessToken}` }}
-    );
+    const httpResponse = httpClient.get('/track/episodeTrack?id='+trackId);
 
     return httpResponse;
 }
 
-function HandleFetchUserQuerySuccess(data: IHttpResponse<Track>) {
+function HandleFetchUserQuerySuccess(data: IHttpResponse<TrackMetadata>) {
 
     console.log(data);
 }

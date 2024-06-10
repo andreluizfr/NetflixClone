@@ -1,11 +1,23 @@
-export interface Track {
-    id: string;
-    title: string | null;   //nulo quando é filme
-    thumbnailUrl: string | null; //nulo quando é filme
-    trackUrl: string | null; //nulo quando é filme
-    duration: number; //em minutos
-    order: number; //posição
-    created_at: Date;
+export class TrackMetadata {
+    id!: string;
+    processingStatus!: TrackProcessingStatus;
+    createdAt!: Date;
+    updatedAt!: Date;
+}
+
+export class EpisodeTrack extends TrackMetadata {
+    title!: string;
+    duration!: number;
+    order!: number;
+    season!: number;
+}
+
+export enum TrackProcessingStatus {
+    NOT_PROCESSED,
+    IN_QUEUE,
+    PROCESSING,
+    PROCESSED,
+    ERROR
 }
 
 export function formatDuration(duration: number): string {

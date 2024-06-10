@@ -1,11 +1,12 @@
-import './styles.css';
+import './styles.scss';
+import StreamingPreviewVideo from './StreamingPreviewVideo';
+
 import playButton from '@Presentation/assets/svg/play-button.svg';
 import infoCircle from '@Presentation/assets/svg/info-circle-2.svg';
 
 import { GetCurrentPreviewMediaService } from '@Services/GetCurrentPreviewMedia/GetCurrentPreviewMediaService';
 
-import ImprovedEmbededVideo from '@Presentation/components/ImprovedEmbededVideo';
-import LoadingSpinner from '@Presentation/components/ImprovedVideo/LoadingSpinner';
+import LoadingSpinner from '@Presentation/components/LoadingSpinner';
 
 import { Media } from '@Model/entities/Media';
 
@@ -15,6 +16,8 @@ import React from 'react';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { TrackMetadata } from '@Model/entities/Track';
+
 
 interface PreviewProps extends React.HTMLAttributes<HTMLElement>{
 }
@@ -61,7 +64,7 @@ export default function Preview({}: PreviewProps): JSX.Element {
                     theme="dark"
                 />
 
-                <ImprovedEmbededVideo src={previewMedia.trailerUrl} type='video/mp4' className='Background-video'/>
+                <StreamingPreviewVideo media={previewMedia} trackMetadata={{id:"00000000-0000-0000-0000-000000000000"} as unknown as TrackMetadata}/>
         
                 <div className='Preview-infos'>
 

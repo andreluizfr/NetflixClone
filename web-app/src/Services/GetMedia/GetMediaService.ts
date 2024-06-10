@@ -19,7 +19,6 @@ export const GetMediaService = (mediaId: string | null) => {
         ['getMedia'],
         async () => GetMediaHttpRequest(mediaId),
         {
-            enabled: true,
             staleTime: 3 * 60 * 60 * 1000, //colocar o tempo que dura o signed cookie
             cacheTime: 24 * 60 * 60 * 1000,
         }
@@ -46,7 +45,7 @@ export async function GetMediaHttpRequest (mediaId: string | null): Promise<IHtt
 
     const httpClient = makeHttpClient<Media>();
 
-    const httpResponse = httpClient.get("/media/"+mediaId);
+    const httpResponse = httpClient.get("/media?id="+mediaId);
 
     return httpResponse;  
 }

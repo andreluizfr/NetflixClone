@@ -18,12 +18,12 @@ INSERT INTO movie (media_id, movie_series_flag, sequence_number, actors_actresse
 VALUES (3, TRUE, 2, '[]');
 
 -- tracks para os filmes
-INSERT INTO track (id, media_id, thumbnail_path, track_path, duration, created_at, updated_at)
-VALUES ('00000000-0000-0000-0000-000000000000', 1, '', '/track_1', 100, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
-INSERT INTO track (id, media_id, thumbnail_url, track_path, duration, created_at, updated_at)
-VALUES ('00000000-0000-0000-0000-000000000001', 2, '', '/track_2', 100, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
-INSERT INTO track (id, media_id, thumbnail_url, track_path, duration, created_at, updated_at)
-VALUES ('00000000-0000-0000-0000-000000000002', 3, '', '/track_3', 100, '2023-08-02 13:14:21.045328','2023-08-02 13:14:21.045328');
+INSERT INTO episode_track (id, media_id, title, duration, n_order, season, processing_status, created_at, updated_at)
+VALUES ('00000000-0000-0000-0000-000000000000', 1, 'title', 100, 1, 1, 0, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
+INSERT INTO episode_track (id, media_id, title, duration, n_order, season, processing_status, created_at, updated_at)
+VALUES ('00000000-0000-0000-0000-000000000001', 2, 'title', 100, 1, 1, 0, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
+INSERT INTO episode_track (id, media_id, title, duration, n_order, season, processing_status, created_at, updated_at)
+VALUES ('00000000-0000-0000-0000-000000000002', 3, 'title', 100, 1, 1, 0, '2023-08-02 13:14:21.045328','2023-08-02 13:14:21.045328');
 
 
 

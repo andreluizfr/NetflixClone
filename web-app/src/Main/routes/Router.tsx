@@ -82,8 +82,7 @@ function Router() {
 							},
 							{
 								path: "/watch",
-								//element: <AuthProvider><TrackPage/></AuthProvider>,
-								element: <TrackPage/>,
+								element: <AuthProvider><TrackPage/></AuthProvider>,
 								errorElement: <>Parece que estamos tendo alguns problemas nessa página</>
 							},
 							{

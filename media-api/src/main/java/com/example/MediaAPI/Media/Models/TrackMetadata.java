@@ -1,5 +1,6 @@
 package com.example.MediaAPI.Media.Models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -30,7 +31,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity(name = "TrackMetadata")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class TrackMetadata {
+public abstract class TrackMetadata implements Serializable {
+
+    private static final long serialVersionUID = 2335650964267757670L;
 
     @Id
     @GeneratedValue(generator = "uuid-hibernate-generator")

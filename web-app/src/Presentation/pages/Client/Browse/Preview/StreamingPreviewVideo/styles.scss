@@ -1,0 +1,32 @@
+@import '../../../../../assets/sass/variables';
+@import '../../../../../assets/sass/mixins';
+
+.StreamingPreviewVideo {
+    width: 100vw;
+}
+
+.videoContainer {
+    width: max-content;
+    height: max-content;
+}
+
+.StreamingPreviewVideo video{
+    width: 100vw;
+    height: auto;
+}
+
+#loading {
+    position: absolute;
+    margin: auto;
+    inset: 0;
+    width: max-content;
+    height: max-content;
+}
+
+#loading.icon-loading {
+    display: block;
+}
+
+#loading.icon-not-loading { 
+    display: none;
+}
