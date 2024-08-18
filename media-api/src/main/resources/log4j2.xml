@@ -28,8 +28,8 @@
             <AppenderRef ref="Console" />
         </Root>
 
-        <!-- LOG "com.netflixCloneMediaApi*" at TRACE level -->
-        <Logger name="com.netflixCloneMediaApi" level="trace"></Logger>
+        <!-- LOG "com.example.MediaAPI*" at TRACE level -->
+        <Logger name="com.example.MediaAPI" level="trace"></Logger>
 
         <Logger name="org.apache.kafka" level="warn" additivity="false">
             <AppenderRef ref="Console" />

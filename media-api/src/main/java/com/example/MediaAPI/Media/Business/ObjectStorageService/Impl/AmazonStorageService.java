@@ -169,7 +169,7 @@ public class AmazonStorageService implements IObjectStorageService {
                     .build();
 
             GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(10)) // The URL will expire in 10 minutes.
+                    .signatureDuration(Duration.ofMinutes(10))
                     .getObjectRequest(objectRequest)
                     .build();
 
@@ -191,7 +191,7 @@ public class AmazonStorageService implements IObjectStorageService {
                     .build();
 
             PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(10)) // The URL expires in 10 minutes.
+                    .signatureDuration(Duration.ofMinutes(10))
                     .putObjectRequest(objectRequest)
                     .build();
 

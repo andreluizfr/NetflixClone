@@ -29,8 +29,8 @@
             <AppenderRef ref="Console" />
         </Root>
 
-        <!-- LOG "com.netflixCloneApiGateway*" at TRACE level -->
-        <Logger name="com.netflixCloneApiGateway" level="trace"></Logger>
+        <!-- LOG "com.example.ApiGateway*" at TRACE level -->
+        <Logger name="com.example.ApiGateway" level="trace"></Logger>
 
         <Logger name="org.apache.kafka" level="warn" additivity="false">
             <AppenderRef ref="Console" />
