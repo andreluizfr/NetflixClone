@@ -50,6 +50,9 @@ spring:
                     audit_strategy: org.hibernate.envers.strategy.ValidityAuditStrategy
                     audit_strategy_validity_end_rev_field_name: end_revision
                     audit_strategy_validity_store_revend_timestamp: true
+                show_sql: true
+                format_sql: true
+                #SQL: DEBUG
         hibernate:
             ddl-auto: validate
         show-sql: true
@@ -71,7 +74,7 @@ spring:
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://localhost:8761/eureka
+            defaultZone: http://localhost:5050/eureka
         register-with-eureka: true
     instance:
         hostname: localhost
