@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +27,7 @@ import com.example.MediaAPI.Media.Exceptions.MediaNotFoundException;
 import com.example.MediaAPI.Media.Exceptions.PreviewMediaNotFoundException;
 import com.example.MediaAPI.Media.Models.Anime;
 import com.example.MediaAPI.Media.Models.EpisodeTrack;
+import com.example.MediaAPI.Media.Models.CustomExclusionStrategy;
 import com.example.MediaAPI.Media.Models.Media;
 import com.example.MediaAPI.Media.Models.MediaList;
 import com.example.MediaAPI.Media.Models.Movie;
@@ -33,6 +35,7 @@ import com.example.MediaAPI.Media.Models.PreviewMedia;
 import com.example.MediaAPI.Media.Models.TvShow;
 import com.example.MediaAPI.Util.ResponseHandler;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
@@ -43,8 +46,9 @@ public class MediaController {
     @Autowired
     MediaBusiness mediaBusiness;
 
-    @Autowired
-    Gson gson;
+    Gson gson = new GsonBuilder()
+        .setExclusionStrategies(new CustomExclusionStrategy())
+        .create();
 
     @GetMapping("/media")
     public ResponseEntity<Object> getAllMedias() {
@@ -57,8 +61,10 @@ public class MediaController {
 
     @GetMapping(value = "/media", params = "id")
     public ResponseEntity<Object> getMedia(@RequestParam(name = "id", required = true) Long id) throws MediaNotFoundException {
-
-        Media media = gson.fromJson(mediaBusiness.getMedia(id), Media.class);
+        
+        SimpleEntry<String, Class<? extends Media>> simpleEntry = mediaBusiness.getMedia(id);
+        
+        Media media = gson.fromJson(simpleEntry.getKey(), simpleEntry.getValue());
 
         return ResponseHandler.generateResponse("Mídia buscada com sucesso.",
                 HttpStatus.OK,

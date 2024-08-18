@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,12 +33,14 @@ import com.example.MediaAPI.Media.Exceptions.MediaNotFoundException;
 import com.example.MediaAPI.Media.Exceptions.PreviewMediaNotFoundException;
 import com.example.MediaAPI.Media.Models.Anime;
 import com.example.MediaAPI.Media.Models.EpisodeTrack;
+import com.example.MediaAPI.Media.Models.CustomExclusionStrategy;
 import com.example.MediaAPI.Media.Models.Media;
 import com.example.MediaAPI.Media.Models.MediaList;
 import com.example.MediaAPI.Media.Models.Movie;
 import com.example.MediaAPI.Media.Models.PreviewMedia;
 import com.example.MediaAPI.Media.Models.TvShow;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Transactional
 @Service
@@ -70,8 +73,9 @@ public class MediaBusiness {
     @Autowired
     AmazonStorageService amazonStorageService;
 
-    @Autowired
-    Gson gson;
+    Gson gson = new GsonBuilder()
+            .setExclusionStrategies(new CustomExclusionStrategy())
+            .create();
 
     private static final Logger logger = LogManager.getLogger(MediaBusiness.class);
 
@@ -84,13 +88,23 @@ public class MediaBusiness {
     }
 
     @Cacheable(cacheNames = "largeTimeCache")
-    public String getMedia(Long id) throws MediaNotFoundException {
+    public SimpleEntry<String, Class<? extends Media>> getMedia(Long id) throws MediaNotFoundException {
 
         Media media = mediaRepository
                 .findById(id)
                 .orElseThrow(() -> new MediaNotFoundException("Nenhuma mídia com esse id foi encontrada."));
-        
-        return gson.toJson(media);
+
+        Class<? extends Media> classz = Media.class;
+
+        if(media instanceof Movie) {
+            classz = Movie.class;
+        } else if(media instanceof TvShow) {
+            classz = TvShow.class;
+        } else if(media instanceof Anime) {
+            classz = Anime.class;
+        } 
+
+        return new SimpleEntry<String, Class<? extends Media>>(gson.toJson(media), classz);
     }
 
     @Cacheable(cacheNames = "largeTimeCache")
@@ -101,7 +115,7 @@ public class MediaBusiness {
 
     @Cacheable(cacheNames = "largeTimeCache")
     public List<TvShow> getAllTvShows() {
- 
+
         return tvShowRepository.findAll();
     }
 
@@ -145,7 +159,8 @@ public class MediaBusiness {
         return gson.toJson(episodeTrack);
     }
 
-    public void uploadEpisodeTrack(MultipartFile file, Media media, EpisodeTrack episodeTrack) throws IOException, MediaNotFoundException {
+    public void uploadEpisodeTrack(MultipartFile file, Media media, EpisodeTrack episodeTrack)
+            throws IOException, MediaNotFoundException {
 
         EpisodeTrack episodeTrackToCreate = new EpisodeTrack();
         episodeTrackToCreate.setDuration(episodeTrack.getDuration());
@@ -185,7 +200,8 @@ public class MediaBusiness {
         episodeTrackRepository.save(episodeTrack);
     }
 
-    public void getMediaSignedCookie(HttpServletResponse response) throws MalformedURLException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+    public void getMediaSignedCookie(HttpServletResponse response)
+            throws MalformedURLException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         amazonStorageService.addMediaAccessCookieToResponse(response);
     }
 }

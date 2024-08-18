@@ -73,21 +73,21 @@ INSERT INTO anime (media_id, number_of_seasons, season_number, studio, voice_act
 VALUES (12, 2, 1, 'Ufotable', '["Takahiro Sakurai", "Natsuki Hanae", "Akari Kitō", "Kana Hanazawa"]');
 
 -- episodios para anime
-INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, order_, created_at, updated_at)
+INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, n_order, created_at, updated_at)
 VALUES ('11111111-1111-1111-1111-111111111111', 4, 'Crueldade', 'https://occ-0-3936-3851.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABbIG3xyrM5-FAxBYRTHz0HckVeMGheZteiWRjFXN82hawuGEkvTGogYVmTeiIHS7bYEfSzP-YRMABt-BEwSfLSH7zBJWy2KnKSWHZrkpgV01QC4l-PAQX4Rk.jpg?r=0ec', 'https://www.youtube.com/watch?v=VQGCKyvzIM4', 24, 1, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
-INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, order_, created_at, updated_at)
+INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, n_order, created_at, updated_at)
 VALUES ('22222222-2222-2222-2222-222222222222', 4, 'Sakonji Urokodaki, o treinador', 'https://occ-0-3936-3851.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABSi7WTW1BKzTg_-XuOdfdxxbyDsQYNWl4a8F-tIy05zcXDMNF-z7vHBRhEamJkM8c7BHpPxcA8DzWnTOboe08SuT6J9aVdgV2TdIejHHsmWtBvVjDG_s0wNU.jpg?r=584', 'https://www.youtube.com/watch?v=VQGCKyvzIM', 24, 2, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
-INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, order_, created_at, updated_at)
+INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, n_order, created_at, updated_at)
 VALUES ('33333333-3333-3333-3333-333333333333', 4, 'Sabito e Makomo', 'https://occ-0-3936-3851.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABWzDzcspEWJlZSQltan5qtG3BGlMv54cV7gBiPzSAjikL1O-LWIy-5lp_IMR3R4iYSwTZWtragcztGd-ARMdOodZWPOgjmpmyqRBBATobQy2CELcRfIXN6up.jpg?r=295', 'https://www.youtube.com/watch?v=VQGCKyvzI', 24, 3, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
-INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, order_, created_at, updated_at)
+INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, n_order, created_at, updated_at)
 VALUES ('44444444-4444-4444-4444-444444444444', 4, 'Seleção final', 'https://occ-0-3936-3851.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABdGByJ3U6edMdUtCGfshJGM390ZrDGsYEmBcE4o_b1iLOZFS5D863_rSV27oM_A9GdYeU_gSbW07R_Y_uIyc6672IwkKhnUFelhLWd7rplt1NuhtfQZvpO4Y.jpg?r=5b6', 'https://www.youtube.com/watch?v=VQGCKyvz', 24, 4, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
-INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, order_, created_at, updated_at)
+INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, n_order, created_at, updated_at)
 VALUES ('55555555-5555-5555-5555-555555555555', 4, 'Meu próprio aço', 'https://occ-0-3936-3851.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABTuCttRHtc_SATCV5Ttb9fRKEGi_G9-MAvbHv-trwk65uwbTebp4dPr_vlznB1WmlLRSXesIULexNZMnW3ewrRkNXgTq1MINIJcUQWNSr8FgZRkOICusxWay.jpg?r=6d0', 'https://www.youtube.com/watch?v=VQGCKyv', 24, 5, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
-INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, order_, created_at, updated_at)
+INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, n_order, created_at, updated_at)
 VALUES ('66666666-6666-6666-6666-666666666666', 4, 'O espadachim que acompanhou um demônio', 'https://occ-0-3936-3851.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABUjr3zo2fECvIR8VtUaye_ZvHRgLdZ1_YFh4ch1izr12iM7-7HFvM0BZryhxQwxXHe3wHLc03exlwmMaUFnSEsZy7m6GjRbyWeNR5-qzixO9834uPLvEP2Y2.jpg?r=333', 'https://www.youtube.com/watch?v=VQGCKy', 24, 6, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
-INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, order_, created_at, updated_at)
+INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, n_order, created_at, updated_at)
 VALUES ('77777777-7777-7777-7777-777777777777', 4, 'Muzan Kibutsuji', 'https://occ-0-3936-3851.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABbFKMspQ03NmBCbvflwaxzTYOGTd7ontmfY1sS5of1HSf16c1V-U-qr4hrJBZSpGOtudbsbdKbfaLXjR21O0JFwtTy2h3orE0mHMS4MSnN_konc29FB6DL8w.jpg?r=9d7', 'https://www.youtube.com/watch?v=VQGCK', 24, 7, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
-INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, order_, created_at, updated_at)
+INSERT INTO episode (id, media_id, title, thumbnail_url, episode_url, duration, n_order, created_at, updated_at)
 VALUES ('88888888-8888-8888-8888-888888888888', 4, 'O aroma do sangue encantado', 'https://occ-0-3936-3851.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABdU6p-T5SvHXOWeXtnr7SHf-RbB7OxttXoQXCHwwtodWwrTtlHHfUhRu14B_pM-6J0-jw0oHRqi4QKpeYBJz-GkjEVOjPnjuQHkfS6cBTdt7ywKrSpQwdAXd.jpg?r=df0', 'https://www.youtube.com/watch?v=VQGC', 24, 8, '2023-08-02 13:14:21.045328', '2023-08-02 13:14:21.045328');
 
 

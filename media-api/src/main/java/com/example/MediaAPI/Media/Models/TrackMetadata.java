@@ -34,7 +34,7 @@ import lombok.Setter;
 public abstract class TrackMetadata implements Serializable {
 
     private static final long serialVersionUID = 2335650964267757670L;
-
+    
     @Id
     @GeneratedValue(generator = "uuid-hibernate-generator")
     @GenericGenerator(name = "uuid-hibernate-generator", strategy = "org.hibernate.id.UUIDGenerator")

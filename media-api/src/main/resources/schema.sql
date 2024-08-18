@@ -87,10 +87,10 @@ CREATE TABLE IF NOT EXISTS public.tv_show (
 ALTER TABLE IF EXISTS public.tv_show
     OWNER to postgres;
 
------------------------------ TRACK ------------------------------------
+----------------------------- EPISODE TRACK ------------------------------------
 CREATE TABLE IF NOT EXISTS public.episode_track (
     id uuid NOT NULL,
-    media_id bigint,
+    media_id bigint UNIQUE,
     processing_status smallint NOT NULL,
     title character varying(255),
     duration integer,
@@ -103,12 +103,13 @@ CREATE TABLE IF NOT EXISTS public.episode_track (
     CONSTRAINT episode_track_media_id_fk FOREIGN KEY (media_id)
         REFERENCES public.media (media_id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT media_id_unique UNIQUE (media_id)
 );
-ALTER TABLE IF EXISTS public.track
+ALTER TABLE IF EXISTS public.episode_track
     OWNER to postgres;
 CREATE INDEX IF NOT EXISTS ix_episode_track_created_at
-    ON public.track USING btree
+    ON public.episode_track USING btree
     (created_at ASC NULLS LAST)
     TABLESPACE pg_default;
 

@@ -2,6 +2,9 @@ package com.example.MediaAPI.Media.Models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -28,4 +31,9 @@ public class EpisodeTrack extends TrackMetadata {
 
     @Column(name = "season", nullable = true)
     private Integer season;
+    
+    @SkipSerialization
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "media_id")
+    private Movie movie;
 }
